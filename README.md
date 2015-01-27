@@ -2,7 +2,7 @@
 #just-core
 ##An Enterprise Grade PHP framework
 
-See <a href="https://sourceforge.net/p/just-core/home/Home/">Home</a> for a summary.
+
 
 [Quick Start Guide]
 [Installation]
