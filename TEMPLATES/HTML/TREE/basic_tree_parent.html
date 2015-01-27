@@ -1,0 +1,57 @@
+<!-- BEGIN currentNode -->
+	{currentNode.DESC}
+	<a href="javascript:void(0);" title="Expand" id="{currentNode.LINK_ID}" {currentNode.LINK_SCRIPT} {currentNode.LINK_STYLE}>[+]</a>
+	<a href="javascript:void(0);" title="Properties" id="{currentNode.LINK_ID}" onclick="setSelectedOption({currentNode.PROP_PK}, {currentNode.PROP_PARENT_PK}); pageSingle('setting_{currentNode.DIV_ID}'); " {currentNode.LINK_STYLE}>[&gt;]</a><br>
+	
+	<div id="setting_{currentNode.DIV_ID}" class="setting_{currentNode.DIV_CLASS}" style="display: none; padding-left: 10px; border: 1px solid #cc99cc;">
+		<form action="{currentNode.FORM_ACTION}" method="post" name="process_{currentNode.DIV_ID}"  enctype="multipart/form-data" >
+			Properties: nodeName<input type="text" name="nodeName{currentNode.DIV_ID}" id="nodeName{currentNode.DIV_ID}" value="{currentNode.DIV_ID} "><br>
+			<table border="0" cellpadding="0" cellspacing="0">
+				<tr>
+					<td>
+						
+						Change Parent {currentNode.PROP_SET_PARENT}
+						<input type="submit" name="adminAction" id="adminAction" value="changeParent"><br><br>					
+					</td>
+					<td>
+						<input type="submit" name="adminAction" id="adminAction" value="sortNode:UP"><br>
+						<input type="submit" name="adminAction" id="adminAction" value="sortNode:DOWN">
+					</td>
+					<td>
+						<input type="submit" name="adminAction" id="adminAction" value="deleteNode"><br><br>			
+					</td>
+				</tr>
+				<tr>
+					<td colspan="3">
+						<input type="submit" name="adminAction" id="adminAction" value="addNode">: Child?
+						<input type="checkbox" name="addNodeType" id="addNodeType" value="Child" checked> ||					
+						View Extended Data: <a href="javascript:void(0);" title="Properties" id="{currentNode.LINK_ID}" onclick="pageSingle('extendedData_{currentNode.DIV_ID}'); " {currentNode.LINK_STYLE}>[&gt;]</a><br>
+					</td>
+				</tr>
+			</table>
+
+			<input type="hidden" name="pk" id="pk_{currentNode.DIV_ID}" value="{currentNode.PROP_PK}">
+			<input type="hidden" name="parent_pk" id="parent_pk" value="{currentNode.PROP_PARENT_PK}">
+			<input type="hidden" name="leftBound" id="leftBound" value="{currentNode.PROP_LEFT_BOUND}">
+			<input type="hidden" name="rightBound" id="rightBound" value="{currentNode.PROP_RIGHT_BOUND}">
+			<input type="hidden" name="nodeDepth" id="nodeDepth" value="{currentNode.PROP_NODE_DEPTH}">
+			
+			<input type="hidden" name="TreeName" id="TreeName" value="{currentNode.PROP_TreeName}">
+			<input type="hidden" name="menuID" id="menuID" value="{currentNode.PROP_MENU_ID}">
+			
+
+		</form>
+		<div id="extendedData_{currentNode.DIV_ID}" class="extendedData_{currentNode.DIV_CLASS}" style="display: none; padding-left: 10px; border: 1px solid #9c99c9;">
+			<textarea name="props" rows="25" cols="80" >
+			{currentNode.PROPS} 
+			</textarea>
+		</div>
+	
+		<br>
+	</div>
+	
+	<div id="{currentNode.DIV_ID}" class="{currentNode.DIV_CLASS}" style="display: block; {currentNode.DIV_STYLE}">
+		{currentNode.BODY}
+	</div>
+	<!-- {currentNode.DESC} FIN -->
+<!-- END currentNode -->

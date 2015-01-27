@@ -1,0 +1,483 @@
+<?php
+/**
+ * HTML Templating Engine Class
+ * @author	Jason Medland<jason.medland@gmail.com>
+ * @package	JCORE
+ * @subpackage	TRANSPORT
+ * 
+ * 
+ * @author		Furrukh Qureshi/Jason Medland
+ * 
+ * do some exception handling
+ * 		get rid of die and add logging
+ * 		- brief notice of error
+ * 
+ * CACHEING!!
+ * 
+ */
+/**
+*
+*
+ * @package	JCORE
+ * @subpackage	TRANSPORT
+*/
+class TEMPLATER
+{
+	// Variables
+	public $_tpldata = array();
+	public $files = array();
+	public $root = "";
+	public $compiled_code = array();
+	public $uncompiled_code = array();
+	public $resultString = "";
+	protected $cacher;
+	
+	
+	/**
+	 * Constructor
+	 * 
+	 * @param	string $root Root path of the template
+	 * @return	none
+	 */
+	public function __construct($root = "."){
+		$this->set_rootdir($root);
+		#echo '<b>get_defined_constants<pre>'.var_export(get_defined_constants(), true).'</pre></b>';
+		/*
+		if(defined("JCORE_SYSTEM_CACHE")){
+			$cacherName = JCORE_SYSTEM_CACHE.'::singleton()';
+			echo __METHOD__.'@'.__LINE__.'$cacherName['.$cacherName.']<br>';
+			#$myObj = EACCELERATOR::singleton();
+			#$this->cacher &= $cacherName();
+			$this->cacher &= $cacherName;
+		}
+		echo '<b>$this->cacher<pre>'.var_export($this->cacher, true).'</pre></b>';
+		$this->cacher->bark();
+		*/
+		return;
+	}
+	
+	/**
+	 * 
+	 */
+	public function __destruct(){
+		$this->_tpldata = array();
+	}
+	
+	/**
+	 * 
+	 */
+	public function destroy(){
+		$this->_tpldata = array();
+	}
+	
+	/**
+	 * 
+	 */
+	public function set_rootdir($dir){
+		if (!is_dir($dir))		{
+			return false;
+		}
+		$this->root = $dir;
+		return true;
+	}
+	
+	/**
+	 * 
+	 */
+	public function set_filenames($filename_array){
+		if (!is_array($filename_array)){
+			return false;
+		}
+		
+		reset($filename_array);
+		while(list($handle, $filename) = each($filename_array)){
+			$this->files[$handle] = $this->check_filename($filename);
+		}
+		return true;
+	}
+	
+	/**
+	 * 
+	 */
+	public function pparse($handle){
+		#echo '<b>pparse</b><pre>'.var_export($handle,true).'</pre>';
+		if (!$this->loadfile($handle)){
+			die("TEMPLATE->pparse(): Couldn't load template file for handle ".$handle);
+		}
+		
+		if (!isset($this->compiled_code[$handle]) || empty($this->compiled_code[$handle])){
+			#echo '<b>!!!!NOT compiled_code!!!!</b>['.$handle.']';
+			$this->compiled_code[$handle] = $this->compile($this->uncompiled_code[$handle]);
+		}
+		#echo '<b>pparse::compiled_code</b><hr><hr><pre>'.var_export($this->compiled_code[$handle],true).'</pre><hr><hr>';
+		eval($this->compiled_code[$handle]);
+		
+		return true;
+	}
+	/**
+	* DESCRIPTOR: renders the template to a string
+	* @param string $handle 
+	* @param bool 	$do_not_echo 
+	* @param string $retvar 
+	* @return string $newVar 
+	*/
+	public function sparse($handle, $do_not_echo = false, $retvar = '')
+	{
+		$returnString ='';
+		$$retvar = '';
+		#echo '<b>'.__METHOD__.'@'.__LINE__.'</b><pre>'.var_export($handle,true).'</pre>';
+		if (!$this->loadfile($handle)){
+			
+			$e = new Exception();
+			echo __METHOD__.'@'.__LINE__.'$e->getTraceAsString()'.$e->getTraceAsString().'<br>';
+			#die(__METHOD__.'@'.__LINE__.": Couldn't load template file for handle ".$handle.$e->getTraceAsString());
+			return false;
+		}
+		
+		if (!isset($this->compiled_code[$handle]) || empty($this->compiled_code[$handle])){
+			#echo '<b>!!!!NOT compiled_code!!!!</b>['.$handle.']';
+			$this->compiled_code[$handle] = $this->compile($this->uncompiled_code[$handle], $do_not_echo, $retvar);
+		}
+		//@ suppress errors from undefined vars
+		@eval($this->compiled_code[$handle]);// or die('<textarea cols="180" rows="20">'.$this->compiled_code[$handle].'</textarea>');
+		$newVar = $$retvar;
+		
+		if($handle = '6_LOG'){
+			#echo __METHOD__.'@'.__LINE__.'<b>sparse::compiled_code</b><hr><hr><pre>'.var_export($this->compiled_code[$handle],true).'</pre><hr><hr>';
+			#echo __METHOD__.'@'.__LINE__.'<b>sparse::UNcompiled_code</b><hr><hr><pre>'.var_export($this->uncompiled_code[$handle]).'</pre><hr><hr>';
+			#echo __METHOD__.'@'.__LINE__.'<b>newVar</b>['.$newVar.']<b>$retvar</b>['.$retvar.']<b>$$retvar</b>['.$$retvar.']<hr>';
+		
+		}
+		return $newVar;
+		#return true;
+	}
+	/**
+	* DESCRIPTOR: sets up the class for file output
+	* @param string $handle 
+	* @param mixed $oBc 
+	* $oBc Output Buffering Control
+	* SETTINGS:
+	* default:	NULL 		will return a string of the rendered data
+	* 			BUFFER		will send the rendered data to the output buffer
+	* 			FLUSH		the rendered data will be sent to the output buffer and the buffer flushed immediately 
+	* this function will re-render the contents very time it is called
+	* @return mixed  
+	*/
+	public function render($handle, $oBc=null){ //, $do_not_echo = false, $retvar = '' 
+		#echo __METHOD__.' $handle['.$handle.']$oBc['.$oBc.']<br>'; 
+		if (!$this->loadfile($handle)){
+			
+			$e = new Exception();
+			echo '$e->getTraceAsString()'.$e->getTraceAsString().'<br>';
+			#die("TEMPLATE->sparse(): Couldn't load template file for handle ".$handle.$e->getTraceAsString());
+			return false;
+		}
+		//if (!isset($this->compiled_code[$handle]) || empty($this->compiled_code[$handle])){	}			
+		if($oBc===null){
+			#echo __METHOD__.' NULL<br>';
+			$retvar = 'returnString';
+			$do_not_echo = true;
+			$this->compiled_code[$handle] = $this->compile($this->uncompiled_code[$handle], $do_not_echo, $retvar);
+		}else{
+			#echo __METHOD__.' $oBc['.$oBc.']<br>';
+			$this->compiled_code[$handle] = $this->compile($this->uncompiled_code[$handle]);
+		}
+		$code_lines = explode("\n", $this->compiled_code[$handle]);
+		#echo __METHOD__.' $handle['.$handle.']$oBc['.$oBc.']$code_lines['.count($code_lines).']<br>'; //<pre>'.var_export($code, true).'</pre>
+		$returnString = '';
+		eval($this->compiled_code[$handle]);
+			
+
+		switch($oBc){
+			case 'BUFFER':
+				#echo __METHOD__.' to buffer<br>';
+				break;
+
+			case"FLUSH":
+				#echo __METHOD__.' to buffer and flush<br>';
+				ob_flush();
+				break;
+			default:
+				#echo __METHOD__.' to string<br>';
+				$newVar = $$retvar;
+				return $newVar;						
+		}
+		#echo '<b>sparse::compiled_code</b><hr><hr><pre>'.var_export($this->compiled_code[$handle],true).'</pre><hr><hr>';
+		return;
+	}
+	/**
+	 * 
+	 */
+	public function assign_var_from_handle($varname, $handle){
+		if (!$this->loadfile($handle)){
+			die("TEMPLATE->assign_var_from_handle(): Couldn't load template file for handle ".$handle);
+		}
+		
+		$_str = "";
+		$code = $this->compile($this->uncompiled_code[$handle], true, '_str');
+		
+		eval($code);
+		$this->assign_var($varname, $_str);
+		
+		return true;
+	}
+	
+	/**
+	 * 
+	 */
+	public function assign_block_vars($blockname, $vararray){
+		$lastiteration  = 0;
+		
+		if (strstr($blockname, '.')){
+			$blocks = explode('.', $blockname);
+			$blockcount = sizeof($blocks) - 1;
+			$str = '$this->_tpldata';
+			for ($i = 0; $i < $blockcount; $i++)
+			{
+				$str .= '[\'' . $blocks[$i] . '.\']';
+				eval('$lastiteration = sizeof(' . $str . ') - 1;');
+				$str .= '[' . $lastiteration . ']';
+			}
+			$str .= '[\'' . $blocks[$blockcount] . '.\'][] = $vararray;';
+			
+			eval($str);
+		}else{
+			$this->_tpldata[$blockname . '.'][] = $vararray;
+		}
+		
+		return true;
+	}
+	
+	/**
+	 * 
+	 */
+	public function assign_vars($vararray){
+		reset ($vararray);
+		while (list($key, $val) = each($vararray)){
+			$this->_tpldata['.'][0][$key] = $val;
+		}
+		
+		return true;
+	}
+	
+	/**
+	 * 
+	 */
+	public function assign_var($varname, $varval){
+		$this->_tpldata['.'][0][$varname] = $varval;
+		
+		return true;
+	}
+	
+	/**
+	 * 
+	 */
+	function check_filename($filename){
+		if (!file_exists($filename)){
+			die(__METHOD__."(): Error - file [".$filename."] does not exist");
+		}
+		
+		return $filename;
+	}
+	
+	/**
+	 * 
+	 */
+	public function loadfile($handle){
+		if (isset($this->uncompiled_code[$handle]) && !empty($this->uncompiled_code[$handle])){
+			return true;
+		}
+		
+		if (!isset($this->files[$handle])){
+			$e = new Exception();
+			echo 'FALIED TO LOAD ['.$handle.']<br>$e->getTraceAsString()<pre>'.$e->getTraceAsString().'</pre><br>';
+			#die("TEMPLATE->loadfile(): No file specified for handle ".$handle);
+			return false;
+		}
+		
+		$filename = $this->files[$handle];
+		
+		$str = implode("", @file($filename));
+		if (empty($str)){
+			die(__METHOD__.": File ".$filename." for handle ".$handle." is empty");
+		}
+		
+		$this->uncompiled_code[$handle] = $str;
+		
+		return true;
+	}
+	
+	/**
+	 * 
+	 */
+	public function loadCachedFile($handle){
+	
+	
+	}
+	
+	/**
+	 * 
+	 */
+	public function compile($code, $do_not_echo = false, $retvar = ''){
+		#echo 'compile($code='.$code.', $do_not_echo = '.$do_not_echo.', $retvar = '.$retvar.')<br>';
+		$code = str_replace('\\', '\\\\', $code);
+		$code = str_replace('\'', '\\\'', $code);
+		
+		$varrefs = array();
+		preg_match_all('#\{(([a-z0-9\-_]+?\.)+?)([a-z0-9\-_]+?)\}#is', $code, $varrefs);
+		$varcount = sizeof($varrefs[1]);
+		for ($i = 0; $i < $varcount; $i++)
+		{
+			$namespace = $varrefs[1][$i];
+			$varname = $varrefs[3][$i];
+			$new = $this->generate_block_varref($namespace, $varname);
+			#echo __METHOD__.'@'.__LINE__.'$new['.$new.']<br>'; //$value2["SELF"]<pre>'.var_export($value2["SELF"],true).'</pre>';
+			$code = str_replace($varrefs[0][$i], $new, $code);
+			#echo __METHOD__.'@'.__LINE__.'$code['.$code.']<br>'; //$value2["SELF"]<pre>'.var_export($value2["SELF"],true).'</pre>';
+		}
+		
+		$code = preg_replace('#\{([a-z0-9\-_]*?)\}#is', '\' . ( ( isset($this->_tpldata[\'.\'][0][\'\1\']) ) ? $this->_tpldata[\'.\'][0][\'\1\'] : \'\' ) . \'', $code);
+		
+		$code_lines = explode("\n", $code);
+		
+		$block_nesting_level = 0;
+		$block_names = array();
+		$block_names[0] = ".";
+		
+		$line_count = sizeof($code_lines);
+		$m = "";
+		for ($i = 0; $i < $line_count; $i++)
+		{
+			$code_lines[$i] = chop($code_lines[$i]);
+			if (preg_match('#<!-- BEGIN (.*?) -->#', $code_lines[$i], $m))
+			{
+				$n[0] = $m[0];
+				$n[1] = $m[1];
+				
+				if ( preg_match('#<!-- END (.*?) -->#', $code_lines[$i], $n) )
+				{
+					$block_nesting_level++;
+					$block_names[$block_nesting_level] = $m[1];
+					if ($block_nesting_level < 2)
+					{
+						$code_lines[$i] = '$_' . $n[1] . '_count    = ( isset($this->_tpldata[\'' . $n[1] . '.\']) ) ?  sizeof($this->_tpldata[\'' . $n[1] . '.\']) : 0;';
+						$code_lines[$i] .= "\n" . 'for ($_' . $n[1] . '_i = 0; $_' . $n[1] . '_i < $_' . $n[1] . '_count; $_' . $n[1] . '_i++)';
+						$code_lines[$i] .= "\n" . '{';
+					}
+					else
+					{
+						$namespace = implode('.', $block_names);
+						$namespace = substr($namespace, 2);
+						$varref = $this->generate_block_data_ref($namespace, false);
+						
+						$code_lines[$i] = '$_' . $n[1] . '_count = ( isset(' . $varref . ') ) ? sizeof(' . $varref . ') : 0;';
+						$code_lines[$i] .= "\n" . 'for ($_' . $n[1] . '_i = 0; $_' . $n[1] . '_i < $_' . $n[1] . '_count; $_' . $n[1] . '_i++)';
+						$code_lines[$i] .= "\n" . '{';
+					}
+					
+					unset($block_names[$block_nesting_level]);
+					$block_nesting_level--;
+					$code_lines[$i] .= '} // END ' . $n[1];
+					$m[0] = $n[0];
+					$m[1] = $n[1];
+				}
+				else
+				{
+					$block_nesting_level++;
+					$block_names[$block_nesting_level] = $m[1];
+					if ($block_nesting_level < 2)
+					{
+						$code_lines[$i] = '$_' . $m[1] . '_count = ( isset($this->_tpldata[\'' . $m[1] . '.\']) ) ? sizeof($this->_tpldata[\'' . $m[1] . '.\']) : 0;';
+						#$code_lines[$i] .= "\n" . '$_' . $m[1] . '_i = 0;';
+						$code_lines[$i] .= "\n" . 'for ($_' . $m[1] . '_i = 0; $_' . $m[1] . '_i < $_' . $m[1] . '_count; $_' . $m[1] . '_i++)';
+						$code_lines[$i] .= "\n" . '{';
+					}
+					else
+					{
+						$namespace = implode('.', $block_names);
+						$namespace = substr($namespace, 2);
+						$varref = $this->generate_block_data_ref($namespace, false);
+						
+						$code_lines[$i] = '$_' . $m[1] . '_count = ( isset(' . $varref . ') ) ? sizeof(' . $varref . ') : 0;';
+						$code_lines[$i] .= "\n" . 'for ($_' . $m[1] . '_i = 0; $_' . $m[1] . '_i < $_' . $m[1] . '_count; $_' . $m[1] . '_i++)';
+						$code_lines[$i] .= "\n" . '{';
+					}
+				}
+			}
+			else if (preg_match('#<!-- END (.*?) -->#', $code_lines[$i], $m))
+			{
+				unset($block_names[$block_nesting_level]);
+				$block_nesting_level--;
+				$code_lines[$i] = '} // END ' . $m[1];
+			}
+			else
+			{
+				if (!$do_not_echo)
+				{
+					$code_lines[$i] = 'echo \'' . $code_lines[$i] . '\' . "\\n";';
+				}
+				else
+				{
+					$code_lines[$i] = '$' . $retvar . '.= \'' . $code_lines[$i] . '\' . "\\n";'; 
+				}
+			}
+		}
+		
+		#$code = str_replace('\'', '\\\'', $code);
+		#$code = str_replace('\\', '\\\\', $code);
+		/*
+		$code = str_replace('\\\\', '\\', $code);
+		$code = str_replace('\\\'', '\'', $code);
+		$code = str_replace("\'", "'", $code);
+		*/
+		$code = implode("\n", $code_lines);
+		/*
+		echo __METHOD__.'@'.__LINE__.'  $code_lines<pre>'.var_export($code_lines,true).'</pre>
+		<hr><hr><hr>
+		$code<pre>'.var_export($code,true).'</pre>
+		';
+		*/
+		#echo 'code::<pre><b>'.$code.'</b></pre>';
+		return $code;
+	}
+	
+	/**
+	 * 
+	 */
+	public function generate_block_varref($namespace, $varname)
+	{
+		$namespace = substr($namespace, 0, strlen($namespace) - 1);
+		$varref = $this->generate_block_data_ref($namespace, true);
+		$varref .= '[\'' . $varname . '\']';
+		$varref = '\' . ( ( isset(' . $varref . ') ) ? ' . $varref . ' : \'\' ) . \'';
+		
+		return $varref;
+	}
+	
+	/**
+	 * 
+	 */
+	public function generate_block_data_ref($blockname, $include_last_iterator)
+	{
+		$blocks = explode(".", $blockname);
+		$blockcount = sizeof($blocks) - 1;
+		$varref = '$this->_tpldata';
+		
+		for ($i = 0; $i < $blockcount; $i++)
+		{
+			$varref .= '[\'' . $blocks[$i] . '.\'][$_' . $blocks[$i] . '_i]';
+		}
+		$varref .= '[\'' . $blocks[$blockcount] . '.\']';
+		
+		if ($include_last_iterator)
+		{
+			$varref .= '[$_' . $blocks[$blockcount] . '_i]';
+		}
+		
+		return $varref;
+	}
+	
+} // End of class
+
+
+?>

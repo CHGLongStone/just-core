@@ -1,0 +1,12 @@
+<!-- BEGIN  currentNode -->
+<div id="{currentNode.DIV_ID}" class="{currentNode.DIV_CLASS}" style="display: block; {currentNode.DIV_STYLE}">
+	<a href="javascript:void(0);" id="{currentNode.DIV_ID} {currentNode.LINK_SCRIPT} {currentNode.LINK_STYLE}>{currentNode.LINK_NAME}</a>
+	<!-- BEGIN  childNode -->
+	<div id="{currentNode.childNode.DIV_ID}" class="{currentNode.childNode.DIV_CLASS}" style="display: none; {currentNode.childNode.DIV_STYLE}">
+		<a href="javascript:void(0);" id="{currentNode.DIV_ID} {currentNode.LINK_SCRIPT} {currentNode.LINK_STYLE}>{currentNode.LINK_NAME}</a>
+		{currentNode.childNode.BODY}
+	
+	<div>
+	<!-- END  childNode -->
+<div>
+<!-- END  currentNode -->
