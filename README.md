@@ -2,7 +2,7 @@
 #just-core
 ##An Enterprise Grade PHP framework
 
-
+........
 
 [Quick Start Guide]
 [Installation]
