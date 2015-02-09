@@ -5,23 +5,20 @@
 * 
 * 
 * @author		Jason Medland<jason.medland@gmail.com>
-* @package	JCORE
-* @subpackage DATA
+* @package	JCORE\DATA\API
 */
+namespace JCORE\DATA\API;
+
 /***
-* DATA_API_INTERFACE
-* Instances can be created for any DB supported by PHP inc. NoSQL
-* 
-* 
-* @author		Jason Medland<jason.medland@gmail.com>
-* @package	JCORE
-* @subpackage DATA
+ * Class DATA_API_INTERFACE
+ *
+ * @package JCORE\DATA\API
 */
 interface DATA_API_INTERFACE{
 	/* 
-	* Defines base fuctions to support public methods of dbInterface 
+	* Defines base functions to support public methods of dbInterface 
 	*/
-	public function set_connection($persistant=NULL); //
+	public function set_connection($persistent =NULL); //
 	public function verify_connection();
 	public function resultToAssoc($result, $query);
 	public function raw($query);
