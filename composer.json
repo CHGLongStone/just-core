@@ -1,0 +1,24 @@
+{
+	"name" : "just-core/foundation",
+	"description" : "PHP Enterprise HA Framework",
+	"license" : "GNU",
+	"keywords" : [
+		"just-core",
+		"Enterprise",
+		"HA",
+		"Framework"
+	],
+	"version" : "1.0.0",
+	"homepage" : "https://github.com/CHGLongStone/just-core",
+	"require" : {
+		"php" : ">=5.3.3",
+	},
+	"require-dev" : {
+		"phpunit/phpunit" : "3.7.*",
+	},
+	"autoload" : {
+		"classmap" : [
+			"vendor/google-api-php-client/src"
+		]
+	}
+}
