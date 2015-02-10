@@ -8,14 +8,14 @@
  * @package		JCORE
  * @subpackage	CACHE
  */
-/**
-*
-*
- * @package		JCORE
- * @subpackage	CACHE
-*/
+namespace JCORE\CACHE;
 
-interface CACHE_STATIC_API_INTERFACE extends JCORE_SINGLETON_INTERFACE
+/**
+ * Interface STATIC_API_INTERFACE
+ *
+ * @package JCORE\CACHE
+*/
+interface STATIC_API_INTERFACE extends JCORE_SINGLETON_INTERFACE
 { 
 	/* 
 	* Defines base fuctions to support public methods of CACHE_API 

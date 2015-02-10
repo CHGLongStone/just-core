@@ -9,17 +9,25 @@
  *
 */
 /**
-*
-*/	
 $CACHE_STATIC_API_INTERFACE = JCORE_BASE_DIR.'CACHE/CACHE_STATIC_API_INTERFACE.interface.php';
 require_once($CACHE_STATIC_API_INTERFACE);
+*
+*/	
 
 /**
 * EACCELERATOR class
  * @package		JCORE
  * @subpackage	CACHE
 */
-class EACCELERATOR implements CACHE_STATIC_API_INTERFACE{
+namespace JCORE\CACHE;
+
+use JCORE\CACHE\SERIALIZATION_STATIC as SERIALIZATION;
+/**
+ * Interface EACCELERATOR
+ *
+ * @package JCORE\CACHE
+*/
+class EACCELERATOR implements JCORE\CACHE\STATIC_API_INTERFACE{
 	
 	/**
 	* flag
