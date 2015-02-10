@@ -159,6 +159,12 @@ class CONFIG_MANAGER{
 		//log it?
 		return false;
 	}
+	public function loadConfigFile($args=null){
+		$settings = scandir ($directory );
+		$pattern = array('CONFIG/AUTOLOAD/{,*.}{global,local}.php');
+		$settings = glob ( $pattern GLOB_MARK );
+		return include 'CONFIG/AUTOLOAD/just-core.global.php';
+	}
 	/**
 	* DESCRIPTOR: loads the ini internally and returns a value of true if all good 
 	* @param string $LOAD_ID 
@@ -168,11 +174,12 @@ class CONFIG_MANAGER{
 	* $LOAD_ID is the directory path 
 	* $FILE_NAME is the file name with ".ini"
 	*/
-	public function loadIni($LOAD_ID='', $FILE_NAME=''){
+	public function loadConfig($LOAD_ID='', $FILE_NAME=''){
 		if($LOAD_ID =='' || $FILE_NAME == ''){
 			return false;
 			//explode on period
 			/**
+			#'config_glob_paths' => array('CONFIG/AUTOLOAD/{,*.}{global,local}.php')
 				$PACKAGE = strstr  ( $calledClass, ".", true );
 				$PLUGIN = strstr  ( $calledClass, ".");
 			*/
@@ -182,7 +189,10 @@ class CONFIG_MANAGER{
 			return true;
 		}
 		
-		//post hook set into cache
+		//post hook set into cache 
+			foreach (glob("*.txt") as $filename) {
+				echo "$filename size " . filesize($filename) . "\n";
+			}
 		if($this->LOADED_VALUES[$LOAD_ID] = parse_ini_file($FILE_NAME,true)){
 			$args = array();
 			$args["KEY"] = $LOAD_ID;

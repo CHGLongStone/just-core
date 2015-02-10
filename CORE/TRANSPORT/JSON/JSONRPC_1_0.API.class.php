@@ -6,16 +6,16 @@ $filePath = JCORE_BASE_DIR.'TRANSPORT/TRANSPORT_INTERFACE.interface.php';
 require_once($filePath);
  *
  * @author	Jason Medland<jason.medland@gmail.com>
- * @package	JCORE
- * @subpackage	TRANSPORT
+ * @package	JCORE\TRANSPORT\JSON
+ * @subpackage	JCORE\TRANSPORT\JSON
  */
-namespace JCORE\TRANSPORT;
+namespace JCORE\TRANSPORT\JSON;
 use JCORE\TRANSPORT\TRANSPORT_INTERFACE as TRANSPORT_INTERFACE;
 
 /**
  * Class JSONRPC_1_0_API
  *
- * @package JCORE\TRANSPORT
+ * @package JCORE\TRANSPORT\JSON
 */
 class JSONRPC_1_0_API implements TRANSPORT_INTERFACE{
 

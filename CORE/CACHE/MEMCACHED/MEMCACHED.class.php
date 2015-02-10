@@ -7,12 +7,12 @@ $filePath = JCORE_BASE_DIR.'CACHE/CACHE_COMMON_API_INTERFACE.interface.php';
 require_once($filePath);
  * 
  * @author		Jason Medland
- * @package		JCORE
- * @subpackage	CACHE
+ * @package		JCORE\CACHE
+ * @subpackage	JCORE\CACHE
  * 
  *
  */
-namespace JCORE;
+namespace JCORE\CACHE;
 use JCORE\CACHE\CACHE_COMMON_API_INTERFACE as CACHE_COMMON_API_INTERFACE;
 /**
  * Class MEMCACHED
