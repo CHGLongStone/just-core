@@ -133,6 +133,9 @@ class CONFIG_MANAGER{
 	* @return mixed 
 	*/
 	protected function postHookCache($args){
+		
+		#echo __METHOD__.__LINE__.'<b>[<pre>'.var_export($args,true).'</pre>]</b><br>';
+		
 		if(isset($this->settings["CSN"])){
 			#$myCallBackFunction = $this->settings["CSN"].'::setSharedValue';
 			$methodName = 'setSharedValue';
@@ -164,51 +167,47 @@ class CONFIG_MANAGER{
 		if(isset($args["file"])){
 			return include $args["file"];
 		}
-			
-			
-		#$settings = scandir ($directory );
-		#$pattern = array('CONFIG/AUTOLOAD/{,*.}{global,local}.php');
-		#$settings = glob ( $pattern, GLOB_MARK );
 	}
 	/**
-	* DESCRIPTOR: loads the ini internally and returns a value of true if all good 
+	* DESCRIPTOR: loads the config file and returns a value of true if all good 
+	*
+	* loads everything in CONFIG/AUTOLOAD/*{global,local}.php  by default
+	*
 	* @param string $LOAD_ID 
 	* @param string $FILE_NAME 
 	* @return null 
 	* 
 	* $LOAD_ID is the directory path 
-	* $FILE_NAME is the file name with ".ini"
+	* $FILE_NAME is the file name with ".php"
 	*/
 	public function loadConfig($LOAD_ID='', $FILE_NAME=''){
-		echo __METHOD__.'@'.__LINE__.'LOAD_ID::'.$LOAD_ID.'  FILE_NAME::'.$FILE_NAME.'<br>';
+		#echo __METHOD__.'@'.__LINE__.'LOAD_ID::'.$LOAD_ID.'  FILE_NAME::'.$FILE_NAME.'<br>';
 		
 		if($LOAD_ID =='' || $FILE_NAME == ''){
-			if(!isset($this->settings) || count($this->settings) ){
-				
-				$pattern = dirname(dirname(__DIR__)).'/CONFIG/AUTOLOAD/*{global,local}.php';
-				echo __METHOD__.'@'.__LINE__.'pattern::'.$pattern.'<br>';
+			#echo __METHOD__.'@'.__LINE__.' '.count($this->settings).'<br>';
+			if(!isset($this->settings) || 0 == count($this->settings) ){
+				$LOAD_ID = 'JCORE';
+				$pattern = 'CONFIG/AUTOLOAD/*{global,local}.php';
+				#echo __METHOD__.'@'.__LINE__.'pattern::'.$pattern.'<br>';
 				$fileList = glob($pattern,GLOB_BRACE);
-				foreach($fileList AS $key => $value){
-					$args["file"] = $value;
-					$this->settings = array_merge($this->settings, loadConfigFile($args));
-					echo __METHOD__.'@'.__LINE__.'this->settings<pre>'.var_export($this->settings, true).'</pre><br>';
-				}
+				$this->saveConfig($fileList);
+				$args = array();
+				$args["KEY"] = $LOAD_ID;
+				#$args["DATA"] = $this->LOADED_VALUES[$LOAD_ID];
+				$args["DATA"] = $this->settings[$LOAD_ID];
+				#echo __METHOD__.__LINE__.'$this->LOADED_VALUES[$LOAD_ID]<pre>'.var_export($this->LOADED_VALUES[$LOAD_ID], true).'</pre><br>';
+				$this->postHookCache($args);
 			}else{
-				
 				return false;
 				
 			}
+
+		}else{
 			
-			//explode on period
-			/**
-			#'config_glob_paths' => array('CONFIG/AUTOLOAD/{,*.}{global,local}.php')
-				$PACKAGE = strstr  ( $calledClass, ".", true );
-				$PLUGIN = strstr  ( $calledClass, ".");
-				'config_glob_paths' => array(
-					$frontendDir.'/{,*.}{global,local}.php',
-					'config/autoload/{,*.}{global,local}.php'
-					)
-			*/
+			$pattern = $FILE_NAME.'/'.strtolower($LOAD_ID).'.{global,local}.php';
+			#echo __METHOD__.'@'.__LINE__.'pattern::'.$pattern.'<br>';
+			$fileList = glob($pattern,GLOB_BRACE);
+			$this->saveConfig($fileList);
 		}
 		//pre hook into cache
 		if(true === $this->preHookCache($LOAD_ID)){
@@ -216,15 +215,41 @@ class CONFIG_MANAGER{
 		}
 		
 		//post hook set into cache 
-		if($this->LOADED_VALUES[$LOAD_ID] = parse_ini_file($FILE_NAME,true)){
+		#if($this->LOADED_VALUES[$LOAD_ID] = parse_ini_file($FILE_NAME,true)){
+		if($this->settings[$LOAD_ID] == $this->LOADED_VALUES[$LOAD_ID]){
 			$args = array();
 			$args["KEY"] = $LOAD_ID;
-			$args["DATA"] = $this->LOADED_VALUES[$LOAD_ID];
+			#$args["DATA"] = $this->LOADED_VALUES[$LOAD_ID];
+			$args["DATA"] = $this->settings[$LOAD_ID];
 			#echo __METHOD__.__LINE__.'$this->LOADED_VALUES[$LOAD_ID]<pre>'.var_export($this->LOADED_VALUES[$LOAD_ID], true).'</pre><br>';
 			$this->postHookCache($args);
 			return true;
 		}
 		return false;
+	}
+	
+	/**
+	* DESCRIPTOR: 
+	*
+	*
+	*
+	* @param string $LOAD_ID 
+	* @param string $FILE_NAME 
+	* @return null 
+	*/
+	public function saveConfig($fileList){
+		#echo __METHOD__.'@'.__LINE__.'fileList::<pre>'.var_export($fileList,true).'</pre><br>';
+		foreach($fileList AS $key => $value){
+			$args["file"] = $value;
+			$config = $this->loadConfigFile($args);
+			$this->settings = array_merge($this->settings, $config);
+		}
+		#echo __METHOD__.'@'.__LINE__.'key['.$key.']$this->settings<pre>'.var_export($this->settings, true).'</pre><br>';
+		foreach(array_keys ($this->settings) AS $key => $value){
+			#echo __METHOD__.'@'.__LINE__.'key['.$key.']$value<pre>'.var_export($value, true).'</pre><br>';
+			$this->LOADED_VALUES[$value] = $this->settings[$value];
+		}
+		
 	}
 	
 	/**
@@ -317,14 +342,14 @@ class CONFIG_MANAGER{
 			//hook into cache	
 		}
 		if($SETTING_NAME != NULL){
-			if($this->LOADED_VALUES[$LOAD_ID][$SECTION_NAME][$SETTING_NAME]){
+			if(isset($this->LOADED_VALUES[$LOAD_ID][$SECTION_NAME][$SETTING_NAME])){
 				return $this->LOADED_VALUES[$LOAD_ID][$SECTION_NAME][$SETTING_NAME];
 			}
 		}elseif($SECTION_NAME != null){
-			if($this->LOADED_VALUES[$LOAD_ID][$SECTION_NAME]){
+			if(isset($this->LOADED_VALUES[$LOAD_ID][$SECTION_NAME])){
 				return $this->LOADED_VALUES[$LOAD_ID][$SECTION_NAME];
 			}
-		}elseif($this->LOADED_VALUES[$LOAD_ID]){
+		}elseif(isset($this->LOADED_VALUES[$LOAD_ID])){
 			return $this->LOADED_VALUES[$LOAD_ID];
 		}else{
 			return $this->LOADED_VALUES;
