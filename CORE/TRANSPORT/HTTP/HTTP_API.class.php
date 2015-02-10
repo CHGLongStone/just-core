@@ -6,7 +6,6 @@
  * @subpackage	TRANSPORT 
  */
 /**
-* require the interface before the implementation definition
 require_once($filePath);
 $filePath = JCORE_BASE_DIR.'TRANSPORT/TRANSPORT_INTERFACE.interface.php';
 */
