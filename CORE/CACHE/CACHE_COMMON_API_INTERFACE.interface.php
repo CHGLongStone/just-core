@@ -1,7 +1,6 @@
 <?
 
 /**
- * CACHE interface Service
  * Connection Classes can be created for any CACHE supported by PHP
  * create wrappers for existing API's with this interface
  * 
@@ -15,6 +14,13 @@
 *
  * @package		JCORE
  * @subpackage	CACHE
+*/
+namespace JCORE\CACHE;
+
+/**
+ * Interface CACHE_COMMON_API_INTERFACE
+ *
+ * @package JCORE\CACHE
 */
 interface CACHE_COMMON_API_INTERFACE{
 	/* 

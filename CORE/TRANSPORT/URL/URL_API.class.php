@@ -7,13 +7,16 @@
  */
 /**
 * require the interface before the class definition
-*/
 $filePath = JCORE_BASE_DIR.'TRANSPORT/TRANSPORT_INTERFACE.interface.php';
 require_once($filePath);
+*/
+namespace JCORE\CACHE;
+
+use JCORE\TRANSPORT\TRANSPORT_INTERFACE as TRANSPORT_INTERFACE;
 /**
-* 
- * @package	JCORE
- * @subpackage	TRANSPORT
+ * Interface URL_API
+ *
+ * @package JCORE\TRANSPORT
 */
 class URL_API implements TRANSPORT_INTERFACE{
 	

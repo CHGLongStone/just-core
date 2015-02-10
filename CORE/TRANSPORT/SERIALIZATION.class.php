@@ -7,11 +7,12 @@
  * @package	JCORE
  * @subpackage TRANSPORT
  */
+namespace JCORE\TRANSPORT;
+
 /**
-*
-*
- * @package	JCORE
- * @subpackage TRANSPORT
+ * Interface SERIALIZATION
+ *
+ * @package JCORE\TRANSPORT
 */
 class SERIALIZATION {
 
