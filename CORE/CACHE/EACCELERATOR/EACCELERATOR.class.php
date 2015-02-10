@@ -1,6 +1,5 @@
 <?
 /**
- * EACCELERATOR CACHE Service
  * Wrapper for the Eaccelerator API
  * 
  * @author		Jason Medland
@@ -23,7 +22,7 @@ namespace JCORE\CACHE;
 
 use JCORE\CACHE\SERIALIZATION_STATIC as SERIALIZATION;
 /**
- * Interface EACCELERATOR
+ * Class EACCELERATOR
  *
  * @package JCORE\CACHE
 */
