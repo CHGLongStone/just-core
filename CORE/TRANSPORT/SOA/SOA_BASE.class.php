@@ -1,21 +1,23 @@
 <?
 /**
  * DESCRIPTOR:
- * this class needs to be extended
- * as a primary consideration for SOA, we need to expose the class and it's methods
+ * this object needs to be extended
+ * as a primary consideration for SOA, we need to expose the object and it's methods
  * @author	Jason Medland<jason.medland@gmail.com>
- * @package	JCORE
- * @subpackage	LOAD
+ * @package	JCORE\LOAD\TRANSPORT\SOA
+ * @subpackage	JCORE\LOAD\TRANSPORT\SOA
  */
+namespace JCORE\LOAD\TRANSPORT\SOA;
 /**
-* SOA_BASE is an abstract base class to provide introspection into service classes 
-* that are extended 
+ * Class SOA_BASE
+ *
+ * @package JCORE\JCORE\LOAD\TRANSPORT\SOA
 */
 abstract class SOA_BASE { //implements Reflector 
 	/**
 	* DESCRIPTOR: 
-	* empty constructor, this class needs to be extended
-	* as a primary consideration for SOA, we need to expose the class and it's methods
+	* empty constructor, this object needs to be extended
+	* as a primary consideration for SOA, we need to expose the object and it's methods
 	* 
 	* @param param NULL
 	* @return return  NULL
@@ -27,7 +29,7 @@ abstract class SOA_BASE { //implements Reflector
 	* DESCRIPTOR: 
 	* introspectService will provide all of the methods, members and arguements 
 	* within scope of the call as well as the document comments assotiatiated 
-	* with the extended class. This method can be overridden or extended 
+	* with the extended object. This method can be overridden or extended 
 	* to parse this data into a WSDL or similar format 
 	* 
 	* @param param NULL

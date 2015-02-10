@@ -101,7 +101,7 @@ require_once(JCORE_BASE_DIR.'DATA/MySQL/MySQL_connector.class.php');
 * $BOOTSTRAP["CSN"]						JCORE_SYSTEM_CACHE[def:JCORE_SYSTEM_CACHE=EACCELERATOR] in this instance
 * $BOOTSTRAP["CACHE_SERIALIZATION"]		[def:JSON/NATIVE/RAW(string)] 
 * $BOOTSTRAP["UNSERIALIZE_TYPE"]		[def:ARRAY/OBJECT/RAW(string)] for implementations that leverage JSON data and use json_decode ( string $json [, bool $assoc = false]...)
-* $BOOTSTRAP["IMPLEMENTATION"]			[STATIC/CONCRETE] to be used for bootstrap the CSN class MUST be STATIC or already loaded and instantiated [API]/config.php
+* $BOOTSTRAP["IMPLEMENTATION"]			[STATIC/CONCRETE] to be used for bootstrap the CSN object MUST be STATIC or already loaded and instantiated [API]/config.php
 * $---------["KEY"]						only used via CACHE_API - determined from $LOAD_ID
 * $---------["DATA"]					[ARRAY/OBJECT/STRING] stored contents of loadIni($LOAD_ID, $FILE_NAME[FILE_NAME]); passed to serialization method 
 * this should be a cache object defined in [JCORE_CONFIG_DIR]/SERVICE/CACHE_SOURCE.ini
