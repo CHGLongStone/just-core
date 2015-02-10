@@ -81,6 +81,44 @@ class CONFIG_MANAGER{
 		
 		#'config_glob_paths' => array('CONFIG/AUTOLOAD/{,*.}{global,local}.php')
 	}
+	/*
+$vendorDir = dirname(dirname(__FILE__));
+$baseDir = dirname($vendorDir);
+
+return array(
+    'File_Iterator' => $vendorDir . '/phpunit/php-file-iterator/File/Iterator.php',
+	
+);	
+	*/
+   public static function getLoader()
+    {
+        if (null !== self::$loader) {
+            return self::$loader;
+        }
+
+        spl_autoload_register(array('ComposerAutoloaderInit392decd7fd535e37838c4a83dc22763a', 'loadClassLoader'), true, true);
+        self::$loader = $loader = new \Composer\Autoload\ClassLoader();
+        spl_autoload_unregister(array('ComposerAutoloaderInit392decd7fd535e37838c4a83dc22763a', 'loadClassLoader'));
+
+        $map = require __DIR__ . '/autoload_namespaces.php';
+        foreach ($map as $namespace => $path) {
+            $loader->set($namespace, $path);
+        }
+
+        $map = require __DIR__ . '/autoload_psr4.php';
+        foreach ($map as $namespace => $path) {
+            $loader->setPsr4($namespace, $path);
+        }
+
+        $classMap = require __DIR__ . '/autoload_classmap.php';
+        if ($classMap) {
+            $loader->addClassMap($classMap);
+        }
+
+        $loader->register(true);
+
+        return $loader;
+    }
 	/*****
 	* DESCRIPTOR: Checks the cache if the value is set
 	* cache args are set in the constructor
