@@ -105,7 +105,7 @@ class HTTP_API implements TRANSPORT_INTERFACE{
 	
 	/***
 	* DESCRIPTOR: 
-	* enforce a method to parse the request in the sub class
+	* enforce a method to parse the request
 	* @param mixed raw_data 
 	* @return return NULL  
 	*/
@@ -118,7 +118,6 @@ class HTTP_API implements TRANSPORT_INTERFACE{
 	/***
 	* DESCRIPTOR: 
 	* enforce a method to compile a response (in the transport format)
-	* in the sub class
 	* @param mixed dataSet 
 	* @return return NULL  
 	*/

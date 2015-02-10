@@ -6,20 +6,23 @@
  * @subpackage	TRANSPORT 
  */
 /***
-* require the interface before the class definition
-*/
+* require the interface before the definition
 $filePath = JCORE_BASE_DIR.'TRANSPORT/TRANSPORT_INTERFACE.interface.php';
 require_once($filePath);
+*/
 /***
 * load the HTTP handler 
-*/
 $filePath = JCORE_BASE_DIR.'TRANSPORT/HTTP/HTTP_API.class.php';
 require_once($filePath);
+*/
 
+namespace JCORE\TRANSPORT;
+use JCORE\TRANSPORT\TRANSPORT_INTERFACE as TRANSPORT_INTERFACE;
+use JCORE\TRANSPORT\HTTP\HTTP_API as HTTP_API;
 /**
-* 
- * @package	JCORE
- * @subpackage	TRANSPORT
+ * Interface PHP_SESSION
+ *
+ * @package JCORE\TRANSPORT
 */
 abstract class REST_API implements TRANSPORT_INTERFACE{
 	
@@ -119,7 +122,7 @@ abstract class REST_API implements TRANSPORT_INTERFACE{
 	
 	/***
 	* DESCRIPTOR: 
-	* enforce a method to parse the request in the sub class
+	* enforce a method to parse the request in the child
 	* @param mixed raw_data 
 	* @return return NULL  
 	*/
@@ -127,7 +130,7 @@ abstract class REST_API implements TRANSPORT_INTERFACE{
 	/***
 	* DESCRIPTOR: 
 	* enforce a method to compile a response (in the transport format)
-	* in the sub class
+	* in the child
 	* @param mixed dataSet 
 	* @return return NULL  
 	*/
@@ -136,7 +139,7 @@ abstract class REST_API implements TRANSPORT_INTERFACE{
 	/***
 	* DESCRIPTOR: 
 	* map HTTP GET to CRUD operation RETRIEVE 
-	* enforce a method in the child class to handle it
+	* enforce a method in the child to handle it
 	*  
 	* @param mixed args 
 	* @return return NULL  
@@ -148,7 +151,7 @@ abstract class REST_API implements TRANSPORT_INTERFACE{
 	* DESCRIPTOR: 
 	* UPDATE a resource
 	* map HTTP POST to CRUD operation UPDATE 
-	* enforce a method in the child class to handle it
+	* enforce a method in the child to handle it
 	* 
 	* @param mixed args 
 	* @return return NULL
@@ -157,7 +160,7 @@ abstract class REST_API implements TRANSPORT_INTERFACE{
 	/***
 	* DESCRIPTOR: 
 	* map HTTP PUT to CRUD operation CREATE 
-	* enforce a method in the child class to handle it
+	* enforce a method in the child to handle it
 	* 
 	* @param args 
 	* @return return  
@@ -166,7 +169,7 @@ abstract class REST_API implements TRANSPORT_INTERFACE{
 	/***
 	* DESCRIPTOR: 
 	* map HTTP DELETE to CRUD operation DELETE 
-	* enforce a method in the child class to handle it
+	* enforce a method in the child to handle it
 	* 
 	* DELETE 
 	* @param args 
