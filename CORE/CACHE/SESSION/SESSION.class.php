@@ -1,6 +1,5 @@
 <?
 /**
- * CACHE interface Service
  * Connection Classes can be created for any CACHE supported by PHP
  * create wrappers for existing API's with this interface
  * see http://us2.php.net/manual/en/function.session-set-save-handler.php
@@ -12,13 +11,13 @@
  *
  *
  */
+namespace JCORE\CACHE;
+use JCORE\CACHE\PHP_SESSION as PHP_SESSION;
 /**
-*
-*
- * @package		JCORE
- * @subpackage	CACHE
+ * Interface SESSION
+ *
+ * @package JCORE\CACHE
 */
-
 class SESSION implements PHP_SESSION{
 	/**
 	*
