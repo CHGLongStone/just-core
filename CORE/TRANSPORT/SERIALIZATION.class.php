@@ -64,8 +64,8 @@ class SERIALIZATION {
 		}
 		
 		/**
-		* Class methods may also be invoked statically using this function by passing array($classname, $methodname) 
-		* to this parameter. Additionally class methods of an object instance may be called by passing 
+		* methods may also be invoked statically using this function by passing array($classname, $methodname) 
+		* to this parameter. Additionally methods of an object instance may be called by passing 
 		* array($objectinstance, $methodname) to this parameter. 
 		* call_user_func ( callback $function [, mixed $parameter [, mixed $... ]] ) $callBackFunction
 		*/
@@ -137,8 +137,8 @@ class SERIALIZATION {
 		}
 		
 		/**
-		* Class methods may also be invoked statically using this function by passing array($classname, $methodname) 
-		* to this parameter. Additionally class methods of an object instance may be called by passing 
+		* methods may also be invoked statically using this function by passing array($classname, $methodname) 
+		* to this parameter. Additionally methods of an object instance may be called by passing 
 		* array($objectinstance, $methodname) to this parameter. 
 		*/
 		#call_user_func ( callback $function [, mixed $parameter [, mixed $... ]] ) $callBackFunction
