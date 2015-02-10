@@ -13,10 +13,13 @@
  * @subpackage	CACHE
 
 */
+namespace JCORE\CACHE;
+
+use JCORE\CACHE\CACHE_COMMON_API_INTERFACE as CACHE_COMMON_API_INTERFACE;
 /**
-*
- * @package	JCORE
- * @subpackage	CACHE
+ * class FILECACHE_API
+ *
+ * @package JCORE\CACHE
 */
 class FILECACHE_API implements CACHE_COMMON_API_INTERFACE {
 	/**
