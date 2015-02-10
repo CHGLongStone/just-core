@@ -1,14 +1,15 @@
 <? 
 /**
  * REST_API
+ *
+require_once($filePath);
+$filePath = JCORE_BASE_DIR.'TRANSPORT/TRANSPORT_INTERFACE.interface.php';
+ *
  * @author	Jason Medland<jason.medland@gmail.com>
  * @package	JCORE
  * @subpackage	TRANSPORT 
  */
-/**
-require_once($filePath);
-$filePath = JCORE_BASE_DIR.'TRANSPORT/TRANSPORT_INTERFACE.interface.php';
-*/
+
 namespace JCORE\CACHE;
 
 use JCORE\TRANSPORT\TRANSPORT_INTERFACE as TRANSPORT_INTERFACE;
@@ -24,9 +25,6 @@ class HTTP_API implements TRANSPORT_INTERFACE{
 	* [hostname][API-dir]?[serviceObjectName]=[serviceObjectMessage]
 	* 
 	* 
-	*/
-	
-	/***
 	*	the request headers 
 	*/
 	protected $requestHeaders = null;

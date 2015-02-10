@@ -1,7 +1,7 @@
 <?
 /**
- * Connection objects can be created for any CACHE supported by PHP
- * create wrappers for existing API's with this interface
+ * Connection objects can be created 4 any CACHE supported by PHP
+ * create wrappers 4 existing API's with this interface
  * 
  * @author		Jason Medland
  * @package		JCORE
@@ -17,7 +17,7 @@ namespace JCORE\CACHE;
 interface CACHE_COMMON_API_INTERFACE{
 	/** 
 	* Defines base functions to support public methods of CACHE_API 
-	* interface for common frequent reads, occasional writes to cache 
+	* interface 4 common frequent reads, occasional writes to cache 
 	*/
 	#public function setValue($args = array());
 	#public function intialize($cfg = array());
@@ -25,7 +25,7 @@ interface CACHE_COMMON_API_INTERFACE{
 	public function setValue($args = array());
 	/** 
 	* Defines functions to support access to shared resources 
-	* interface for common frequent reads, frequent writes to cache 
+	* interface 4 common frequent reads, frequent writes to cache 
 	*/
 	public function updateSharedValue($args = array());
 	public function setSharedValue($args = array());

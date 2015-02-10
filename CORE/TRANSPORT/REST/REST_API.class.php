@@ -1,20 +1,21 @@
 <? 
 /***
  * REST_API
+ * 
+ * 
+ $filePath = JCORE_BASE_DIR.'TRANSPORT/TRANSPORT_INTERFACE.interface.php';
+require_once($filePath);
+
+* load the HTTP handler 
+$filePath = JCORE_BASE_DIR.'TRANSPORT/HTTP/HTTP_API.class.php';
+require_once($filePath);
+
+
+
  * @author	Jason Medland<jason.medland@gmail.com>
  * @package	JCORE
  * @subpackage	TRANSPORT 
  */
-/***
-* require the interface before the definition
-$filePath = JCORE_BASE_DIR.'TRANSPORT/TRANSPORT_INTERFACE.interface.php';
-require_once($filePath);
-*/
-/***
-* load the HTTP handler 
-$filePath = JCORE_BASE_DIR.'TRANSPORT/HTTP/HTTP_API.class.php';
-require_once($filePath);
-*/
 
 namespace JCORE\TRANSPORT;
 use JCORE\TRANSPORT\TRANSPORT_INTERFACE as TRANSPORT_INTERFACE;
