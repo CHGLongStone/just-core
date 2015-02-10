@@ -12,7 +12,7 @@ namespace JCORE\LOAD;
 
 
 /**
- * Class DATA_API_INTERFACE
+ * Class ComposerAutoloaderInit
  *
  * @package JCORE\LOAD
 */
@@ -23,7 +23,7 @@ class ComposerAutoloaderInit
     public static function loadClassLoader($class)
     {
         if ('Composer\Autoload\ClassLoader' === $class) {
-            require __DIR__ . '/ClassLoader.php';
+            require __DIR__ . '/vendor/composer/ClassLoader.php';
         }
     }
 
@@ -33,23 +33,27 @@ class ComposerAutoloaderInit
             return self::$loader;
         }
 
-        spl_autoload_register(array('ComposerAutoloaderInit644fb80fb715c29ce2e8cbf7fc10e60b', 'loadClassLoader'), true, true);
+        spl_autoload_register(array('ComposerAutoloaderInit', 'loadClassLoader'), true, true);
         self::$loader = $loader = new \Composer\Autoload\ClassLoader();
-        spl_autoload_unregister(array('ComposerAutoloaderInit644fb80fb715c29ce2e8cbf7fc10e60b', 'loadClassLoader'));
+        spl_autoload_unregister(array('ComposerAutoloaderInit', 'loadClassLoader'));
 
-        $includePaths = require __DIR__ . '/include_paths.php';
+        /*
+		$includePaths = require __DIR__ . '/include_paths.php';
         array_push($includePaths, get_include_path());
         set_include_path(join(PATH_SEPARATOR, $includePaths));
+		*/
 
         $map = require __DIR__ . '/autoload_namespaces.php';
         foreach ($map as $namespace => $path) {
             $loader->set($namespace, $path);
         }
 
-        $map = require __DIR__ . '/autoload_psr4.php';
+        /**
+		$map = require __DIR__ . '/autoload_psr4.php';
         foreach ($map as $namespace => $path) {
             $loader->setPsr4($namespace, $path);
         }
+		*/
 
         $classMap = require __DIR__ . '/autoload_classmap.php';
         if ($classMap) {

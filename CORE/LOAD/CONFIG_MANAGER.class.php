@@ -5,11 +5,11 @@
  * @package	JCORE
  * @subpackage	LOAD
  */
+namespace JCORE\LOAD;
 /**
-*
-*
- * @package	JCORE
- * @subpackage	LOAD
+ * Class CONFIG_MANAGER
+ *
+ * @package JCORE\LOAD
 */
 class CONFIG_MANAGER{
 	/**
@@ -41,7 +41,7 @@ class CONFIG_MANAGER{
 	 * @param array $args
 	 * @ return bool;
 	 */
-	public function __construct($args=NULL){
+	public function __construct2($args=NULL){
 		#echo __METHOD__.__LINE__.'<br>';
 		if(is_array($args)){
 			/**
@@ -73,7 +73,14 @@ class CONFIG_MANAGER{
 		}
 		return false;
 	}
-				
+	/**
+	*
+	*
+	*/
+	public function __construct($args=NULL){
+		
+		#'config_glob_paths' => array('CONFIG/AUTOLOAD/{,*.}{global,local}.php')
+	}
 	/*****
 	* DESCRIPTOR: Checks the cache if the value is set
 	* cache args are set in the constructor

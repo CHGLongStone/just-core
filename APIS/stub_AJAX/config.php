@@ -7,12 +7,12 @@
  */
 /**
 * check the environment first
-* in order to run multiple instances with out branching the source control
-* we'll use an environment flag
-* this requires that the environments be run in parallel
-* the expected flag is "-DEV" which is appended to the path as needed
-* file is stored in the TLD, use relative paths do NOT add env.php to source control
 */
+if (isset($_SERVER['APPLICATION_ENV']) && $_SERVER['APPLICATION_ENV'] == 'development') {
+    define('REQUEST_MICROTIME', microtime(true));
+    error_reporting(E_ALL);
+    ini_set("display_errors", 1);
+}
 if(!include('../env.php') ){
 	$ENVPATH = '';
 }
@@ -73,7 +73,7 @@ define ("JCORE_SYSTEM_CACHE_SERIALIZATION", "JSON"); //JSON/NATIVE/RAW[string]
 /**
 * basic settings for the API
 */
-define ("JCORE_API_DIR", "/var/www/VHOSTS/auth".strtolower($ENVPATH).".deluxebusinessservices.com/AJAX");
+define ("JCORE_API_DIR", "/var/www/VHOSTS/auth".strtolower($ENVPATH).".");
 #define ("JCORE_API_TRANSPORT_IN", "URI"); //	ARG/URI/JSONPRC/XML/SOAP
 #define ("JCORE_API_TRANSPORT_OUT", "HTML");
 define ("JCORE_API_TRANSPORT_IN", "JSON"); //	ARG[_ver]/URI/JSONPRC_1_0/XML/SOAP

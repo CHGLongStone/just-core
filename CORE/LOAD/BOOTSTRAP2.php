@@ -8,7 +8,9 @@
 require_once __DIR__ . '/JCORE' . '/LOAD/AUTOLOAD.php';
 
 return ComposerAutoloaderInit::getLoader();
+require_once __DIR__ . '/composer' . '/autoload_real.php';
 
+return ComposerAutoloaderInit644fb80fb715c29ce2e8cbf7fc10e60b::getLoader();
 
 require_once(JCORE_BASE_DIR.'JCORE_SINGLETON_INTERFACE.interface.php');
 require_once(JCORE_BASE_DIR.'JCORE_SINGLETON.singleton.php');

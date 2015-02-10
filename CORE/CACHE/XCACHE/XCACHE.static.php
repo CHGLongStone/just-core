@@ -35,7 +35,7 @@ class XCACHE extends JCORE_SINGLETON implements CACHE_STATIC_API_INTERFACE
 	* @param null
 	* @return null
 	*/
-	private function __construct(null){
+	private function __construct($arg=null){
 	
 	
 	}
