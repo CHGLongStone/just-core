@@ -19,7 +19,7 @@
 namespace JCORE\TEMPLATER;
 
 /**
- * Interface TEMPLATER
+ * Class TEMPLATER
  *
  * @package JCORE\TEMPLATER
 */

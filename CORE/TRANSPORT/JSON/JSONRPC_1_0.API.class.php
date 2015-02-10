@@ -1,20 +1,21 @@
 <?
 /**
  * JSONRPC_1_0_API 
+ *
+$filePath = JCORE_BASE_DIR.'TRANSPORT/TRANSPORT_INTERFACE.interface.php';
+require_once($filePath);
+ *
  * @author	Jason Medland<jason.medland@gmail.com>
  * @package	JCORE
  * @subpackage	TRANSPORT
  */
-/**
-*
-*/
-$filePath = JCORE_BASE_DIR.'TRANSPORT/TRANSPORT_INTERFACE.interface.php';
-require_once($filePath);
+namespace JCORE\TRANSPORT;
+use JCORE\TRANSPORT\TRANSPORT_INTERFACE as TRANSPORT_INTERFACE;
 
 /**
-*
- * @package	JCORE
- * @subpackage	TRANSPORT
+ * Class JSONRPC_1_0_API
+ *
+ * @package JCORE\TRANSPORT
 */
 class JSONRPC_1_0_API implements TRANSPORT_INTERFACE{
 

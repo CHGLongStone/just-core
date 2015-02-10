@@ -15,7 +15,7 @@ require_once($filePath);
 namespace JCORE;
 use JCORE\CACHE\CACHE_COMMON_API_INTERFACE as CACHE_COMMON_API_INTERFACE;
 /**
- * Interface MEMCACHED
+ * Class MEMCACHED
  *
  * @package JCORE\CACHE
 */
