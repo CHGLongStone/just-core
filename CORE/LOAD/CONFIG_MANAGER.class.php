@@ -161,10 +161,14 @@ class CONFIG_MANAGER{
 		return false;
 	}
 	public function loadConfigFile($args=null){
-		$settings = scandir ($directory );
-		$pattern = array('CONFIG/AUTOLOAD/{,*.}{global,local}.php');
-		$settings = glob ( $pattern, GLOB_MARK );
-		return include 'CONFIG/AUTOLOAD/just-core.global.php';
+		if(isset($args["file"])){
+			return include $args["file"];
+		}
+			
+			
+		#$settings = scandir ($directory );
+		#$pattern = array('CONFIG/AUTOLOAD/{,*.}{global,local}.php');
+		#$settings = glob ( $pattern, GLOB_MARK );
 	}
 	/**
 	* DESCRIPTOR: loads the ini internally and returns a value of true if all good 
@@ -176,8 +180,25 @@ class CONFIG_MANAGER{
 	* $FILE_NAME is the file name with ".ini"
 	*/
 	public function loadConfig($LOAD_ID='', $FILE_NAME=''){
+		echo __METHOD__.'@'.__LINE__.'LOAD_ID::'.$LOAD_ID.'  FILE_NAME::'.$FILE_NAME.'<br>';
+		
 		if($LOAD_ID =='' || $FILE_NAME == ''){
-			return false;
+			if(!isset($this->settings) || count($this->settings) ){
+				
+				$pattern = dirname(dirname(__DIR__)).'/CONFIG/AUTOLOAD/*{global,local}.php';
+				echo __METHOD__.'@'.__LINE__.'pattern::'.$pattern.'<br>';
+				$fileList = glob($pattern,GLOB_BRACE);
+				foreach($fileList AS $key => $value){
+					$args["file"] = $value;
+					$this->settings = array_merge($this->settings, loadConfigFile($args));
+					echo __METHOD__.'@'.__LINE__.'this->settings<pre>'.var_export($this->settings, true).'</pre><br>';
+				}
+			}else{
+				
+				return false;
+				
+			}
+			
 			//explode on period
 			/**
 			#'config_glob_paths' => array('CONFIG/AUTOLOAD/{,*.}{global,local}.php')
