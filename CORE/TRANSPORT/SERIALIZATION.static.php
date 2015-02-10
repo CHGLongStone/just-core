@@ -7,13 +7,15 @@
  * @package	JCORE
  * @subpackage TRANSPORT
  */
+
+namespace JCORE\TRANSPORT;
+
 /**
-*
-* @ignore
- * @package	JCORE
- * @subpackage TRANSPORT
+ * Interface SERIALIZATION_STATIC
+ *
+ * @package JCORE\TRANSPORT
 */
-class SERIALIZATION {
+class SERIALIZATION_STATIC {
 
 	/***
 	* ln -s /var/www/PhpDocumentor-1.4.3 /var/www/HTTP/default_admin_http/PHPDOC 

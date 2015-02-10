@@ -1,6 +1,5 @@
 <?
 /**
- * CACHE interface Service
  * Connection Classes can be created for any CACHE supported by PHP
  * create wrappers for existing API's with this interface
  * 
@@ -8,12 +7,13 @@
  * @package		JCORE
  * @subpackage	CACHE
  */
+namespace JCORE\CACHE;
+
 /**
-*
-*
- * @package		JCORE
- * @subpackage	CACHE
-*/ 
+ * Interface PHP_SESSION
+ *
+ * @package JCORE\CACHE
+*/
 interface PHP_SESSION{
 	#public function __construct(){}
 	public function open($savePath, $sessionID);
