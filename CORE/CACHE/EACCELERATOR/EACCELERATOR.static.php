@@ -1,6 +1,5 @@
 <?
 /**
- * CACHE interface Service
  * Connection Classes can be created for any CACHE supported by PHP
  * create wrappers for existing API's with this interface
  * @ignore
@@ -13,17 +12,18 @@
 */
 /**
 *
-*/	
 $CACHE_STATIC_API_INTERFACE = JCORE_BASE_DIR.'CACHE/CACHE_STATIC_API_INTERFACE.interface.php';
 require_once($CACHE_STATIC_API_INTERFACE);
+*/	
+namespace JCORE\CACHE;
 
+use JCORE\CACHE\SERIALIZATION_STATIC as SERIALIZATION;
 /**
-* 
- * EACCELERATOR static
- * @package		JCORE
- * @subpackage	CACHE
+ * Interface EACCELERATOR_STATIC
+ *
+ * @package JCORE\CACHE
 */
-class EACCELERATOR extends JCORE_SINGLETON implements CACHE_STATIC_API_INTERFACE 
+class EACCELERATOR_STATIC extends JCORE_SINGLETON implements CACHE_STATIC_API_INTERFACE 
 {
 	/**
 	*

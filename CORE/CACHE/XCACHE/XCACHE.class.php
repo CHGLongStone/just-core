@@ -1,6 +1,5 @@
 <?
 /**
- * CACHE interface Service
  * Connection Classes can be created for any CACHE supported by PHP
  * create wrappers for existing API's with this interface
  * 
