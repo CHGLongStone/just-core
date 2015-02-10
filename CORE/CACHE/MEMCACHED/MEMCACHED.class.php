@@ -3,6 +3,8 @@
  * Memcached Class
  * Connection Classes can be created for any CACHE supported by PHP
  * create wrappers for existing API's with this interface
+$filePath = JCORE_BASE_DIR.'CACHE/CACHE_COMMON_API_INTERFACE.interface.php';
+require_once($filePath);
  * 
  * @author		Jason Medland
  * @package		JCORE
@@ -10,14 +12,12 @@
  * 
  *
  */
+namespace JCORE;
+use JCORE\CACHE\CACHE_COMMON_API_INTERFACE as CACHE_COMMON_API_INTERFACE;
 /**
-*
-*/
-$filePath = JCORE_BASE_DIR.'CACHE/CACHE_COMMON_API_INTERFACE.interface.php';
-require_once($filePath);
-/**
- * @package		JCORE
- * @subpackage	CACHE
+ * Interface MEMCACHED
+ *
+ * @package JCORE\CACHE
 */
 class MEMCACHED implements CACHE_COMMON_API_INTERFACE{
 	

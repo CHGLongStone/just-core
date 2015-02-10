@@ -15,11 +15,13 @@
  * CACHEING!!
  * 
  */
+
+namespace JCORE\TEMPLATER;
+
 /**
-*
-*
- * @package	JCORE
- * @subpackage	TRANSPORT
+ * Interface TEMPLATER
+ *
+ * @package JCORE\TEMPLATER
 */
 class TEMPLATER
 {

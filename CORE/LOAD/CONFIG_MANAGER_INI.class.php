@@ -1,17 +1,18 @@
 <?php
 /**
- * CONFIG_MANAGER (JCORE) CLASS
+ * initial style using ini files for configuration
+ * better options available 
  * @author	Jason Medland<jason.medland@gmail.com>
  * @package	JCORE
  * @subpackage	LOAD
  */
+namespace JCORE\LOAD;
 /**
-*
-*
- * @package	JCORE
- * @subpackage	LOAD
+ * Class CONFIG_MANAGER_INI
+ *
+ * @package JCORE\LOAD
 */
-class CONFIG_MANAGER{
+class CONFIG_MANAGER_INI{
 	/**
 	 * @access public 
 	 * @var string

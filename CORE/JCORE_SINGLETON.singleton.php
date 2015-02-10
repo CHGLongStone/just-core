@@ -8,15 +8,12 @@
  * @package	JCORE
  * @subpackage CORE
  */
-/***
-* JCORE_SINGLETON
- * Instances can be created for any DB supported by PHP inc. NoSQL
- * 
- * 
- * @author		Jason Medland<jason.medland@gmail.com>
- * @package	JCORE
- * @subpackage CORE
- */
+namespace JCORE;
+/**
+ * Interface JCORE_SINGLETON
+ *
+ * @package JCORE
+*/
 abstract class JCORE_SINGLETON 
 {
     // Hold an instance of the class

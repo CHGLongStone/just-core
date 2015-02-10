@@ -22,6 +22,13 @@
  * @package	JCORE
  * @subpackage	LOG
 */
+namespace JCORE\LOG;
+
+/**
+ * Class CACHE_API2
+ *
+ * @package JCORE\CACHE
+*/
 class LOGGER{
 	/**
 	 * @access public 
