@@ -163,7 +163,7 @@ class CONFIG_MANAGER{
 	public function loadConfigFile($args=null){
 		$settings = scandir ($directory );
 		$pattern = array('CONFIG/AUTOLOAD/{,*.}{global,local}.php');
-		$settings = glob ( $pattern GLOB_MARK );
+		$settings = glob ( $pattern, GLOB_MARK );
 		return include 'CONFIG/AUTOLOAD/just-core.global.php';
 	}
 	/**
