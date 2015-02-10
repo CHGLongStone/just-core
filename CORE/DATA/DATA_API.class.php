@@ -94,18 +94,18 @@
  * @package	JCORE
  * @subpackage DATA
  */
-namespace JCORE\DATA\API
+namespace JCORE\DATA\API;
 /***
 * DATA_API_INTERFACE
 *
 */
 use JCORE\DATA\API\DATA_API_INTERFACE;
 #require_once('DATA_API_INTERFACE.interface.php');
+
 /**
-*
-*
- * @package	JCORE
- * @subpackage DATA
+ * Interface DATA_API
+ *
+ * @package JCORE\DATA\API
 */
 class DATA_API{
 

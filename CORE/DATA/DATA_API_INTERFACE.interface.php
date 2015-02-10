@@ -10,7 +10,7 @@
 namespace JCORE\DATA\API;
 
 /***
- * Class DATA_API_INTERFACE
+ * Interface DATA_API_INTERFACE
  *
  * @package JCORE\DATA\API
 */

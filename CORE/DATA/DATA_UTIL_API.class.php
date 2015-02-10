@@ -5,12 +5,12 @@
  * @package	JCORE
  * @subpackage	DATA
  */
+namespace JCORE\DATA\API;
+
 /**
-*
-*
-*
- * @package	JCORE
- * @subpackage	DATA
+ * Interface DATA_UTIL_API
+ *
+ * @package JCORE\DATA\API
 */
 class DATA_UTIL_API{
 

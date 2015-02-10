@@ -6,14 +6,15 @@
  * @package	JCORE
  * @subpackage DATA
  */
+
+namespace JCORE\DATA\API\MySQL;
+
 /**
- * MySQL_connector
- * 
- * @author		Jason Medland<jason.medland@gmail.com>
- * @package	JCORE
- * @subpackage DATA
- */
-class MySQL_connector implements DATA_API_INTERFACE{
+ * Interface MySQL_connector
+ *
+ * @package JCORE\DATA\API\MySQL
+*/
+class MySQL_connector implements \JCORE\DATA\API\DATA_API_INTERFACE{
 	/**
 	 * The data base "dbType" MYSQL/POSTGRES/...
 	 * @access private 
