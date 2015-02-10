@@ -16,7 +16,7 @@ namespace JCORE;
 */
 interface JCORE_SINGLETON_INTERFACE{
 	/***
-	* This must be defined here rather than the abstract class beacause of scope issues
+	* This must be defined here rather than the abstract class because of scope issues
 	* the function should follow this implementation
     *public static function singleton() 
     *{

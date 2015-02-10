@@ -13,15 +13,15 @@
  *
  *
  * @author		Jason Medland
- * @package		JCORE
- * @subpackage	DAO 
+ * @package		JCORE\DAO\TREE
+ * @subpackage	JCORE\DAO\TREE 
  */
+namespace JCORE\DAO\TREE;
 /**
-*
- * @package		JCORE
- * @subpackage	DAO 
+ * Class DAO_TREE
+ *
+ * @package JCORE\DAO\TREE
 */
-#echo __FILE__.'@'.__LINE__.'<br>' ;
 class DAO_TREE{
 	/***
 	*

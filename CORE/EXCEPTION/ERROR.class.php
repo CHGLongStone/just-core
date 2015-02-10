@@ -1,23 +1,20 @@
 <?php 
 /***
-* DATA_Exception
- * Instances can be created for any DB supported by PHP inc. NoSQL
+* ERROR
+ * basic error object move to jsonrpc compatible errors as default
  * 
  * 
  * @author		Jason Medland<jason.medland@gmail.com>
  * @package	JCORE
  * @subpackage EXCEPTION
  */
-/***
-* DATA_Exception
- * Instances can be created for any DB supported by PHP inc. NoSQL
- * this is a stub class just extended for the name space,
- * monitoring/logging could be added
- * 
- * @author		Jason Medland<jason.medland@gmail.com>
- * @package	JCORE
- * @subpackage EXCEPTION
- */
+
+namespace JCORE\EXCEPTION;
+/**
+ * Class ERROR
+ *
+ * @package JCORE\EXCEPTION
+*/
 class ERROR {
 	/***
 	* 
@@ -90,6 +87,98 @@ class ERROR {
 		}
 		return null;
     }
+	
+	/*
+
+     * @var object $Code
+
+    private $Code = null;
+
+     * @var object $Message
+
+    private $Message = null;
+
+     * @var object $Data
+
+    private $Data = null;    
+	
+
+     * @var object $Data
+
+    private $cfg = null;
+
+	
+ 
+    public function __construct($args = null)
+    {
+		$configpath = $_SERVER['DOCUMENT_ROOT'].'/../config/autoload/error.global.php';
+		$this->cfg = (require($configpath));
+		
+		$this->setCode($args['Code']);
+		$this->setMessage($args['Message']);
+		$this->setData($args['Data']);
+
+
+	}
+	
+    public function getCode(){ 
+		return $this->Code;
+	}
+
+    public function setCode($Code = null){ 
+		if(null !== $Code){			
+			if(is_numeric($Code)){
+				if(isset($this->cfg['ERROR'][$Code])){
+					$this->Code = $this->cfg['ERROR'][$Code];
+				}else{
+					$this->Code = $Code;
+				}
+			}else{
+				$this->Code = $this->cfg['ERROR'][0];
+			}	
+		}		
+	}
+
+    public function getMessage(){ 
+		return $this->Message;
+	}
+
+    public function setMessage($Message = null){ 
+		if(null !== $Message){
+			$this->Message = $Message;
+		}
+	}
+	
+
+
+    public function getData(){ 
+		return $this->Data;
+	}
+
+    public function setData($Data = null){ 
+		
+		$backtrace = debug_backtrace();
+		#echo '<pre>'.var_export($backtrace, true).'</pre>';
+		$this->Data = $backtrace[1]['class'].'->'.$backtrace[1]['function'];
+		if(null !== $Data){
+			$this->Data = $this->Data.PHPEOL.var_dump($Data);
+		}
+	}
+
+    public function getError($AsJSON = false){ 
+		
+		$error =  array();
+		$error['Code'] = $this->getCode();
+		$error['Message'] = $this->getMessage();
+		$error['Data'] = $this->getData();
+		
+		if(true == $AsJSON){
+			$error = json_encode($error);
+		}
+
+		return $error;
+	}  	
+	*/
 }
 
 ?>

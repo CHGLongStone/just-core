@@ -11,14 +11,19 @@ return ComposerAutoloaderInit644fb80fb715c29ce2e8cbf7fc10e60b::getLoader();
 
 */ 
 
-namespace JCORE;
+// Composer autoloading
+if (file_exists('vendor/autoload.php')) {
+    $loader = include 'vendor/autoload.php';
+}
 
 
 return ComposerAutoloaderInit::getLoader();
 require_once __DIR__ . '/composer' . '/autoload_real.php';
 
+#$configpath = $_SERVER['DOCUMENT_ROOT'].'/../config/autoload/error.global.php';
+#$this->cfg = (require($configpath));
 
-
+/*
 require_once(JCORE_BASE_DIR.'JCORE_SINGLETON_INTERFACE.interface.php');
 require_once(JCORE_BASE_DIR.'JCORE_SINGLETON.singleton.php');
 require_once(JCORE_BASE_DIR.'DATA/DATA_UTIL_API.class.php');
@@ -37,6 +42,7 @@ require_once(JCORE_BASE_DIR.'EXCEPTION/ERROR.class.php');
 require_once(JCORE_BASE_DIR.'DATA/DATA_API.class.php');
 require_once(JCORE_BASE_DIR.'DATA/DATA_API_INTERFACE.interface.php');
 require_once(JCORE_BASE_DIR.'DATA/MySQL/MySQL_connector.class.php');
+*/
 
 if(!isset($BOOTSTRAP)){
 	
@@ -70,9 +76,11 @@ $GLOBALS['LOG_CACHE'] = new LOGGER(
 );
 
 $CACHECFG = $GLOBALS['CONFIG_MANAGER']->getSetting($LOAD_ID = 'CACHE_SOURCE'); //, $SECTION_NAME = 'FOUNDATION'
+/*
 require_once(JCORE_BASE_DIR.'TRANSPORT/TRANSPORT_FILTER.php');
 require_once(JCORE_BASE_DIR.'TRANSPORT/TRANSPORT_INTERFACE.interface.php');
 require_once(JCORE_BASE_DIR.'TRANSPORT/SOA/SOA_BASE.class.php');
+*/
 unset($BOOTSTRAP);
 
 ?>
