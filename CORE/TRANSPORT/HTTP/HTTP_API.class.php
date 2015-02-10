@@ -6,14 +6,17 @@
  * @subpackage	TRANSPORT 
  */
 /**
-* require the interface before the class definition
-*/
-$filePath = JCORE_BASE_DIR.'TRANSPORT/TRANSPORT_INTERFACE.interface.php';
+* require the interface before the implementation definition
 require_once($filePath);
+$filePath = JCORE_BASE_DIR.'TRANSPORT/TRANSPORT_INTERFACE.interface.php';
+*/
+namespace JCORE\CACHE;
+
+use JCORE\TRANSPORT\TRANSPORT_INTERFACE as TRANSPORT_INTERFACE;
 /**
-* 
- * @package	JCORE
- * @subpackage	TRANSPORT
+ * Interface HTTP_API
+ *
+ * @package JCORE\TRANSPORT
 */
 class HTTP_API implements TRANSPORT_INTERFACE{
 	
