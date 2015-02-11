@@ -13,17 +13,17 @@ require_once($filePath);
 
 
  * @author	Jason Medland<jason.medland@gmail.com>
- * @package	JCORE
- * @subpackage	TRANSPORT 
+ * @package	JCORE\TRANSPORT\REST
+ * @subpackage	JCORE\TRANSPORT\REST 
  */
 
-namespace JCORE\TRANSPORT;
+namespace JCORE\TRANSPORT\REST;
 use JCORE\TRANSPORT\TRANSPORT_INTERFACE as TRANSPORT_INTERFACE;
 use JCORE\TRANSPORT\HTTP\HTTP_API as HTTP_API;
 /**
- * Interface PHP_SESSION
+ * Class REST_API
  *
- * @package JCORE\TRANSPORT
+ * @package JCORE\TRANSPORT\REST
 */
 abstract class REST_API implements TRANSPORT_INTERFACE{
 	
