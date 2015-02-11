@@ -128,7 +128,10 @@ class MySQL_connector implements \JCORE\DATA\API\DATA_API_INTERFACE{
 	public function set_connection($persistent=NULL){
 		#echo __METHOD__.__LINE__.'<br>';
 		// set a retry delay value
-		$DB_CONNECT_RETRY =  $GLOBAL["SYSTEM_SETTINGS"]["APPLICATION"]["DB_CONNECT_RETRY"];
+		#echo __METHOD__.'@'.__LINE__.'$this<pre>'.var_export($this, true).'</pre><br>';
+		#$DB_CONNECT_RETRY =  $GLOBAL["SYSTEM_SETTINGS"]["APPLICATION"]["DB_CONNECT_RETRY"];
+		$DB_CONNECT_RETRY =  $this->config["DB_CONNECT_RETRY"];
+		#echo __METHOD__.'@'.__LINE__.'$DB_CONNECT_RETRY<pre>'.var_export($DB_CONNECT_RETRY, true).'</pre><br>';
 		if(!is_bool($persistent)){
 			if(is_string($persistent)){
 				if('true' == strtolowwer($persistent)){
@@ -344,14 +347,15 @@ class MySQL_connector implements \JCORE\DATA\API\DATA_API_INTERFACE{
 		#echo __METHOD__.__LINE__.'<br>'.'****************(query='.$query.' returnArray='.$returnArray.')'.'<br>';
 		#$connection = $this->connectionPool[$database]->connection;
 		//$this->verify_connection($database);  CAUGHT IN raw()
-		//echo LN.__METHOD__.__LINE__.'<br>'.'-------------------the result is['.$result.']-------------------'.'<br>';
 		$result = $this->raw($query);
 		#echo LN.__METHOD__.__LINE__.'<br>'.'-------------------the result is['.$result.']['.gettype($result).']-------------------'.'<br>';
 		#echo __LINE__.'gettype(returnArray='.$returnArray.')gettype(result='.$result.')'.gettype($returnArray).'::'.gettype($result)."\n";
+		#echo __METHOD__.'@'.__LINE__.'$result<pre>'.var_export($result, true).'</pre><br>';
 		if(true === $args["returnArray"] && is_resource($result)){
 			$result = $this->resultToAssoc($result, $query);
 			#echo __LINE__.'gettype(result)'.gettype($result).!is_array($result)."\n";
 		}
+		#echo __METHOD__.'@'.__LINE__.'$result<pre>'.var_export($result, true).'</pre><br>';
 		
 		return $result;
 	}

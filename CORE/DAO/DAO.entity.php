@@ -202,11 +202,12 @@ class DAO{
 		#$config["pk_field"]; 
 		#$config["pk"];
 		
-		$GLOBALS['DATA_logger']->trace(LOG_DEBUG,__METHOD__, '(<pre>'.print_r($config, true).'</pre>)');
+		$GLOBALS['LOG_DATA']->log(LOG_DEBUG,__METHOD__, '(<pre>'.print_r($config, true).'</pre>)');
+		
 		if(is_array($config)){
-			echo 'config<pre>'.print_r($config, true).'</pre>'.LN;
+			#echo 'config<pre>'.print_r($config, true).'</pre>'.PHP_EOL;
 			if(
-				isset($config["database"])
+				isset($config["DSN"])
 				&&
 				isset($config["table"])
 				&&
@@ -215,7 +216,8 @@ class DAO{
 				isset($config["pk"])
 			){
 				#echo 'baseObjDDDDD<pre>'.print_r($else, true).'</pre>'.LN;
-				GLOBAL $db;
+				#GLOBAL $db;
+				$this->config = $config;
 				$this->tables[$config["table"]] 				= array();
 				$this->tables[$config["table"]]['database'] 	= $config["database"];
 				$this->tables[$config["table"]]['foundation'] 	= true;
@@ -224,7 +226,8 @@ class DAO{
 				$this->tables[$config["table"]]['values'] 		= array();
 				
 				$query = 'SELECT * FROM '.$config["table"].' WHERE '.$config["pk_field"].' = '.$config["pk"].' ';
-				$result = $db->SQL_select($config["database"], $query, $returnArray=true);
+				#$result = $db->SQL_select($config["database"], $query, $returnArray=true);
+				$result = $GLOBALS["DATA_API"]->retrieve($this->config["DSN"], $query, $args=array('returnArray' => true));
 				#$result = $db->SQLResultToAssoc($result);
 				
 				$this->tables[$config["table"]]['values'] = $result[0];
@@ -234,10 +237,10 @@ class DAO{
 					$this->root_pk = $config["pk"];
 				}elseif($result["EXCEPTION"]){
 					#echo '$result<pre>'.print_r($result, true).'</pre>'.LN;
-					$GLOBALS['DATA_logger']->trace(LOG_CRIT, __METHOD__ , 'ERROR MySQL error['.$result["EXCEPTION"]["ID"].']error:'.$result["EXCEPTION"]["MSG"].''); // ID MSG $query 
+					$GLOBALS['LOG_DATA']->log(LOG_CRIT, __METHOD__ , 'ERROR MySQL error['.$result["EXCEPTION"]["ID"].']error:'.$result["EXCEPTION"]["MSG"].''); // ID MSG $query 
 					$this->tables[$config["table"]]['values'] = $result["EXCEPTION"];
 				}else{
-					$GLOBALS['DATA_logger']->trace(LOG_CRIT, __METHOD__ , 'result['.print_r($result, true).']'); // ID MSG $query 
+					$GLOBALS['LOG_DATA']->log(LOG_CRIT, __METHOD__ , 'result['.print_r($result, true).']'); // ID MSG $query 
 				}
 						
 			}else{
@@ -320,10 +323,13 @@ class DAO{
 	protected function initializeFromSchema($database, $tableName, $set_fk=true){
 		GLOBAL $db;
 		// go get the table def
-		$db->introspectTable($database, $tableName);
+		#$db->introspectTable($database, $tableName);
+		$result = $GLOBALS["DATA_API"]->introspectTable($database, $tableName);
 		$values	= array();
 		//modifiedColumns
-		foreach($db->tableDefinitions[$database][$tableName] AS $key => $value){
+		#$result = $GLOBALS["DATA_API"]->retrieve($this->config["DSN"], $query, $args=array('returnArray' => true));
+		#foreach($db->tableDefinitions[$database][$tableName] AS $key => $value){
+		foreach($GLOBALS["DATA_API"]->tableDefinitions[$database][$tableName] AS $key => $value){
 			#echo ' key='.$key.' :: value=<pre>'.var_export($value,true).'</pre><br>';
 			
 			if(isset($value["allowNull"]) && $value["allowNull"] == 'NO'){
@@ -366,7 +372,8 @@ class DAO{
 		//$this->tables[$tableName]['tableDef'] = $db->introspectTable($database, $tableName);
 		
 		$query = 'SELECT * FROM '.$tableName.' WHERE '.$fk_field.' = '.$fk.' ';
-		$result = $db->SQL_select($database, $query, $returnArray=true);
+		#$result = $db->SQL_select($database, $query, $returnArray=true);
+		$result = $GLOBALS["DATA_API"]->retrieve($this->config["DSN"], $query, $args=array('returnArray' => true));
 		$this->tables[$tableName]['pk'] 	= $result[0][$pk_field];
 		$this->tables[$tableName]['values'] 	= array();
 		$this->tables[$tableName]['values'] = $result[0];
@@ -392,7 +399,8 @@ class DAO{
 		$this->tables[$joinTable]['fk'] 		= $fk;
 		
 		$query = 'SELECT * FROM '.$joinTable.' WHERE '.$fk_field.' = '.$fk.' ';
-		$result = $db->SQL_select($database, $query, $returnArray=true);
+		#$result = $db->SQL_select($database, $query, $returnArray=true);
+		$result = $GLOBALS["DATA_API"]->retrieve($this->config["DSN"], $query, $args=array('returnArray' => true));
 		#echo '$result<pre>'.var_export($result,true).'</pre>'."\n";
 		foreach($result AS $key => $value){
 			$this->tables[$joinTable]['values'][$value[$pk_field]] 	= $value;

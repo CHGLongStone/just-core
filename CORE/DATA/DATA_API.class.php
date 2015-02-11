@@ -100,6 +100,7 @@ namespace JCORE\DATA\API;
 *
 */
 use JCORE\DATA\API\DATA_API_INTERFACE;
+use JCORE\DATA\API\MySQL\MySQL_connector as MySQL_connector;
 #require_once('DATA_API_INTERFACE.interface.php');
 
 /**
@@ -159,9 +160,9 @@ class DATA_API{
 		
 		
 		#$settings 		= $logCfg;
-		GLOBAL $LOG_DATA;
+		#GLOBAL $LOG_DATA;
 		#echo __METHOD__.__LINE__.'<br>';
-		$this->logger	= $LOG_DATA;
+		$this->logger	= $GLOBALS['LOG_DATA'];
 		#echo __METHOD__.__LINE__.'<br>';
 		#echo(__METHOD__.'<pre>['.var_export($this->logger, true).']</pre>').'<br>'; 
 		$this->logger->log(LOG_DEBUG,__METHOD__, '()');
@@ -169,7 +170,7 @@ class DATA_API{
 		
 		# $this->logger	= $GLOBALS['DATA_logger'];
 		
-		#echo(__METHOD__.'<pre>['.var_export($this->logger, true).']</pre>').'<br>'; 
+		#echo(__METHOD__.'<pre>['.var_export($cfg, true).']</pre>').'<br>'; 
 		$this->connectorCfg = $cfg;
 		
 		#$this->logger->log(LOG_DEBUG,__METHOD__, JCORE_CONFIG_DIR.'/SERVICE/DATA/DATA_API.ini');
@@ -270,7 +271,7 @@ class DATA_API{
 			return false;
 		}
 		#echo __METHOD__.__LINE__.'<br>';
-		$this->logger->log(LOG_DEBUG,__METHOD__, '(DSN='.$DSN.', settings='.$settings.')');
+		$this->logger->log(LOG_DEBUG,__METHOD__, '(DSN='.$DSN.', settings='.var_export($settings,true).')');
 		#$settings = this->connectorCfg[$DSN];
 		#echo __METHOD__.'::this->connectorCfg['.$DSN.']<pre>'.print_r($this->connectorCfg[$DSN], true).'</pre>'.'<br>';
 		#echo __METHOD__.'::settings<pre>'.print_r($settings, true).'</pre>'.'<br>';
@@ -322,10 +323,11 @@ class DATA_API{
 	** done
 	*/
 	public function verify_connection($DSN){
-		#echo __METHOD__.__LINE__.'<br>';
+		#echo __METHOD__.__LINE__.' $DSN['.$DSN.']<br>';
 		$this->logger->log(LOG_DEBUG,__METHOD__, '(DSN='.$DSN.')');
+		#echo __METHOD__.'@'.__LINE__.'$this->connector<pre>'.var_export($this->connector, true).'</pre><br>';
 		//first check if the object is set in the connector
-		if(true === is_object($this->connector[$DSN])){
+		if(isset($this->connector[$DSN]) && true === is_object($this->connector[$DSN])){
 			#echo __METHOD__.__LINE__.'<br>';
 			//then we'll check if there is a valid resource
 			if(!is_resource($this->connector[$DSN]->connection)){
@@ -411,6 +413,7 @@ class DATA_API{
 	*/
 	public function retrieve($DSN, $query, $args=array('returnArray' => true)){
 		#echo __METHOD__.__LINE__.'<br>';
+		#echo __METHOD__.__LINE__.LOG_DEBUG.'::'.__METHOD__.'::'. '(DSN='.$DSN.', query='.$query.' returnArray='.$args["returnArray"].')'.'<br>';
 		$this->logger->log(LOG_DEBUG,__METHOD__, '(DSN='.$DSN.', query='.$query.' returnArray='.$args["returnArray"].')');
 		$this->verify_connection($DSN);
 		/**

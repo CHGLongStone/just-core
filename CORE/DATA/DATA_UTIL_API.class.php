@@ -21,8 +21,17 @@ class DATA_UTIL_API{
 	 * @return string stringval
 	 */
 	public static function scrubWhitespace($stringval){
-		$stringval = str_replace(array("\n", "\r", "\t"), " ", $stringval);
-		$stringval = trim(ereg_replace(" +", " ", $stringval));
+		if('' != $stringval){			
+			#echo __FILE__.'@'.__LINE__.'stringval<pre>'.var_export($stringval, true).'</pre><br>';
+			$stringval = str_replace(array("\n", "\r", "\t"), " ", $stringval);
+			#echo __FILE__.'@'.__LINE__.'stringval<pre>'.var_export($stringval, true).'</pre><br>';
+			$stringval = trim(preg_replace(" +", " ", $stringval));
+			#echo __FILE__.'@'.__LINE__.'stringval<pre>'.var_export($stringval, true).'</pre><br>';
+		}
+		/*
+		string ereg_replace ( string $pattern , string $replacement , string $string )
+		mixed preg_replace ( mixed $pattern , mixed $replacement , mixed $subject [, int $limit = -1 [, int &$count ]] )
+		*/
 		return $stringval;
 	}
 	/**

@@ -23,7 +23,7 @@
  * @subpackage	LOG
 */
 namespace JCORE\LOG;
-
+use JCORE\DATA\API\DATA_UTIL_API as DATA_UTIL_API;
 /**
  * Class CACHE_API2
  *
@@ -35,7 +35,7 @@ class LOGGER{
 	 * @var string
 	 */
 	protected $errors = array();
-	protected $traceString = '';
+	protected $traceString;
 	
 	private $settings = '';
 	
@@ -54,7 +54,7 @@ class LOGGER{
 		}else{
 			$this->settings = $GLOBALS['CONFIG_MANAGER']->getSetting($LOAD_ID = 'JCORE_LOG', $SECTION_NAME = 'JCORE');
 		}
-		
+		$this->traceString = '';
 			
 		
 		if($settings["logFacility"]){
@@ -146,8 +146,8 @@ class LOGGER{
 	* @return outputErrors 
 	*/
 	function writeToFile($args){
-		func_get_args();
 		/*
+		func_get_args();
 			logFacility="FILE" 
 			writePath="/var/log/"
 			logName="JCORE_"
@@ -167,9 +167,9 @@ class LOGGER{
 			$debugLevel = E_WARNING;
 		}
 		
-		
+		#echo(__METHOD__.'<pre>['.var_export($this, true).']</pre>').'<br>'; 
 		//dateFormatFile  timeStampFormat
-		$this->traceString .= $linePrepend.' '.date($this->settings["dateFormatFile"]).'.'.$usec.' ['.$Error.']['.$debugLevel.']::'.$Desc."\n";
+		$this->traceString .= $linePrepend.' '.date($this->settings["dateFormat"]).'.'.$usec.' ['.$Error.']['.$debugLevel.']::'.$Desc."\n";
 		if($this->settings["bufferWrite"] === true){ //(strlen($this->traceString)+1) >= FILE_LOG_PACKET_SIZE)
 			echo 'TRUE write it to internal buffer<br>';
 		}else{
@@ -187,7 +187,8 @@ class LOGGER{
 						file_put_contents ( $this->fullWritePath , $this->traceString,0 ,$this->writeStreamContext);
 						#echo __METHOD__.'@'.__LINE__.' WRITE LOG ['.$this->fullWritePath.']<br>';
 					}
-					unset($this->traceString);
+					#unset($this->traceString);
+					$this->traceString = '';
 		}
 	}
 	/**
