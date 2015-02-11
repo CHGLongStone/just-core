@@ -1,7 +1,7 @@
 <?php 
 /***
 * ERROR
- * basic error object move to jsonrpc compatible errors as default
+ * basic error object move to jsonrpc 2.0  compatible errors as default
  * 
  * 
  * @author		Jason Medland<jason.medland@gmail.com>
@@ -10,45 +10,15 @@
  */
 
 namespace JCORE\EXCEPTION;
+use JCORE\LOAD\CONFIG_MANAGER;
+use JCORE\TRANSPORT\JSON as JSON;
 /**
  * Class ERROR
  *
  * @package JCORE\EXCEPTION
 */
 class ERROR {
-	/***
-	* 
-	*/
-	public $code = NULL;
-	/***
-	* 
-	*/
-	public $message = NULL;
-	/***
-	* 
-	*/
-	public $data  = NULL;
-	
-	/***
-	* DESCRIPTOR: 
-	* enforce a method to parse the request in the sub class
-	* @param mixed args 
-	* @return return NULL  
-	*/
-	public function __construct($args){
-		#echo __METHOD__.__LINE__.'		<pre>['.var_export($args, true).']</pre>'.'<br>		';
-		if(isset($args["code"])){
-			$this->code = $args["code"];
-		}
-		if(isset($args["message"])){
-			$this->message = $args["message"];
-		}
-		if(isset($args["data"])){
-			$this->data = $args["data"];
-		}
-		#echo __METHOD__.__LINE__.'this<pre>['.var_export($this, true).']</pre>'.'<br>';
-		return;
-	}
+
 	/*
 		code
 		A Number that indicates the error type that occurred.
@@ -63,61 +33,44 @@ class ERROR {
 		
 		code message data
 		get_object_vars();
-	*/
-
-	/***
-	* DESCRIPTOR: 
-	* if $args["obj"] is set to TRUE (bool) the error will be returned 
-	* as a object other wise it will be returned as an array
-	* @param mixed args 
-	* @return return NULL  
-	*/
-	public function getError($args = null ){
-		if(true === $args["obj"]){
-			$tempObj = (object) get_object_vars($this);
-			return $tempObj; #var_export($this);
-		}else{
-			return get_object_vars($this);
-		}
-	}
-	public function __get($name)
-    {
-		if (array_key_exists($name, get_object_vars($this))) {
-			return $this->$$name;
-		}
-		return null;
-    }
-	
-	/*
-
+	*
      * @var object $Code
-
+	*/
     private $Code = null;
 
+	/**
      * @var object $Message
-
+	*/
     private $Message = null;
 
+	/**
      * @var object $Data
-
+	*/
     private $Data = null;    
 	
 
+	/**
      * @var object $Data
-
+	*/
     private $cfg = null;
 
 	
  
     public function __construct($args = null)
     {
-		$configpath = $_SERVER['DOCUMENT_ROOT'].'/../config/autoload/error.global.php';
-		$this->cfg = (require($configpath));
-		
-		$this->setCode($args['Code']);
-		$this->setMessage($args['Message']);
-		$this->setData($args['Data']);
+		$this->cfg = $GLOBALS["CONFIG_MANAGER"]->getSetting("ERROR");
+		#$configpath = $_SERVER['DOCUMENT_ROOT'].'/../config/autoload/error.global.php';
+		#$this->cfg = (require($configpath));
+		if(isset($args['Code'])){
+			$this->setCode($args['Code']);
+		}
 
+		if(isset($args['Message'])){
+			$this->setMessage($args['Message']);
+		}
+		if(isset($args['Data'])){
+			$this->setData($args['Data']);
+		}
 
 	}
 	
@@ -126,20 +79,37 @@ class ERROR {
 	}
 
     public function setCode($Code = null){ 
+		if(null !== $Code){
+			$this->Code = $Code;
+		}
+		/*
 		if(null !== $Code){			
 			if(is_numeric($Code)){
-				if(isset($this->cfg['ERROR'][$Code])){
-					$this->Code = $this->cfg['ERROR'][$Code];
+				if(isset($this->cfg[$Code])){
+					$this->Code = $this->cfg[$Code];
 				}else{
 					$this->Code = $Code;
 				}
-			}else{
-				$this->Code = $this->cfg['ERROR'][0];
-			}	
-		}		
+			}
+		}else{
+			$this->Code = $this->cfg[0];
+		}	
+		*/
 	}
 
     public function getMessage(){ 
+		$msg = "\r\n";
+		if(null !== $this->Code){			
+			if(is_numeric($this->Code)){
+				if(isset($this->cfg[$this->Code])){
+					$msg .= $this->cfg[$this->Code];
+				}else{
+					$msg .= $this->Code;
+				}
+			}
+		}else{
+			$msg .= $this->cfg[0];
+		}	
 		return $this->Message;
 	}
 
@@ -161,7 +131,7 @@ class ERROR {
 		#echo '<pre>'.var_export($backtrace, true).'</pre>';
 		$this->Data = $backtrace[1]['class'].'->'.$backtrace[1]['function'];
 		if(null !== $Data){
-			$this->Data = $this->Data.PHPEOL.var_dump($Data);
+			$this->Data = $this->Data.PHP_EOL.var_dump($Data);
 		}
 	}
 
@@ -177,8 +147,19 @@ class ERROR {
 		}
 
 		return $error;
+		return $this;
 	}  	
-	*/
+	public function __set_state($error)
+    {
+		#$error =  array();
+		echo '@@@@@@@@@@@@';
+		$error['Code'] = $this->getCode();
+		unset($error['cfg']);
+		#$error['Message'] = $this->getMessage();
+		#$error['Data'] = $this->getData();
+		#$ERROR = new ERROR($error);
+		return $error;
+    }
 }
 
 ?>
