@@ -42,15 +42,13 @@ require_once(JCORE_BASE_DIR.'EXCEPTION/ERROR.class.php');
 require_once(JCORE_BASE_DIR.'DATA/DATA_API.class.php');
 require_once(JCORE_BASE_DIR.'DATA/DATA_API_INTERFACE.interface.php');
 require_once(JCORE_BASE_DIR.'DATA/MySQL/MySQL_connector.class.php');
-*/
 
 if(!isset($BOOTSTRAP)){
 	
-	/**
+
 	* --- make this value is not set in the API/[name]/config.php 
 	* if you do not have an opcode cache installed
-	*
-	*/
+
 	$BOOTSTRAP["CSN"] = JCORE_SYSTEM_CACHE;		
 	$BOOTSTRAP["CACHE_SERIALIZATION"] = 'JSON'; //
 	$BOOTSTRAP["UNSERIALIZE_TYPE"] = 'ARRAY'; //CACHE_SERIALIZATION-JSON[OBJECT/ARRAY] for json_decode
@@ -64,6 +62,7 @@ foreach($GLOBALS['CONFIG_MANAGER']->getSetting($LOAD_ID = 'JCORE', $SECTION_NAME
 	CONFIG_MANAGER::wrapDefine($value, $key, $prepend='JCORE_'); // define ($key, $value);
 }
 
+*/
 
 $GLOBALS['LOG_ERROR'] = new LOGGER(
 	$GLOBALS['CONFIG_MANAGER']->getSetting($LOAD_ID = 'JCORE_LOG', $SECTION_NAME = 'JCORE')

@@ -48,17 +48,10 @@ class ERROR {
 	*/
     private $Data = null;    
 	
-
-	/**
-     * @var object $Data
-	*/
-    private $cfg = null;
-
-	
- 
     public function __construct($args = null)
     {
-		$this->cfg = $GLOBALS["CONFIG_MANAGER"]->getSetting("ERROR");
+		#$this->cfg = $GLOBALS["CONFIG_MANAGER"];//->getSetting("ERROR")
+		#echo __METHOD__.'@'.__LINE__.'$GLOBALS["CONFIG_MANAGER"]->getSetting("ERROR",32602 )<pre>'.var_export($GLOBALS["CONFIG_MANAGER"]->getSetting("ERROR",32602 ), true).'</pre>';
 		#$configpath = $_SERVER['DOCUMENT_ROOT'].'/../config/autoload/error.global.php';
 		#$this->cfg = (require($configpath));
 		if(isset($args['Code'])){
@@ -68,9 +61,13 @@ class ERROR {
 		if(isset($args['Message'])){
 			$this->setMessage($args['Message']);
 		}
+		/*
 		if(isset($args['Data'])){
-			$this->setData($args['Data']);
+			echo __METHOD__.'@'.__LINE__.'$args["Data"]<pre>'.var_export($args['Data'], true).'</pre>';
+			echo __METHOD__.'@'.__LINE__.'this->getData()<pre>'.var_export($this->getData(), true).'</pre>';
 		}
+		*/
+		$this->setData($args['Data']);
 
 	}
 	
@@ -82,41 +79,37 @@ class ERROR {
 		if(null !== $Code){
 			$this->Code = $Code;
 		}
-		/*
-		if(null !== $Code){			
-			if(is_numeric($Code)){
-				if(isset($this->cfg[$Code])){
-					$this->Code = $this->cfg[$Code];
-				}else{
-					$this->Code = $Code;
-				}
-			}
-		}else{
-			$this->Code = $this->cfg[0];
-		}	
-		*/
 	}
 
     public function getMessage(){ 
-		$msg = "\r\n";
-		if(null !== $this->Code){			
-			if(is_numeric($this->Code)){
-				if(isset($this->cfg[$this->Code])){
-					$msg .= $this->cfg[$this->Code];
-				}else{
-					$msg .= $this->Code;
-				}
-			}
-		}else{
-			$msg .= $this->cfg[0];
-		}	
+
 		return $this->Message;
+	}    
+
+	public function getConfigCode($LOAD_ID="ERROR",$SECTION_NAME=null,$SETTING_NAME=null){ 
+		return $GLOBALS["CONFIG_MANAGER"]->getSetting("ERROR",$this->Code);
+		#$this->Message;
 	}
 
     public function setMessage($Message = null){ 
 		if(null !== $Message){
 			$this->Message = $Message;
 		}
+		$msg = "\r\n";
+		if(null !== $this->Code){			
+			if(is_numeric($this->Code)){
+				if(
+					false != $this->getConfigCode("ERROR",$this->Code)
+				){
+					$msg .= $this->getConfigCode("ERROR",$this->Code);
+				}else{
+					$msg .= $this->Code;
+				}
+			}
+		}else{
+			$msg .= $this->getConfigCode("ERROR",0);
+		}	
+		$this->Message .= $msg;
 	}
 	
 
@@ -126,12 +119,16 @@ class ERROR {
 	}
 
     public function setData($Data = null){ 
+		echo __METHOD__.'@'.__LINE__.'Data<pre>'.var_export($Data, true).'</pre>';
 		
-		$backtrace = debug_backtrace();
-		#echo '<pre>'.var_export($backtrace, true).'</pre>';
-		$this->Data = $backtrace[1]['class'].'->'.$backtrace[1]['function'];
-		if(null !== $Data){
-			$this->Data = $this->Data.PHP_EOL.var_dump($Data);
+		if(null == $Data){
+			$backtrace = debug_backtrace();
+			#echo __METHOD__.'@'.__LINE__.'backtrace<pre>'.var_export($backtrace, true).'</pre>';
+			$this->Data = $backtrace[1]['file'].'@'.$backtrace[1]['line'].':call:'.$backtrace[1]['class'].'->'.$backtrace[1]['function'];
+			
+			$this->Data = $this->Data.PHP_EOL.var_export($Data, true);
+		}else{
+			$this->Data = var_export($Data, true);
 		}
 	}
 
@@ -146,15 +143,35 @@ class ERROR {
 			$error = json_encode($error);
 		}
 
+		#return $this;
 		return $error;
-		return $this;
 	}  	
-	public function __set_state($error)
-    {
+	public function __toString(){
 		#$error =  array();
-		echo '@@@@@@@@@@@@';
+		echo __METHOD__.'@'.__LINE__.'<pre>'.var_export($this->getMessage(), true).'</pre>';
+		echo '**************';
+		$error['Message'] = '**************';
 		$error['Code'] = $this->getCode();
 		unset($error['cfg']);
+		#$error['Message'] = $this->getMessage();
+		#$error['Data'] = $this->getData();
+		#$ERROR = new ERROR($error);
+		return $error;
+		
+	}
+	public function __sleep(){
+		echo __METHOD__.'@'.__LINE__.'$error<pre>'.var_export($error, true).'</pre>';
+	}
+	
+	public static function __set_state($error = array( 'gdmf'=>''))
+    {
+		unset($error['cfg']);
+		#$error = array( 'cfg'=>'');
+		echo __METHOD__.'@'.__LINE__.'$error<pre>'.var_export($error, true).'</pre>';
+		#$error =  array();
+		echo '@@@@@@@@@@@@';
+		$error['Message'] = '@@@@@@@@@@@@';
+		$error['Code'] = $this->getCode();
 		#$error['Message'] = $this->getMessage();
 		#$error['Data'] = $this->getData();
 		#$ERROR = new ERROR($error);
