@@ -40,6 +40,7 @@ An error occurred on the server while parsing the JSON text.
 -32602	Invalid params	Invalid method parameter(s).
 -32603	Internal error	Internal JSON-RPC error.
 -32000 to -32099	Server error	Reserved for implementation-defined server-errors.
+
 */
 	public static function json_decode($JSON, $toArray = true){
 		return $this::validateJSON($JSON, $toArray = true);
