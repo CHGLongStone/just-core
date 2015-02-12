@@ -1,14 +1,18 @@
 <?php
-//file level decription
- 
-//class level decription
 /**
  * Class
- * 
  * @author		Jason Medland<jason.medland@gmail.com>
  * @subpackage	webkinz 2.0 - data
+ * 
  */
-class MYSQL_TABLE_META{
+namespace JCORE\DATA\API\MySQL;
+
+/**
+ * Interface MYSQL_TABLE_META
+ *
+ * @package JCORE\DATA\API\MySQL
+*/
+ class MYSQL_TABLE_META{
 	
 	/**
 	 * @access private 

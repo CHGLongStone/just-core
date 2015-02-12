@@ -101,6 +101,7 @@ namespace JCORE\DATA\API;
 */
 use JCORE\DATA\API\DATA_API_INTERFACE;
 use JCORE\DATA\API\MySQL\MySQL_connector as MySQL_connector;
+use JCORE\DATA\MySQL\MySQL_TABLE_META as MySQL_TABLE_META;
 #require_once('DATA_API_INTERFACE.interface.php');
 
 /**
@@ -215,15 +216,15 @@ class DATA_API{
 			if($setByType === TRUE){
 				#echo __METHOD__.'::'.__LINE__.'$this->introspectionClassName['.$this->connectorCfg[$DSN]["dbType"].']'.'<br>';
 				$introspectionClassName = $this->connectorCfg[$DSN]["dbType"].'_TABLE_META';
-				#echo __METHOD__.'::'.__LINE__.'$introspectionClassName['.$introspectionClassName.']'.'<br>';
+				echo __METHOD__.'::'.__LINE__.'$introspectionClassName['.$introspectionClassName.']'.'<br>';
 				if (!class_exists($introspectionClassName)) {
 					//log if there is an error
 					try{
 						#echo __METHOD__.'::'.__LINE__.'$introspectionClassName['.$introspectionClassName.']'.'<br>';
 						//this file/class MUST be included in  
 						$classPath = $this->connectorCfg[$DSN]["dbType"].'_TABLE_META'.'.class.php';
-						if(!require_once $classPath){
-							throw new Exception('ERROR FAILED INCLUDE '.__METHOD__.'$classPath['.$classPath.']');
+						if(!class_exists( $classPath)){
+							#throw new \Exception('ERROR FAILED DEFINITION '.__METHOD__.'$classPath['.$classPath.']');
 						}
 						#echo __METHOD__.'::'.__LINE__.'$introspectionClassName['.$introspectionClassName.']'.'<br>';
 					}
@@ -520,15 +521,15 @@ class DATA_API{
 	public function SQLResultToAssoc($result, $query=''){ ///, $DSN, $resultType = 'MySQL'
 		#echo __METHOD__.__LINE__.'<br>';
 		#$this->logger->log(LOG_DEBUG,__METHOD__, '(result='.$result.')');
-		//echo LN.__METHOD__.__LINE__.'-------------------NO RESULTS RETURNED-------------------'.'<br>';
+		//echo __METHOD__.__LINE__.'-------------------NO RESULTS RETURNED-------------------'.'<br>';
 		#echo '$resultadasdas<pre>'.var_export($result,true).'</pre>';
 		if(is_array($result)){
-			echo LN.__METHOD__.__LINE__.'<br>'.'-------------------RESULT IS ARRAY -------------------'.'<br>';
+			echo __METHOD__.__LINE__.'<br>'.'-------------------RESULT IS ARRAY -------------------'.'<br>';
 			return $result;
 		}
 		if( $result === false){
 			#return $result;
-			echo LN.__METHOD__.__LINE__.'<br>'.'-------------------NO RESULTS RETURNED [RESULT === FALSE]-------------------'.'<br>';
+			echo __METHOD__.__LINE__.'<br>'.'-------------------NO RESULTS RETURNED [RESULT === FALSE]-------------------'.'<br>';
 			#$this->logger->log(LOG_NOTICE,'NO RESULTS','DSN['.$this->DSN.'] query['.$query.']');
 			return array(); // send an empty array if there is no result  ie "0" rows
 			// an error would have already been returned if there was one
@@ -539,10 +540,10 @@ class DATA_API{
 		}
 		try{
 			if(count($resultArray) == 0){
-				throw new Exception('SQLResultToAssoc FAILED'); // ONLY BECAUSE WE WANT A TRACE
+				throw new \Exception('SQLResultToAssoc FAILED'); // ONLY BECAUSE WE WANT A TRACE
 			}
 		}
-		catch(Exception $e){
+		catch(\Exception $e){
 			#$this->logger->log(LOG_CRIT,__METHOD__, 'SQLResultToAssoc FAILED['.$result.']');
 			#$this->logger->log(LOG_NOTICE,$e->getMessage(),$e->getTraceAsString());
 			echo $e->getTraceAsString().'<br>';
