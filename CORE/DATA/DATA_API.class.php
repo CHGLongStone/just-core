@@ -301,9 +301,12 @@ class DATA_API{
 			// "implementation" is actually set, lets check it has a value
 			if($settings["implementation"] != ''){
 				//if the class doesn't exist, svn is out of date or the file is not committed or some other WDF??
+				/**
+				no direct includes, use the autoloader 
 				if(!class_exists($settings["implementation"])){
 					require_once $settings["implementation"].'.class.php';
 				}
+				*/
 				########## 
 				########## check again or use a try/catch block throw a soft error
 				########## and load the default 
