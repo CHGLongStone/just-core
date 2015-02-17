@@ -199,16 +199,18 @@ class DAO{
 		//$database, $table, $pk_field, $pk 
 		//echo 'result<pre>'.print_r($result, true).'</pre>'.LN;
 		#$config["database"];
-		#$config["table"];
+		#$config["table"];database
 		#$config["pk_field"]; 
 		#$config["pk"];
 		
 		$GLOBALS['LOG_DATA']->log(LOG_DEBUG,__METHOD__, '(<pre>'.print_r($config, true).'</pre>)');
 		
 		if(is_array($config)){
-			#echo 'config<pre>'.print_r($config, true).'</pre>'.PHP_EOL;
+			echo 'config<pre>'.print_r($config, true).'</pre>'.PHP_EOL;
 			if(
 				isset($config["DSN"])
+				&&
+				isset($config["database"])
 				&&
 				isset($config["table"])
 				&&
@@ -245,7 +247,7 @@ class DAO{
 				}
 						
 			}else{
-				#echo 'else<pre>'.print_r($else, true).'</pre>'.LN;
+				echo 'else<pre>'.print_r($else, true).'</pre>'.LN;
 			}	
 		}
 
@@ -322,15 +324,20 @@ class DAO{
 	* @return NULL SCHEMA
 	*/
 	protected function initializeFromSchema($database, $tableName, $set_fk=true){
-		GLOBAL $db;
+		#GLOBAL $db;
 		// go get the table def
 		#$db->introspectTable($database, $tableName);
+		echo __METHOD__.'::'.__LINE__.'tableName<pre>'.print_r($tableName, true).'</pre>';
 		$result = $GLOBALS["DATA_API"]->introspectTable($database, $tableName);
+		echo __METHOD__.'::'.__LINE__.'result<pre>'.print_r($result, true).'</pre>';
 		$values	= array();
 		//modifiedColumns
 		#$result = $GLOBALS["DATA_API"]->retrieve($this->config["DSN"], $query, $args=array('returnArray' => true));
 		#foreach($db->tableDefinitions[$database][$tableName] AS $key => $value){
-		foreach($GLOBALS["DATA_API"]->tableDefinitions[$database][$tableName] AS $key => $value){
+		echo __METHOD__.'::'.__LINE__.'$GLOBALS["DATA_API"]->dataSchema<pre>'.print_r($GLOBALS["DATA_API"]->dataSchema, true).'</pre>';
+		#foreach($GLOBALS["DATA_API"]->dataSchema[$database][$tableName] AS $key => $value){
+		#foreach($GLOBALS["DATA_API"]->tableDefinitions[$database][$tableName] AS $key => $value){
+		foreach($result AS $key => $value){
 			#echo ' key='.$key.' :: value=<pre>'.var_export($value,true).'</pre><br>';
 			
 			if(isset($value["allowNull"]) && $value["allowNull"] == 'NO'){

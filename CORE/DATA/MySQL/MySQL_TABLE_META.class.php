@@ -6,7 +6,7 @@
  * 
  */
 namespace JCORE\DATA\API\MySQL;
-
+use JCORE\EXCEPTION\DATA_Exception as DATA_Exception;
 /**
  * Interface MYSQL_TABLE_META
  *
@@ -33,16 +33,23 @@ namespace JCORE\DATA\API\MySQL;
 	public $DSN = NULL;
 	
 	/**
-	 * @access protected 
+	 * @access public 
 	 * @var string
 	 */
 	public $tableProperties = NULL; //array();
 	
 	/**
-	 * @access protected 
+	 * @access public 
 	 * @var string
 	 */
 	public $connectionObject = NULL; //array();
+	
+	/**
+	 * @access protected 
+	 * @var string
+	 */
+	protected $columnNames = NULL; //array();
+	
 	
 	
 	/**
@@ -51,8 +58,8 @@ namespace JCORE\DATA\API\MySQL;
 	 * @return	NULL
 	 */
 	public function __construct(){
-		#action
 		/*
+		echo __METHOD__.'::'.__LINE__.' '.PHP_EOL;
 		GLOBAL $logCFG;
 		$settings 		= $logCFG["DATA"];
 		$this->logger	= new logInternal($settings);
@@ -66,8 +73,8 @@ namespace JCORE\DATA\API\MySQL;
 	* @return NULL 
 	*/
 	public function flushData(){
-		echo __METHOD__.'::'.__LINE__.'-------================()()()())()()())()()()()()()()()()()()()()()('.LN;
-		$this->connectionObject	= NULL;
+		#echo __METHOD__.'::'.__LINE__.'-------================()()()())()()())()()()()()()()()()()()()()()('.PHP_EOL;
+		#$this->connectionObject	= NULL; should always bee the same in called context
 		$this->tableName 		= '';
 		$this->DSN 				= '';
 		#$this->setProperties 	= '';
@@ -92,21 +99,26 @@ namespace JCORE\DATA\API\MySQL;
 	* @return NULL 
 	*/
 	public function initialize($DSN, $tableName, $connectionObject=NULL){
-		#echo __METHOD__.'::'.__LINE__.'$DSN['.$DSN.']'.LN;
-		#echo __METHOD__.'::'.__LINE__.'$tableName['.$tableName.']'.LN;
-		#echo __METHOD__.'::'.__LINE__.'$connectionObject['.gettype($connectionObject).']'.LN;
-		#echo __METHOD__.'::'.__LINE__.'$connectionObject<pre>'.var_export($connectionObject, true).'</pre>'.LN;
+		/***
+		#echo __METHOD__.'::'.__LINE__.'$DSN['.$DSN.']'.PHP_EOL;
+		echo __METHOD__.'::'.__LINE__.'$DSN<pre>'.var_export($DSN, true).'</pre>'.PHP_EOL;
+		echo __METHOD__.'::'.__LINE__.'$tableName['.$tableName.']'.PHP_EOL;
+		echo __METHOD__.'::'.__LINE__.'$connectionObject['.gettype($connectionObject).']'.PHP_EOL;
+		echo __METHOD__.'::'.__LINE__.'$connectionObject<pre>'.var_export($connectionObject, true).'</pre>'.PHP_EOL;
+		#getSetting($LOAD_ID = null, $SECTION_NAME = null, $SETTING_NAME = NULL)
 		#GLOBAL $dbInterface;
-		#echo __FILE__.'::'.__LINE__.'$introspectionClass['.$connectionObject.']---------[$connectionObject]['.gettype($connectionObject).']<pre>'.var_export($connectionObject,true).'</pre>'.LN;
+		#echo __FILE__.'::'.__LINE__.'$introspectionClass['.$connectionObject.']---------[$connectionObject]['.gettype($connectionObject).']<pre>'.var_export($connectionObject,true).'</pre>'.PHP_EOL;
+		*/
 		/**
 		* always pass the connection object 
 		*/
-		#echo __METHOD__.'::'.__LINE__.'$DSN['.$DSN.']'.LN;
+		#echo __METHOD__.'::'.__LINE__.'$DSN['.$DSN.']'.PHP_EOL;
 		if(!isset($connectionObject) || !is_object($connectionObject)){
-			#echo __METHOD__.'::'.__LINE__.'FAIL NO CONN OBJECT $DSN['.$DSN.']['.$tableName.']'.gettype($connectionObject).'$data<pre>'.print_r($data, true).'</pre>'.LN;
+			#echo __METHOD__.'::'.__LINE__.'FAIL NO CONN OBJECT $DSN['.$DSN.']['.$tableName.']'.gettype($connectionObject).'$data<pre>'.print_r($data, true).'</pre>'.PHP_EOL;
 			return FALSE;
 		}
-		#echo __METHOD__.'::'.__LINE__.'$DSN['.$DSN.']'.LN;
+		$this->connectionObject = $connectionObject;
+		#echo __METHOD__.'::'.__LINE__.'$DSN['.$DSN.']'.PHP_EOL;
 		
 		#$this->connectionObject = $connectionObject;
 		
@@ -114,22 +126,58 @@ namespace JCORE\DATA\API\MySQL;
 		$this->tableProperties	= array();
 		#$caller=__CLASS__.'->'.__FUNCTION__;
 		#echo '['.__CLASS__.'->'.__FUNCTION__.'] DSN=['.$DSN.'] tableName=['.$tableName.']'."\n";
-		echo __METHOD__.'::'.__LINE__.'$DSN['.$DSN.']'.LN;
+		#echo __METHOD__.'::'.__LINE__.'$DSN['.$DSN.']'.PHP_EOL;
 		$this->DSN = $DSN;
 		$this->tableName = $tableName;
-		echo __METHOD__.'::'.__LINE__.'$DSN['.$DSN.']'.LN;
-		if(FALSE === $this->validateConnectionObject($connectionObject)){
-			echo __METHOD__.'::'.__LINE__.'-----------------------------RESET $connectionObject['.gettype($connectionObject).']'.LN;
+		#echo __METHOD__.'::'.__LINE__.'$DSN['.$DSN.']'.PHP_EOL;
+		/**
+		redundant, we deal with this in the DATA_API
+		if(FALSE === $this->validateConnectionObject($connectionObject)){ 
+			#echo __METHOD__.'::'.__LINE__.'-----------------------------RESET $connectionObject['.gettype($connectionObject).']'.PHP_EOL;
 			$this->connectionObject = $connectionObject;
 		}		
+		*/
 		#SQLResultToAssoc($result, $query)
-		$query = 'SHOW COLUMNS FROM '.$this->tableName.';  ';
-		echo __METHOD__.'::'.__LINE__.'$query['.query.']'.LN;
-		$result = $this->connectionObject->SQL_select($query, $returnArray=false);///, $returnArray=true
-		echo __METHOD__.'::'.__LINE__.'$result<pre>'.var_export($result, true).'</pre>'.LN;
-		$result = $this->connectionObject->SQLResultToAssoc($result, $query);
-		#echo __METHOD__.'::'.__LINE__.'$result<pre>'.var_export($result, true).'</pre>'.LN;
-		#echo __METHOD__.'::'.__LINE__.'$data<pre>'.print_r($data, true).'</pre>'.LN;
+		$query = 'SHOW COLUMNS FROM `'.$this->tableName.'`;  ';
+		$query = '
+			SELECT 
+				c.TABLE_NAME as `Table`,
+				c.COLUMN_NAME AS `Field`, 
+				c.DATA_TYPE AS `Type`, 
+				c.COLUMN_TYPE AS `ColumnType`,
+				c.IS_NULLABLE AS `IS_NULLABLE`,
+				c.COLUMN_KEY AS `Key`,
+				c.COLUMN_DEFAULT AS `Default`,
+				c.EXTRA AS `Extra`,
+				k.CONSTRAINT_NAME, 
+				k.REFERENCED_TABLE_NAME, 
+				k.REFERENCED_COLUMN_NAME
+			FROM `information_schema`.`columns` c
+				LEFT JOIN information_schema.`KEY_COLUMN_USAGE` k
+				ON k.TABLE_NAME = c.TABLE_NAME
+				AND k.COLUMN_NAME = c.COLUMN_NAME
+				/*
+				LEFT JOIN information_schema.`REFERENTIAL_CONSTRAINTS` r
+				ON r.CONSTRAINT_NAME = k.CONSTRAINT_NAME
+				AND r.TABLE_NAME = k.TABLE_NAME	
+				*/
+			WHERE  c.TABLE_SCHEMA = "'.$DSN["database"].'"
+				AND c.TABLE_NAME = "'.$this->tableName.'"
+				
+				
+		';
+
+
+		#echo __METHOD__.'::'.__LINE__.'$query<pre>['.$query.']<pre>'.PHP_EOL;
+		$args =array(
+			"returnArray" => true
+		);
+		$result = $this->connectionObject->retrieve( $query, $args);///, $returnArray=true
+		#$result2 = $this->connectionObject->retrieve( $query2, $args);///, $returnArray=true
+		#echo __METHOD__.'::'.__LINE__.'$result<pre>'.var_export($result, true).'</pre>'.PHP_EOL;
+		#$result = $this->connectionObject->SQLResultToAssoc($result, $query);
+		#echo __METHOD__.'::'.__LINE__.'$result<pre>'.var_export($result, true).'</pre>'.PHP_EOL;
+		#echo __METHOD__.'::'.__LINE__.'$data<pre>'.print_r($data, true).'</pre>'.PHP_EOL;
 		$this->setProperties($result);
 		/*
 		*/
@@ -139,14 +187,13 @@ namespace JCORE\DATA\API\MySQL;
 	* DESCRIPTOR: check if the DB connection is valid to what we want to do
 	* @param mixed $data 
 	* @return bool $valid 
-	*/
 	private function validateConnectionObject($connectionObject = NULL){
-		echo __METHOD__.'::'.__LINE__.'$connectionObject['.gettype($connectionObject).']'.LN;
-		#echo __METHOD__.'::'.__LINE__.'$connectionObject<pre>'.var_export($connectionObject, true).'</pre>'.LN;
-		#echo __METHOD__.'::'.__LINE__.'$connectionObject<pre>'.var_export($this->connectionObject, true).'</pre>'.LN;
-		#echo __METHOD__.'::'.__LINE__.'$connectionObject<pre>'.print_r($connectionObject, true).'</pre>'.LN;
-		#echo __METHOD__.'::'.__LINE__.'$connectionObject->DSN['.$connectionObject->DSN.']'.LN;
-		#echo __METHOD__.'::'.__LINE__.'$this->connectionObject->DSN['.$this->connectionObject->DSN.']'.LN;
+		echo __METHOD__.'::'.__LINE__.'$connectionObject['.gettype($connectionObject).']'.PHP_EOL;
+		#echo __METHOD__.'::'.__LINE__.'$connectionObject<pre>'.var_export($connectionObject, true).'</pre>'.PHP_EOL;
+		#echo __METHOD__.'::'.__LINE__.'$connectionObject<pre>'.var_export($this->connectionObject, true).'</pre>'.PHP_EOL;
+		#echo __METHOD__.'::'.__LINE__.'$connectionObject<pre>'.print_r($connectionObject, true).'</pre>'.PHP_EOL;
+		#echo __METHOD__.'::'.__LINE__.'$connectionObject->DSN['.$connectionObject->DSN.']'.PHP_EOL;
+		#echo __METHOD__.'::'.__LINE__.'$this->connectionObject->DSN['.$this->connectionObject->DSN.']'.PHP_EOL;
 		
 		$valid = FALSE;
 		//
@@ -157,49 +204,72 @@ namespace JCORE\DATA\API\MySQL;
 		}		
 		return $valid;
 	}
+	*/
 	/**
 	* DESCRIPTOR: IE: Stores meta resultArray for table in a traversable form
 	* @param mixed $resultArray 
 	* @return NULL 
 	*/
 	private function setProperties($resultArray = NULL){
+		#echo __METHOD__.'::'.__LINE__.'$this->columnNames<pre>'.print_r($this->columnNames, true).'</pre>';
+		#echo __METHOD__.'::'.__LINE__.'$resultArray<pre>'.print_r($resultArray, true).'</pre>';
+		#echo __METHOD__.'::'.__LINE__.'$resultArray2<pre>'.print_r($resultArray2, true).'</pre>';
 		#echo '$resultArray['.__FUNCTION__.']<pre>'.print_r($resultArray, true).'</pre>';
-		//echo __METHOD__.'::'.__LINE__.'$resultArray<pre>'.print_r($resultArray, true).'</pre>'.LN;
+		//echo __METHOD__.'::'.__LINE__.'$resultArray<pre>'.print_r($resultArray, true).'</pre>'.PHP_EOL;
 		if($resultArray == NULL){
 			$this->logger->trace(LOG_WARNING, __METHOD__, '$resultArray == NULL');
 			return;
 		}
 		foreach($resultArray AS $key => $value){
-			$subject = $value["Type"];
-			$pattern = '/ ^  (\w*)  \(    (\d*)    \)       /x';
-			$matches = array();
-			preg_match($pattern, $subject, $matches);
-			$this->columnNames->$value["Field"]->index = $key;
-			#echo '['.$value["Field"].']matches<pre>'.print_r($matches, true).'</pre>'.LN;
-			if( strpos ( $value["Type"], 'enum') === false){
-				if(count($matches) == 0){
-					$this->tableProperties[$value["Field"]]["type"] 	= $value["Type"];
-					#$this->tableProperties[$value["Field"]]["length"] 	= $matches[2];				
+			if(!isset($this->tableProperties[$value["Field"]])){
+				$subject = $value["ColumnType"];
+				$pattern = '/ ^  (\w*)  \(    (\d*)    \)       /x';
+				$matches = array();
+				preg_match($pattern, $subject, $matches);
+				#$this->columnNames->$value["Field"]->index = $key;
+				#echo '['.$value["Field"].']matches<pre>'.print_r($matches, true).'</pre>'.PHP_EOL;
+				if( strpos ( $value["Type"], 'enum') === false){
+					if(count($matches) == 0){
+						$this->tableProperties[$value["Field"]]["type"] 	= $value["Type"];
+						#$this->tableProperties[$value["Field"]]["length"] 	= $matches[2];				
+					}else{
+						$this->tableProperties[$value["Field"]]["type"] 	= $matches[1];
+						$this->tableProperties[$value["Field"]]["length"] 	= $matches[2];				
+					}
+					
+
 				}else{
-					$this->tableProperties[$value["Field"]]["type"] 	= $matches[1];
-					$this->tableProperties[$value["Field"]]["length"] 	= $matches[2];				
+					$this->tableProperties[$value["Field"]]["type"] 	= 'enum';
+					$this->tableProperties[$value["Field"]]["options"] 	= explode("','",preg_replace("/(enum|set)\('(.+?)'\)/","\\2",stripslashes($value["ColumnType"])));
 				}
 				
-
-			}else{
-				$this->tableProperties[$value["Field"]]["type"] 	= 'enum';
-				$this->tableProperties[$value["Field"]]["options"] 	= explode("','",preg_replace("/(enum|set)\('(.+?)'\)/","\\2",stripslashes($value["Type"])));
+				$this->tableProperties[$value["Field"]]["ColumnType"] 	= $value["ColumnType"];
+				
+				$this->tableProperties[$value["Field"]]["default"] 		= $value["Default"];
+				$this->tableProperties[$value["Field"]]["allowNull"] 	= $value["IS_NULLABLE"];
+				if($value["Extra"] == 'auto_increment'){
+					$this->tableProperties[$value["Field"]]["autoIncrement"] 	= true;
+				}
+				if($value["Key"] != ''){
+					$this->tableProperties[$value["Field"]]["key"] = array(
+						$value["Key"]
+					);
+				}
 			}
-			
-			$this->tableProperties[$value["Field"]]["default"] 		= $value["Default"];
-			$this->tableProperties[$value["Field"]]["allowNull"] 	= $value["Null"];
-			if($value["Extra"] == 'auto_increment'){
-				$this->tableProperties[$value["Field"]]["autoIncrement"] 	= true;
+			//CONTRAINT_NAME
+			if( '' != $value["CONSTRAINT_NAME"] ){
+				#echo __METHOD__.'::'.__LINE__.'$key ['.$key.'] $value<pre>'.print_r($value, true).'</pre>';
+				$this->tableProperties[$value["Field"]]["key"]["FKDef"]["name"] 		= $value["CONSTRAINT_NAME"];
+				if('' != $value["REFERENCED_TABLE_NAME"]){
+					$this->tableProperties[$value["Field"]]["key"]["FKDef"]["RefTable"]		= $value["REFERENCED_TABLE_NAME"];
+				}	
+				if('' != $value["REFERENCED_COLUMN_NAME"]){
+					$this->tableProperties[$value["Field"]]["key"]["FKDef"]["RefColumn"]	= $value["REFERENCED_COLUMN_NAME"];
+				}
+					
 			}
-			if($value["Key"] == 'PRI'){
-				$this->tableProperties[$value["Field"]]["key"] 	= 'primary';
-			}
-			
+				
+				
 		}
 		#$this->errors[] = '';
 	}
@@ -209,7 +279,7 @@ namespace JCORE\DATA\API\MySQL;
 	* @return NULL 
 	*/
 	public function getTableProperties($data = NULL){
-		echo __METHOD__.'::'.__LINE__.'$data<pre>'.print_r($data, true).'</pre>'.LN;
+		#echo __METHOD__.'::'.__LINE__.'$data<pre>'.print_r($data, true).'</pre>'.PHP_EOL;
 		if(isset($this->tableProperties) && is_array($this->tableProperties) && count($this->tableProperties) > 0){
 			return $this->tableProperties;
 		}
@@ -221,7 +291,7 @@ namespace JCORE\DATA\API\MySQL;
 	* @return NULL 
 	*/
 	public function getPrimaryKeyField($data = NULL){
-		echo __METHOD__.'::'.__LINE__.'$data<pre>'.print_r($data, true).'</pre>'.LN;
+		#echo __METHOD__.'::'.__LINE__.'$data<pre>'.print_r($data, true).'</pre>'.PHP_EOL;
 		if($data == NULL || !is_array($data)){
 			$this->logger->trace(LOG_WARNING, __METHOD__, '$data == '.gettype($data).'');
 			return;

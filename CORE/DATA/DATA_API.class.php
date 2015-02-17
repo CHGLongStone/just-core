@@ -101,7 +101,10 @@ namespace JCORE\DATA\API;
 */
 use JCORE\DATA\API\DATA_API_INTERFACE;
 use JCORE\DATA\API\MySQL\MySQL_connector as MySQL_connector;
-use JCORE\DATA\MySQL\MySQL_TABLE_META as MySQL_TABLE_META;
+use JCORE\DATA\API\MySQL\MySQL_TABLE_META as MySQL_TABLE_META;
+#use JCORE\DATA\API\POSTGRES\POSTGRES_connector as POSTGRES_connector;
+#use JCORE\DATA\API\POSTGRES\POSTGRES_TABLE_META as POSTGRES_TABLE_META;
+
 #require_once('DATA_API_INTERFACE.interface.php');
 
 /**
@@ -171,7 +174,7 @@ class DATA_API{
 		
 		# $this->logger	= $GLOBALS['DATA_logger'];
 		
-		#echo(__METHOD__.'<pre>['.var_export($cfg, true).']</pre>').'<br>'; 
+		echo(__METHOD__.'<pre>['.var_export($cfg, true).']</pre>').'<br>'; 
 		$this->connectorCfg = $cfg;
 		
 		#$this->logger->log(LOG_DEBUG,__METHOD__, JCORE_CONFIG_DIR.'/SERVICE/DATA/DATA_API.ini');
@@ -181,6 +184,25 @@ class DATA_API{
 		return;
 	}
 	
+	
+	/**
+	*
+	*/
+	public function setIntrospectionObject($DSN){
+		echo __METHOD__.__LINE__.' $DSN['.$DSN.'] <br>'.PHP_EOL;
+		$introspectionClassName = 'JCORE\DATA\API\\'.$this->connectorCfg[$DSN]["dbType"].'\\' .$this->connectorCfg[$DSN]["dbType"].'_TABLE_META';
+		if(
+			!isset($this->dataSchema[$DSN]["introspection"]) 
+			OR
+			!$this->dataSchema[$DSN]["introspection"] instanceof $introspectionClassName
+		){
+			echo __METHOD__.__LINE__.'NOT ISSET  $DSN['.$DSN.'] $introspectionClassName['.$introspectionClassName.']<br>'.PHP_EOL;
+			$this->dataSchema[$DSN]["introspection"] = new $introspectionClassName();
+			#$introspectionClassName->initialize($DSN, $tableName, $connectionObject=NULL);
+		}
+		$this->dataSchema[$DSN]["introspection"]->flushData();
+		return $this->dataSchema[$DSN]["introspection"];
+	}
 	/**
 	* DESCRIPTOR: GET A TABLE DEFINITION (only MySQL for now)
 	* @param string $database 
@@ -190,66 +212,31 @@ class DATA_API{
 	* ***************make this agnoistic, pass to connectiton object
 	*/
 	public function introspectTable($DSN, $tableName){
-		#echo __METHOD__.__LINE__.'<br>';
+		
+		
+		
+		#echo __METHOD__.__LINE__.' $DSN['.$DSN.'] $tableName['.$tableName.']<br>'.PHP_EOL;
 		$this->logger->log(LOG_DEBUG,__METHOD__, '(DSN='.$DSN.', tableName='.$tableName.')');
-
+		#echo __METHOD__.'@'.__LINE__.'$this->dataSchema['.$DSN.']<pre>'.var_export($this->dataSchema[$DSN], true).'</pre><br>'.PHP_EOL;
 		//check if the table def exists if it does return it
-		if(!isset($this->dataSchema[$DSN][$tableName])){
-			#echo __METHOD__.__LINE__.'<br>';
+		if(!isset($this->dataSchema[$DSN]["table"][$tableName])){
+			#echo __METHOD__.__LINE__.'<br>'.PHP_EOL;
 
-			if(!isset($this->introspectionClass) || !is_object($this->introspectionClass)){
-				#echo __METHOD__.__LINE__.'<br>';
-				// if the $DSN has been set in config.dbConnectionPool.ini
-				if(isset($this->connectorCfg[$DSN]["dbType"])){
-					$setByType = TRUE;
-				}
-				#echo __METHOD__.__LINE__.'<br>';
-			}elseif(isset($this->introspectionClass) && $this->introspectionClass->getDbType() != $this->connectorCfg[$DSN]["dbType"]){
-				//dbType
-				$setByType = TRUE;
-				#echo __METHOD__.__LINE__.'<br>';
-			}
-			//do the CYA and check the connection @ all inputs
+			$this->setIntrospectionObject($DSN);
 			
-			#echo __METHOD__.__LINE__.'<br>';
-			
-			if($setByType === TRUE){
-				#echo __METHOD__.'::'.__LINE__.'$this->introspectionClassName['.$this->connectorCfg[$DSN]["dbType"].']'.'<br>';
-				$introspectionClassName = $this->connectorCfg[$DSN]["dbType"].'_TABLE_META';
-				echo __METHOD__.'::'.__LINE__.'$introspectionClassName['.$introspectionClassName.']'.'<br>';
-				if (!class_exists($introspectionClassName)) {
-					//log if there is an error
-					try{
-						#echo __METHOD__.'::'.__LINE__.'$introspectionClassName['.$introspectionClassName.']'.'<br>';
-						//this file/class MUST be included in  
-						$classPath = $this->connectorCfg[$DSN]["dbType"].'_TABLE_META'.'.class.php';
-						if(!class_exists( $classPath)){
-							#throw new \Exception('ERROR FAILED DEFINITION '.__METHOD__.'$classPath['.$classPath.']');
-						}
-						#echo __METHOD__.'::'.__LINE__.'$introspectionClassName['.$introspectionClassName.']'.'<br>';
-					}
-					catch(Exception $e){
-						echo __METHOD__.'::'.__LINE__.'FAILFAILFAILFAILFAILFAILFAILFAILFAILFAILFAIL$this->introspectionClassName['.$this->connectorCfg[$DSN]["dbType"].']'.'<br>';
-						$GLOBALS["APPLICATION_logger"]->trace(LOG_EMERG,__METHOD__.__LINE__, 'FATAL Exception '.$e->getMessage().' ['.__METHOD__.']['.__LINE__.'] TRACE['.$e->getTraceAsString().']');
-					}
-				}
-				#echo __METHOD__.'::'.__LINE__.'$introspectionClassName['.$introspectionClassName.']'.'<br>';
-				$this->introspectionClass = new $introspectionClassName();
-			}else{
-				
-				#echo __METHOD__.'::'.__LINE__.'$MYSQL_TABLE_META['.$MYSQL_TABLE_META.']'.'<br>';
-				$this->introspectionClass = new MYSQL_TABLE_META();
-			}
-			#echo __METHOD__.'::'.__LINE__.'$DSN['.$DSN.']'.'<br>';
-			$this->introspectionClass->flushData();
 
-			$this->introspectionClass->initialize($DSN, $tableName, $this->connector[$DSN]);
+			if(!isset($this->connector[$DSN]) || !is_object($this->connector[$DSN])){
+				$this->set_connection($DSN, $this->connectorCfg[$DSN]);
+			}
+			$this->dataSchema[$DSN]["introspection"]->initialize($this->connectorCfg[$DSN], $tableName, $this->connector[$DSN]);
 			
-			$this->dataSchema[$DSN][$tableName] = $this->introspectionClass->tableProperties;
-			$this->introspectionClass->flushData();
-			#echo __METHOD__.'::'.__LINE__.'$introspectionClass['.var_export($this->introspectionClass).']'.'<br>';
+			$this->dataSchema[$DSN]["table"][$tableName] = $this->dataSchema[$DSN]["introspection"]->tableProperties;
+			#echo __METHOD__.'::'.__LINE__.'$this->dataSchema['.$DSN.']["introspection"]->tableProperties<pre>'.var_export($this->dataSchema[$DSN]["introspection"]->tableProperties, true).'</pre>'.PHP_EOL;
+			#echo __METHOD__.'::'.__LINE__.'$this->dataSchema['.$DSN.']["table"][$tableName]<pre>'.var_export($this->dataSchema[$DSN]["table"][$tableName], true).'</pre>'.PHP_EOL;
+			#$this->introspectionClass->flushData();
 		}
-		return $this->dataSchema[$DSN][$tableName]; // return pointer??
+		#echo __METHOD__.'::'.__LINE__.'$this->dataSchema['.$DSN.']["table"]['.$tableName.']['.var_export($this->dataSchema[$DSN]["table"][$tableName]).']'.'<br>'.PHP_EOL;
+		return $this->dataSchema[$DSN]["table"][$tableName]; // return pointer??
 	}
 	
 	
@@ -566,6 +553,6 @@ class DATA_API{
 }
  
 
-#echo __FILE__.'::'.__LINE__.'OUT'.'<br>';
+#echo __METHOD__.'::'.__LINE__.'OUT'.'<br>';
 
 ?>

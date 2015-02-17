@@ -8,7 +8,7 @@
  */
 
 namespace JCORE\DATA\API\MySQL;
-
+use JCORE\EXCEPTION\DATA_Exception as DATA_Exception;
 /**
  * Interface MySQL_connector
  *
@@ -66,6 +66,7 @@ class MySQL_connector implements \JCORE\DATA\API\DATA_API_INTERFACE{
 	 * @var bool
 	 */
 	private $persistent;
+	#introspectionClass
 
 	
 	/**
@@ -343,8 +344,8 @@ class MySQL_connector implements \JCORE\DATA\API\DATA_API_INTERFACE{
 	*/
 	public function retrieve($query, $args=false){
 		#echo __METHOD__.__LINE__.'<br>';
-		$this->logger->log(LOG_DEBUG,__METHOD__, '(query='.$query.' returnArray='.$returnArray.')');
-		#echo __METHOD__.__LINE__.'<br>'.'****************(query='.$query.' returnArray='.$returnArray.')'.'<br>';
+		$this->logger->log(LOG_DEBUG,__METHOD__, '(query='.$query.' args='.print_r($args,true).')');
+		echo __METHOD__.__LINE__.'<br>'.'****************(query='.$query.' args='.$args.')'.'<br>';
 		#$connection = $this->connectionPool[$database]->connection;
 		//$this->verify_connection($database);  CAUGHT IN raw()
 		$result = $this->raw($query);
