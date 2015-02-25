@@ -33,8 +33,8 @@
  * [CORE METHODS] 
  * 
 
- * $DATA_API->create($database, $query, $returnArray); 
- * 		$database 		"DSN"
+ * $DATA_API->create($DSN, $query, $returnArray); 
+ * 		$DSN 			"Data Source Name"
  * 		$query			standard CREATE statement
  * 		$args			array(
  * 							'returnArray' = TRUE/FALSE
@@ -44,16 +44,16 @@
  *				$resultArray["AFFECTED_ROWS"] 	= mysql_affected_rows($connection);
  * 				$resultArray["INFO"] 			= mysql_info($connection);
  * 
- * $DATA_API->retrieve($database, $query, $args=array('returnArray' => true)); 
- * 		$database 		"DSN"
+ * $DATA_API->retrieve($DSN, $query, $args=array('returnArray' => true)); 
+ * 		$DSN 			"Data Source Name"
  * 		$query			standard RETRIEVE(SELECT) statement
  * 		$args			array(
  * 							'returnArray' = TRUE/FALSE
  * 						)	
  * 			if TRUE the result is returned as a PHP array
  *  
- * $DATA_API->update($database, $query, $returnArray); 
- * 		$database 		"DSN"
+ * $DATA_API->update($DSN, $query, $returnArray); 
+ * 		$DSN 			"Data Source Name"
  * 		$query			standard UPDATE statement
  * 		$args			array(
  * 							'returnArray' = TRUE/FALSE
@@ -62,8 +62,8 @@
  *				$resultArray["AFFECTED_ROWS"] 	= mysql_affected_rows($connection);
  * 				$resultArray["INFO"] 			= mysql_info($connection);
  * 
- * $DATA_API->delete($database, $query, $args=array('returnArray' => true)); 
- * 		$database 		"DSN"
+ * $DATA_API->delete($DSN, $query, $args=array('returnArray' => true)); 
+ * 		$DSN 			"Data Source Name"
  * 		$query			standard DELETE statement
  * 		$args			array(
  * 							'returnArray' = TRUE/FALSE
@@ -174,7 +174,7 @@ class DATA_API{
 		
 		# $this->logger	= $GLOBALS['DATA_logger'];
 		
-		echo(__METHOD__.'<pre>['.var_export($cfg, true).']</pre>').'<br>'; 
+		#echo(__METHOD__.'<pre>['.var_export($cfg, true).']</pre>').'<br>'; 
 		$this->connectorCfg = $cfg;
 		
 		#$this->logger->log(LOG_DEBUG,__METHOD__, JCORE_CONFIG_DIR.'/SERVICE/DATA/DATA_API.ini');
@@ -342,13 +342,13 @@ class DATA_API{
 	}
 	/**
 	* DESCRIPTOR: CHECKS IF THE DB IS A SLAVE
-	* @param string $database 
+	* @param string $DSN 
 	* @return bool 
 	*/	
-	public function checkIsSlave($database){
+	public function checkIsSlave($DSN){
 		#echo __METHOD__.__LINE__.'<br>';
 		$this->logger->log(LOG_DEBUG,__METHOD__, '(DSN='.$DSN.')');
-		$pos = strrpos($database, "_SLAVE");
+		$pos = strrpos($DSN, "_SLAVE");
 		if($pos === FALSE){
 			return FALSE;
 		}
@@ -377,13 +377,13 @@ class DATA_API{
 	/**
 	* DESCRIPTOR: EXECUTE A QUERY
 	* exception handling and logging dealt with
-	* @param string $database 
+	* @param string $DSN 
 	* @param string $query 
 	* @return $result 
 	*/
 	public function raw($DSN, $query){//, $args=array('returnArray' => true)
 		#echo __METHOD__.__LINE__.'<br>';
-		$this->logger->log(LOG_DEBUG,__METHOD__, '(database='.$database.', query='.$query.')');
+		$this->logger->log(LOG_DEBUG,__METHOD__, '(DSN='.$DSN.', query='.$query.')');
 		#echo __METHOD__.__LINE__.'<br>';
 		$this->verify_connection($DSN);
 		$result = $this->connector[$DSN]->raw($query);
@@ -447,7 +447,7 @@ class DATA_API{
 	*/
 	public function create($DSN, $query, $args=array('returnArray' => true)){
 		#echo __METHOD__.__LINE__.'<br>';
-		$this->logger->log(LOG_DEBUG,__METHOD__, '(DSN='.$DSN.', query='.$query.' returnArray=['.$returnArray.'])');
+		$this->logger->log(LOG_DEBUG,__METHOD__, '(DSN='.$DSN.', query='.$query.' args=['.json_encode($args).'])');
 		$this->verify_connection($DSN);
 		if(true === $this->checkIsSlave($DSN)){
 			$DSN = $this->setMaster($DSN);

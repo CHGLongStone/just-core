@@ -251,20 +251,23 @@ use JCORE\EXCEPTION\DATA_Exception as DATA_Exception;
 					$this->tableProperties[$value["Field"]]["autoIncrement"] 	= true;
 				}
 				if($value["Key"] != ''){
+					/**
 					$this->tableProperties[$value["Field"]]["key"] = array(
 						$value["Key"]
 					);
+					*/
+					$this->tableProperties[$value["Field"]]["key"]["keytype"] = $value["Key"];
 				}
 			}
 			//CONTRAINT_NAME
-			if( '' != $value["CONSTRAINT_NAME"] ){
+			if( '' != $value["CONSTRAINT_NAME"] && 'PRI' != $value["Key"]){
 				#echo __METHOD__.'::'.__LINE__.'$key ['.$key.'] $value<pre>'.print_r($value, true).'</pre>';
-				$this->tableProperties[$value["Field"]]["key"]["FKDef"]["name"] 		= $value["CONSTRAINT_NAME"];
+				$this->tableProperties[$value["Field"]]["key"]["keydef"]["name"] 		= $value["CONSTRAINT_NAME"];
 				if('' != $value["REFERENCED_TABLE_NAME"]){
-					$this->tableProperties[$value["Field"]]["key"]["FKDef"]["RefTable"]		= $value["REFERENCED_TABLE_NAME"];
+					$this->tableProperties[$value["Field"]]["key"]["keydef"]["RefTable"]		= $value["REFERENCED_TABLE_NAME"];
 				}	
 				if('' != $value["REFERENCED_COLUMN_NAME"]){
-					$this->tableProperties[$value["Field"]]["key"]["FKDef"]["RefColumn"]	= $value["REFERENCED_COLUMN_NAME"];
+					$this->tableProperties[$value["Field"]]["key"]["keydef"]["RefColumn"]	= $value["REFERENCED_COLUMN_NAME"];
 				}
 					
 			}

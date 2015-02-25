@@ -100,8 +100,8 @@ persistent="true"
 */
 
 return array(
-	"DSN" : array(
-		"JCORE" : array(
+	"DSN" => array(
+		"JCORE" => array(
 
 			"dbType"=>"MySQL",
 			#implementation=>"mysql",

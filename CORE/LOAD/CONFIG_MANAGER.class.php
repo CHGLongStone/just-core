@@ -41,12 +41,25 @@ class CONFIG_MANAGER{
 	 * @param array $args
 	 * @ return bool;
 	 */
-	public function __construct2($args=NULL){
-		#echo __METHOD__.__LINE__.'<br>';
+	public function __construct($args=NULL){
+		return false;
+	}
+	/**
+	*
+	*
+	*/
+	public function setCache($args=NULL){
+		#$GLOBALS["CONFIG_MANAGER"]->getSetting('CSN')
+		#echo __METHOD__.'@'.__LINE__.' <pre>'.var_export($args,true).'</pre><br>';
+		#echo __METHOD__.'@'.__LINE__.' <pre>'.var_export($GLOBALS["CONFIG_MANAGER"]->getSetting('CSN'),true).'</pre><br>';
 		if(is_array($args)){
+			
 			/**
+			echo __METHOD__.'@'.__LINE__.' <pre>'.var_export($args,true).'</pre><br>';
+			
 			*/
 			if(isset($args["CSN"])){
+				#echo __METHOD__.'@'.__LINE__.' <pre>'.var_export($args["CSN"],true).'</pre><br>';
 				$this->settings["CSN"] = $args["CSN"]; //for consistancy
 				$this->settings["CACHE_SERIALIZATION"] = 'JSON';
 				if(isset($args["CACHE_SERIALIZATION"])){
@@ -57,29 +70,40 @@ class CONFIG_MANAGER{
 					$this->settings["UNSERIALIZE_TYPE"] = $args["UNSERIALIZE_TYPE"];
 				}
 				$this->settings["IMPLEMENTATION"] = 'STATIC';
+				
+				#echo __METHOD__.'@'.__LINE__.' <pre>'.var_export($args["INSTANCE"],true).'</pre><br>';
+				#$INSTANCE = new $args["INSTANCE"];
+				#echo __METHOD__.'@'.__LINE__.' <pre>'.var_export($INSTANCE,true).'</pre><br>';
+				#$INSTANCE = null;
+				
 				if(isset($args["IMPLEMENTATION"]) 
 					&& 
 					$args["IMPLEMENTATION"] != 'STATIC'
 					&& 
-					(!isset($args["INSTANCE"]) || !is_object($args["INSTANCE"]) ) 
+					(
+						isset($args["INSTANCE"]) 
+						#|| 
+						#is_object($INSTANCE = new $args["INSTANCE"]($args)) 
+					) 
 				){
-					$this->settings["INSTANCE"] = $args["INSTANCE"];
+					#echo __METHOD__.'@'.__LINE__.' <pre>'.var_export($INSTANCE,true).'</pre><br>';
+					//$this->settings["INSTANCE"] = new $args["INSTANCE"];
+					//INSTANCE
+					@$this->settings["INSTANCE"] = new $args["INSTANCE"]($args);
 					$this->settings["IMPLEMENTATION"] = $args["IMPLEMENTATION"];
-				}else{
+					#echo __METHOD__.'@'.__LINE__.' <pre>'.var_export($this->settings["INSTANCE"], true).'</pre><br><br>';
+				}
+				if(!is_object($this->settings["INSTANCE"])){
+					#echo __METHOD__.'@'.__LINE__.' <pre>'.var_export($INSTANCE,true).'</pre><br>';
+					
+					echo __METHOD__.'@'.__LINE__.'********** !is_object **********<br>';
+					
 					return false;
 				}		
 			}
+			#echo __METHOD__.'@'.__LINE__.' ********************<br>';
 			return true;
 		}
-		return false;
-	}
-	/**
-	*
-	*
-	*/
-	public function __construct($args=NULL){
-		
-		#'config_glob_paths' => array('CONFIG/AUTOLOAD/{,*.}{global,local}.php')
 	}
 
 	/*****
@@ -184,7 +208,7 @@ class CONFIG_MANAGER{
 		#echo __METHOD__.'@'.__LINE__.'LOAD_ID::'.$LOAD_ID.'  FILE_NAME::'.$FILE_NAME.'<br>';
 		
 		if($LOAD_ID =='' || $FILE_NAME == ''){
-			#echo __METHOD__.'@'.__LINE__.' '.count($this->settings).'<br>';
+			#echo __METHOD__.'@'.__LINE__.' <pre>'.var_export($this->settings,true).'</pre><br>';
 			if(!isset($this->settings) || 0 == count($this->settings) ){
 				$LOAD_ID = 'JCORE';
 				$pattern = 'CONFIG/AUTOLOAD/*{global,local}.php';

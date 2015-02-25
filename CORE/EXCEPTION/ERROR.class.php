@@ -33,7 +33,7 @@ class ERROR {
 		
 		code message data
 		get_object_vars();
-	*
+	 *
      * @var object $Code
 	*/
     private $Code = null;
@@ -68,6 +68,7 @@ class ERROR {
 		}
 		*/
 		$this->setData($args['Data']);
+		#$this->codes = $GLOBALS["CONFIG_MANAGER"]->getSetting('ERROR');
 
 	}
 	
@@ -126,7 +127,7 @@ class ERROR {
 			#echo __METHOD__.'@'.__LINE__.'backtrace<pre>'.var_export($backtrace, true).'</pre>';
 			$this->Data = $backtrace[1]['file'].'@'.$backtrace[1]['line'].':call:'.$backtrace[1]['class'].'->'.$backtrace[1]['function'];
 			
-			$this->Data = $this->Data.PHP_EOL.var_export($Data, true);
+			$this->Data .= PHP_EOL.var_export($Data, true);
 		}else{
 			$this->Data = var_export($Data, true);
 		}

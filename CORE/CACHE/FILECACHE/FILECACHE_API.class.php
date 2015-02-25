@@ -16,19 +16,65 @@
 namespace JCORE\CACHE;
 
 use JCORE\CACHE\CACHE_COMMON_API_INTERFACE as CACHE_COMMON_API_INTERFACE;
+use JCORE\EXCEPTION\ERROR as ERROR;
 /**
  * class FILECACHE_API
  *
  * @package JCORE\CACHE
 */
 class FILECACHE_API implements CACHE_COMMON_API_INTERFACE {
+	
 	/**
 	 * @access public 
-	 * @var string
+	 * @var string 
 	 */
-	public $SOMEVAR; // = array();
-	private function __construct(){
+	protected $error = array(); // ;
 	
+	public $SOMEVAR; // = array();
+	/**
+	*
+	*/
+	public function __construct($args=null){
+		#echo __METHOD__.'@'.__LINE__.' <pre>'.var_export($args,true).'</pre><br>';
+		
+		if(!isset($args["CSN"])){
+			return false;
+		}else{
+			#$this->CSN = $args["CSN"];
+			$this->CSN = $args; #["CSN"];
+			#$this->CSN[$args["CSN"]] = $args; #["CSN"];
+		}
+		
+		#echo __METHOD__.'@'.__LINE__.'GLOBALS <pre>'.var_export($GLOBALS,true).'</pre><br>';
+		if(isset($this->CSN["DIRECTORIES"]) && is_array($this->CSN["DIRECTORIES"])){
+			foreach($this->CSN["DIRECTORIES"] AS $key => $value){
+				//DIRECTORIES
+				#echo __METHOD__.'@'. __LINE__ .'key['.$key.'] <pre>'.var_export($value,true).'</pre><br>';
+				if($value["RELATIVE"] == TRUE && isset($GLOBALS['APPLICATION_ROOT'])){
+					$this->CSN["DIRECTORIES"][$key]["PATH"] = $GLOBALS['APPLICATION_ROOT'].$value["PATH"];
+				}
+				#echo __METHOD__.'@'. __LINE__ .'$this->CSN["DIRECTORIES"]['.$key.']["PATH"]['.$this->CSN["DIRECTORIES"][$key]["PATH"].'] <br>';
+				
+				if(!file_exists($this->CSN["DIRECTORIES"][$key]["PATH"])){
+					$args = array(
+						"Code" => 110,
+						"Data" => __FILE__.'@'.__LINE__.'  '.json_encode($args),
+						//"Message" => "",
+					);
+					$error = new ERROR($args);
+					$this->error[] = $error->getError();
+				}
+				
+			}
+		}
+		
+		if(1 <= count($this->error)){
+			#echo __METHOD__.'@'.__LINE__.'$this->error <pre>'.var_export($this->error,true).'</pre><br>';
+			return json_encode($this->error);
+		}
+		#echo __METHOD__.'@'.__LINE__.'$this->CSN <pre>'.var_export($this->CSN,true).'</pre><br>';
+		
+		return true;
 	}
 	
 	
@@ -42,10 +88,11 @@ class FILECACHE_API implements CACHE_COMMON_API_INTERFACE {
 	* 	$args["cas_token"] 	= &$cas_token; 		// a var passed by reference to return the cas_token used by: updateSharedResource
 	* 	$args["cache_cb"] 	= NULL/[string]; 	// the call back function. probably not much use for resetting (big tangle, too many functions) BUT could be usefull for logging
 	*/
-	public static function getValue($args = array()){
+	public function getValue($args = array()){
 		echo 'METHOD['.__METHOD__.'] LINE['.__LINE__.']'.'<br>';
+		//CACHE_POOL CACHE_KEY
 		$CACHED_VAR = FALSE;
-		if(MEMCACHED_API::validateBasicArgs($args) === false){
+		if($this->validateBasicArgs($args) === false){
 			echo 'METHOD['.__METHOD__.'] validateBasicArgs'.'<br>';
 			$GLOBALS["APPLICATION_logger"]->trace(LOG_WARNING,__METHOD__, 'CALLED WITHOUT CACHE_KEY!!!!');
 			return false;
@@ -57,10 +104,10 @@ class FILECACHE_API implements CACHE_COMMON_API_INTERFACE {
 		/**
 		* execution block
 		*/
-		$CACHE_POOL_OBJECT = MEMCACHED_API::getMemcachedObject($args["CACHE_POOL"]);
+		$CACHE_POOL_OBJECT = $this->getMemcachedObject($args["CACHE_POOL"]);
 		if(true == $CACHE_POOL_OBJECT){
 			$CACHED_VAR = $CACHE_POOL_OBJECT->get($args["CACHE_KEY"]);
-			$resultCode = MEMCACHED_API::checkResultCode($CACHE_POOL_OBJECT, $args["CACHE_KEY"]);
+			$resultCode = $this->checkResultCode($CACHE_POOL_OBJECT, $args["CACHE_KEY"]);
 			if(true == $resultCode && is_bool($resultCode)){
 				return $CACHED_VAR;
 			}
@@ -68,7 +115,7 @@ class FILECACHE_API implements CACHE_COMMON_API_INTERFACE {
 		if(!isset($resultCode) || !is_numeric($resultCode)){
 			$resultCode = Memcached::RES_FAILURE;
 		}
-		$message = MEMCACHED_API::getResultCodeString($resultCode);
+		$message = $this->getResultCodeString($resultCode);
 		$result['EXCEPTION']["ID"] = $resultCode;
 		$result['EXCEPTION']["MSG"] = $message;
 		echo 'METHOD['.__METHOD__.'] FAILED['.__LINE__.']'.'<br>';
@@ -85,9 +132,10 @@ class FILECACHE_API implements CACHE_COMMON_API_INTERFACE {
 	* 	$args["value"] 		= [mixed]; 			// a asset to be stored in Memcached
 	* 	$args["expiration"] = [int]; 	// the call back function. probably not much use for resetting (big tangle, too many functions) BUT could be usefull for logging
 	*/
-	public static function setValue($args = array()){
-		
-		if(MEMCACHED_API::validateBasicArgs($args) === false){
+	public function setValue($args = array()){
+		echo __METHOD__.'@'.__LINE__.' <pre>'.var_export($args,true).'</pre><br>';
+		//CACHE_POOL CACHE_KEY
+		if($this->validateBasicArgs($args) === false){
 			$GLOBALS["APPLICATION_logger"]->trace(LOG_WARNING,__METHOD__, 'CALLED WITHOUT CACHE_KEY!!!!');
 			return false;
 		}
@@ -101,6 +149,18 @@ class FILECACHE_API implements CACHE_COMMON_API_INTERFACE {
 	//----------//----------//----------//----------//----------
 	//----------//END USER RESOURCES 	//----------//----------
 	//----------//----------//----------//----------//----------
+	public function updateSharedValue($args = array()){
+		
+		
+	}
+	public function setSharedValue($args = array()){
+		
+		
+	}
+	public function getSharedValue($args = array()){
+		
+		
+	}
 	
 	//----------//----------//----------//----------//----------
 	//----------//START UTIL FUNCTIONS 	//----------//----------
@@ -109,17 +169,17 @@ class FILECACHE_API implements CACHE_COMMON_API_INTERFACE {
 	* just check that there are args in the array
 	* define it here for re-use
 	*/
-	public static function validateBasicArgs($args = array()){
+	public function validateBasicArgs($args = array()){
 		echo 'METHOD['.__METHOD__.'] '.'<br>';
-		if(MEMCACHED_API::verifyArgs($args) === false){
+		if($this->verifyArgs($args) === false){
 			$GLOBALS["APPLICATION_logger"]->trace(LOG_WARNING,__METHOD__, 'CALLED WITHOUT ARGS!!!!');
 			return false;
 		}
-		if(MEMCACHED_API::validateCachePool($args) === false){
+		if($this->validateCachePool($args) === false){
 			$GLOBALS["APPLICATION_logger"]->trace(LOG_WARNING,__METHOD__, 'CALLED WITHOUT CACHE_POOL!!!!');
 			return false;
 		}
-		if(MEMCACHED_API::validateCacheKey($args) === false){
+		if($this->validateCacheKey($args) === false){
 			$GLOBALS["APPLICATION_logger"]->trace(LOG_WARNING,__METHOD__, 'CALLED WITHOUT CACHE_KEY!!!!');
 			return false;
 		}
@@ -133,7 +193,7 @@ class FILECACHE_API implements CACHE_COMMON_API_INTERFACE {
 	* just check that there are args in the array
 	* define it here for re-use
 	*/
-	public static function verifyArgs($args = array()){
+	public function verifyArgs($args = array()){
 		echo 'METHOD['.__METHOD__.'] count($args)['.count($args).']'.'<br>';
 		if(count($args) == 0){
 			#$GLOBALS["APPLICATION_logger"]->trace(LOG_WARNING,__METHOD__, 'CALLED WITHOUT ARGS!!!!');
@@ -145,7 +205,7 @@ class FILECACHE_API implements CACHE_COMMON_API_INTERFACE {
 	* just check that there are args in the array
 	* define it here for re-use
 	*/
-	public static function validateCachePool($args){
+	public function validateCachePool($args){
 		echo 'METHOD['.__METHOD__.'] $args["CACHE_POOL"]['.$args["CACHE_POOL"].']'.'<br>';
 		if(!isset($args["CACHE_POOL"]) || $args["CACHE_POOL"] == ''){
 			#$GLOBALS["APPLICATION_logger"]->trace(LOG_WARNING,__METHOD__, 'CALLED WITHOUT CACHE_POOL!!!!');
@@ -158,7 +218,7 @@ class FILECACHE_API implements CACHE_COMMON_API_INTERFACE {
 	* just check that there are args in the array
 	* define it here for re-use
 	*/
-	public static function validateCacheKey($args = array()){	
+	public function validateCacheKey($args = array()){	
 		echo 'METHOD['.__METHOD__.'] $args["CACHE_KEY"]['.$args["CACHE_KEY"].']'.'<br>';
 		if(!isset($args["CACHE_KEY"]) || $args["CACHE_KEY"] == ''){
 			#$GLOBALS["APPLICATION_logger"]->trace(LOG_WARNING,__METHOD__, 'CALLED WITHOUT CACHE_POOL!!!!');

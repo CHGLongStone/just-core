@@ -2,6 +2,7 @@
 /**
  * MySQL_connector
  * 
+ *
  * @author		Jason Medland<jason.medland@gmail.com>
  * @package	JCORE
  * @subpackage DATA
@@ -157,9 +158,9 @@ class MySQL_connector implements \JCORE\DATA\API\DATA_API_INTERFACE{
 				}
 				
 				if($persistent===true){
-					$connection = mysql_pconnect($host, $this->username, $this->password);
+					@$connection = mysql_pconnect($host, $this->username, $this->password);
 				}else{
-					$connection = mysql_connect($host, $this->username, $this->password);
+					@$connection = mysql_connect($host, $this->username, $this->password);
 				}
 				/*
 				 * VERIFY THE CONNECTION
@@ -345,7 +346,7 @@ class MySQL_connector implements \JCORE\DATA\API\DATA_API_INTERFACE{
 	public function retrieve($query, $args=false){
 		#echo __METHOD__.__LINE__.'<br>';
 		$this->logger->log(LOG_DEBUG,__METHOD__, '(query='.$query.' args='.print_r($args,true).')');
-		echo __METHOD__.__LINE__.'<br>'.'****************(query='.$query.' args='.$args.')'.'<br>';
+		#echo __METHOD__.__LINE__.'<br>'.'****************(query='.$query.' args='.var_export($args, true).')'.'<br>';
 		#$connection = $this->connectionPool[$database]->connection;
 		//$this->verify_connection($database);  CAUGHT IN raw()
 		$result = $this->raw($query);
@@ -396,7 +397,7 @@ class MySQL_connector implements \JCORE\DATA\API\DATA_API_INTERFACE{
 	*/
 	public function create($query, $args = false){
 		#echo __METHOD__.__LINE__.'<br>';
-		$this->logger->log(LOG_DEBUG,__METHOD__, '(query='.$query.' returnArray=['.$returnArray.'])');
+		$this->logger->log(LOG_DEBUG,__METHOD__, '(query='.$query.' args=['.json_encode($args).'])');
 		
 		$result = $this->raw($query);
 		#echo LN.__METHOD__.__LINE__.'-------------------the result is['.$result.']['.gettype($result).']#['.mysql_affected_rows($this->connection).']-------------------'.'<br>';

@@ -188,29 +188,31 @@ class DAO{
 	
 	/**
 	 * Constructor
+	 * array config consists of 
+	 * string 	DSN
+	 * string 	table
+	 * string 	pk_field
+	 * int 	pk
 	 * 
-	 * @param	string 	database
-	 * @param	string 	table
-	 * @return	string 	pk_field
-	 * @return	int 	pk
+	 * @param	mixed 	config
 	 */
 	public function __construct($config){
 		#action
-		//$database, $table, $pk_field, $pk 
-		//echo 'result<pre>'.print_r($result, true).'</pre>'.LN;
-		#$config["database"];
-		#$config["table"];database
+		//$DSN, $table, $pk_field, $pk 
+		//echo 'result<pre>'.print_r($result, true).'</pre>'.PHP_EOL;
+		#$config["DSN"];
+		#$config["table"];
 		#$config["pk_field"]; 
 		#$config["pk"];
 		
 		$GLOBALS['LOG_DATA']->log(LOG_DEBUG,__METHOD__, '(<pre>'.print_r($config, true).'</pre>)');
 		
 		if(is_array($config)){
-			echo 'config<pre>'.print_r($config, true).'</pre>'.PHP_EOL;
+			#echo 'config<pre>'.print_r($config, true).'</pre>'.PHP_EOL;
 			if(
 				isset($config["DSN"])
 				&&
-				isset($config["database"])
+				isset($config["DSN"])
 				&&
 				isset($config["table"])
 				&&
@@ -218,28 +220,28 @@ class DAO{
 				&&
 				isset($config["pk"])
 			){
-				#echo 'baseObjDDDDD<pre>'.print_r($else, true).'</pre>'.LN;
+				#echo 'baseObjDDDDD<pre>'.print_r($else, true).'</pre>'.PHP_EOL;
 				#GLOBAL $db;
 				$this->config = $config;
 				$this->tables[$config["table"]] 				= array();
-				$this->tables[$config["table"]]['database'] 	= $config["database"];
+				$this->tables[$config["table"]]['DSN'] 			= $config["DSN"];
 				$this->tables[$config["table"]]['foundation'] 	= true;
 				$this->tables[$config["table"]]['pk_field'] 	= $config["pk_field"];
 				$this->tables[$config["table"]]['pk'] 			= $config["pk"];
 				$this->tables[$config["table"]]['values'] 		= array();
 				
 				$query = 'SELECT * FROM '.$config["table"].' WHERE '.$config["pk_field"].' = '.$config["pk"].' ';
-				#$result = $db->SQL_select($config["database"], $query, $returnArray=true);
+				#$result = $db->SQL_select($config["DSN"], $query, $returnArray=true);
 				$result = $GLOBALS["DATA_API"]->retrieve($this->config["DSN"], $query, $args=array('returnArray' => true));
 				#$result = $db->SQLResultToAssoc($result);
 				
 				$this->tables[$config["table"]]['values'] = $result[0];
-				#echo 'count($result[0])<pre>'.print_r(count($result[0]), true).'</pre>'.LN;
+				#echo 'count($result[0])<pre>'.print_r(count($result[0]), true).'</pre>'.PHP_EOL;
 				if(count($result[0]) >= 1){
 					$this->initialized = true;
 					$this->root_pk = $config["pk"];
 				}elseif($result["EXCEPTION"]){
-					#echo '$result<pre>'.print_r($result, true).'</pre>'.LN;
+					#echo '$result<pre>'.print_r($result, true).'</pre>'.PHP_EOL;
 					$GLOBALS['LOG_DATA']->log(LOG_CRIT, __METHOD__ , 'ERROR MySQL error['.$result["EXCEPTION"]["ID"].']error:'.$result["EXCEPTION"]["MSG"].''); // ID MSG $query 
 					$this->tables[$config["table"]]['values'] = $result["EXCEPTION"];
 				}else{
@@ -247,7 +249,7 @@ class DAO{
 				}
 						
 			}else{
-				echo 'else<pre>'.print_r($else, true).'</pre>'.LN;
+				#echo 'else<pre>'.print_r($else, true).'</pre>'.PHP_EOL;
 			}	
 		}
 
@@ -258,85 +260,90 @@ class DAO{
 	}
 	
 	/**
-	* DESCRIPTOR: contruct from table def
-	* @param	string 	database
+	* DESCRIPTOR: construct from table def (information_schema)
+	* @param	string 	DSN
 	* @param	string 	tableName
 	* @return NULL 
 	*/
-	public function initialize($database, $tableName){ //, $foundation=false
+	public function initialize($DSN, $tableName){ //, $foundation=false
 		
 		#$this->initialized = true;
 		$this->tables[$tableName] = array();
-		$this->tables[$tableName]['database'] 	= $database;
+		$this->tables[$tableName]['DSN'] 	= $DSN;
 		if($foundation===true){
 			$this->tables[$tableName]['foundation'] = TRUE; //$foundation;
 		}
 		$this->tables[$tableName]['pk'] 		= 0;
-		$values = $this->initializeFromSchema($database, $tableName, false);
+		$values = $this->initializeFromSchema($DSN, $tableName, false);
 		$this->tables[$tableName]['values']		= $values;
 		$this->initialized = true;
 		return;
 	}
 	/**
 	* DESCRIPTOR: contruct from table def
-	* @param	string 	database
+	* @param	string 	DSN
 	* @param	string 	tableName
 	* @return NULL SCHEMA
 	*/
-	public function initializeJoinRecord($database, $tableName, $pk_field, $fk_field){
+	public function initializeJoinRecord($DSN, $tableName, $pk_field, $fk_field){
 		$this->tables[$tableName] = array();
-		$this->tables[$tableName]['database'] 	= $database;
+		$this->tables[$tableName]['DSN'] 	= $DSN;
 		
 		$this->tables[$tableName]['pk_field'] = $pk_field;
 		$this->tables[$tableName]['fk_field'] = $fk_field;
 		
 		$this->tables[$tableName]['pk'] 		= 0;
-		$values = $this->initializeFromSchema($database, $tableName);
+		$values = $this->initializeFromSchema($DSN, $tableName);
 		$this->tables[$tableName]['values']		= $values;
 		return;
 	}
 	/**
 	* DESCRIPTOR: contruct from table def
-	* @param	string 	database
+	* @param	string 	DSN
 	* @param	string 	tableName
 	* @return NULL SCHEMA
 	*/
-	public function initializeCollectionRecord($database, $tableName, $pk_field, $fk_field){
+	public function initializeCollectionRecord($DSN, $tableName, $pk_field, $fk_field){
 		if(!isset($this->tables[$tableName])){
 			$this->tables[$tableName] = array();
 		}
 		
-		$this->tables[$tableName]['database'] 	= $database;
+		$this->tables[$tableName]['DSN'] 	= $DSN;
 		
 		$this->tables[$tableName]['pk_field'] = $pk_field;
 		$this->tables[$tableName]['fk_field'] = $fk_field;
 		
 		#$this->tables[$tableName]['pk'] 		= 0;
-		$values = $this->initializeFromSchema($database, $tableName);
+		$values = $this->initializeFromSchema($DSN, $tableName);
 		$this->tables[$tableName]['values'][0]		= $values;
 		$this->tables[$tableName]['values'][0][$this->tables[$tableName]['pk_field']]		= 0;
 		return;
 	}
 	/**
 	* DESCRIPTOR: contruct from table def
-	* @param	string 	database
+	* @param	string 	DSN
 	* @param	string 	tableName
 	* @return NULL SCHEMA
 	*/
-	protected function initializeFromSchema($database, $tableName, $set_fk=true){
+	protected function initializeFromSchema($DSN, $tableName, $set_fk=true){
 		#GLOBAL $db;
-		// go get the table def
-		#$db->introspectTable($database, $tableName);
+		/**
+		go get the table def
+		$db->introspectTable($DSN, $tableName);
 		echo __METHOD__.'::'.__LINE__.'tableName<pre>'.print_r($tableName, true).'</pre>';
-		$result = $GLOBALS["DATA_API"]->introspectTable($database, $tableName);
+		*/ 
+		$result = $GLOBALS["DATA_API"]->introspectTable($DSN, $tableName);
+		/*
 		echo __METHOD__.'::'.__LINE__.'result<pre>'.print_r($result, true).'</pre>';
+		echo __METHOD__.'::'.__LINE__.'$this->tables<pre>'.print_r($this->tables, true).'</pre>';
+		*/
 		$values	= array();
 		//modifiedColumns
 		#$result = $GLOBALS["DATA_API"]->retrieve($this->config["DSN"], $query, $args=array('returnArray' => true));
-		#foreach($db->tableDefinitions[$database][$tableName] AS $key => $value){
-		echo __METHOD__.'::'.__LINE__.'$GLOBALS["DATA_API"]->dataSchema<pre>'.print_r($GLOBALS["DATA_API"]->dataSchema, true).'</pre>';
-		#foreach($GLOBALS["DATA_API"]->dataSchema[$database][$tableName] AS $key => $value){
-		#foreach($GLOBALS["DATA_API"]->tableDefinitions[$database][$tableName] AS $key => $value){
+		#foreach($db->tableDefinitions[$DSN][$tableName] AS $key => $value){
+		#echo __METHOD__.'::'.__LINE__.'$GLOBALS["DATA_API"]->dataSchema<pre>'.print_r($GLOBALS["DATA_API"]->dataSchema, true).'</pre>';
+		#foreach($GLOBALS["DATA_API"]->dataSchema[$DSN][$tableName] AS $key => $value){
+		#foreach($GLOBALS["DATA_API"]->tableDefinitions[$DSN][$tableName] AS $key => $value){
 		foreach($result AS $key => $value){
 			#echo ' key='.$key.' :: value=<pre>'.var_export($value,true).'</pre><br>';
 			
@@ -346,13 +353,16 @@ class DAO{
 				$values[$key] = NULL;
 			}			
 			
-			if(isset($value["key"]) && $value["key"] == 'primary'){
-				#echo 'PK['.$key.']'.LN;
+			if(isset($value["key"]["keytype"]) && $value["key"]["keytype"] == 'PRI'){
+				#echo 'PK['.$key.']'.PHP_EOL;
 				$this->tables[$tableName]['pk_field'] 	= $key;
 				$values[$key] = $this->tables[$tableName]['pk'];
 			}
-			if($key == $this->tables[$tableName]['fk_field']){
-				$values[$key] = $this->root_pk;
+			if(true === $set_fk){
+				#if(isset($value["key"]["keytype"]) && $value["key"]["keytype"] == 'MUL'){} //needs a hook here for sub entities
+				if($key == $this->tables[$tableName]['fk_field']){
+					$values[$key] = $this->root_pk;
+				}
 			}
 			$this->modifiedColumns[$tableName][$key] = $values[$key];
 		}	
@@ -360,27 +370,27 @@ class DAO{
 	}	
 	/**
 	* DESCRIPTOR: joins a single record from anothe DB/Table
-	* @param	string 	database
+	* @param	string 	DSN
 	* @param	string 	baseTable
 	* @return	string 	pk_field
 	* @return	string 	pk_field
 	* @return	int 	fk
 	* @return NULL 
 	*/
-	public function joinRecord($database, $tableName, $pk_field, $fk_field, $fk){
+	public function joinRecord($DSN, $tableName, $pk_field, $fk_field, $fk){
 		GLOBAL $db;
 		#$caller=__CLASS__.'->'.__FUNCTION__;
 		$this->tables[$tableName] 				= array();
-		$this->tables[$tableName]['database'] 	= $database;
+		$this->tables[$tableName]['DSN'] 		= $DSN;
 		$this->tables[$tableName]['pk_field'] 	= $pk_field;
 		
 		$this->tables[$tableName]['fk_field'] 	= $fk_field;
 		$this->tables[$tableName]['fk'] 		= $fk;
 		
-		//$this->tables[$tableName]['tableDef'] = $db->introspectTable($database, $tableName);
+		//$this->tables[$tableName]['tableDef'] = $db->introspectTable($DSN, $tableName);
 		
 		$query = 'SELECT * FROM '.$tableName.' WHERE '.$fk_field.' = '.$fk.' ';
-		#$result = $db->SQL_select($database, $query, $returnArray=true);
+		#$result = $db->SQL_select($DSN, $query, $returnArray=true);
 		$result = $GLOBALS["DATA_API"]->retrieve($this->config["DSN"], $query, $args=array('returnArray' => true));
 		$this->tables[$tableName]['pk'] 	= $result[0][$pk_field];
 		$this->tables[$tableName]['values'] 	= array();
@@ -390,18 +400,18 @@ class DAO{
 	}
 	/**
 	* DESCRIPTOR: joins a single record from anothe DB/Table
-	* @param	string 	database
+	* @param	string 	DSN
 	* @param	string 	baseTable
 	* @return	string 	pk_field
 	* @return	string 	pk_field
 	* @return	int 	fk
 	* @return NULL 
 	*/
-	public function joinCollection($database, $joinTable, $pk_field, $fk_field, $fk){
+	public function joinCollection($DSN, $joinTable, $pk_field, $fk_field, $fk){
 		GLOBAL $db;
 		
 		$this->tables[$joinTable] 				= array();
-		$this->tables[$joinTable]['database'] 	= $database;
+		$this->tables[$joinTable]['DSN'] 		= $DSN;
 		$this->tables[$joinTable]['pk_field'] 	= $pk_field;
 		$this->tables[$joinTable]['fk_field'] 	= $fk_field;
 		$this->tables[$joinTable]['fk'] 		= $fk;
@@ -450,6 +460,10 @@ class DAO{
 				return 'NO SUCH VALUE'; //false
 				break;
 			case"set":
+				/*
+				echo __METHOD__.'@'.__LINE__.'$method<pre>'.var_export($args, true).'</pre><br>';
+				echo __METHOD__.'@'.__LINE__.'$table['.$table.']$column['.$column.']<pre>'.var_export($this->tables, true).'</pre><br>';
+				*/
 				if(isset($args[3]) && $args[3] != ''){
 					$pk 	= $args[3];
 				}
@@ -463,7 +477,9 @@ class DAO{
 						return true;
 					}
 				}elseif(true == is_array($this->tables[$table]['values']) ){
+					
 					if(array_key_exists( $column, $this->tables[$table]['values'])){
+						#echo __METHOD__.'@'.__LINE__.'$method<pre>'.var_export($args, true).'</pre><br>';
 						$this->tables[$table]['values'][$column] = $value;
 						// we want to track which fields we've modified for commits
 						$this->modifiedColumns[$table][$column] = $value;
@@ -472,14 +488,16 @@ class DAO{
 				}
 				return 'NO SUCH VALUE'; //false;
 				break;
+				/*
 			case"aaaaaaaa":
 				#action some thing else here?
 				break;
 			case"bbbbbbbbb":
 				#action some thing else here?
 				break;
+				*/
 			default:
-				echo 'default'.__METHOD__.' CALLED ['.$method.'] WITH <pre>'.var_export($args,true).'</pre>'.LN;
+				echo 'default'.__METHOD__.' CALLED ['.$method.'] WITH <pre>'.var_export($args,true).'</pre>'.PHP_EOL;
 				break;
 		}
 		return false;
@@ -490,44 +508,53 @@ class DAO{
 	* @return outputErrors 
 	*/
 	public function save($table=null){
-		foreach($this->modifiedColumns AS $key => $value){
-			#echo '$key=['.$key.']<pre>'.var_export($value,true).'</pre>'."\n";
-			if(is_array($value)){
-				#echo '$value<pre>'.print_r($value, true).'</pre>'.LN;
-				$this->generateQueries($key, $value, $table);
+		if(count($this->modifiedColumns) >= 1){
+			foreach($this->modifiedColumns AS $key => $value){
+				#echo __METHOD__.__LINE__.'$key=['.$key.']<pre>'.var_export($value,true).'</pre>'."\n";
+				if(is_array($value)){
+					#echo '$value<pre>'.print_r($value, true).'</pre>'.PHP_EOL;
+					$this->generateQueries($key, $value, $table);
+				}
 			}
 		}
-		#echo '-----------------------------------------------------'.LN;
-		if(count($this->queries) >= 1){
-			GLOBAL $db;
-			#echo __METHOD__.__LINE__.'$this->queries<pre>'.print_r($this->queries, true).'</pre>'.LN;
-			#echo __METHOD__.__LINE__.'$this->tables['.$key.']<pre>'.print_r($this->tables[$key], true).'</pre>'.LN;
+		#echo '-----------------------------------------------------'.PHP_EOL;
+		#echo __METHOD__.__LINE__.'<pre>'.print_r($this->tables[$key], true).'</pre>'.PHP_EOL;
+		#echo __METHOD__.__LINE__.'$this->modifiedColumns<pre>'.print_r($this->modifiedColumns, true).'</pre>'.PHP_EOL;
+		#echo __METHOD__.__LINE__.'$this->queries<pre>'.print_r($this->queries, true).'</pre>'.PHP_EOL;
+		if(isset($this->queries) && count($this->queries) >= 1){
+			#GLOBAL $db;
+			#echo __METHOD__.__LINE__.'$this->tables['.$key.']<pre>'.print_r($this->tables[$key], true).'</pre>'.PHP_EOL;
 			foreach($this->queries AS $key => $value){
-				#echo '$key=['.$key.']<pre>'.var_export($value,true).'</pre>'.LN;
+				#echo __METHOD__.__LINE__.'$key=['.$key.']<pre>'.var_export($value,true).'</pre>'.PHP_EOL;
 				foreach($value AS $key2 => $value2){
-					#echo '$key2=['.$key2.']<pre>'.var_export($value2,true).'</pre>'.LN;
+					#echo '$key2=['.$key2.']<pre>'.var_export($value2,true).'</pre>'.PHP_EOL;
 					
 					if($value2["queryType"] == 'INSERT'){
-						#$result[] = $GLOBALS["db"]->SQL_insert($this->tables[$key]['database'], $value2["query"], $returnArray=true);
+						#$result[] = $GLOBALS["DATA_API"]->insert($this->tables[$key]['DSN'], $value2["query"], $returnArray=true);
 						if(isset($this->tables[$key]['foundation']) && $this->tables[$key]['foundation'] === true){
-							#echo '$result<pre>'.var_export($result,true).'</pre>'.LN;
-							$result[] = $GLOBALS["db"]->SQL_insert($this->tables[$key]['database'], $value2["query"], $returnArray=true);
+							#echo '$result<pre>'.var_export($result,true).'</pre>'.PHP_EOL;
+							$result[] = $GLOBALS["DATA_API"]->create($this->tables[$key]['DSN'], $value2["query"], $returnArray=true);
 							if(is_int($result[0]["INSERT_ID"])){
-								#echo '$result[0]["INSERT_ID"]<pre>'.var_export($result[0]["INSERT_ID"],true).'</pre>'.LN;
+								#echo '$result[0]["INSERT_ID"]<pre>'.var_export($result[0]["INSERT_ID"],true).'</pre>'.PHP_EOL;
 								$this->root_pk = $result[0]["INSERT_ID"];
 								$this->tables[$key]['values'][$this->tables[$key]['pk_field']] = $this->root_pk;
 							}
 						}else{
 							//replace
 							
+							#$GLOBALS["DATA_API"]->
 							#$bodytag = str_replace('$this->root_pk', $this->root_pk, $value2["query"]);
-							$result[] = $GLOBALS["db"]->SQL_insert($this->tables[$key]['database'], $value2["query"], $returnArray=true);
+							#$result = $GLOBALS["DATA_API"]->retrieve($DSN, $query, $args=array('returnArray' => true));
+							#echo __METHOD__.'@'.__LINE__.'<pre>'.var_export($this,true).'</pre>'.PHP_EOL;
+							#echo __METHOD__.'@'.__LINE__.'DSN['.$this->tables[$key]['DSN'].']query['.$value2["query"].'] <pre>'.var_export($this,true).'</pre>'.PHP_EOL;
+							
+							$result[] = $GLOBALS["DATA_API"]->create($this->tables[$key]['DSN'], $value2["query"], $args=array('returnArray' => true));
 							if(is_int($result[0]["INSERT_ID"])){
 								
-								#echo __METHOD__.__LINE__.'$this->tables['.$key.']["values"][0]['.$this->tables[$key]["pk_field"].']===['.print_r($this->tables[$key]['values'][0][$this->tables[$key]['pk_field']], true).']'.LN;
+								#echo __METHOD__.__LINE__.'$this->tables['.$key.']["values"][0]['.$this->tables[$key]["pk_field"].']===['.print_r($this->tables[$key]['values'][0][$this->tables[$key]['pk_field']], true).']'.PHP_EOL;
 								if(isset($this->tables[$key]['values'][0][$this->tables[$key]['pk_field']])){
 									// HANDLE A COLLECTION
-									#echo '$result[0]["INSERT_ID"]COLLECTION<pre>'.var_export($result[0]["INSERT_ID"],true).'</pre>'.LN;
+									#echo '$result[0]["INSERT_ID"]COLLECTION<pre>'.var_export($result[0]["INSERT_ID"],true).'</pre>'.PHP_EOL;
 									$this->tables[$key]['values'][0][$this->tables[$key]['pk_field']] = $result[0]["INSERT_ID"];
 									$this->tables[$key]['values'][0][$this->tables[$key]['fk_field']] = $this->root_pk;
 									// NOW WE HAVE THE PK/FK WE"LL REDEFINE THE ROW INDEX BY THE PK
@@ -537,7 +564,7 @@ class DAO{
 									
 								}else{
 									// HANDLE AN ENTITY
-									#echo '$result[0]["INSERT_ID"]ENTITY<pre>'.var_export($result[0]["INSERT_ID"],true).'</pre>'.LN;
+									#echo '$result[0]["INSERT_ID"]ENTITY<pre>'.var_export($result[0]["INSERT_ID"],true).'</pre>'.PHP_EOL;
 									$this->tables[$key]['values'][$this->tables[$key]['pk_field']] = $result[0]["INSERT_ID"];
 									// IF ITS A JOIN ADD THE FK FIELD
 									if(isset($this->tables[$key]['fk_field'])){
@@ -549,14 +576,14 @@ class DAO{
 							}
 						}
 					}else{
-						$result[] = $GLOBALS["db"]->SQL_update($this->tables[$key]['database'], $value2["query"], $returnArray=true);
+						$result[] = $GLOBALS["DATA_API"]->update($this->tables[$key]['DSN'], $value2["query"], $returnArray=true);
 					}
 					
 					
 				}
 			}
 			
-			echo __METHOD__.__LINE__.'$this->tables['.$key.']<pre>'.print_r($this->tables[$key], true).'</pre>'.LN;
+			#echo __METHOD__.'@'.__LINE__.'$this->tables['.$key.']<pre>'.print_r($this->tables[$key], true).'</pre>'.PHP_EOL;
 			unset($this->queries);
 			//foundation
 			
@@ -574,10 +601,10 @@ class DAO{
 	* @return NULL
 	*/
 	protected function generateQueries($key,$value,$table){
-		#echo 'XXXX $table['.$table.'] $key=['.$key.'] <pre>'.var_export($value,true).'</pre>'."\n";
+		#echo __METHOD__.'@'.__LINE__.' $table['.$table.'] $key=['.$key.'] <pre>'.var_export($value,true).'</pre>'."\n";
 		$query = '';
 		if($this->tables[$key]["values"][$this->tables[$key]["pk_field"]] ==0){
-			echo 'DO INSERT'.LN;
+			#echo __METHOD__.'@'.__LINE__.'DO INSERT'.PHP_EOL;
 			$queryType = 'INSERT';
 			// insert into data (user_DbId, view_DbId, type, title) values ($user_DbId, $view_DbId, $type, '$title');
 			$this->generateInsertQuery($key,$value);
@@ -590,7 +617,7 @@ class DAO{
 			/*
 			* if the table is not set do everything, if it is do only that table
 			*/
-			#echo 'XXXXX$key=['.$key.'] $key2=['.$key2.']<pre>'.var_export($value2,true).'</pre>'.LN;
+			#echo 'XXXXX$key=['.$key.'] $key2=['.$key2.']<pre>'.var_export($value2,true).'</pre>'.PHP_EOL;
 			
 			if(is_null($table) || (!is_null($table) && $table == $key)){
 				if(is_array($value2)){
@@ -643,7 +670,7 @@ class DAO{
 	* @return NULL
 	*/
 	protected function generateInsertQuery($table, $value){
-		#echo 'XXXXX$table=['.$table.']<pre>'.var_export($value,true).'</pre>'.LN;
+		#echo 'XXXXX$table=['.$table.']<pre>'.var_export($value,true).'</pre>'.PHP_EOL;
 		$columnsNames = '';
 		$columnsValues = '';
 		foreach($value AS $key2 => $value2){
@@ -665,9 +692,9 @@ class DAO{
 	* @return string $stringValue
 	*/
 	public function stripTrailingComma($stringValue){
-		#echo '$string['.$string.']'.LN;
+		#echo '$string['.$string.']'.PHP_EOL;
 		$stringValue = substr  ($stringValue, 0, strlen($stringValue)-1 );
-		#echo '$string['.$string.']'.LN;
+		#echo '$string['.$string.']'.PHP_EOL;
 		return $stringValue;
 	}
 	/**
