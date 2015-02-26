@@ -270,7 +270,7 @@ class DAO{
 		#$this->initialized = true;
 		$this->tables[$tableName] = array();
 		$this->tables[$tableName]['DSN'] 	= $DSN;
-		if($foundation===true){
+		if(isset($foundation) && $foundation===true){
 			$this->tables[$tableName]['foundation'] = TRUE; //$foundation;
 		}
 		$this->tables[$tableName]['pk'] 		= 0;
