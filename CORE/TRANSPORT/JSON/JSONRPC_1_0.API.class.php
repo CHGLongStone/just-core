@@ -95,12 +95,12 @@ class JSONRPC_1_0_API implements TRANSPORT_INTERFACE{
 		}
 		/**/
 		/*
+		echo __FILE__.__LINE__.'$raw_data['.var_export($raw_data,true).']'.PHP_EOL;
 		*/
 		if(!isset($raw_data['id']) || '' == $raw_data['id']){
 			$raw_data['id'] = microtime();
 			
 		}
-		echo __FILE__.__LINE__.'$raw_data['.var_export($raw_data,true).']'.PHP_EOL;
 		
 		#exit;
 		#if(substr($raw_data, 0, 1) == "&"){
@@ -108,10 +108,11 @@ class JSONRPC_1_0_API implements TRANSPORT_INTERFACE{
 		#}
 		/**
 		* first up we'll process the result
+		echo __METHOD__.__LINE__.''.PHP_EOL; 
 		*/
 		$resultTest = $this->parseRequest($raw_data);
-		#echo __METHOD__.__LINE__.'$resultTest<pre>['.var_export($resultTest, true).']</pre>'.PHP_EOL; 
 		/**
+		echo __METHOD__.__LINE__.'$resultTest<pre>['.var_export($resultTest, true).']</pre>'.PHP_EOL; 
 		* if the message was just a notice we'll exit here
 		* given notices don't have a repsponse we won't check for errors
 		* errors should be logged where they are generated
@@ -138,11 +139,13 @@ class JSONRPC_1_0_API implements TRANSPORT_INTERFACE{
 			/**
 			* deal with the result
 			*/
-			if(TRUE === $resultTest ){
+			if(TRUE == $resultTest ){
 				if(NULL !== $this->serviceObject && NULL !== $this->serviceObject->serviceResponse){
 					$this->responseData["result"] = $this->serviceObject->serviceResponse;
-					#echo __METHOD__.__LINE__.'$this->responseData["result"]<pre>['.var_export($this->responseData["result"], true).']</pre>'.PHP_EOL; 
-					#echo __METHOD__.__LINE__.'$this->serviceObject->serviceResponse<pre>['.var_export($this->serviceObject->serviceResponse, true).']</pre>'.PHP_EOL; 
+					/*
+					echo __METHOD__.__LINE__.'$this->responseData["result"]<pre>['.var_export($this->responseData["result"], true).']</pre>'.PHP_EOL; 
+					echo __METHOD__.__LINE__.'$this->serviceObject->serviceResponse<pre>['.var_export($this->serviceObject->serviceResponse, true).']</pre>'.PHP_EOL; 
+					*/
 					if(NULL !== $this->resultHandler){
 						$this->responseData["result"]["resultHandler"] = $this->resultHandler;
 					}
@@ -157,19 +160,19 @@ class JSONRPC_1_0_API implements TRANSPORT_INTERFACE{
 					$args["obj"]        = TRUE;
 					$this->error = $ERROR->getError($args);
 					return $ERROR;
+					echo __METHOD__.__LINE__.'$serviceData<pre>['.$serviceData.']</pre>'.PHP_EOL; 
 					*/
-					#echo __METHOD__.__LINE__.'$serviceData<pre>['.$serviceData.']</pre>'.PHP_EOL; 
 					if(class_exists($serviceCall[0]) && method_exists($this->serviceObject, 'introspectService')){
 						$serviceData = $this->serviceObject->introspectService();
-						#echo __METHOD__.__LINE__.'$serviceData<pre>['.$serviceData.']</pre>'.PHP_EOL; 
+						echo __METHOD__.__LINE__.'$serviceData<pre>['.var_export($serviceData,true).']</pre>'.PHP_EOL; 
 						return $serviceData;
 					}
 				}
 			}
-			#echo __METHOD__.__LINE__.'$serviceData<pre>['.$serviceData.']</pre>'.PHP_EOL; 
 			
 		}
 				
+		#echo __METHOD__.__LINE__.'$this->responseData['.var_export($this->responseData,true).']</pre>'.PHP_EOL; 
 		$this->compileResponse($this->responseData);
 		return;
 	}
@@ -192,7 +195,7 @@ class JSONRPC_1_0_API implements TRANSPORT_INTERFACE{
 	*/
 	public function parseRequest($raw_data){
 		#echo __METHOD__.__LINE__.' ['.$raw_data.']<br>';
-		echo __METHOD__.__LINE__.'$raw_data['.var_export($raw_data,true).']'.PHP_EOL;
+		#echo __METHOD__.__LINE__.'$raw_data['.var_export($raw_data,true).']'.PHP_EOL;
 		/*
 		$args["assoc"] =  TRUE;
 		$args["DATA"] = $raw_data;
@@ -203,7 +206,7 @@ class JSONRPC_1_0_API implements TRANSPORT_INTERFACE{
 		$parsedRequest = $raw_data;  //params
 		
 		if(NULL !== $parsedRequest || FALSE !== $parsedRequest){
-			echo __METHOD__.__LINE__.'$parsedRequest['.var_export($parsedRequest,true).']'.PHP_EOL;
+			#echo __METHOD__.__LINE__.'$parsedRequest['.var_export($parsedRequest,true).']'.PHP_EOL;
 			#$this->raw_data  = $raw_data;
 			$this->parsedRequest  = $parsedRequest;
 		}
@@ -219,9 +222,16 @@ class JSONRPC_1_0_API implements TRANSPORT_INTERFACE{
 	* @return return NULL  
 	*/
 	public function compileResponse($dataSet){
+		//{"result": 1, "error": null, "id": 101}
 		#echo __METHOD__.__LINE__.PHP_EOL;
+		#echo __METHOD__.__LINE__.'$args["DATA"]['.var_export($dataSet, true).']'.PHP_EOL; 
 		#$args["assoc"] =  TRUE;
-		$args["DATA"] = $dataSet;
+		$args["result"] = $dataSet;
+		$args['error'] = NULL;
+		if(isset($dataSet["error"])){
+			$args['error'] = $dataSet["error"];
+		}	
+		$args['id'] = microtime();
 		#echo __METHOD__.__LINE__.'$args["DATA"]<pre>['.var_export($args["DATA"], true).']</pre>'.PHP_EOL; 
 		#$preparedResponse = SERIALIZATION::serializeJSON($args);
 		$preparedResponse = JSON::json_encode($args);
@@ -239,30 +249,32 @@ class JSONRPC_1_0_API implements TRANSPORT_INTERFACE{
 
 	protected function callService($parsedRequest = null){
 		#echo __METHOD__.__LINE__.PHP_EOL;
-		echo __METHOD__.__LINE__.'$parsedRequest<pre>['.var_export($parsedRequest, true).']</pre>'.PHP_EOL; 
+		#echo __METHOD__.__LINE__.'$parsedRequest<pre>['.var_export($parsedRequest, true).']</pre>'.PHP_EOL; 
 		if(NULL == $parsedRequest || !is_array($parsedRequest)){
 			#echo __METHOD__.__LINE__.PHP_EOL;
 			if(NULL == $this->parsedRequest || !is_array($this->parsedRequest)){
 				$parsedRequest = $this->parsedRequest;
 				#echo __METHOD__.__LINE__.PHP_EOL;
 			}else{
-				echo __METHOD__.__LINE__.PHP_EOL;
+				#echo __METHOD__.__LINE__.PHP_EOL;
 				return false;
 			}
 		}
 		
 		$serviceCall = explode('.', $parsedRequest["method"]);
+		/*
 		echo __METHOD__.__LINE__.'$serviceCall['.var_export($serviceCall, true).']'.PHP_EOL; 
 		echo __METHOD__.__LINE__.'class_exists('.$serviceCall[0].')['.var_export(class_exists($serviceCall[0]), true).']'.PHP_EOL; 
 		echo __METHOD__.__LINE__.' method_exists('.$serviceCall[0].', '.$serviceCall[1].')['.var_export( method_exists($serviceCall[0], $serviceCall[1]), true).']'.PHP_EOL; 
+		*/
 		
 		if(class_exists($serviceCall[0]) && method_exists($serviceCall[0], $serviceCall[1])){
-			echo __METHOD__.__LINE__.'$serviceResponse<pre>['.var_export($serviceResponse, true).']</pre>'.PHP_EOL; 
 			$this->serviceObject = new $serviceCall[0]();
 			$serviceResponse = $this->serviceObject->$serviceCall[1]($parsedRequest["params"]);
+			#echo __METHOD__.__LINE__.'$serviceResponse<pre>['.var_export($serviceResponse, true).']</pre>'.PHP_EOL; 
 			
 		}else{
-			echo __METHOD__.__LINE__.'$serviceCall['.var_dump($serviceCall, true).']'.PHP_EOL; 
+			#echo __METHOD__.__LINE__.'$serviceCall['.var_dump($serviceCall, true).']'.PHP_EOL; 
 			$this->error["errorType"] = "FAILED CALL";
 			$this->error["errorContext"] = ' SERVICE '.$parsedRequest["method"].' NOT AVAILABLE';
 			$this->error["errorDescription"] = ''.$parsedRequest["method"].' is not registered with this API';
