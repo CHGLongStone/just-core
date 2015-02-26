@@ -43,7 +43,8 @@ An error occurred on the server while parsing the JSON text.
 
 */
 	public static function json_decode($JSON, $toArray = true){
-		return $this::validateJSON($JSON, $toArray = true);
+		#echo __METHOD__.'::'.__LINE__.'$JSON<pre>'.print_r($JSON, true).'</pre>'.PHP_EOL;
+		return \JCORE\TRANSPORT\JSON\JSON::validateJSON($JSON, $toArray = true);
 	}
 		
 	public static function json_encode($JSON, $toArray = true){

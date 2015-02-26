@@ -10,6 +10,7 @@
 
 namespace JCORE\DATA\API\MySQL;
 use JCORE\EXCEPTION\DATA_Exception as DATA_Exception;
+use JCORE\EXCEPTION\networkException as networkException;
 /**
  * Interface MySQL_connector
  *
@@ -196,10 +197,10 @@ class MySQL_connector implements \JCORE\DATA\API\DATA_API_INTERFACE{
 					$connection = @mysql_connect($this->host, $this->username, $this->password);
 				}
 				if(!is_resource($connection) ){
-					throw new Exception('CRITICAL CONNECTION FAILED:: 2nd attempt on DB['.$this->DSN.']['.$this->database.']'.mysql_errno());
+					throw new \Exception('CRITICAL CONNECTION FAILED:: 2nd attempt on DB['.$this->DSN.']['.$this->database.']'.mysql_errno());
 				}
 				if(!mysql_select_db($this->database, $connection)){
-					throw new Exception('CRITICAL SELECT DB ['.$this->DSN.']['.$this->database.'] FAILED:: 3rd attempt'.mysql_errno());
+					throw new \Exception('CRITICAL SELECT DB ['.$this->DSN.']['.$this->database.'] FAILED:: 3rd attempt'.mysql_errno());
 				}
 				$this->connection = $connection;
 			}

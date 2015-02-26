@@ -94,13 +94,13 @@ class JSONRPC_1_0_API implements TRANSPORT_INTERFACE{
 			#exit('{"result": null, "error": {"code": -300, "message": "failed to get input"}, "id": null}');
 		}
 		/**/
+		if(!isset($raw_data['id']) || '' == $raw_data['id']){
+			$raw_data['id'] = microtime();
+		}
+			
 		/*
 		echo __FILE__.__LINE__.'$raw_data['.var_export($raw_data,true).']'.PHP_EOL;
 		*/
-		if(!isset($raw_data['id']) || '' == $raw_data['id']){
-			$raw_data['id'] = microtime();
-			
-		}
 		
 		#exit;
 		#if(substr($raw_data, 0, 1) == "&"){
@@ -116,8 +116,8 @@ class JSONRPC_1_0_API implements TRANSPORT_INTERFACE{
 		* if the message was just a notice we'll exit here
 		* given notices don't have a repsponse we won't check for errors
 		* errors should be logged where they are generated
+		echo __METHOD__.__LINE__.'$raw_data['.$raw_data.']<br>';
 		*/
-		#echo __METHOD__.__LINE__.'$raw_data['.$raw_data.']<br>';
 		if(!isset($this->parsedRequest["id"]) && (isset($raw_data) && $raw_data != '') ){
 			$this->exitNotice(); //no repsonse for notifications
 		}
@@ -129,29 +129,33 @@ class JSONRPC_1_0_API implements TRANSPORT_INTERFACE{
 		if(NULL !== $this->error || NULL !== $this->serviceObject->error){
 			#echo __METHOD__.__LINE__.PHP_EOL;
 			$this->responseData["result"] = NULL;
-			if(NULL !== $this->serviceObject->error){
+			if(isset($this->serviceObject->error) && NULL !== $this->serviceObject->error){
 				$this->responseData["error"] = $this->serviceObject->error;
 			}else{
 				$this->responseData["error"] = $this->error;
 			}
 		}else{
-			#echo __METHOD__.__LINE__.PHP_EOL;
 			/**
+			echo __METHOD__.__LINE__.PHP_EOL;
 			* deal with the result
 			*/
 			if(TRUE == $resultTest ){
+				#echo __METHOD__.__LINE__.PHP_EOL;
 				if(NULL !== $this->serviceObject && NULL !== $this->serviceObject->serviceResponse){
-					$this->responseData["result"] = $this->serviceObject->serviceResponse;
+					#$this->responseData["result"] = $this->serviceObject->serviceResponse;
+					$this->responseData = $this->serviceObject->serviceResponse;
 					/*
-					echo __METHOD__.__LINE__.'$this->responseData["result"]<pre>['.var_export($this->responseData["result"], true).']</pre>'.PHP_EOL; 
+					echo __METHOD__.__LINE__.PHP_EOL;
+					echo __METHOD__.__LINE__.'$this->responseData<pre>['.var_export($this->responseData, true).']</pre>'.PHP_EOL; 
 					echo __METHOD__.__LINE__.'$this->serviceObject->serviceResponse<pre>['.var_export($this->serviceObject->serviceResponse, true).']</pre>'.PHP_EOL; 
 					*/
 					if(NULL !== $this->resultHandler){
 						$this->responseData["result"]["resultHandler"] = $this->resultHandler;
 					}
-					$this->responseData["error"] = NULL;
+					#$this->responseData["error"] = NULL;
 				}else{
 					/*
+					echo __METHOD__.__LINE__.PHP_EOL;
 					$args["code"] 		= "FAILED_CALL";
 					$args["message"] 	='NO SEARCHED TERM DEFINED';
 					$args["data"] 		= 'no service call made';
@@ -164,7 +168,7 @@ class JSONRPC_1_0_API implements TRANSPORT_INTERFACE{
 					*/
 					if(class_exists($serviceCall[0]) && method_exists($this->serviceObject, 'introspectService')){
 						$serviceData = $this->serviceObject->introspectService();
-						echo __METHOD__.__LINE__.'$serviceData<pre>['.var_export($serviceData,true).']</pre>'.PHP_EOL; 
+						#echo __METHOD__.__LINE__.'$serviceData<pre>['.var_export($serviceData,true).']</pre>'.PHP_EOL; 
 						return $serviceData;
 					}
 				}
