@@ -12,11 +12,10 @@ namespace JCORE\TRANSPORT\SOA;
 /**
  * Class SOA_BASE
  *
- * @package JCORE\LOAD\TRANSPORT\SOA
+ * @package JCORE\TRANSPORT\SOA
 */
-abstract class SOA_BASE { //implements Reflector 
+abstract class SOA_BASE { 
 	/**
-	* DESCRIPTOR: 
 	* empty constructor, this object needs to be extended
 	* as a primary consideration for SOA, we need to expose the object and it's methods
 	* 
@@ -27,7 +26,6 @@ abstract class SOA_BASE { //implements Reflector
 		return;
 	}
 	/**
-	* DESCRIPTOR: 
 	* introspectService will provide all of the methods, members and arguements 
 	* within scope of the call as well as the document comments assotiatiated 
 	* with the extended object. This method can be overridden or extended 
@@ -55,4 +53,6 @@ abstract class SOA_BASE { //implements Reflector
 	}
 	
 }
+
+
 ?>
