@@ -1,13 +1,13 @@
 <?
 /**
- * DESCRIPTOR:
  * this object needs to be extended
  * as a primary consideration for SOA, we need to expose the object and it's methods
+ *
  * @author	Jason Medland<jason.medland@gmail.com>
- * @package	JCORE\LOAD\TRANSPORT\SOA
- * @subpackage	JCORE\LOAD\TRANSPORT\SOA
+ * @package	JCORE\TRANSPORT\SOA
+ * @subpackage	JCORE\TRANSPORT\SOA
  */
-namespace JCORE\LOAD\TRANSPORT\SOA;
+namespace JCORE\TRANSPORT\SOA;
 
 /**
  * Class SOA_BASE
