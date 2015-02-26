@@ -8,10 +8,11 @@
  * @subpackage	JCORE\LOAD\TRANSPORT\SOA
  */
 namespace JCORE\LOAD\TRANSPORT\SOA;
+
 /**
  * Class SOA_BASE
  *
- * @package JCORE\JCORE\LOAD\TRANSPORT\SOA
+ * @package JCORE\LOAD\TRANSPORT\SOA
 */
 abstract class SOA_BASE { //implements Reflector 
 	/**
