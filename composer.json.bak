@@ -1,0 +1,32 @@
+{
+	"name" : "just-core/foundation",
+	"description" : "PHP Enterprise HA Framework",
+	"license" : "GNU",
+	"keywords" : [
+		"just-core",
+		"Enterprise",
+		"HA",
+		"Framework"
+	],
+	"version" : "1.0.0",
+	"homepage" : "https://github.com/CHGLongStone/just-core",
+	"require" : {
+		"php" : ">=5.3.3"
+	},
+	/**
+	no commets in json but you can implement your own harness
+	in your own allication composer.json
+	libs to investigate.. worth leveraging?
+	"require-dev" : {
+		"phpunit/phpunit" : "3.7.*",
+		"lightopenid/lightopenid" : "dev-master",
+		"fergusean/nusoap" : "0.3.*",
+		"seld/jsonlint": "~1.0"
+	},
+	*/
+	"autoload" : {
+		"classmap" : [
+			"CORE"
+		]
+	}
+}
