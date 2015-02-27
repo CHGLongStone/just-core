@@ -8,16 +8,10 @@
 		"HA",
 		"Framework"
 	],
-	"version" : "1.0.0",
+	"version" : "0.5.0",
 	"homepage" : "https://github.com/CHGLongStone/just-core",
 	"require" : {
 		"php" : ">=5.3.3"
-	},
-	"require-dev" : {
-		"phpunit/phpunit" : "3.7.*",
-		"lightopenid/lightopenid" : "dev-master",
-		"fergusean/nusoap" : "dev-master",
-		"seld/jsonlint": "~1.0"
 	},
 	"autoload" : {
 		"classmap" : [
