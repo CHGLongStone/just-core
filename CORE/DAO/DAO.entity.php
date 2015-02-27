@@ -204,7 +204,7 @@ class DAO{
 		#$config["table"];
 		#$config["pk_field"]; 
 		#$config["pk"];
-		
+		$this->db = $GLOBALS["DATA_API"];
 		$GLOBALS['LOG_DATA']->log(LOG_DEBUG,__METHOD__, '(<pre>'.print_r($config, true).'</pre>)');
 		
 		if(is_array($config)){
@@ -517,6 +517,7 @@ class DAO{
 				}
 			}
 		}
+		#echo __METHOD__.'@'.__LINE__.'<pre>'.print_r($GLOBALS, true).'</pre>'.PHP_EOL;
 		#echo '-----------------------------------------------------'.PHP_EOL;
 		#echo __METHOD__.__LINE__.'<pre>'.print_r($this->tables[$key], true).'</pre>'.PHP_EOL;
 		#echo __METHOD__.__LINE__.'$this->modifiedColumns<pre>'.print_r($this->modifiedColumns, true).'</pre>'.PHP_EOL;
@@ -533,7 +534,7 @@ class DAO{
 						#$result[] = $GLOBALS["DATA_API"]->insert($this->tables[$key]['DSN'], $value2["query"], $returnArray=true);
 						if(isset($this->tables[$key]['foundation']) && $this->tables[$key]['foundation'] === true){
 							#echo '$result<pre>'.var_export($result,true).'</pre>'.PHP_EOL;
-							$result[] = $GLOBALS["DATA_API"]->create($this->tables[$key]['DSN'], $value2["query"], $returnArray=true);
+							$result[] = $GLOBALS["DATA_API"]->create($this->tables[$key]['DSN'], $value2["query"],  $args=array('returnArray' => true));
 							if(is_int($result[0]["INSERT_ID"])){
 								#echo '$result[0]["INSERT_ID"]<pre>'.var_export($result[0]["INSERT_ID"],true).'</pre>'.PHP_EOL;
 								$this->root_pk = $result[0]["INSERT_ID"];
@@ -576,7 +577,23 @@ class DAO{
 							}
 						}
 					}else{
-						$result[] = $GLOBALS["DATA_API"]->update($this->tables[$key]['DSN'], $value2["query"], $returnArray=true);
+						/*
+						echo __METHOD__.'@'.__LINE__.'$this->tables['.$key.']["DSN"]<pre>'.print_r($this->tables[$key]['DSN'], true).'</pre>'.PHP_EOL;
+						echo __METHOD__.'@'.__LINE__.'$value2["query"]<pre>'.print_r($value2["query"], true).'</pre>'.PHP_EOL;
+						echo __METHOD__.'@'.__LINE__.'<pre>'.print_r($GLOBALS, true).'</pre>'.PHP_EOL;
+						
+						$result[] = $this->db->update(
+							$this->tables[$key]['DSN'], 
+							$value2["query"],  
+							$args=array('returnArray' => true)
+						);
+						*/
+						
+						$result[] = $GLOBALS["DATA_API"]->update(
+							$this->tables[$key]['DSN'], 
+							$value2["query"],  
+							$args=array('returnArray' => true)
+						);
 					}
 					
 					

@@ -140,7 +140,7 @@ class DATA_API{
 	 * @var string
 	 */
 	
-	private $logger; // = new LOGGER();		
+	public $logger; // = new LOGGER();		
 	
 	
 	//----------------------------------------------------------------------------------
@@ -157,8 +157,9 @@ class DATA_API{
 	 * @return	null
 	 */
 	public function __construct($cfg){
-		/**/
-		#echo __METHOD__.__LINE__.'<br>';
+		/*
+		echo __METHOD__.__LINE__.'<br>';
+		*/
 		#FIXIT
 		#$logCFG = $GLOBALS['CONFIG_MANAGER']->loadIni($LOAD_ID='JCORE_LOG', $FILE_NAME=JCORE_CONFIG_DIR.'SERVICE/LOG/logServices.ini');
 		
@@ -189,14 +190,14 @@ class DATA_API{
 	*
 	*/
 	public function setIntrospectionObject($DSN){
-		echo __METHOD__.__LINE__.' $DSN['.$DSN.'] <br>'.PHP_EOL;
+		#echo __METHOD__.__LINE__.' $DSN['.$DSN.'] <br>'.PHP_EOL;
 		$introspectionClassName = 'JCORE\DATA\API\\'.$this->connectorCfg[$DSN]["dbType"].'\\' .$this->connectorCfg[$DSN]["dbType"].'_TABLE_META';
 		if(
 			!isset($this->dataSchema[$DSN]["introspection"]) 
 			OR
 			!$this->dataSchema[$DSN]["introspection"] instanceof $introspectionClassName
 		){
-			echo __METHOD__.__LINE__.'NOT ISSET  $DSN['.$DSN.'] $introspectionClassName['.$introspectionClassName.']<br>'.PHP_EOL;
+			#echo __METHOD__.__LINE__.'NOT ISSET  $DSN['.$DSN.'] $introspectionClassName['.$introspectionClassName.']<br>'.PHP_EOL;
 			$this->dataSchema[$DSN]["introspection"] = new $introspectionClassName();
 			#$introspectionClassName->initialize($DSN, $tableName, $connectionObject=NULL);
 		}
@@ -424,8 +425,16 @@ class DATA_API{
 	* @return $result 
 	*/
 	public function update($DSN, $query, $args=array('returnArray' => true)){
-		#echo __METHOD__.__LINE__.'<br>';
-		$this->logger->log(LOG_DEBUG,__METHOD__, '(DSN='.$DSN.', query='.$query.' returnArray=['.$returnArray.'])');
+		/*
+		echo __METHOD__.__LINE__.'<br>';
+		echo __METHOD__.__LINE__.'<pre>['.var_export($this, true).']</pre>'.PHP_EOL; 
+		*/
+		$this->logger->log(
+			LOG_DEBUG,
+			__METHOD__, 
+			'(DSN='.$DSN.', query='.$query.' returnArray=['.json_encode($args).'])'
+		);
+		
 		#echo '$DSN'.$DSN.' '.'<br>';
 		$this->verify_connection($DSN);
 		if(true === $this->checkIsSlave($DSN)){
@@ -547,7 +556,7 @@ class DATA_API{
 	function __destruct(){
 		#echo __METHOD__.__LINE__.'<br>';
 		$this->logger->log(LOG_DEBUG,__METHOD__, '()');
-		unset($this->logger); // NOT using global logger now
+		#unset($this->logger); // NOT using global logger now
 		return;
 	}
 }

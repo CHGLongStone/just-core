@@ -37,7 +37,7 @@ abstract class SOA_BASE {
 	public function introspectService(){
 		$calledClass = get_called_class();
 		#echo __METHOD__.__LINE__.'$calledClass<pre>['.var_export($calledClass, true).']</pre>'.'<br>'; 
-		$reflector = new ReflectionClass($calledClass);
+		$reflector = new \ReflectionClass($calledClass);
 		#echo __METHOD__.__LINE__.'$reflector<pre>['.var_export($reflector, true).']</pre>'.'<br>'; 
 		$barebones = array();
 		#$barebones['methods'] = $reflector->getMethods();

@@ -112,6 +112,7 @@ class JSONRPC_1_0_API implements TRANSPORT_INTERFACE{
 		*/
 		$resultTest = $this->parseRequest($raw_data);
 		/**
+		echo __METHOD__.__LINE__.'$raw_data<pre>['.var_export($raw_data, true).']</pre>'.PHP_EOL; 
 		echo __METHOD__.__LINE__.'$resultTest<pre>['.var_export($resultTest, true).']</pre>'.PHP_EOL; 
 		* if the message was just a notice we'll exit here
 		* given notices don't have a repsponse we won't check for errors
@@ -166,7 +167,7 @@ class JSONRPC_1_0_API implements TRANSPORT_INTERFACE{
 					return $ERROR;
 					echo __METHOD__.__LINE__.'$serviceData<pre>['.$serviceData.']</pre>'.PHP_EOL; 
 					*/
-					if(class_exists($serviceCall[0]) && method_exists($this->serviceObject, 'introspectService')){
+					if(method_exists($this->serviceObject, 'introspectService')){ //class_exists() && 
 						$serviceData = $this->serviceObject->introspectService();
 						#echo __METHOD__.__LINE__.'$serviceData<pre>['.var_export($serviceData,true).']</pre>'.PHP_EOL; 
 						return $serviceData;

@@ -35,7 +35,7 @@ class LOGGER{
 	 * @var string
 	 */
 	protected $errors = array();
-	protected $traceString;
+	protected $traceString = '';
 	
 	private $settings = '';
 	
@@ -252,7 +252,7 @@ class LOGGER{
 		if($this->logFacility == 'FILE'){
 			$this->settings["bufferWrite"] = FALSE;
 			$this->writeToFile(null);
-			unset($this->traceString);
+			#unset($this->traceString);
 		}
 		return;
 	}
