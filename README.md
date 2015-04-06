@@ -16,35 +16,9 @@
  <br> <br> <br>
 
 ###The Layout
-the expected install is something along the lines of
-/var/www/VHOSTS/*hostname*/ - your "servable" directory root
-/var/www/VHOSTS/*hostname*/[API*] - your API directories
-/var/www/JCORE - your base install directory
-/var/www/JCORE/CORE/ - a checkout of the JCORE project
-/var/www/JCORE/CACHE/ - a writable cache directory
-/var/www/JCORE/CONFIG/ - contains ini files for CORE
-/var/www/JCORE/PLUGINS/ - plugin directory
+the expected install is expected to use composer https://getcomposer.org/
 
 
-
-
-But these can be any directory your application server has r/w access to. The subdirectories under JCORE are mapped as constants in the file JCORE/APIS/\[api_name\]/config.php
-
-		define ("JCORE_BASE_DIR", "/var/www/JCORE/CORE/");
-		define ("JCORE_CONFIG_DIR", "/var/www/JCORE/CONFIG/");
-		define ("JCORE_PACKAGES_DIR", "/var/www/JCORE/PACKAGES/");
-		define ("JCORE_TEMPLATES_DIR", "/var/www/JCORE/TEMPLATES/");
-		define ("JCORE_LOG_DIR", "/var/log/httpd/"); 
-		define ("JCORE_PLUGINS_DIR", "/var/www/JCORE/PLUGINS/");
-		define ("JCORE_PACKAGES_DIR", "/var/www/JCORE/PACKAGES/");
-
- <br> <br> <br>
-####JCORE/[APIS]
-contains example API's (SOA, ReST, basic HTTP) as well as the "default_admin_api" 
-if you want to expose this you can create a symlink under the http directory.
-the API directory itself can contain as little as the index file and the config file. 
-
-All of the business logic should be contained in the PLUGINS and PACKAGES.
 
 
 ####JCORE/[CONFIG]
