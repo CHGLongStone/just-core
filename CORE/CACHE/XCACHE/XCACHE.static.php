@@ -19,7 +19,7 @@ require_once($CACHE_STATIC_API_INTERFACE);
  * @package		JCORE
  * @subpackage	CACHE
 */
-class XCACHE extends JCORE_SINGLETON implements CACHE_STATIC_API_INTERFACE 
+class XCACHE_static extends JCORE_SINGLETON implements CACHE_STATIC_API_INTERFACE 
 {
 	/**
 	* private instance of the class 
