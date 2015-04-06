@@ -133,7 +133,7 @@ class MySQL_connector implements \JCORE\DATA\API\DATA_API_INTERFACE{
 		// set a retry delay value
 		#echo __METHOD__.'@'.__LINE__.'$this<pre>'.var_export($this, true).'</pre><br>';
 		#$DB_CONNECT_RETRY =  $GLOBAL["SYSTEM_SETTINGS"]["APPLICATION"]["DB_CONNECT_RETRY"];
-		$DB_CONNECT_RETRY =  $this->config["DB_CONNECT_RETRY"];
+		#DB_CONNECT_RETRY =  $this->config["DB_CONNECT_RETRY"];
 		#echo __METHOD__.'@'.__LINE__.'$DB_CONNECT_RETRY<pre>'.var_export($DB_CONNECT_RETRY, true).'</pre><br>';
 		if(!is_bool($persistent)){
 			if(is_string($persistent)){
@@ -180,7 +180,7 @@ class MySQL_connector implements \JCORE\DATA\API\DATA_API_INTERFACE{
 			// could be network/connection issues lets try again after a quick snooze
 			catch(DATA_Exception $e){
 				$this->logger->log(LOG_CRIT,$e->getMessage(),$e->getTraceAsString());
-				usleep($DB_CONNECT_RETRY);
+				#usleep($DB_CONNECT_RETRY);
 				if(!mysql_select_db($this->database, $connection)){
 					throw new DATA_Exception('CRITICAL SELECT DB ['.$this->DSN.']['.$this->database.'] FAILED:: 2nd attempt'.mysql_errno());
 				}
@@ -190,7 +190,7 @@ class MySQL_connector implements \JCORE\DATA\API\DATA_API_INTERFACE{
 			catch(networkException $e){ 
 				$this->logger->log(LOG_CRIT,$e->getMessage(),$e->getTraceAsString());
 				//2nd Time: could be network/connection issues lets try again after a quick snooze
-				usleep($DB_CONNECT_RETRY);
+				#usleep($DB_CONNECT_RETRY);
 				if($persistent===true){
 					$connection = @mysql_pconnect($this->host, $this->username, $this->password);
 				}else{
