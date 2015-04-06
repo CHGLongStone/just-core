@@ -12,7 +12,7 @@ use JCORE\EXCEPTION\DATA_Exception as DATA_Exception;
  *
  * @package JCORE\DATA\API\MySQL
 */
- class MYSQL_TABLE_META{
+ class MySQL_TABLE_META{
 	
 	/**
 	 * @access private 
