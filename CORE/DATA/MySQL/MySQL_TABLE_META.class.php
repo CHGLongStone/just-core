@@ -2,13 +2,13 @@
 /**
  * Class
  * @author		Jason Medland<jason.medland@gmail.com>
- * @subpackage	webkinz 2.0 - data
- * 
+ * @package		JCORE
+ * @subpackage	DATA\API
  */
 namespace JCORE\DATA\API\MySQL;
 use JCORE\EXCEPTION\DATA_Exception as DATA_Exception;
 /**
- * Interface MYSQL_TABLE_META
+ * Class MYSQL_TABLE_META
  *
  * @package JCORE\DATA\API\MySQL
 */
