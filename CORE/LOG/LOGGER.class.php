@@ -18,16 +18,13 @@
  * @package	JCORE
  * @subpackage	LOG
  */
-/**
- * @package	JCORE
- * @subpackage	LOG
-*/
+
 namespace JCORE\LOG;
 use JCORE\DATA\API\DATA_UTIL_API as DATA_UTIL_API;
 /**
- * Class CACHE_API2
+ * Class LOGGER
  *
- * @package JCORE\CACHE
+ * @package JCORE\LOG
 */
 class LOGGER{
 	/**
