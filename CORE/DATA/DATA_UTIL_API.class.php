@@ -23,9 +23,9 @@ class DATA_UTIL_API{
 	public static function scrubWhitespace($stringval){
 		if('' != $stringval){			
 			#echo __FILE__.'@'.__LINE__.'stringval<pre>'.var_export($stringval, true).'</pre><br>';
-			$stringval = str_replace(array("\n", "\r", "\t"), " ", $stringval);
+			$stringval = str_replace(array("\n", "\r", "\t","+"), " ", $stringval);
 			#echo __FILE__.'@'.__LINE__.'stringval<pre>'.var_export($stringval, true).'</pre><br>';
-			$stringval = trim(preg_replace(" +", " ", $stringval));
+			#@$stringval = trim(preg_replace(" +", " ", $stringval));
 			#echo __FILE__.'@'.__LINE__.'stringval<pre>'.var_export($stringval, true).'</pre><br>';
 		}
 		/*
