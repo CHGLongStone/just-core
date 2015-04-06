@@ -1,4 +1,4 @@
-<?
+<?php
 /**
  * DAO TREE class
  * this is a Modified Preorder Tree Traversal based on the example given here:

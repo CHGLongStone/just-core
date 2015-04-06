@@ -1,4 +1,4 @@
-<? 
+<?php 
 /**
  * REST_API
  * @author	Jason Medland<jason.medland@gmail.com>

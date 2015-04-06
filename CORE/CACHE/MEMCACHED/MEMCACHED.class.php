@@ -1,4 +1,4 @@
-<?
+<?php
 /**
  * Memcached Class
  * Connection Classes can be created for any CACHE supported by PHP

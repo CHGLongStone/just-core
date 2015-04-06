@@ -1,4 +1,4 @@
-<?
+<?php
 /**
  * TRANSPORT_INTERFACE
  * couple good ideas here http://www.flickr.com/services/api/

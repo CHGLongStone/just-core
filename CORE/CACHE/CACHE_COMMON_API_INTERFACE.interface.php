@@ -1,4 +1,4 @@
-<?
+<?php
 /**
  * Connection objects can be created 4 any CACHE supported by PHP
  * create wrappers 4 existing API's with this interface

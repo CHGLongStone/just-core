@@ -1,4 +1,4 @@
-<?
+<?php
 /**
  * Wrapper for the Eaccelerator API
  * 

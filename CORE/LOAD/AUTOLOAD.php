@@ -1,4 +1,4 @@
-<?
+<?php
 /**
  * CONFIG_MANAGER (JCORE) CLASS
  * @author	Jason Medland<jason.medland@gmail.com>

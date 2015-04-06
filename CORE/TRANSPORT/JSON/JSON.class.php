@@ -1,4 +1,4 @@
-<?
+<?php
 /**
  * JSONRPC_1_0_API 
  *

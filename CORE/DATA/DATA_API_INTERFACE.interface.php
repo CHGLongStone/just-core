@@ -1,4 +1,4 @@
-<?
+<?php
 /***
 * DATA_API_INTERFACE
 * Instances can be created for any DB supported by PHP inc. NoSQL
