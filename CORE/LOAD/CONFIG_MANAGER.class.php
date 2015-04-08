@@ -18,7 +18,7 @@ class CONFIG_MANAGER{
 	 */
 	public $A = array();
 	protected $LOADED_VALUES = array();
-	protected $PLUGINS = array();
+	#protected $PLUGINS = array();
 	protected $settings = array();
 	private $C = '';
 	/**
@@ -266,7 +266,8 @@ class CONFIG_MANAGER{
 		foreach($fileList AS $key => $value){
 			$args["file"] = $value;
 			$config = $this->loadConfigFile($args);
-			$this->settings = array_merge($this->settings, $config);
+			#$this->settings = array_merge($this->settings, $config);
+			$this->settings = $this->MergeConfig($this->settings, $config);
 		}
 		#echo __METHOD__.'@'.__LINE__.'key['.$key.']$this->settings<pre>'.var_export($this->settings, true).'</pre><br>';
 		foreach(array_keys ($this->settings) AS $key => $value){
@@ -275,6 +276,24 @@ class CONFIG_MANAGER{
 		}
 		
 	}
+	/***
+	* lifted from example by andyidol at gmail dot com
+	* here http://php.net/manual/en/function.array-merge-recursive.php
+	* to address disfunctionality of array_merge and array_merge_recursive
+	*/
+	public function MergeConfig($settings, $config)
+	{
+	  foreach($config as $key => $Value)
+	  {
+		if(array_key_exists($key, $settings) && is_array($Value))
+		  $settings[$key] = $this->MergeConfig($settings[$key], $config[$key]);
+		else
+		  $settings[$key] = $Value;
+	  }
+
+	  return $settings;
+
+	}	
 	
 	/**
 	* DESCRIPTOR: 
