@@ -12,7 +12,7 @@ namespace JCORE\DATA\API\REDIS;
 use JCORE\EXCEPTION\DATA_Exception as DATA_Exception;
 use JCORE\EXCEPTION\networkException as networkException;
 /**
- * Interface MySQL_connector
+ * class REDIS_connector
  *
  * @package JCORE\DATA\API\REDIS
 */
