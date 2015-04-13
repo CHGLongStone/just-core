@@ -14,12 +14,16 @@ use JCORE\TRANSPORT\TRANSPORT_INTERFACE as TRANSPORT_INTERFACE;
 use JCORE\TRANSPORT\SERIALIZATION_STATIC as SERIALIZATION; #deprecated?
 use JCORE\TRANSPORT\JSON\JSON as JSON;
 
+USE JCORE\EXCEPTION\ERROR as ERROR;
+
+use JCORE\TRANSPORT\SOA\SERVICE_VALIDATOR as SERVICE_VALIDATOR;
+
 /**
  * Class JSONRPC_1_0_API
  *
  * @package JCORE\TRANSPORT\JSON
 */
-class JSONRPC_1_0_API implements TRANSPORT_INTERFACE{
+class JSONRPC_1_0_API implements TRANSPORT_INTERFACE {
 
 	/**
 	* 
@@ -266,12 +270,34 @@ class JSONRPC_1_0_API implements TRANSPORT_INTERFACE{
 			}
 		}
 		
-		$serviceCall = explode('.', $parsedRequest["method"]);
+		/**
+		* basic validation of the service 
+		*/
+		$serviceTest = SERVICE_VALIDATOR::validateService($parsedRequest["method"]);
+		if($serviceTest instanceof ERROR ){
+			$this->error["errorType"] = $serviceTest->getCode(); // "FAILED CALL";
+			$this->error["errorContext"] = $serviceTest->getMessge(); //' SERVICE '.$parsedRequest["method"].' NOT AVAILABLE';
+			$this->error["errorDescription"] = $serviceTest->getData(); //''.$parsedRequest["method"].' is not registered with this API';
+			return false; //
+		}
+		/**
+		* validation of the service call 
+		*/
+		$serviceTest = SERVICE_VALIDATOR::validateServiceCall($parsedRequest["method"]);
+		if($serviceTest instanceof ERROR ){
+			$this->error["errorType"] = $serviceTest->getCode(); // "FAILED CALL";
+			$this->error["errorContext"] = $serviceTest->getMessge(); //' SERVICE '.$parsedRequest["method"].' NOT AVAILABLE';
+			$this->error["errorDescription"] = $serviceTest->getData(); //''.$parsedRequest["method"].' is not registered with this API';
+			return false; //
+		}
+		$this->serviceObject = new $serviceTest['object']();
+		$serviceResponse = $this->serviceObject->$serviceTest['method']($parsedRequest["params"]);
+		
 		/*
+		$serviceCall = explode('.', $parsedRequest["method"]);
 		echo __METHOD__.__LINE__.'$serviceCall['.var_export($serviceCall, true).']'.PHP_EOL; 
 		echo __METHOD__.__LINE__.'class_exists('.$serviceCall[0].')['.var_export(class_exists($serviceCall[0]), true).']'.PHP_EOL; 
 		echo __METHOD__.__LINE__.' method_exists('.$serviceCall[0].', '.$serviceCall[1].')['.var_export( method_exists($serviceCall[0], $serviceCall[1]), true).']'.PHP_EOL; 
-		*/
 		
 		if(class_exists($serviceCall[0]) && method_exists($serviceCall[0], $serviceCall[1])){
 			$this->serviceObject = new $serviceCall[0]();
@@ -285,6 +311,7 @@ class JSONRPC_1_0_API implements TRANSPORT_INTERFACE{
 			$this->error["errorDescription"] = ''.$parsedRequest["method"].' is not registered with this API';
 			return false; //
 		}
+		*/
 			
 		if(isset($parsedRequest["params"]["resultHandler"])){
 			$this->resultHandler = $parsedRequest["params"]["resultHandler"];

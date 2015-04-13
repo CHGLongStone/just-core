@@ -11,16 +11,65 @@
 
 namespace JCORE\AUTH;
 
+use JCORE\TRANSPORT\SOA\SERVICE_VALIDATOR as SERVICE_VALIDATOR;
+
+
 /**
  * Class AUTH_HARNESS
  *
  * @package JCORE\AUTH
 */
-class AUTH_HARNESS{
+class AUTH_HARNESS {
 	/**
 	 * @access public 
 	 * @var string
 	 */
 	protected $implementation = array();
+	
+	/**
+	*
+	*/
+	public function __construct(){
+		
+		
+	}
+	
+	/**
+	 * authClass must be a string of the full\namespace.method
+	 * 
+	 * @access public 
+	 * @var string $authClass
+	*/
+	public function register($authClass = null){
+		if(null == $authClass){
+			return false;
+		}
+		
+		$implementation[$authClass] = new $authClass;
+		
+		return true;
+		
+	}
+	/**
+	*
+	*/
+	public function authenticate($authClass = null, $params =  null ){
+		if(null == $authClass){
+			return false;
+		}
+		$serviceCall = explode('.', $parsedRequest["method"]);
+		/*
+		echo __METHOD__.__LINE__.'$serviceCall['.var_export($serviceCall, true).']'.PHP_EOL; 
+		echo __METHOD__.__LINE__.'class_exists('.$serviceCall[0].')['.var_export(class_exists($serviceCall[0]), true).']'.PHP_EOL; 
+		echo __METHOD__.__LINE__.' method_exists('.$serviceCall[0].', '.$serviceCall[1].')['.var_export( method_exists($serviceCall[0], $serviceCall[1]), true).']'.PHP_EOL; 
+		*/
+		
+		if(class_exists($serviceCall[0]) && method_exists($serviceCall[0], $serviceCall[1])){
+			$this->serviceObject = new $serviceCall[0]();
+			$serviceResponse = $this->serviceObject->$serviceCall[1]($parsedRequest["params"]);
+			#echo __METHOD__.__LINE__.'$serviceResponse<pre>['.var_export($serviceResponse, true).']</pre>'.PHP_EOL; 
+			
+		}
+	}
 
 }

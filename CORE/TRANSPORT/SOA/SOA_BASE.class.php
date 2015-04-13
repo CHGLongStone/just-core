@@ -52,6 +52,7 @@ abstract class SOA_BASE {
 		return TRUE;
 	}
 	
+	
 }
 
 
