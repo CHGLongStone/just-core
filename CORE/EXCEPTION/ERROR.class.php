@@ -120,7 +120,7 @@ class ERROR {
 	}
 
     public function setData($Data = null){ 
-		echo __METHOD__.'@'.__LINE__.'Data<pre>'.var_export($Data, true).'</pre>';
+		#echo __METHOD__.'@'.__LINE__.'Data<pre>'.var_export($Data, true).'</pre>';
 		
 		if(null == $Data){
 			$backtrace = debug_backtrace();
@@ -149,8 +149,8 @@ class ERROR {
 	}  	
 	public function __toString(){
 		#$error =  array();
-		echo __METHOD__.'@'.__LINE__.'<pre>'.var_export($this->getMessage(), true).'</pre>';
-		echo '**************';
+		#echo __METHOD__.'@'.__LINE__.'<pre>'.var_export($this->getMessage(), true).'</pre>';
+		#echo '**************';
 		$error['Message'] = '**************';
 		$error['Code'] = $this->getCode();
 		unset($error['cfg']);
@@ -161,16 +161,16 @@ class ERROR {
 		
 	}
 	public function __sleep(){
-		echo __METHOD__.'@'.__LINE__.'$error<pre>'.var_export($error, true).'</pre>';
+		#echo __METHOD__.'@'.__LINE__.'$error<pre>'.var_export($error, true).'</pre>';
 	}
 	
 	public static function __set_state($error = array( 'gdmf'=>''))
     {
 		unset($error['cfg']);
 		#$error = array( 'cfg'=>'');
-		echo __METHOD__.'@'.__LINE__.'$error<pre>'.var_export($error, true).'</pre>';
+		#echo __METHOD__.'@'.__LINE__.'$error<pre>'.var_export($error, true).'</pre>';
 		#$error =  array();
-		echo '@@@@@@@@@@@@';
+		#echo '@@@@@@@@@@@@';
 		$error['Message'] = '@@@@@@@@@@@@';
 		$error['Code'] = $this->getCode();
 		#$error['Message'] = $this->getMessage();
