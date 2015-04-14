@@ -285,8 +285,8 @@ class JSONRPC_1_0_API implements TRANSPORT_INTERFACE {
 		$serviceTest = SERVICE_VALIDATOR::validateService($parsedRequest["method"]);
 		if($serviceTest instanceof ERROR ){
 			$this->error["errorType"] = $serviceTest->getCode(); // "FAILED CALL";
-			$this->error["errorContext"] = $serviceTest->getMessage(); //' SERVICE '.$parsedRequest["method"].' NOT AVAILABLE';
-			$this->error["errorDescription"] = $serviceTest->getData(); //''.$parsedRequest["method"].' is not registered with this API';
+			$this->error["errorContext"] = $serviceTest->getData(); //' SERVICE '.$parsedRequest["method"].' NOT AVAILABLE';
+			$this->error["errorDescription"] = $serviceTest->getMessage(); //''.$parsedRequest["method"].' is not registered with this API';
 			return false; //
 		}
 		/**
@@ -295,8 +295,8 @@ class JSONRPC_1_0_API implements TRANSPORT_INTERFACE {
 		$serviceTest = SERVICE_VALIDATOR::validateServiceCall($parsedRequest["method"]);
 		if($serviceTest instanceof ERROR ){
 			$this->error["errorType"] = $serviceTest->getCode(); // "FAILED CALL";
-			$this->error["errorContext"] = $serviceTest->getMessage(); //' SERVICE '.$parsedRequest["method"].' NOT AVAILABLE';
-			$this->error["errorDescription"] = $serviceTest->getData(); //''.$parsedRequest["method"].' is not registered with this API';
+			$this->error["errorContext"] = $serviceTest->getData(); //' SERVICE '.$parsedRequest["method"].' NOT AVAILABLE';
+			$this->error["errorDescription"] = $serviceTest->getMessage(); //''.$parsedRequest["method"].' is not registered with this API';
 			return false; //
 		}
 		$this->serviceObject = new $serviceTest['object']();

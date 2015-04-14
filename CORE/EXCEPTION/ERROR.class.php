@@ -96,7 +96,7 @@ class ERROR {
 		if(null !== $Message){
 			$this->Message = $Message;
 		}
-		$msg = "\r\n";
+		$msg = '';
 		if(null !== $this->Code){			
 			if(is_numeric($this->Code)){
 				if(
@@ -110,7 +110,8 @@ class ERROR {
 		}else{
 			$msg .= $this->getConfigCode("ERROR",0);
 		}	
-		$this->Message .= $msg;
+		$msg .= ": ";
+		$this->Message = $msg.$this->Message;
 	}
 	
 
