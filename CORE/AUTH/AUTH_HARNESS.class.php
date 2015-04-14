@@ -45,7 +45,7 @@ class AUTH_HARNESS {
 			return false;
 		}
 		if(class_exists($authClass)){
-			$implementation[$authClass] = new $authClass;
+			$this->implementation[$authClass] = new $authClass;
 			return true;
 		}
 			
@@ -60,12 +60,14 @@ class AUTH_HARNESS {
 		if(null == $authClass){
 			return false;
 		}
-		$serviceCall = explode('.', $parsedRequest["method"]);
+		
+		echo __METHOD__.__LINE__.'$authClass['.var_export($authClass, true).']'.PHP_EOL; 
+		$authCheck = $this->implementation[$authClass]->authenticate($params);
 		/*
+		$serviceCall = explode('.', $parsedRequest["method"]);
 		echo __METHOD__.__LINE__.'$serviceCall['.var_export($serviceCall, true).']'.PHP_EOL; 
 		echo __METHOD__.__LINE__.'class_exists('.$serviceCall[0].')['.var_export(class_exists($serviceCall[0]), true).']'.PHP_EOL; 
 		echo __METHOD__.__LINE__.' method_exists('.$serviceCall[0].', '.$serviceCall[1].')['.var_export( method_exists($serviceCall[0], $serviceCall[1]), true).']'.PHP_EOL; 
-		*/
 		
 		if(class_exists($serviceCall[0]) && method_exists($serviceCall[0], $serviceCall[1])){
 			$this->serviceObject = new $serviceCall[0]();
@@ -73,6 +75,7 @@ class AUTH_HARNESS {
 			#echo __METHOD__.__LINE__.'$serviceResponse<pre>['.var_export($serviceResponse, true).']</pre>'.PHP_EOL; 
 			
 		}
+		*/
 	}
 
 }

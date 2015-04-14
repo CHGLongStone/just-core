@@ -119,7 +119,7 @@ class JSONRPC_1_0_API implements TRANSPORT_INTERFACE {
 		echo __METHOD__.__LINE__.'$raw_data<pre>['.var_export($raw_data, true).']</pre>'.PHP_EOL; 
 		echo __METHOD__.__LINE__.'$resultTest<pre>['.var_export($resultTest, true).']</pre>'.PHP_EOL; 
 		* if the message was just a notice we'll exit here
-		* given notices don't have a repsponse we won't check for errors
+		* given notices don't have a response we won't check for errors
 		* errors should be logged where they are generated
 		echo __METHOD__.__LINE__.'$raw_data['.$raw_data.']<br>';
 		*/

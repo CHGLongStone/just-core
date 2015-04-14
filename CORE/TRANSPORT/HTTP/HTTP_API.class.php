@@ -10,13 +10,13 @@ $filePath = JCORE_BASE_DIR.'TRANSPORT/TRANSPORT_INTERFACE.interface.php';
  * @subpackage	TRANSPORT 
  */
 
-namespace JCORE\CACHE;
+namespace JCORE\TRANSPORT\HTTP;
 
 use JCORE\TRANSPORT\TRANSPORT_INTERFACE as TRANSPORT_INTERFACE;
 /**
- * Interface HTTP_API
+ * Class  HTTP_API
  *
- * @package JCORE\TRANSPORT
+ * @package JCORE\TRANSPORT\HTTP
 */
 class HTTP_API implements TRANSPORT_INTERFACE{
 	
