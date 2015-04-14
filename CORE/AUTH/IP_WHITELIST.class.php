@@ -14,7 +14,40 @@ namespace JCORE\AUTH;
  *
  * @package JCORE\AUTH
 */
-class IP_WHITELIST{
+class IP_WHITELIST implements AUTH_INTERFACE{
 
-
+	/**
+	* 
+	*/
+	public function __construct(){
+		
+		
+	}
+	
+	
+	/**
+	* 
+	*/
+	public function authenticate($params = null){
+		if(null == $params){
+			return false;
+		}
+		
+	}	
+	/**
+	* 
+	*/
+	public function authorize($params = null){
+		if(null == $params){
+			return false;
+		}
+		
+	}
+	/**
+	* 
+	*/
+	public function getConfigCode($LOAD_ID="ERROR",$SECTION_NAME=null,$SETTING_NAME=null){ 
+		return $GLOBALS["CONFIG_MANAGER"]->getSetting("ERROR",$this->Code);
+		#$this->Message;
+	}
 }

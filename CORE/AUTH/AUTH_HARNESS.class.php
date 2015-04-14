@@ -35,7 +35,7 @@ class AUTH_HARNESS {
 	}
 	
 	/**
-	 * authClass must be a string of the full\namespace.method
+	 * authClass must be a string of the full\namespace
 	 * 
 	 * @access public 
 	 * @var string $authClass
