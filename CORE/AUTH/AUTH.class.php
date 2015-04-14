@@ -44,12 +44,15 @@ class AUTH_HARNESS {
 		if(null == $authClass){
 			return false;
 		}
-		
-		$implementation[$authClass] = new $authClass;
-		
-		return true;
-		
+		if(class_exists($authClass)){
+			$implementation[$authClass] = new $authClass;
+			return true;
+		}
+			
+		return false;
 	}
+	
+		
 	/**
 	*
 	*/

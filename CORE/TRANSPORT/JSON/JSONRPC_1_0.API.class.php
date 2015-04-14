@@ -239,8 +239,17 @@ class JSONRPC_1_0_API implements TRANSPORT_INTERFACE {
 		$args['error'] = NULL;
 		if(isset($dataSet["error"])){
 			$args['error'] = $dataSet["error"];
-		}	
-		$args['id'] = microtime();
+			$args["result"] = NULL;
+		}else{
+			$args["result"] = $dataSet;
+			$args['error'] = NULL;			
+		}
+		if('' == $this->id ){
+
+			$args['id'] = microtime();
+		}else{
+			$args['id'] = $this->id;
+		}
 		#echo __METHOD__.__LINE__.'$args["DATA"]<pre>['.var_export($args["DATA"], true).']</pre>'.PHP_EOL; 
 		#$preparedResponse = SERIALIZATION::serializeJSON($args);
 		$preparedResponse = JSON::json_encode($args);

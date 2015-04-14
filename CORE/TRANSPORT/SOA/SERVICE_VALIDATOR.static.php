@@ -76,16 +76,16 @@ class SERVICE_VALIDATOR{
 		if(class_exists($serviceCall[0])){
 			$serviceObject = new $serviceCall[0]();
 		}else{
-			$args['Message'] = 'Service Object Could Not Be loaded';
 			$error = new ERROR($args);
+			$error->setMessage('Service Object Could Not Be loaded');
 			return $error;
 		}
 		
 		if(method_exists($serviceObject, $serviceCall[1])){
 			$serviceMethod = $serviceCall[1];
 		}else{
-			$args['Message'] = 'Service method Could Not Be called';
 			$error = new ERROR($args);
+			$error->setMessage('Service method Could Not Be called');
 			return $error;
 		}
 		
