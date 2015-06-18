@@ -34,7 +34,7 @@ These are defined in the project using the framework, see [just-core-stub](https
 
 
 ####JCORE/[CORE]
-the foundation
+the foundation [just-core service bus](https://github.com/CHGLongStone/just-core/wiki/just-core-service-bus)
 * Authentication/Authorization
 * Cache (opcode and data)
 * DAO (Data Access Objects)
