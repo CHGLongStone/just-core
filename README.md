@@ -22,9 +22,11 @@ the expected install is expected to use composer https://getcomposer.org/
 
 
 ####JCORE/[CONFIG]
-JCORE uses *.ini files for almost all configuration settings. basic settings are are in jcore.ini
-the settings for CACHE_SOURCE, DATA and LOG are discussed in those subsections
-pay particular attention to connections with MySQL when using multiple data sources
+JCORE uses *.php files for almost all configuration settings in a similar manner to Zend Framework configurations. 
+files use the name spaces
+error.php - an example file
+error.global.php - a global file (across repository installs)
+error.local.php - a file local to the particular instance
 
 ####JCORE/[CORE]
 the foundation. Authentication/Authorization, Cache (opcode and data), Exception, Localization, LIB (3rd party tools), Load (bootstrap and autoload ) ,  Package utilities, Templater and Transport layer 
