@@ -23,7 +23,9 @@ the expected install is expected to use composer https://getcomposer.org/
 
 ####JCORE/[CONFIG]
 JCORE uses *.php files for almost all configuration settings in a similar manner to Zend Framework configurations. 
+
 files use the name spaces
+
 error.php - an example file
 error.global.php - a global file (across repository installs)
 error.local.php - a file local to the particular instance
