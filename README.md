@@ -26,12 +26,23 @@ JCORE uses *.php files for almost all configuration settings in a similar manner
 
 files use the name spaces
 
-error.php - an example file
-error.global.php - a global file (across repository installs)
-error.local.php - a file local to the particular instance
+* error.php - an example file
+* error.global.php - a global file (across repository installs)
+* error.local.php - a file local to the particular instance
 
 ####JCORE/[CORE]
-the foundation. Authentication/Authorization, Cache (opcode and data), Exception, Localization, LIB (3rd party tools), Load (bootstrap and autoload ) ,  Package utilities, Templater and Transport layer 
+the foundation
+* Authentication/Authorization
+* Cache (opcode and data)
+* DAO (Data Access Objects)
+* Exception
+* Localization
+* Load (bootstrap and autoload )
+* Log
+* Templater
+* Transport layer 
+
+
 ####JCORE/[PLUGINS]
 default directory for packages and some example packages 
 ####JCORE/[PACKAGES]
