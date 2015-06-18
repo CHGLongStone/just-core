@@ -29,6 +29,9 @@ files use the name spaces
 * error.php - an example file
 * error.global.php - a global file (across repository installs)
 * error.local.php - a file local to the particular instance
+ 
+These are defined in the project using the framework, see [just-core-stub](https://github.com/CHGLongStone/just-core-stub) for an example.
+
 
 ####JCORE/[CORE]
 the foundation
