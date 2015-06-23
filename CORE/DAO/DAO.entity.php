@@ -265,7 +265,7 @@ class DAO{
 	* @param	string 	tableName
 	* @return NULL 
 	*/
-	public function initialize($DSN, $tableName){ //, $foundation=false
+	public function initialize($DSN, $tableName, $foundation=false){ //
 		
 		#$this->initialized = true;
 		$this->tables[$tableName] = array();
