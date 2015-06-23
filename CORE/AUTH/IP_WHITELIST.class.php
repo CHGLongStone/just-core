@@ -1,6 +1,9 @@
 <?php
 /**
  * Very basic auth mechanism to white list API calls from other servers
+ * this is ONLY in place to limit access to an API based on white list
+ * there is no other authentication hook behind this fro granular control
+ * 
  * 
  * @author	Jason Medland<jason.medland@gmail.com>
  * @package	JCORE
@@ -55,10 +58,13 @@ class IP_WHITELIST implements AUTH_INTERFACE{
 	* 
 	*/
 	public function authorize($params = null){
+		return false;
+		/**
+		the only 
 		if(null == $params){
 			return false;
 		}
-		/**
+
 		* fill in the implementation
 		*/
 	}
