@@ -558,7 +558,11 @@ class DAO{
 							#echo __METHOD__.'@'.__LINE__.'DSN['.$this->tables[$key]['DSN'].']query['.$value2["query"].'] <pre>'.var_export($this,true).'</pre>'.PHP_EOL;
 							
 							$result[] = $GLOBALS["DATA_API"]->create($this->tables[$key]['DSN'], $value2["query"], $args=array('returnArray' => true));
-							if(is_int($result[0]["INSERT_ID"])){
+							if(
+								isset($result[0]["INSERT_ID"]) 
+								&& 
+								is_int($result[0]["INSERT_ID"])
+							){
 								
 								#echo __METHOD__.__LINE__.'$this->tables['.$key.']["values"][0]['.$this->tables[$key]["pk_field"].']===['.print_r($this->tables[$key]['values'][0][$this->tables[$key]['pk_field']], true).']'.PHP_EOL;
 								if(isset($this->tables[$key]['values'][0][$this->tables[$key]['pk_field']])){
