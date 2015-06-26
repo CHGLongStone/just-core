@@ -108,7 +108,7 @@ class MySQL_connector implements \JCORE\DATA\API\DATA_API_INTERFACE{
 		$this->logger->log(LOG_DEBUG,__METHOD__, '()');
 		
 		/**/
-		#$this->logger	=& $GLOBAL['LOG_DATA'];
+		#$this->logger	=& $GLOBALS['LOG_DATA'];
 		#echo __METHOD__.__LINE__.'<br>';
 		$this->set_connection($this->persistent);
 		$this->logger->log(LOG_DEBUG, __METHOD__, '$this->DSN==['.$this->DSN.'] $host=['.$config["host"].']');
@@ -132,7 +132,7 @@ class MySQL_connector implements \JCORE\DATA\API\DATA_API_INTERFACE{
 		#echo __METHOD__.__LINE__.'<br>';
 		// set a retry delay value
 		#echo __METHOD__.'@'.__LINE__.'$this<pre>'.var_export($this, true).'</pre><br>';
-		#$DB_CONNECT_RETRY =  $GLOBAL["SYSTEM_SETTINGS"]["APPLICATION"]["DB_CONNECT_RETRY"];
+		#$DB_CONNECT_RETRY =  $GLOBALS["SYSTEM_SETTINGS"]["APPLICATION"]["DB_CONNECT_RETRY"];
 		#DB_CONNECT_RETRY =  $this->config["DB_CONNECT_RETRY"];
 		#echo __METHOD__.'@'.__LINE__.'$DB_CONNECT_RETRY<pre>'.var_export($DB_CONNECT_RETRY, true).'</pre><br>';
 		if(!is_bool($persistent)){

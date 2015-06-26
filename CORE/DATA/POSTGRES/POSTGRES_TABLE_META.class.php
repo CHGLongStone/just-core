@@ -53,7 +53,7 @@ class POSTGRES_TABLE_META{
 		$settings 		= $logCFG["DATA"];
 		$this->logger	= new logInternal($settings);
 		*/
-		$this->logger	=& $GLOBAL['LOG_DATA'];
+		$this->logger	=& $GLOBALS['LOG_DATA'];
 		return;
 	}
 	/**
