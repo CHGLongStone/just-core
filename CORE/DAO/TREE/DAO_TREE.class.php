@@ -832,7 +832,7 @@ class DAO_TREE{
 			$parentID = $row[$this->config["parentField"]];
 			$checkID = $row[$this->config["rightBound"]];
 			$childID  = $values[$this->config["pkField"]];
-			$e = new Exception();
+			$e = new \Exception();
 			echo '$e->getTraceAsString()'.$e->getTraceAsString().'<br>';
 		}	
 

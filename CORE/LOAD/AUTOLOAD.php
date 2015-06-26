@@ -79,7 +79,7 @@ function __autoload($calledClass) {
 	if(file_exists($loadFile)){
 		include_once $loadFile;
 	}else{
-		$e = new Exception();
+		$e = new \Exception();
 		echo 'ERROR'.$calledClass.' in File:'.$loadFile.'<br> this plugin is not installed<br>'.$e->getTraceAsString();
 	}
 

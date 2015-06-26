@@ -130,7 +130,7 @@ class TEMPLATER
 		#echo '<b>'.__METHOD__.'@'.__LINE__.'</b><pre>'.var_export($handle,true).'</pre>';
 		if (!$this->loadfile($handle)){
 			
-			$e = new Exception();
+			$e = new \Exception();
 			echo __METHOD__.'@'.__LINE__.'$e->getTraceAsString()'.$e->getTraceAsString().'<br>';
 			#die(__METHOD__.'@'.__LINE__.": Couldn't load template file for handle ".$handle.$e->getTraceAsString());
 			return false;
@@ -169,7 +169,7 @@ class TEMPLATER
 		#echo __METHOD__.' $handle['.$handle.']$oBc['.$oBc.']<br>'; 
 		if (!$this->loadfile($handle)){
 			
-			$e = new Exception();
+			$e = new \Exception();
 			echo '$e->getTraceAsString()'.$e->getTraceAsString().'<br>';
 			#die("TEMPLATE->sparse(): Couldn't load template file for handle ".$handle.$e->getTraceAsString());
 			return false;
@@ -291,7 +291,7 @@ class TEMPLATER
 		}
 		
 		if (!isset($this->files[$handle])){
-			$e = new Exception();
+			$e = new \Exception();
 			echo 'FALIED TO LOAD ['.$handle.']<br>$e->getTraceAsString()<pre>'.$e->getTraceAsString().'</pre><br>';
 			#die("TEMPLATE->loadfile(): No file specified for handle ".$handle);
 			return false;
