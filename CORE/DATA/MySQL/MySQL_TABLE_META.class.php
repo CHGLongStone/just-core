@@ -64,7 +64,7 @@ use JCORE\EXCEPTION\DATA_Exception as DATA_Exception;
 		$settings 		= $logCFG["DATA"];
 		$this->logger	= new logInternal($settings);
 		*/
-		$this->logger	=& $GLOBAL['DATA_logger'];
+		$this->logger	=& $GLOBAL['LOG_DATA'];
 		return;
 	}
 	/**

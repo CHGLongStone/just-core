@@ -173,7 +173,7 @@ class DATA_API{
 		$this->logger->log(LOG_DEBUG,__METHOD__, '()');
 		#echo __METHOD__.__LINE__.'<br>';
 		
-		# $this->logger	= $GLOBALS['DATA_logger'];
+		# $this->logger	= $GLOBALS['LOG_DATA'];
 		
 		#echo(__METHOD__.'<pre>['.var_export($cfg, true).']</pre>').'<br>'; 
 		$this->connectorCfg = $cfg;

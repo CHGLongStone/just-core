@@ -65,7 +65,7 @@ class MEMCACHED implements CACHE_COMMON_API_INTERFACE{
 		$CACHED_VAR = FALSE;
 		if(MEMCACHED_API::validateBasicArgs($args) === false){
 			echo 'METHOD['.__METHOD__.'] validateBasicArgs'.'<br>';
-			$GLOBALS["APPLICATION_logger"]->trace(LOG_WARNING,__METHOD__, 'CALLED WITHOUT CACHE_KEY!!!!');
+			$GLOBALS["LOG_CACHE"]->trace(LOG_WARNING,__METHOD__, 'CALLED WITHOUT CACHE_KEY!!!!');
 			return false;
 		}
 		#echo 'METHOD['.__METHOD__.'] GOOOD!!!!'.'<br>';
@@ -106,7 +106,7 @@ class MEMCACHED implements CACHE_COMMON_API_INTERFACE{
 	public static function setValue($args = array()){
 		
 		if(MEMCACHED_API::validateBasicArgs($args) === false){
-			$GLOBALS["APPLICATION_logger"]->trace(LOG_WARNING,__METHOD__, 'CALLED WITHOUT CACHE_KEY!!!!');
+			$GLOBALS["LOG_CACHE"]->trace(LOG_WARNING,__METHOD__, 'CALLED WITHOUT CACHE_KEY!!!!');
 			return false;
 		}
 		
@@ -130,15 +130,15 @@ class MEMCACHED implements CACHE_COMMON_API_INTERFACE{
 	public static function validateBasicArgs($args = array()){
 		echo 'METHOD['.__METHOD__.'] '.'<br>';
 		if(MEMCACHED_API::verifyArgs($args) === false){
-			$GLOBALS["APPLICATION_logger"]->trace(LOG_WARNING,__METHOD__, 'CALLED WITHOUT ARGS!!!!');
+			$GLOBALS["LOG_CACHE"]->trace(LOG_WARNING,__METHOD__, 'CALLED WITHOUT ARGS!!!!');
 			return false;
 		}
 		if(MEMCACHED_API::validateCachePool($args) === false){
-			$GLOBALS["APPLICATION_logger"]->trace(LOG_WARNING,__METHOD__, 'CALLED WITHOUT CACHE_POOL!!!!');
+			$GLOBALS["LOG_CACHE"]->trace(LOG_WARNING,__METHOD__, 'CALLED WITHOUT CACHE_POOL!!!!');
 			return false;
 		}
 		if(MEMCACHED_API::validateCacheKey($args) === false){
-			$GLOBALS["APPLICATION_logger"]->trace(LOG_WARNING,__METHOD__, 'CALLED WITHOUT CACHE_KEY!!!!');
+			$GLOBALS["LOG_CACHE"]->trace(LOG_WARNING,__METHOD__, 'CALLED WITHOUT CACHE_KEY!!!!');
 			return false;
 		}
 		
@@ -154,7 +154,7 @@ class MEMCACHED implements CACHE_COMMON_API_INTERFACE{
 	public static function verifyArgs($args = array()){
 		echo 'METHOD['.__METHOD__.'] count($args)['.count($args).']'.'<br>';
 		if(count($args) == 0){
-			#$GLOBALS["APPLICATION_logger"]->trace(LOG_WARNING,__METHOD__, 'CALLED WITHOUT ARGS!!!!');
+			#$GLOBALS["LOG_CACHE"]->trace(LOG_WARNING,__METHOD__, 'CALLED WITHOUT ARGS!!!!');
 			return false;
 		}
 		return true;
@@ -166,7 +166,7 @@ class MEMCACHED implements CACHE_COMMON_API_INTERFACE{
 	public static function validateCachePool($args){
 		echo 'METHOD['.__METHOD__.'] $args["CACHE_POOL"]['.$args["CACHE_POOL"].']'.'<br>';
 		if(!isset($args["CACHE_POOL"]) || $args["CACHE_POOL"] == ''){
-			#$GLOBALS["APPLICATION_logger"]->trace(LOG_WARNING,__METHOD__, 'CALLED WITHOUT CACHE_POOL!!!!');
+			#$GLOBALS["LOG_CACHE"]->trace(LOG_WARNING,__METHOD__, 'CALLED WITHOUT CACHE_POOL!!!!');
 			return false;
 		}
 		return true;
@@ -179,7 +179,7 @@ class MEMCACHED implements CACHE_COMMON_API_INTERFACE{
 	public static function validateCacheKey($args = array()){	
 		echo 'METHOD['.__METHOD__.'] $args["CACHE_KEY"]['.$args["CACHE_KEY"].']'.'<br>';
 		if(!isset($args["CACHE_KEY"]) || $args["CACHE_KEY"] == ''){
-			#$GLOBALS["APPLICATION_logger"]->trace(LOG_WARNING,__METHOD__, 'CALLED WITHOUT CACHE_POOL!!!!');
+			#$GLOBALS["LOG_CACHE"]->trace(LOG_WARNING,__METHOD__, 'CALLED WITHOUT CACHE_POOL!!!!');
 			return false;
 		}
 		#echo 'METHOD['.__METHOD__.'] GOOD!!!!!]'.'<br>';

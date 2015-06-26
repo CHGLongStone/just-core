@@ -94,7 +94,7 @@ class FILECACHE_API implements CACHE_COMMON_API_INTERFACE {
 		$CACHED_VAR = FALSE;
 		if($this->validateBasicArgs($args) === false){
 			echo 'METHOD['.__METHOD__.'] validateBasicArgs'.'<br>';
-			$GLOBALS["APPLICATION_logger"]->trace(LOG_WARNING,__METHOD__, 'CALLED WITHOUT CACHE_KEY!!!!');
+			$GLOBALS["LOG_CACHE"]->trace(LOG_WARNING,__METHOD__, 'CALLED WITHOUT CACHE_KEY!!!!');
 			return false;
 		}
 		#echo 'METHOD['.__METHOD__.'] GOOOD!!!!'.'<br>';
@@ -136,7 +136,7 @@ class FILECACHE_API implements CACHE_COMMON_API_INTERFACE {
 		echo __METHOD__.'@'.__LINE__.' <pre>'.var_export($args,true).'</pre><br>';
 		//CACHE_POOL CACHE_KEY
 		if($this->validateBasicArgs($args) === false){
-			$GLOBALS["APPLICATION_logger"]->trace(LOG_WARNING,__METHOD__, 'CALLED WITHOUT CACHE_KEY!!!!');
+			$GLOBALS["LOG_CACHE"]->trace(LOG_WARNING,__METHOD__, 'CALLED WITHOUT CACHE_KEY!!!!');
 			return false;
 		}
 		
@@ -172,15 +172,15 @@ class FILECACHE_API implements CACHE_COMMON_API_INTERFACE {
 	public function validateBasicArgs($args = array()){
 		echo 'METHOD['.__METHOD__.'] '.'<br>';
 		if($this->verifyArgs($args) === false){
-			$GLOBALS["APPLICATION_logger"]->trace(LOG_WARNING,__METHOD__, 'CALLED WITHOUT ARGS!!!!');
+			$GLOBALS["LOG_CACHE"]->trace(LOG_WARNING,__METHOD__, 'CALLED WITHOUT ARGS!!!!');
 			return false;
 		}
 		if($this->validateCachePool($args) === false){
-			$GLOBALS["APPLICATION_logger"]->trace(LOG_WARNING,__METHOD__, 'CALLED WITHOUT CACHE_POOL!!!!');
+			$GLOBALS["LOG_CACHE"]->trace(LOG_WARNING,__METHOD__, 'CALLED WITHOUT CACHE_POOL!!!!');
 			return false;
 		}
 		if($this->validateCacheKey($args) === false){
-			$GLOBALS["APPLICATION_logger"]->trace(LOG_WARNING,__METHOD__, 'CALLED WITHOUT CACHE_KEY!!!!');
+			$GLOBALS["LOG_CACHE"]->trace(LOG_WARNING,__METHOD__, 'CALLED WITHOUT CACHE_KEY!!!!');
 			return false;
 		}
 		
@@ -196,7 +196,7 @@ class FILECACHE_API implements CACHE_COMMON_API_INTERFACE {
 	public function verifyArgs($args = array()){
 		echo 'METHOD['.__METHOD__.'] count($args)['.count($args).']'.'<br>';
 		if(count($args) == 0){
-			#$GLOBALS["APPLICATION_logger"]->trace(LOG_WARNING,__METHOD__, 'CALLED WITHOUT ARGS!!!!');
+			#$GLOBALS["LOG_CACHE"]->trace(LOG_WARNING,__METHOD__, 'CALLED WITHOUT ARGS!!!!');
 			return false;
 		}
 		return true;
@@ -208,7 +208,7 @@ class FILECACHE_API implements CACHE_COMMON_API_INTERFACE {
 	public function validateCachePool($args){
 		echo 'METHOD['.__METHOD__.'] $args["CACHE_POOL"]['.$args["CACHE_POOL"].']'.'<br>';
 		if(!isset($args["CACHE_POOL"]) || $args["CACHE_POOL"] == ''){
-			#$GLOBALS["APPLICATION_logger"]->trace(LOG_WARNING,__METHOD__, 'CALLED WITHOUT CACHE_POOL!!!!');
+			#$GLOBALS["LOG_CACHE"]->trace(LOG_WARNING,__METHOD__, 'CALLED WITHOUT CACHE_POOL!!!!');
 			return false;
 		}
 		return true;
@@ -221,7 +221,7 @@ class FILECACHE_API implements CACHE_COMMON_API_INTERFACE {
 	public function validateCacheKey($args = array()){	
 		echo 'METHOD['.__METHOD__.'] $args["CACHE_KEY"]['.$args["CACHE_KEY"].']'.'<br>';
 		if(!isset($args["CACHE_KEY"]) || $args["CACHE_KEY"] == ''){
-			#$GLOBALS["APPLICATION_logger"]->trace(LOG_WARNING,__METHOD__, 'CALLED WITHOUT CACHE_POOL!!!!');
+			#$GLOBALS["LOG_CACHE"]->trace(LOG_WARNING,__METHOD__, 'CALLED WITHOUT CACHE_POOL!!!!');
 			return false;
 		}
 		#echo 'METHOD['.__METHOD__.'] GOOD!!!!!]'.'<br>';

@@ -108,7 +108,7 @@ class CSV_connector implements \JCORE\DATA\API\DATA_API_INTERFACE{
 		#echo __METHOD__.__LINE__.'<br>';
 		$this->logger->log(LOG_DEBUG,__METHOD__, '()');
 		
-		#$this->logger	=& $GLOBAL['DATA_logger'];
+		#$this->logger	=& $GLOBAL['LOG_DATA'];
 		#echo __METHOD__.__LINE__.'<br>';
 		$this->set_connection($this->persistent);
 		$this->logger->log(LOG_DEBUG, __METHOD__, '$this->DSN==['.$this->DSN.'] $host=['.$config["host"].']');
