@@ -532,10 +532,18 @@ class DAO{
 					
 					if($value2["queryType"] == 'INSERT'){
 						#$result[] = $GLOBALS["DATA_API"]->insert($this->tables[$key]['DSN'], $value2["query"], $returnArray=true);
-						if(isset($this->tables[$key]['foundation']) && $this->tables[$key]['foundation'] === true){
+						if(
+							isset($this->tables[$key]['foundation']) 
+							&& 
+							$this->tables[$key]['foundation'] === true
+						){
 							#echo '$result<pre>'.var_export($result,true).'</pre>'.PHP_EOL;
 							$result[] = $GLOBALS["DATA_API"]->create($this->tables[$key]['DSN'], $value2["query"],  $args=array('returnArray' => true));
-							if(is_int($result[0]["INSERT_ID"])){
+							if(
+								isset($result[0]["INSERT_ID"]) 
+								&& 
+								is_int($result[0]["INSERT_ID"])
+							){
 								#echo '$result[0]["INSERT_ID"]<pre>'.var_export($result[0]["INSERT_ID"],true).'</pre>'.PHP_EOL;
 								$this->root_pk = $result[0]["INSERT_ID"];
 								$this->tables[$key]['values'][$this->tables[$key]['pk_field']] = $this->root_pk;

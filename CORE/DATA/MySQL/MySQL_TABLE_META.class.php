@@ -217,7 +217,7 @@ use JCORE\EXCEPTION\DATA_Exception as DATA_Exception;
 		#echo '$resultArray['.__FUNCTION__.']<pre>'.print_r($resultArray, true).'</pre>';
 		//echo __METHOD__.'::'.__LINE__.'$resultArray<pre>'.print_r($resultArray, true).'</pre>'.PHP_EOL;
 		if($resultArray == NULL){
-			$this->logger->trace(LOG_WARNING, __METHOD__, '$resultArray == NULL');
+			$this->logger->log(LOG_WARNING, __METHOD__, '$resultArray == NULL');
 			return;
 		}
 		foreach($resultArray AS $key => $value){
@@ -296,7 +296,7 @@ use JCORE\EXCEPTION\DATA_Exception as DATA_Exception;
 	public function getPrimaryKeyField($data = NULL){
 		#echo __METHOD__.'::'.__LINE__.'$data<pre>'.print_r($data, true).'</pre>'.PHP_EOL;
 		if($data == NULL || !is_array($data)){
-			$this->logger->trace(LOG_WARNING, __METHOD__, '$data == '.gettype($data).'');
+			$this->logger->log(LOG_WARNING, __METHOD__, '$data == '.gettype($data).'');
 			return;
 		}
 		foreach($data AS $Key => $value){

@@ -54,7 +54,7 @@ class CACHE_API2 implements CACHE_COMMON_API_INTERFACE{
 		GLOBAL $logCFG;
 		$settings 		= $logCFG["CACHE"];
 		$this->logger	= new LOG($settings);
-		$this->logger->trace(LOG_DEBUG,__METHOD__, '()');
+		$this->logger->log(LOG_DEBUG,__METHOD__, '()');
 		
 		
 		$this->connector = array();
@@ -69,7 +69,7 @@ class CACHE_API2 implements CACHE_COMMON_API_INTERFACE{
 	*/
 	public function verify_cache_source($CSN){
 		#echo __METHOD__.__LINE__.LN;
-		#$this->logger->trace(LOG_DEBUG,__METHOD__, '(CSN='.$CSN.')');
+		#$this->logger->log(LOG_DEBUG,__METHOD__, '(CSN='.$CSN.')');
 		//first check if the object is set in the connector
 
 		#echo __METHOD__.__LINE__.LN;
@@ -79,12 +79,12 @@ class CACHE_API2 implements CACHE_COMMON_API_INTERFACE{
 	/**
 	* DESCRIPTOR: EXECUTE A QUERY
 	* exception handling and logging dealt with
-	* @param string $database 
+	* @param string $CSN 
 	* @param string $query 
 	* @return $result 
 	*/
 	public function raw($CSN, $query){//, $returnArray=false
-		$this->logger->trace(LOG_DEBUG,__METHOD__, '(database='.$database.', query='.$query.')');
+		$this->logger->log(LOG_DEBUG,__METHOD__, '(CSN='.$CSN.', query='.$query.')');
 		#echo __METHOD__.__LINE__.LN;
 		$this->verify_connection($CSN);
 		$result = $this->connector[$CSN]->raw($query);
@@ -136,7 +136,7 @@ class CACHE_API2 implements CACHE_COMMON_API_INTERFACE{
 	*/
 	public function retrieve($CSN, $query, $returnArray=false){
 		#echo __METHOD__.__LINE__.LN;
-		$this->logger->trace(LOG_DEBUG,__METHOD__, '(CSN='.$CSN.', query='.$query.' returnArray='.$returnArray.')');
+		$this->logger->log(LOG_DEBUG,__METHOD__, '(CSN='.$CSN.', query='.$query.' returnArray='.$returnArray.')');
 		$this->verify_connection($CSN);
 		/**
 		* now we pass this down to the connection Object
@@ -158,7 +158,7 @@ class CACHE_API2 implements CACHE_COMMON_API_INTERFACE{
 	*/
 	public function unserialize($result, $type, $CSN){ //type [NATIVE, JSON, PLAINTXT]
 		#echo __METHOD__.__LINE__.LN;
-		$this->logger->trace(LOG_DEBUG,__METHOD__, '(result='.$result.')');
+		$this->logger->log(LOG_DEBUG,__METHOD__, '(result='.$result.')');
 		#echo '$resultadasdas<pre>'.var_export($result,true).'</pre>';
 		
 		if(is_array($result)){
@@ -178,7 +178,7 @@ class CACHE_API2 implements CACHE_COMMON_API_INTERFACE{
 	//----------------------------------------------------
 	function __destruct(){
 		#echo __METHOD__.__LINE__.LN;
-		$this->logger->trace(LOG_DEBUG,__METHOD__, '()');
+		$this->logger->log(LOG_DEBUG,__METHOD__, '()');
 		unset($this->logger); // NOT using global logger now
 		return;
 	}

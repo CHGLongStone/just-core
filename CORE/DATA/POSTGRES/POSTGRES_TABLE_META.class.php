@@ -159,7 +159,7 @@ class POSTGRES_TABLE_META{
 		#echo '$data['.__FUNCTION__.']<pre>'.print_r($data, true).'</pre>';
 		//echo __METHOD__.'::'.__LINE__.'$data<pre>'.print_r($data, true).'</pre>'.LN;
 		if($data == NULL){
-			$this->logger->trace(LOG_WARNING, __METHOD__, '$data == NULL');
+			$this->logger->log(LOG_WARNING, __METHOD__, '$data == NULL');
 			return;
 		}
 		#$this->tableProperties = $data;
@@ -248,7 +248,7 @@ class POSTGRES_TABLE_META{
 	public function getPrimaryKeyField($data = NULL){
 		echo __METHOD__.'::'.__LINE__.'$data<pre>'.print_r($data, true).'</pre>'.LN;
 		if($data == NULL || !is_array($data)){
-			$this->logger->trace(LOG_WARNING, __METHOD__, '$data == '.gettype($data).'');
+			$this->logger->log(LOG_WARNING, __METHOD__, '$data == '.gettype($data).'');
 			return;
 		}
 		foreach($data AS $Key => $value){
