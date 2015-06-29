@@ -144,7 +144,7 @@ class TEMPLATER
 		@eval($this->compiled_code[$handle]);// or die('<textarea cols="180" rows="20">'.$this->compiled_code[$handle].'</textarea>');
 		$newVar = $$retvar;
 		
-		if($handle = '6_LOG'){
+		if($handle == '6_LOG'){
 			#echo __METHOD__.'@'.__LINE__.'<b>sparse::compiled_code</b><hr><hr><pre>'.var_export($this->compiled_code[$handle],true).'</pre><hr><hr>';
 			#echo __METHOD__.'@'.__LINE__.'<b>sparse::UNcompiled_code</b><hr><hr><pre>'.var_export($this->uncompiled_code[$handle]).'</pre><hr><hr>';
 			#echo __METHOD__.'@'.__LINE__.'<b>newVar</b>['.$newVar.']<b>$retvar</b>['.$retvar.']<b>$$retvar</b>['.$$retvar.']<hr>';
@@ -223,6 +223,14 @@ class TEMPLATER
 		
 		return true;
 	}
+	
+	/**
+	 * 
+	 */
+	public function unset_block_vars($blockname, $vararray = null){
+		$this->_tpldata[$blockname] = null;
+		return true;
+	}	
 	
 	/**
 	 * 
