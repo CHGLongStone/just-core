@@ -1,19 +1,17 @@
 # just-core
-#just-core
-##An Enterprise Grade PHP framework
+
+##An Enterprise Service Bus PHP framework
 
 ........
 
-[Quick Start Guide]
-[Installation]
+[Quick Start Guide]()
+[Installation](https://github.com/CHGLongStone/just-core-stub/wiki/Project-Installation)
 [Application Structure]
 
 
 
 #Application Structure
 
- 
- <br> <br> <br>
 
 ###The Layout
 the expected install is expected to use composer https://getcomposer.org/
