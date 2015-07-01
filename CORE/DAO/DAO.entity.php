@@ -546,6 +546,7 @@ class DAO{
 							){
 								#echo '$result[0]["INSERT_ID"]<pre>'.var_export($result[0]["INSERT_ID"],true).'</pre>'.PHP_EOL;
 								$this->root_pk = $result[0]["INSERT_ID"];
+								$this->tables[$key]['pk'] = $this->root_pk;
 								$this->tables[$key]['values'][$this->tables[$key]['pk_field']] = $this->root_pk;
 							}
 						}else{
