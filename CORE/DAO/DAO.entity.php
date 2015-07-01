@@ -637,7 +637,10 @@ class DAO{
 			#echo __METHOD__.'@'.__LINE__.'DO INSERT'.PHP_EOL;
 			$queryType = 'INSERT';
 			// insert into data (user_DbId, view_DbId, type, title) values ($user_DbId, $view_DbId, $type, '$title');
-			$this->generateInsertQuery($key,$value);
+			#$this->generateInsertQuery($key,$value);
+			if(!isset($this->tables[$key]["foundation"]) || true !== $this->tables[$key]["foundation"]){
+				$this->tables[$key]["values"][$this->tables[$key]["fk_field"]] = $this->root_pk;
+			}
 		}else{
 			$queryType = 'UPDATE';
 			
