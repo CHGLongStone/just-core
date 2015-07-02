@@ -279,6 +279,90 @@ class DAO{
 		$this->initialized = true;
 		return;
 	}
+	
+	/**
+	* DESCRIPTOR: construct from table def (information_schema)
+	* @param	string 	DSN
+	* @param	string 	tableName
+	* @return NULL 
+	*/
+	public function initializeBySearch($args){ //, $tableName, $foundation=false
+		/**
+		#$this->initialized = true;
+		$this->tables[$tableName] = array();
+		$this->tables[$tableName]['DSN'] 	= $DSN;
+		if(isset($foundation) && $foundation===true){
+			$this->tables[$tableName]['foundation'] = TRUE; //$foundation;
+		}
+		$this->tables[$tableName]['pk'] 		= 0;
+		$values = $this->initializeFromSchema($DSN, $tableName, false);
+		$this->tables[$tableName]['values']		= $values;
+		$this->initialized = true;
+		return;
+		*/
+		
+		#$result = $GLOBALS["DATA_API"]->introspectTable($args["DSN"], $args["table"]);
+		$values = $this->initializeFromSchema($args["DSN"], $args["table"]);
+		#echo 'result<pre>'.print_r($result, true).'</pre>'.PHP_EOL;
+		if(is_array($args)){
+			#echo 'args<pre>'.print_r($args, true).'</pre>'.PHP_EOL;
+			if(
+				isset($args["DSN"])
+				&&
+				isset($args["table"])
+				&&
+				isset($args["search"]) // could be array or string
+				&&
+				is_array($args["search"])// could be array search_field:search_value
+			){
+				#echo 'baseObjDDDDD<pre>'.print_r($else, true).'</pre>'.PHP_EOL;
+				#GLOBAL $db;
+				$this->config = $args;
+				$this->tables[$args["table"]] 				= array();
+				$this->tables[$args["table"]]['DSN'] 		= $args["DSN"];
+				$this->tables[$args["table"]]['foundation'] = true;
+				#$this->tables[$args["table"]]['pk_field'] 	= $args["pk_field"];
+				#$this->tables[$args["table"]]['pk'] 		= $args["pk"];
+				$this->tables[$args["table"]]['values'] 	= array();
+				
+				$query = 'SELECT * FROM '.$args["table"].' WHERE  ';
+				$whereClause = '';
+				foreach($args["search"] AS $key => $value){
+					if('' != $whereClause){
+						$whereClause .= '	OR'.PHP_EOL;
+					}
+					$whereClause .= ' '.$key.' = "'.$value.'" '.PHP_EOL;
+					#echo $whereClause.PHP_EOL;
+				}
+				$query = $query.$whereClause;
+				#echo 'query<pre>'.print_r($query, true).'</pre>'.PHP_EOL;
+				#$result = $db->SQL_select($config["DSN"], $query, $returnArray=true);
+				$result = $GLOBALS["DATA_API"]->retrieve($this->config["DSN"], $query, $args=array('returnArray' => true));
+				#$result = $db->SQLResultToAssoc($result);
+				
+				$this->tables[$config["table"]]['values'] = $result[0];
+				#echo 'count($result[0])<pre>'.print_r(count($result[0]), true).'</pre>'.PHP_EOL;
+				if(count($result[0]) >= 1){
+					$this->initialized = true;
+					#echo '$this<pre>'.print_r($this, true).'</pre>'.PHP_EOL;
+					$this->root_pk = $config["pk"];
+				}elseif($result["EXCEPTION"]){
+					#echo '$result<pre>'.print_r($result, true).'</pre>'.PHP_EOL;
+					$GLOBALS['LOG_DATA']->log(LOG_CRIT, __METHOD__ , 'ERROR MySQL error['.$result["EXCEPTION"]["ID"].']error:'.$result["EXCEPTION"]["MSG"].''); // ID MSG $query 
+					$this->tables[$config["table"]]['values'] = $result["EXCEPTION"];
+				}else{
+					$GLOBALS['LOG_DATA']->log(LOG_CRIT, __METHOD__ , 'result['.print_r($result, true).']'); // ID MSG $query 
+				}
+						
+			}else{
+				#echo 'else<pre>'.print_r($else, true).'</pre>'.PHP_EOL;
+			}	
+		}
+		
+	}
+	
+	
+	
 	/**
 	* DESCRIPTOR: contruct from table def
 	* @param	string 	DSN
