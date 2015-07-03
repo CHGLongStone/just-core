@@ -196,7 +196,7 @@ class DAO{
 	 * 
 	 * @param	mixed 	config
 	 */
-	public function __construct($config){
+	public function __construct($config = null){
 		#action
 		//$DSN, $table, $pk_field, $pk 
 		//echo 'result<pre>'.print_r($result, true).'</pre>'.PHP_EOL;
@@ -287,23 +287,25 @@ class DAO{
 	* @return NULL 
 	*/
 	public function initializeBySearch($args){ //, $tableName, $foundation=false
-		/**
+		#echo __METHOD__.__LINE__.'result<pre>'.print_r($args, true).'</pre>'.PHP_EOL;
+
 		#$this->initialized = true;
-		$this->tables[$tableName] = array();
-		$this->tables[$tableName]['DSN'] 	= $DSN;
-		if(isset($foundation) && $foundation===true){
-			$this->tables[$tableName]['foundation'] = TRUE; //$foundation;
+		$this->tables[$args["table"]] = array();
+		$this->tables[$args["table"]]['DSN'] 	= $args["DSN"];
+		if(isset($args["foundation"]) && $args["foundation"]===true){
+			$this->tables[$args["table"]]['foundation'] = TRUE; //$foundation;
 		}
-		$this->tables[$tableName]['pk'] 		= 0;
-		$values = $this->initializeFromSchema($DSN, $tableName, false);
-		$this->tables[$tableName]['values']		= $values;
+		$this->tables[$args["table"]]['pk'] 		= 0;
+		#$values = $this->initializeFromSchema($DSN, $tableName, false);
+		/**
+		$this->tables[$args["table"]]['values']		= $values;
 		$this->initialized = true;
 		return;
 		*/
 		
 		#$result = $GLOBALS["DATA_API"]->introspectTable($args["DSN"], $args["table"]);
-		$values = $this->initializeFromSchema($args["DSN"], $args["table"]);
-		#echo 'result<pre>'.print_r($result, true).'</pre>'.PHP_EOL;
+		#$values = $this->initializeFromSchema($args["DSN"], $args["table"],$set_fk=false);
+		#echo __METHOD__.__LINE__.'result<pre>'.print_r($result, true).'</pre>'.PHP_EOL;
 		if(is_array($args)){
 			#echo 'args<pre>'.print_r($args, true).'</pre>'.PHP_EOL;
 			if(
@@ -332,24 +334,32 @@ class DAO{
 						$whereClause .= '	OR'.PHP_EOL;
 					}
 					$whereClause .= ' '.$key.' = "'.$value.'" '.PHP_EOL;
-					#echo $whereClause.PHP_EOL;
+					#echo __METHOD__.__LINE__.$whereClause.PHP_EOL;
 				}
 				$query = $query.$whereClause;
-				#echo 'query<pre>'.print_r($query, true).'</pre>'.PHP_EOL;
+				#echo __METHOD__.__LINE__.'query<pre>'.print_r($query, true).'</pre>'.PHP_EOL;
 				#$result = $db->SQL_select($config["DSN"], $query, $returnArray=true);
-				$result = $GLOBALS["DATA_API"]->retrieve($this->config["DSN"], $query, $args=array('returnArray' => true));
+				$result = $GLOBALS["DATA_API"]->retrieve($this->config["DSN"], $query, $r_args=array('returnArray' => true));
 				#$result = $db->SQLResultToAssoc($result);
+				#echo __METHOD__.__LINE__.'result[0]<pre>'.print_r($result[0], true).'</pre>'.PHP_EOL;
+				#echo __METHOD__.__LINE__.'this->tables<pre>'.print_r($this->tables, true).'</pre>'.PHP_EOL;
 				
-				$this->tables[$config["table"]]['values'] = $result[0];
+				$this->tables[$args["table"]]['values'] = $result[0];
+				#$this->tables[$args["table"]]['values'] 	= array();
+				#echo __METHOD__.__LINE__.'this->tables ['.$args["table"].']<pre>'.print_r($this->tables, true).'</pre>'.PHP_EOL;
+				#$this->tables[$table]['values']
 				#echo 'count($result[0])<pre>'.print_r(count($result[0]), true).'</pre>'.PHP_EOL;
 				if(count($result[0]) >= 1){
 					$this->initialized = true;
 					#echo '$this<pre>'.print_r($this, true).'</pre>'.PHP_EOL;
-					$this->root_pk = $config["pk"];
+					$this->root_pk = $result[0][$args["pk_field"]];
+					$this->tables[$args["table"]]['pk'] 		= $this->root_pk;
+
 				}elseif($result["EXCEPTION"]){
 					#echo '$result<pre>'.print_r($result, true).'</pre>'.PHP_EOL;
 					$GLOBALS['LOG_DATA']->log(LOG_CRIT, __METHOD__ , 'ERROR MySQL error['.$result["EXCEPTION"]["ID"].']error:'.$result["EXCEPTION"]["MSG"].''); // ID MSG $query 
-					$this->tables[$config["table"]]['values'] = $result["EXCEPTION"];
+					$this->tables[$args["table"]]['values'] = $result["EXCEPTION"];
+					return $result["EXCEPTION"];
 				}else{
 					$GLOBALS['LOG_DATA']->log(LOG_CRIT, __METHOD__ , 'result['.print_r($result, true).']'); // ID MSG $query 
 				}
@@ -358,7 +368,8 @@ class DAO{
 				#echo 'else<pre>'.print_r($else, true).'</pre>'.PHP_EOL;
 			}	
 		}
-		
+		return;
+
 	}
 	
 	
