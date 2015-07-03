@@ -62,7 +62,7 @@ class AUTH_HARNESS {
 		}
 		
 		$authCheck = $this->implementation[$authClass]->authenticate($params);
-		echo __METHOD__.__LINE__.'$authCheck['.var_export($authCheck, true).']'.PHP_EOL; 
+		#echo __METHOD__.__LINE__.'$authCheck['.var_export($authCheck, true).']'.PHP_EOL; 
 		return $authCheck;
 	}
 
