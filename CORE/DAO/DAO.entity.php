@@ -320,6 +320,11 @@ class DAO{
 				#echo 'baseObjDDDDD<pre>'.print_r($else, true).'</pre>'.PHP_EOL;
 				#GLOBAL $db;
 				$this->config = $args;
+				$this->initializeFromSchema($args["DSN"], $args["table"], false);
+				
+				$this->modifiedColumns[$args["table"]] = array();
+				
+				
 				$this->tables[$args["table"]] 				= array();
 				$this->tables[$args["table"]]['DSN'] 		= $args["DSN"];
 				$this->tables[$args["table"]]['foundation'] = true;
@@ -727,6 +732,9 @@ class DAO{
 	*/
 	protected function generateQueries($key,$value,$table){
 		#echo __METHOD__.'@'.__LINE__.' $table['.$table.'] $key=['.$key.'] <pre>'.var_export($value,true).'</pre>'."\n";
+		if(!isset($table) || 0 == count($value)){
+			return false;
+		}
 		$query = '';
 		if($this->tables[$key]["values"][$this->tables[$key]["pk_field"]] ==0){
 			#echo __METHOD__.'@'.__LINE__.'DO INSERT'.PHP_EOL;
