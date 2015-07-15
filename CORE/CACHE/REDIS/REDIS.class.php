@@ -30,7 +30,7 @@ class REDIS implements JCORE\CACHE\STATIC_API_INTERFACE{
 	* @param null
 	* @return null
 	*/
-	public function __construct(null){
+	public function __construct($args=null){
 	
 	
 	}
@@ -39,7 +39,7 @@ class REDIS implements JCORE\CACHE\STATIC_API_INTERFACE{
 	* @param null
 	* @return null
 	*/
-	public function intialize($args){
+	public function intialize($args=null){
 		if(isset($args) && is_array($args)){
 			foreach($args as $key => $value){
 				#$keyName = '$this->'.$key;
@@ -53,7 +53,7 @@ class REDIS implements JCORE\CACHE\STATIC_API_INTERFACE{
 	* @param null
 	* @return bool
 	*/
-	public function isIntialized(null){
+	public function isIntialized(($args=null)){
 		if($this->intialized === true){
 			echo __METHOD__.__LINE__.'<br>';
 			return true;

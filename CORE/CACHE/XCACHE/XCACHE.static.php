@@ -41,8 +41,7 @@ class XCACHE_static extends JCORE_SINGLETON implements CACHE_STATIC_API_INTERFAC
 	/**
 	* singleton method
 	*/
-    public static function singleton(null) 
-    {
+    public static function singleton($args=null){
         #echo '<b>singleton['.__METHOD__.']['.__CLASS__.']['.get_class(self).']['.self::$instance.']</b>';
 		if (!isset(self::$instance)) {
             $c = __CLASS__;

@@ -3,21 +3,11 @@
  * Wrapper for the Eaccelerator API
  * 
  * @author		Jason Medland
- * @package		JCORE
- * @subpackage	CACHE
+ * @package		JCORE\CACHE
  *
 */
-/**
-$CACHE_STATIC_API_INTERFACE = JCORE_BASE_DIR.'CACHE/CACHE_STATIC_API_INTERFACE.interface.php';
-require_once($CACHE_STATIC_API_INTERFACE);
-*
-*/	
 
-/**
-* EACCELERATOR class
- * @package		JCORE
- * @subpackage	CACHE
-*/
+
 namespace JCORE\CACHE;
 
 use JCORE\CACHE\SERIALIZATION_STATIC as SERIALIZATION;
@@ -37,8 +27,8 @@ class EACCELERATOR implements JCORE\CACHE\STATIC_API_INTERFACE{
 	* @param null
 	* @return null
 	*/
-	public function __construct(null){
-	
+	public function __construct($args=null){
+		return;
 	
 	}
 	/**
