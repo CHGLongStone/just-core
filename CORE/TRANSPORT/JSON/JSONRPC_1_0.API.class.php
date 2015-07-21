@@ -101,7 +101,10 @@ class JSONRPC_1_0_API implements TRANSPORT_INTERFACE {
 		if(!isset($raw_data['id']) || '' == $raw_data['id']){
 			$raw_data['id'] = microtime();
 		}
-			
+		if(isset($raw_data["params"]) && !is_array($raw_data["params"])){
+			#echo __METHOD__.__LINE__.'$raw_data<pre>['.var_export($raw_data,true).']</pre>'.PHP_EOL;
+			$raw_data["params"] = JSON::json_decode($raw_data["params"]);
+		}
 		/*
 		echo __FILE__.__LINE__.'$raw_data['.var_export($raw_data,true).']'.PHP_EOL;
 		*/
