@@ -425,14 +425,33 @@ class DAO{
 	* @param	string 	tableName
 	* @return NULL SCHEMA
 	*/
+	public function initializeSchema($DSN, $tableName){	
+		if(!isset($this->db->dataSchema[$DSN]["table"][$tableName])){
+			$schema = $GLOBALS["DATA_API"]->introspectTable($DSN, $tableName);
+		}
+		/**
+		echo __METHOD__.'::'.__LINE__.'DSN['.$DSN.'] tableName['.$tableName.']<pre>'.print_r($tableName, true).'</pre>';
+		echo __METHOD__.'::'.__LINE__.'DSN['.$DSN.'] tableName['.$tableName.']<pre>'.print_r($schema, true).'</pre>';
+		$schema = $this->db->dataSchema[$DSN]["table"][$tableName];
+		*/
+		return $schema;
+	}
+	/**
+	* DESCRIPTOR: contruct from table def
+	* @param	string 	DSN
+	* @param	string 	tableName
+	* @return NULL SCHEMA
+	*/
 	protected function initializeFromSchema($DSN, $tableName, $set_fk=true){
 		#GLOBAL $db;
 		/**
 		go get the table def
 		$db->introspectTable($DSN, $tableName);
 		echo __METHOD__.'::'.__LINE__.'tableName<pre>'.print_r($tableName, true).'</pre>';
-		*/ 
+
 		$result = $GLOBALS["DATA_API"]->introspectTable($DSN, $tableName);
+		*/ 
+		$result = $this->initializeSchema($DSN, $tableName);
 		/*
 		echo __METHOD__.'::'.__LINE__.'result<pre>'.print_r($result, true).'</pre>';
 		echo __METHOD__.'::'.__LINE__.'$this->tables<pre>'.print_r($this->tables, true).'</pre>';
