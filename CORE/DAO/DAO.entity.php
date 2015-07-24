@@ -434,6 +434,7 @@ class DAO{
 		echo __METHOD__.'::'.__LINE__.'DSN['.$DSN.'] tableName['.$tableName.']<pre>'.print_r($schema, true).'</pre>';
 		$schema = $this->db->dataSchema[$DSN]["table"][$tableName];
 		*/
+		$schema = $this->db->dataSchema[$DSN]["table"][$tableName];
 		return $schema;
 	}
 	/**
