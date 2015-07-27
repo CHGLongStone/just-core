@@ -260,7 +260,7 @@ class DAO{
 					if(isset($config["pk_field"])){
 						$this->tables[$config["table"]]['foundation'] 	= true;
 						$this->tables[$config["table"]]['pk_field'] 	= $config["pk_field"];
-						
+						$this->tables[$config["table"]]['pk'] 			= 0;
 					}
 						
 				}
