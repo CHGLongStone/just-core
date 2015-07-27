@@ -250,6 +250,20 @@ class DAO{
 						
 			}else{
 				#echo 'else<pre>'.print_r($else, true).'</pre>'.PHP_EOL;
+				$this->config = $config;
+				
+				if(isset($config["table"])){
+					$this->tables[$config["table"]] 				= array();
+					if(isset($config["DSN"])){
+						$this->tables[$config["table"]]['DSN'] 			= $config["DSN"];
+					}
+					if(isset($config["pk_field"])){
+						$this->tables[$config["table"]]['foundation'] 	= true;
+						$this->tables[$config["table"]]['pk_field'] 	= $config["pk_field"];
+						
+					}
+						
+				}
 			}	
 		}
 
@@ -371,6 +385,7 @@ class DAO{
 						
 			}else{
 				#echo 'else<pre>'.print_r($else, true).'</pre>'.PHP_EOL;
+				$this->initializeFromSchema($args["DSN"], $args["table"], $set_fk=false);
 			}	
 		}
 		return;
@@ -572,7 +587,15 @@ class DAO{
 							return $this->tables[$table]['values'][$pk][$column];					
 						}
 					}
-				}elseif(true == is_array($this->tables[$table]['values']) ){
+				}elseif(
+					isset($this->tables[$table])
+					&&
+					true == is_array($this->tables[$table]['values']) 
+					&&
+					is_array($this->tables[$table]['values'])
+					
+				
+				){
 					if(array_key_exists( $column, $this->tables[$table]['values'])){
 						return $this->tables[$table]['values'][$column];
 					}
@@ -761,7 +784,11 @@ class DAO{
 			$queryType = 'INSERT';
 			// insert into data (user_DbId, view_DbId, type, title) values ($user_DbId, $view_DbId, $type, '$title');
 			#$this->generateInsertQuery($key,$value);
-			if(!isset($this->tables[$key]["foundation"]) || true !== $this->tables[$key]["foundation"]){
+			if(
+				(!isset($this->tables[$key]["foundation"]) || true !== $this->tables[$key]["foundation"])
+				&&
+				array_key_exists("fk_field", $this->tables[$key])
+			){
 				$this->tables[$key]["values"][$this->tables[$key]["fk_field"]] = $this->root_pk;
 			}
 		}else{
