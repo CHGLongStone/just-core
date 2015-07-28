@@ -219,6 +219,8 @@ class DAO{
 				isset($config["pk_field"])
 				&&
 				isset($config["pk"])
+				&& 
+				0 != $config["pk"] 
 			){
 				#echo 'baseObjDDDDD<pre>'.print_r($else, true).'</pre>'.PHP_EOL;
 				#GLOBAL $db;
@@ -458,7 +460,7 @@ class DAO{
 	* @param	string 	tableName
 	* @return NULL SCHEMA
 	*/
-	protected function initializeFromSchema($DSN, $tableName, $set_fk=true){
+	public function initializeFromSchema($DSN, $tableName, $set_fk=true){
 		#GLOBAL $db;
 		/**
 		go get the table def
