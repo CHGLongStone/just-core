@@ -53,7 +53,7 @@ class REDIS implements JCORE\CACHE\STATIC_API_INTERFACE{
 	* @param null
 	* @return bool
 	*/
-	public function isIntialized(($args=null)){
+	public function isIntialized($args=null){
 		if($this->intialized === true){
 			echo __METHOD__.__LINE__.'<br>';
 			return true;
