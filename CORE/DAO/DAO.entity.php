@@ -79,9 +79,10 @@
  * The syntax for accessing Entity/Collection "child members" differs see [DEFAULT GETTERS & SETTERS] below
  * 
  * [EXTENDTING AGGREGATION]
+ * initializeJoinRecord 
  * Besides being able to instatiate a "stub" object of the "foundation" Entity/row
  * the object can also extent "stubs" of "child members". a stub of an Entity can be extended by:
- * 		$OBJECT->initializeJoinRecord($database, $tableName, $pk_field, $fk_field)
+ * 		$OBJECT->initializeChildRecord($database, $tableName, $pk_field, $fk_field)
  * 		- ALL arguments MUST be specified
  * 		- the "$fk" value of the record will be populated with $OBJECT->root_fk
  * 
@@ -397,7 +398,26 @@ class DAO{
 	
 	
 	/**
-	* DESCRIPTOR: contruct from table def
+	* DESCRIPTOR: construct from table def
+	* @param	string 	DSN
+	* @param	string 	tableName
+	* @return NULL SCHEMA
+	*/
+	public function initializeChildRecord($DSN, $tableName, $pk_field, $fk_field){
+		$this->tables[$tableName] = array();
+		$this->tables[$tableName]['DSN'] 	= $DSN;
+		
+		$this->tables[$tableName]['pk_field'] = $pk_field;
+		$this->tables[$tableName]['fk_field'] = $fk_field;
+		
+		$this->tables[$tableName]['pk'] 		= 0;
+		$values = $this->initializeFromSchema($DSN, $tableName);
+		$this->tables[$tableName]['values']		= $values;
+		return;
+	}
+	
+	/**
+	* DESCRIPTOR: construct from table def
 	* @param	string 	DSN
 	* @param	string 	tableName
 	* @return NULL SCHEMA
@@ -414,6 +434,7 @@ class DAO{
 		$this->tables[$tableName]['values']		= $values;
 		return;
 	}
+	
 	/**
 	* DESCRIPTOR: contruct from table def
 	* @param	string 	DSN
