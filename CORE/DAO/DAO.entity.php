@@ -422,16 +422,62 @@ class DAO{
 	* @param	string 	tableName
 	* @return NULL SCHEMA
 	*/
-	public function initializeJoinRecord($DSN, $tableName, $pk_field, $fk_field){
+	public function initializeJoinRecord($DSN, $tableName, $args=null){
+		#echo __METHOD__.__LINE__.'$DSN['.$DSN.'] $tableName['.$tableName.']$args<pre>['.var_export($args, true).']</pre>'.'<br>'.PHP_EOL; 
+		if(isset($args["JOIN_ON"]) && isset($args["JOIN_ON"]["table"]) ){
+			$init = array(
+				"DSN" => $DSN,
+				"tableName" => $args["JOIN_ON"]["table"],
+				"pk_field" => $args["JOIN_ON"]["pk_field"] 
+			);
+			$classInstance = get_class();
+			#echo __METHOD__.__LINE__.'$classInstance<pre>['.var_export($classInstance, true).'] get_called_class() ['.get_called_class().']</pre>'.'<br>'.PHP_EOL; 
+			#$instanceName = $args["JOIN_ON"]["table"];
+			$instanceName = $tableName;
+			$this->$instanceName = new $classInstance();
+			$this->$instanceName->initialize($DSN, $args["JOIN_ON"]["table"], true); //($DSN, $tableName, $foundation=false){ //
+			$this->$instanceName->initializeChildRecord($DSN, $tableName, $args["pk_field"], $args["fk_field"]);
+			
+			
+			
+			/*
+			echo __METHOD__.__LINE__.'$this->'.$instanceName.'<pre>['.var_export(get_class_methods($this->$instanceName), true).'] </pre>'.'<br>'.PHP_EOL; 
+			echo __METHOD__.__LINE__.'$this->'.$instanceName.'->tables<pre>['.var_export($this->$instanceName->tables, true).'] </pre>'.'<br>'.PHP_EOL; 
+			#echo __METHOD__.__LINE__.'$this->'.$instanceName.'<pre>['.var_export($this->$instanceName, true).'] </pre>'.'<br>'.PHP_EOL; 
+			$this->$args["JOIN_ON"]["table"]->init($init);
+			*/
+		}
+		
+		/*
 		$this->tables[$tableName] = array();
 		$this->tables[$tableName]['DSN'] 	= $DSN;
 		
-		$this->tables[$tableName]['pk_field'] = $pk_field;
+		$this->tables[$tableName]['pk_field'] = $args["pk_field"];
+
+
+		$this->tables[$tableName]['pk'] 		= 0;
+		$setFk = false;
+		if(isset($args["fk_field"])){
+			$this->tables[$tableName]['fk_field'] = $args["fk_field"];
+			$setFk = true;
+		}
+		$values = $this->initializeFromSchema($DSN, $tableName, $setFk);
+		$this->tables[$tableName]['values']		= $values;
+		
+		if(isset($args["JOIN_ON"])){
+			$tableName = $args["JOIN_ON"]["table"];
+			$this->tables[$tableName] = array();
+			$this->tables[$tableName]['DSN'] 	= $DSN;
+			
+			$this->tables[$tableName]['pk_field'] = $args["pk_field"];
+			$this->tables[$tableName]['pk'] 		= 0;
+			$values = $this->initializeFromSchema($DSN, $tableName,false);
+			$this->tables[$tableName]['values']		= $values;
+		}
+		
 		$this->tables[$tableName]['fk_field'] = $fk_field;
 		
-		$this->tables[$tableName]['pk'] 		= 0;
-		$values = $this->initializeFromSchema($DSN, $tableName);
-		$this->tables[$tableName]['values']		= $values;
+		*/
 		return;
 	}
 	
