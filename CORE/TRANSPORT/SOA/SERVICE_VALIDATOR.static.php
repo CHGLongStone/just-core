@@ -30,21 +30,21 @@ class SERVICE_VALIDATOR{
 	* @param param NULL
 	* @return string return  NULL
 	*/
-	public static function validateService($serviceCall = null ){
-		if(null == $serviceCall){
+	public static function validateService($serviceCallRaw = null ){
+		if(null == $serviceCallRaw){
 			return false;
 		}
 		$args = array();
 		$args['Code'] = '170';
 		$args['Message'] = 'Service Call Failed';
-		$args['Data'] = $serviceCall;
+		$args['Data'] = $serviceCallRaw;
 		
-		$serviceCall = explode('.', $serviceCall);
+		$serviceCall = explode('.', $serviceCallRaw);
 		
 		if(class_exists($serviceCall[0])){
 			$serviceObject = new $serviceCall[0]();
 		}else{
-			$args['Message'] = 'Service Object Could Not Be loaded, verify namespace and composer autoload';
+			$args['Message'] = 'Service Object['.$serviceCallRaw.'] Could Not Be loaded, verify namespace and composer autoload';
 			$error = new ERROR($args);
 			return $error;
 		}
