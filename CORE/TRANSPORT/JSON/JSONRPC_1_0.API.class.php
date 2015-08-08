@@ -76,19 +76,22 @@ class JSONRPC_1_0_API implements TRANSPORT_INTERFACE {
 	* @return return NULL  
 	*/
 	public function __construct(){
-		#echo __METHOD__.__LINE__.PHP_EOL;
-		#echo __METHOD__.__LINE__.'$_SERVER<pre>['.var_export($_SERVER,true).']</pre>'.PHP_EOL;
-		
-		#echo __METHOD__.__LINE__.'$_POST<pre>['.var_export($_POST,true).']</pre>'.PHP_EOL;
-		
-		#$raw_data = file_get_contents('php://input');
-		#echo __METHOD__.__LINE__.'$raw_data<pre>['.var_export($raw_data,true).']</pre>'.PHP_EOL;
+		/*
+		echo __METHOD__.__LINE__.PHP_EOL;
+		echo __METHOD__.__LINE__.'$_SERVER<pre>['.var_export($_SERVER,true).']</pre>'.PHP_EOL;
+		echo __METHOD__.__LINE__.'$raw_data<pre>['.var_export($raw_data,true).']</pre>'.PHP_EOL;
+		echo __METHOD__.__LINE__.'$_POST<pre>['.var_export($_POST,true).']</pre>'.PHP_EOL;
+		$raw_data = file_get_contents('php://input');
+		*/
 		
 		if('POST' == $_SERVER["REQUEST_METHOD"]){
 			$raw_data = $_POST;
 			if(0 == count($raw_data)){
 				$raw_data = file_get_contents('php://input');
 				$raw_data = JSON::json_decode($raw_data);
+			}
+			if(!is_array($raw_data)){
+				exit('{"result": null, "error": {"code": -300, "message": "'.$raw_data.'"}, "id": null}');
 			}
 		
 		}elseif('GET' == $_SERVER["REQUEST_METHOD"]){
