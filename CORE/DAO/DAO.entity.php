@@ -304,7 +304,7 @@ class DAO{
 	* @return NULL 
 	*/
 	public function initializeBySearch($args){ //, $tableName, $foundation=false
-		#echo __METHOD__.__LINE__.'result<pre>'.print_r($args, true).'</pre>'.PHP_EOL;
+		#echo __METHOD__.'@'.__LINE__.'result<pre>'.print_r($args, true).'</pre>'.PHP_EOL;
 
 		#$this->initialized = true;
 		$this->tables[$args["table"]] = array();
@@ -322,7 +322,7 @@ class DAO{
 		
 		#$result = $GLOBALS["DATA_API"]->introspectTable($args["DSN"], $args["table"]);
 		#$values = $this->initializeFromSchema($args["DSN"], $args["table"],$set_fk=false);
-		#echo __METHOD__.__LINE__.'result<pre>'.print_r($result, true).'</pre>'.PHP_EOL;
+		#echo __METHOD__.'@'.__LINE__.'result<pre>'.print_r($result, true).'</pre>'.PHP_EOL;
 		if(is_array($args)){
 			#echo 'args<pre>'.print_r($args, true).'</pre>'.PHP_EOL;
 			if(
@@ -356,19 +356,19 @@ class DAO{
 						$whereClause .= '	OR'.PHP_EOL;
 					}
 					$whereClause .= ' '.$key.' = "'.$value.'" '.PHP_EOL;
-					#echo __METHOD__.__LINE__.$whereClause.PHP_EOL;
+					#echo __METHOD__.'@'.__LINE__.$whereClause.PHP_EOL;
 				}
 				$query = $query.$whereClause;
-				#echo __METHOD__.__LINE__.'query<pre>'.print_r($query, true).'</pre>'.PHP_EOL;
+				#echo __METHOD__.'@'.__LINE__.'query<pre>'.print_r($query, true).'</pre>'.PHP_EOL;
 				#$result = $db->SQL_select($config["DSN"], $query, $returnArray=true);
 				$result = $GLOBALS["DATA_API"]->retrieve($this->config["DSN"], $query, $r_args=array('returnArray' => true));
 				#$result = $db->SQLResultToAssoc($result);
-				#echo __METHOD__.__LINE__.'result[0]<pre>'.print_r($result[0], true).'</pre>'.PHP_EOL;
-				#echo __METHOD__.__LINE__.'this->tables<pre>'.print_r($this->tables, true).'</pre>'.PHP_EOL;
+				#echo __METHOD__.'@'.__LINE__.'result[0]<pre>'.print_r($result[0], true).'</pre>'.PHP_EOL;
+				#echo __METHOD__.'@'.__LINE__.'this->tables<pre>'.print_r($this->tables, true).'</pre>'.PHP_EOL;
 				
 				$this->tables[$args["table"]]['values'] = $result[0];
 				#$this->tables[$args["table"]]['values'] 	= array();
-				#echo __METHOD__.__LINE__.'this->tables ['.$args["table"].']<pre>'.print_r($this->tables, true).'</pre>'.PHP_EOL;
+				#echo __METHOD__.'@'.__LINE__.'this->tables ['.$args["table"].']<pre>'.print_r($this->tables, true).'</pre>'.PHP_EOL;
 				#$this->tables[$table]['values']
 				#echo 'count($result[0])<pre>'.print_r(count($result[0]), true).'</pre>'.PHP_EOL;
 				if(count($result[0]) >= 1){
@@ -423,7 +423,7 @@ class DAO{
 	* @return NULL SCHEMA
 	*/
 	public function initializeJoinRecord($DSN, $tableName, $args=null){
-		#echo __METHOD__.__LINE__.'$DSN['.$DSN.'] $tableName['.$tableName.']$args<pre>['.var_export($args, true).']</pre>'.'<br>'.PHP_EOL; 
+		#echo __METHOD__.'@'.__LINE__.'$DSN['.$DSN.'] $tableName['.$tableName.']$args<pre>['.var_export($args, true).']</pre>'.'<br>'.PHP_EOL; 
 		if(isset($args["JOIN_ON"]) && isset($args["JOIN_ON"]["table"]) ){
 			$init = array(
 				"DSN" => $DSN,
@@ -431,7 +431,7 @@ class DAO{
 				"pk_field" => $args["JOIN_ON"]["pk_field"] 
 			);
 			$classInstance = get_class();
-			#echo __METHOD__.__LINE__.'$classInstance<pre>['.var_export($classInstance, true).'] get_called_class() ['.get_called_class().']</pre>'.'<br>'.PHP_EOL; 
+			#echo __METHOD__.'@'.__LINE__.'$classInstance<pre>['.var_export($classInstance, true).'] get_called_class() ['.get_called_class().']</pre>'.'<br>'.PHP_EOL; 
 			#$instanceName = $args["JOIN_ON"]["table"];
 			$instanceName = $tableName;
 			$this->$instanceName = new $classInstance();
@@ -441,9 +441,9 @@ class DAO{
 			
 			
 			/*
-			echo __METHOD__.__LINE__.'$this->'.$instanceName.'<pre>['.var_export(get_class_methods($this->$instanceName), true).'] </pre>'.'<br>'.PHP_EOL; 
-			echo __METHOD__.__LINE__.'$this->'.$instanceName.'->tables<pre>['.var_export($this->$instanceName->tables, true).'] </pre>'.'<br>'.PHP_EOL; 
-			#echo __METHOD__.__LINE__.'$this->'.$instanceName.'<pre>['.var_export($this->$instanceName, true).'] </pre>'.'<br>'.PHP_EOL; 
+			echo __METHOD__.'@'.__LINE__.'$this->'.$instanceName.'<pre>['.var_export(get_class_methods($this->$instanceName), true).'] </pre>'.'<br>'.PHP_EOL; 
+			echo __METHOD__.'@'.__LINE__.'$this->'.$instanceName.'->tables<pre>['.var_export($this->$instanceName->tables, true).'] </pre>'.'<br>'.PHP_EOL; 
+			#echo __METHOD__.'@'.__LINE__.'$this->'.$instanceName.'<pre>['.var_export($this->$instanceName, true).'] </pre>'.'<br>'.PHP_EOL; 
 			$this->$args["JOIN_ON"]["table"]->init($init);
 			*/
 		}
@@ -722,7 +722,7 @@ class DAO{
 	public function save($table=null){
 		if(count($this->modifiedColumns) >= 1){
 			foreach($this->modifiedColumns AS $key => $value){
-				#echo __METHOD__.__LINE__.'$key=['.$key.']<pre>'.var_export($value,true).'</pre>'."\n";
+				#echo __METHOD__.'@'.__LINE__.'$key=['.$key.']<pre>'.var_export($value,true).'</pre>'."\n";
 				if(is_array($value)){
 					#echo '$value<pre>'.print_r($value, true).'</pre>'.PHP_EOL;
 					$this->generateQueries($key, $value, $table);
@@ -731,14 +731,14 @@ class DAO{
 		}
 		#echo __METHOD__.'@'.__LINE__.'<pre>'.print_r($GLOBALS, true).'</pre>'.PHP_EOL;
 		#echo '-----------------------------------------------------'.PHP_EOL;
-		#echo __METHOD__.__LINE__.'<pre>'.print_r($this->tables[$key], true).'</pre>'.PHP_EOL;
-		#echo __METHOD__.__LINE__.'$this->modifiedColumns<pre>'.print_r($this->modifiedColumns, true).'</pre>'.PHP_EOL;
-		#echo __METHOD__.__LINE__.'$this->queries<pre>'.print_r($this->queries, true).'</pre>'.PHP_EOL;
+		#echo __METHOD__.'@'.__LINE__.'<pre>'.print_r($this->tables[$key], true).'</pre>'.PHP_EOL;
+		#echo __METHOD__.'@'.__LINE__.'$this->modifiedColumns<pre>'.print_r($this->modifiedColumns, true).'</pre>'.PHP_EOL;
+		#echo __METHOD__.'@'.__LINE__.'$this->queries<pre>'.print_r($this->queries, true).'</pre>'.PHP_EOL;
 		if(isset($this->queries) && count($this->queries) >= 1){
 			#GLOBAL $db;
-			#echo __METHOD__.__LINE__.'$this->tables['.$key.']<pre>'.print_r($this->tables[$key], true).'</pre>'.PHP_EOL;
+			#echo __METHOD__.'@'.__LINE__.'$this->tables['.$key.']<pre>'.print_r($this->tables[$key], true).'</pre>'.PHP_EOL;
 			foreach($this->queries AS $key => $value){
-				#echo __METHOD__.__LINE__.'$key=['.$key.']<pre>'.var_export($value,true).'</pre>'.PHP_EOL;
+				#echo __METHOD__.'@'.__LINE__.'$key=['.$key.']<pre>'.var_export($value,true).'</pre>'.PHP_EOL;
 				foreach($value AS $key2 => $value2){
 					#echo '$key2=['.$key2.']<pre>'.var_export($value2,true).'</pre>'.PHP_EOL;
 					
@@ -777,7 +777,7 @@ class DAO{
 								is_int($result[0]["INSERT_ID"])
 							){
 								
-								#echo __METHOD__.__LINE__.'$this->tables['.$key.']["values"][0]['.$this->tables[$key]["pk_field"].']===['.print_r($this->tables[$key]['values'][0][$this->tables[$key]['pk_field']], true).']'.PHP_EOL;
+								#echo __METHOD__.'@'.__LINE__.'$this->tables['.$key.']["values"][0]['.$this->tables[$key]["pk_field"].']===['.print_r($this->tables[$key]['values'][0][$this->tables[$key]['pk_field']], true).']'.PHP_EOL;
 								if(isset($this->tables[$key]['values'][0][$this->tables[$key]['pk_field']])){
 									// HANDLE A COLLECTION
 									#echo '$result[0]["INSERT_ID"]COLLECTION<pre>'.var_export($result[0]["INSERT_ID"],true).'</pre>'.PHP_EOL;
