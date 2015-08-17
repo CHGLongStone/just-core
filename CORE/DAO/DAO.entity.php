@@ -270,6 +270,7 @@ class DAO{
 			}	
 		}
 
+		$this->MYSQL_CONSTANTS = $GLOBALS["CONFIG_MANAGER"]->getSetting('DAO',$config["DSN"],'MYSQL_CONSTANTS');//$this->config["DSN"]
 		#$this->initialized;
 		#echo '$this->tables<pre>'.print_r($this->tables, true).'</pre>';
 		return;
@@ -344,16 +345,20 @@ class DAO{
 				
 				$this->tables[$args["table"]] 				= array();
 				$this->tables[$args["table"]]['DSN'] 		= $args["DSN"];
-				$this->tables[$args["table"]]['foundation'] = true;
+				#$this->tables[$args["table"]]['foundation'] = true;
 				#$this->tables[$args["table"]]['pk_field'] 	= $args["pk_field"];
 				#$this->tables[$args["table"]]['pk'] 		= $args["pk"];
 				$this->tables[$args["table"]]['values'] 	= array();
+				$matchType = ' OR';
+				if(isset($args["SEARCH_TYPE"]) && $args["SEARCH_TYPE"] == 'MATCH_ALL'){
+					$matchType = ' AND';
+				}
 				
 				$query = 'SELECT * FROM '.$args["table"].' WHERE  ';
 				$whereClause = '';
 				foreach($args["search"] AS $key => $value){
 					if('' != $whereClause){
-						$whereClause .= '	OR'.PHP_EOL;
+						$whereClause .= '	'.$matchType.PHP_EOL;
 					}
 					$whereClause .= ' '.$key.' = "'.$value.'" '.PHP_EOL;
 					#echo __METHOD__.'@'.__LINE__.$whereClause.PHP_EOL;
@@ -365,7 +370,15 @@ class DAO{
 				#$result = $db->SQLResultToAssoc($result);
 				#echo __METHOD__.'@'.__LINE__.'result[0]<pre>'.print_r($result[0], true).'</pre>'.PHP_EOL;
 				#echo __METHOD__.'@'.__LINE__.'this->tables<pre>'.print_r($this->tables, true).'</pre>'.PHP_EOL;
-				
+				if(!isset($result[0])){
+					#echo __METHOD__.'@'.__LINE__.'DO THE FUCKING SCEAMA<pre>'.print_r($result, true).'</pre>'.PHP_EOL;
+					
+					$schema = $this->initializeFromSchema($args["DSN"], $args["table"], false);
+					$this->tables[$args["table"]]["values"] = $schema;
+					#echo __METHOD__.'@'.__LINE__.'this->tables['.$args["table"].']<pre>'.print_r($this->tables[$args["table"]], true).'</pre>'.PHP_EOL;
+					#echo __METHOD__.'@'.__LINE__.'schema<pre>'.print_r($schema, true).'</pre>'.PHP_EOL;
+					return;
+				}
 				$this->tables[$args["table"]]['values'] = $result[0];
 				#$this->tables[$args["table"]]['values'] 	= array();
 				#echo __METHOD__.'@'.__LINE__.'this->tables ['.$args["table"].']<pre>'.print_r($this->tables, true).'</pre>'.PHP_EOL;
@@ -536,7 +549,24 @@ class DAO{
 
 		$result = $GLOBALS["DATA_API"]->introspectTable($DSN, $tableName);
 		*/ 
-		$result = $this->initializeSchema($DSN, $tableName);
+		if(
+			(
+				!isset($this->tables[$tableName])
+				||
+				0 == count($this->tables[$tableName])
+			)
+			||
+			(
+				!isset($this->db->dataSchema[$DSN]["table"][$tableName])
+				||
+				0 == count($this->db->dataSchema[$DSN]["table"][$tableName])
+			)
+		){
+			$result = $this->initializeSchema($DSN, $tableName);
+			#echo __METHOD__.'::'.__LINE__.'result<pre>'.print_r($result, true).'</pre>';
+		}else{
+			$result = $this->db->dataSchema[$DSN]["table"][$tableName];
+		}
 		/*
 		echo __METHOD__.'::'.__LINE__.'result<pre>'.print_r($result, true).'</pre>';
 		echo __METHOD__.'::'.__LINE__.'$this->tables<pre>'.print_r($this->tables, true).'</pre>';
@@ -551,15 +581,26 @@ class DAO{
 		foreach($result AS $key => $value){
 			#echo ' key='.$key.' :: value=<pre>'.var_export($value,true).'</pre><br>';
 			
-			if(isset($value["allowNull"]) && $value["allowNull"] == 'NO'){
+			if(
+				(isset($value["allowNull"]) && $value["allowNull"] == 'NO')
+				||
+				(isset($value["default"]))
+			){
 				$values[$key] = $value["default"];
+				
+				
 			}else{
 				$values[$key] = NULL;
-			}			
+
+			}
+			
 			
 			if(isset($value["key"]["keytype"]) && $value["key"]["keytype"] == 'PRI'){
 				#echo 'PK['.$key.']'.PHP_EOL;
 				$this->tables[$tableName]['pk_field'] 	= $key;
+				if(!isset($this->tables[$tableName]['pk'])){
+					$this->tables[$tableName]['pk'] = 0;
+				}
 				$values[$key] = $this->tables[$tableName]['pk'];
 			}
 			if(true === $set_fk){
@@ -848,7 +889,18 @@ class DAO{
 			return false;
 		}
 		$query = '';
-		if($this->tables[$key]["values"][$this->tables[$key]["pk_field"]] ==0){
+		
+		if(
+			!isset($this->tables[$key])
+			||
+			(!isset($this->tables[$key]["values"]) || 0 == count($this->tables[$key]["values"]))
+		){
+			$this->tables[$key]["values"] = $value;
+			#echo __METHOD__.'@'.__LINE__.'$this->tables['.$key.']<pre>'.var_export($this->tables[$key],true).'</pre>'.PHP_EOL;
+		}
+		if(
+			$this->tables[$key]["values"][$this->tables[$key]["pk_field"]] == 0
+		){
 			#echo __METHOD__.'@'.__LINE__.'DO INSERT'.PHP_EOL;
 			$queryType = 'INSERT';
 			// insert into data (user_DbId, view_DbId, type, title) values ($user_DbId, $view_DbId, $type, '$title');
@@ -876,7 +928,11 @@ class DAO{
 					$query2 = '';
 					
 					foreach($value2 AS $key3 => $value3){
-						$query2 .= $key3.' = "'.$value3.'",';
+						if(in_array($value2,$this->MYSQL_CONSTANTS)){//$DEFAULTS
+							$query2 .= $key3.' = '.$value3.',';
+						}else{
+							$query2 .= $key3.' = "'.$value3.'",';
+						}
 					}
 					if($query2 != ''){
 						if($key2 ==0){
@@ -890,7 +946,13 @@ class DAO{
 						
 					}
 				}else{
-					$query .= $key2.' = "'.$value2.'",';
+					#echo __METHOD__.'@'.__LINE__.' $table['.$table.'] $key2=['.$key2.'] <pre>'.var_export($value2,true).'</pre>'."\n";
+					if(in_array($value2,$this->MYSQL_CONSTANTS)){//$DEFAULTS
+						#$this->queries[$key][$key2]['query'] = 'UPDATE '.$key.' SET '.$query2.' WHERE '.$this->tables[$key]["pk_field"].'='.$key2.' ;';
+						$query .= $key2.' = '.$value2.',';
+					}else{
+						$query .= $key2.' = "'.$value2.'",';
+					}
 				}
 				unset($this->modifiedColumns[$key]);
 			}// END IF
@@ -926,8 +988,16 @@ class DAO{
 		$columnsNames = '';
 		$columnsValues = '';
 		foreach($value AS $key2 => $value2){
+			if(in_array($value2,$this->MYSQL_CONSTANTS)){//$DEFAULTS
+				#$this->queries[$key][$key2]['query'] = 'UPDATE '.$key.' SET '.$query2.' WHERE '.$this->tables[$key]["pk_field"].'='.$key2.' ;';
+				#$query .= $key2.' = '.$value2.',';
+				$columnsValues .= ' '.$value2.',';	
+			}else{
+				#$query .= $key2.' = "'.$value2.'",';
+				$columnsValues .= '"'.$value2.'",';	
+			}
 			$columnsNames .= '`'.$key2.'`,';
-			$columnsValues .= '"'.$value2.'",';	
+			#$columnsValues .= '"'.$value2.'",';
 		}
 		$columnsNames = $this->stripTrailingComma($columnsNames);
 		$columnsValues = $this->stripTrailingComma($columnsValues);
