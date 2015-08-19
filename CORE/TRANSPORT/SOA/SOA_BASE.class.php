@@ -43,10 +43,12 @@ abstract class SOA_BASE {
 		#$barebones['methods'] = $reflector->getMethods();
 		#$barebones['comments'] = $reflector->getDocComment();
 		$barebones['serviceDescription'] = $reflector->export($this, true);
+		$barebones['serviceDescription'] = '<pre>['.var_export($reflector, true).']</pre>'; //var_export($reflector->export($this, true));
 		#$serviceDescription = $reflector->export($this, true);
 		#$barebones = Reflection::export($this);
 		#$barebones .= Reflection::getDocComment();
 		$this->serviceResponse = $barebones;
+		#
 		#echo __METHOD__.__LINE__.'$barebones<pre>['.var_export($barebones, true).']</pre>'.'<br>'; 
 		#return $serviceDescription;
 		return TRUE;

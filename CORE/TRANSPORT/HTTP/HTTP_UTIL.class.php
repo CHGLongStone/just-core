@@ -119,7 +119,15 @@ class HTTP_UTIL {
 		}
 		return true;
 	}
-	
+	/**
+	 * gets a top level domain from a url
+	 * 
+	 */
+	public static function get_tld($url) {
+		$parts = parse_url($url);
+		return $parts["host"];
+		
+	}
 	
 }
 
