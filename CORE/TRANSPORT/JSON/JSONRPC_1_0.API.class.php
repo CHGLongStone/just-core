@@ -89,6 +89,11 @@ class JSONRPC_1_0_API implements TRANSPORT_INTERFACE {
 			if(0 == count($raw_data)){
 				$raw_data = file_get_contents('php://input');
 				$raw_data = JSON::json_decode($raw_data);
+			}elseif(1 >= count($raw_data)){
+				$raw_data = JSON::json_decode($raw_data);
+			}else{
+				echo __METHOD__.'@'.__LINE__.'count($raw_data)['.count($raw_data).']$raw_data<pre>['.var_export($raw_data,true).']</pre>'.PHP_EOL;
+				
 			}
 			if(!is_array($raw_data)){
 				exit('{"result": null, "error": {"code": -300, "message": "'.$raw_data.'"}, "id": null}');
