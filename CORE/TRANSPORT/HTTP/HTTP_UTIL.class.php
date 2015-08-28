@@ -125,7 +125,14 @@ class HTTP_UTIL {
 	 */
 	public static function get_tld($url) {
 		$parts = parse_url($url);
-		return $parts["host"];
+		#echo __METHOD__.'@'.__LINE__.'$parts<pre>['.var_export($parts, true).']</pre>'.'<br>'.PHP_EOL; 
+		if(isset($parts["host"])){
+			$tld = $parts["host"];
+		}else{
+			$tld = $parts["path"];
+		}
+		
+		return $tld;
 		
 	}
 	

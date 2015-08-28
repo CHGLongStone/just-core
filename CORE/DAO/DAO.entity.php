@@ -387,7 +387,8 @@ class DAO{
 				if(count($result[0]) >= 1){
 					$this->initialized = true;
 					#echo '$this<pre>'.print_r($this, true).'</pre>'.PHP_EOL;
-					$this->root_pk = $result[0][$args["pk_field"]];
+					#$this->root_pk = $result[0][$args["pk_field"]];
+					$this->root_pk = $result[0][$this->tables[$args["table"]]["pk_field"]];
 					$this->tables[$args["table"]]['pk'] 		= $this->root_pk;
 
 				}elseif($result["EXCEPTION"]){
@@ -1026,6 +1027,25 @@ class DAO{
 	public function DUMP(){
 		echo __CLASS__.'->'.__METHOD__.'<pre>'.print_r($this->tables, true).'</pre>'."\n";
 		return;
+	}
+	
+	/**
+	* DESCRIPTOR: PUKE SELF
+	* @return obj 
+	*/
+	public function getMYSQLConstants($DSN=null){
+		if(!isset($this->MYSQL_CONSTANTS) || false === $this->MYSQL_CONSTANTS){
+			#echo __METHOD__.'@'.__LINE__.'NO $this->MYSQL_CONSTANTS'.'<br>'.PHP_EOL; 
+			#echo __METHOD__.'@'.__LINE__.'$GLOBALS<pre>['.print_r($GLOBALS, true).']</pre>'.'<br>'.PHP_EOL; 
+			#
+			if(isset($DSN) && null != $DSN){
+				$this->MYSQL_CONSTANTS = $GLOBALS["CONFIG_MANAGER"]->getSetting('DAO',$DSN,'MYSQL_CONSTANTS');//$this->config["DSN"]
+			}
+				
+			#$this->MYSQL_CONSTANTS = $GLOBALS["CONFIG_MANAGER"]->getSetting('DAO');//$this->config["DSN"]
+			#echo __METHOD__.'@'.__LINE__.'$this->MYSQL_CONSTANTS<pre>['.var_export($this->MYSQL_CONSTANTS, true).']</pre>'.'<br>'.PHP_EOL; 
+		}
+		return $this->MYSQL_CONSTANTS;
 	}
 	//----------------------------------------------------
 	

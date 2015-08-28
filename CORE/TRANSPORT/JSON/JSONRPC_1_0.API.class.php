@@ -229,6 +229,12 @@ class JSONRPC_1_0_API implements TRANSPORT_INTERFACE {
 		if(NULL !== $parsedRequest || FALSE !== $parsedRequest){
 			#echo __METHOD__.'@'.__LINE__.'$parsedRequest['.var_export($parsedRequest,true).']'.PHP_EOL;
 			#$this->raw_data  = $raw_data;
+			if(true === is_string($parsedRequest)){
+				echo __METHOD__.'@'.__LINE__.'$parsedRequest['.var_export($parsedRequest,true).']'.PHP_EOL;
+				$test = JSON::json_decode($parsedRequest);
+				echo __METHOD__.'@'.__LINE__.'$test['.var_export($test,true).']'.PHP_EOL;
+				
+			}
 			$this->parsedRequest  = $parsedRequest;
 		}
 		
