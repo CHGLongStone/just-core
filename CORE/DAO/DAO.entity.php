@@ -346,7 +346,12 @@ class DAO{
 				$this->tables[$args["table"]] 				= array();
 				$this->tables[$args["table"]]['DSN'] 		= $args["DSN"];
 				#$this->tables[$args["table"]]['foundation'] = true;
-				#$this->tables[$args["table"]]['pk_field'] 	= $args["pk_field"];
+				/*
+				* need to fix this ref so pk_field is created from schema 
+				*/
+				if(isset($args["pk_field"])){
+					$this->tables[$args["table"]]['pk_field'] 	= $args["pk_field"];
+				}
 				#$this->tables[$args["table"]]['pk'] 		= $args["pk"];
 				$this->tables[$args["table"]]['values'] 	= array();
 				$matchType = ' OR';
@@ -527,6 +532,7 @@ class DAO{
 		if(!isset($this->db->dataSchema[$DSN]["table"][$tableName])){
 			$schema = $GLOBALS["DATA_API"]->introspectTable($DSN, $tableName);
 		}
+		$this->getMYSQLConstants($DSN);
 		/**
 		echo __METHOD__.'::'.__LINE__.'DSN['.$DSN.'] tableName['.$tableName.']<pre>'.print_r($tableName, true).'</pre>';
 		echo __METHOD__.'::'.__LINE__.'DSN['.$DSN.'] tableName['.$tableName.']<pre>'.print_r($schema, true).'</pre>';

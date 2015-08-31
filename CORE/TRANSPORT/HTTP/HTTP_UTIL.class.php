@@ -131,6 +131,8 @@ class HTTP_UTIL {
 		}else{
 			$tld = $parts["path"];
 		}
+		$tld = str_replace('www.', '', $tld);
+		$tld = preg_replace('/:\d+$/', '', $tld);
 		
 		return $tld;
 		
