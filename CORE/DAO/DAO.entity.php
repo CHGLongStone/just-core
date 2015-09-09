@@ -270,7 +270,7 @@ class DAO{
 			}	
 		}
 
-		$this->MYSQL_CONSTANTS = $GLOBALS["CONFIG_MANAGER"]->getSetting('DAO',$config["DSN"],'MYSQL_CONSTANTS');//$this->config["DSN"]
+		$this->getMYSQLConstants($config["DSN"]);
 		#$this->initialized;
 		#echo '$this->tables<pre>'.print_r($this->tables, true).'</pre>';
 		return;
@@ -549,6 +549,7 @@ class DAO{
 	*/
 	public function initializeFromSchema($DSN, $tableName, $set_fk=true){
 		#GLOBAL $db;
+		$this->getMYSQLConstants($DSN);
 		/**
 		go get the table def
 		$db->introspectTable($DSN, $tableName);
