@@ -270,7 +270,7 @@ class DAO{
 			}	
 		}
 
-		$this->getMYSQLConstants($config["DSN"]);
+		#$this->getMYSQLConstants($config["DSN"]);
 		#$this->initialized;
 		#echo '$this->tables<pre>'.print_r($this->tables, true).'</pre>';
 		return;
@@ -925,6 +925,10 @@ class DAO{
 			
 			
 		}
+		if(!isset($this->MYSQL_CONSTANTS) || !is_array($this->MYSQL_CONSTANTS)){
+			$this->getMYSQLConstants($this->tables[$key]["DSN"]);
+		}
+		
 		foreach($value AS $key2 => $value2){
 			/*
 			* if the table is not set do everything, if it is do only that table
