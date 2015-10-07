@@ -225,6 +225,7 @@ class DAO{
 			){
 				#echo 'baseObjDDDDD<pre>'.print_r($else, true).'</pre>'.PHP_EOL;
 				#GLOBAL $db;
+				$this->getMYSQLConstants($config["DSN"]);
 				$this->config = $config;
 				$this->tables[$config["table"]] 				= array();
 				$this->tables[$config["table"]]['DSN'] 			= $config["DSN"];
@@ -259,6 +260,7 @@ class DAO{
 					$this->tables[$config["table"]] 				= array();
 					if(isset($config["DSN"])){
 						$this->tables[$config["table"]]['DSN'] 			= $config["DSN"];
+						$this->getMYSQLConstants($config["DSN"]);
 					}
 					if(isset($config["pk_field"])){
 						$this->tables[$config["table"]]['foundation'] 	= true;
@@ -284,6 +286,7 @@ class DAO{
 	* @return NULL 
 	*/
 	public function initialize($DSN, $tableName, $foundation=false){ //
+		$this->getMYSQLConstants($DSN);
 		
 		#$this->initialized = true;
 		$this->tables[$tableName] = array();
@@ -306,6 +309,7 @@ class DAO{
 	*/
 	public function initializeBySearch($args){ //, $tableName, $foundation=false
 		#echo __METHOD__.'@'.__LINE__.'result<pre>'.print_r($args, true).'</pre>'.PHP_EOL;
+		$this->getMYSQLConstants($args["DSN"]);
 
 		#$this->initialized = true;
 		$this->tables[$args["table"]] = array();
@@ -543,6 +547,8 @@ class DAO{
 	}
 	/**
 	* DESCRIPTOR: contruct from table def
+	* initialize DO NOT set table values
+	* 
 	* @param	string 	DSN
 	* @param	string 	tableName
 	* @return NULL SCHEMA
@@ -806,6 +812,9 @@ class DAO{
 								is_int($result[0]["INSERT_ID"])
 							){
 								#echo '$result[0]["INSERT_ID"]<pre>'.var_export($result[0]["INSERT_ID"],true).'</pre>'.PHP_EOL;
+								if(0 == $result[0]["INSERT_ID"]){
+									echo '$result[0]["INSERT_ID"]<pre>'.var_export($result,true).'</pre>'.PHP_EOL;
+								}
 								$this->root_pk = $result[0]["INSERT_ID"];
 								$this->tables[$key]['pk'] = $this->root_pk;
 								$this->tables[$key]['values'][$this->tables[$key]['pk_field']] = $this->root_pk;
@@ -990,6 +999,11 @@ class DAO{
 	* DESCRIPTOR: checks the "modifiedColumns" array and generates update statements
 	* based on the values of that array
 	* if the table is not set [NULL] do everything, if it is do only that table
+	* set some flags to dynamically modify the insert query to use
+	* 	INSERT IGNORE
+	* 	ON DUPLICATE KEY UPDATE
+	* http://dev.mysql.com/doc/refman/5.5/en/insert.html
+	*
 	* @param string $key 
 	* @param string $value 
 	* @param string $table 
@@ -1013,7 +1027,8 @@ class DAO{
 		}
 		$columnsNames = $this->stripTrailingComma($columnsNames);
 		$columnsValues = $this->stripTrailingComma($columnsValues);
-		$query = ' INSERT INTO `'.$table.'` ('.$columnsNames.') values ('.$columnsValues.');';
+		#$query = ' INSERT INTO `'.$table.'` ('.$columnsNames.') values ('.$columnsValues.');';
+		$query = ' INSERT IGNORE INTO `'.$table.'` ('.$columnsNames.') values ('.$columnsValues.') ;';
 		#echo $query.LN
 		return $query;
 	}
