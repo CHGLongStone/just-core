@@ -281,6 +281,8 @@ class DAO{
 	
 	/**
 	* DESCRIPTOR: construct from table def (information_schema)
+	* initialize AND set table values
+	*
 	* @param	string 	DSN
 	* @param	string 	tableName
 	* @return NULL 
@@ -666,7 +668,49 @@ class DAO{
 	* @return	int 	fk
 	* @return NULL 
 	*/
-	public function joinCollection($DSN, $joinTable, $pk_field, $fk_field, $fk){
+	public function joinCollection($args = null){
+		echo __METHOD__.'@'.__LINE__.' $value<pre>['.var_export($args, true).']</pre>'.'<br>'.PHP_EOL;
+		/*
+		$DSN, $joinTable, $pk_field, $fk_field, $fk
+		GLOBAL $db;
+		*/
+		
+		$this->tables[$args["joinTable"]] 				= array();
+		$this->tables[$args["joinTable"]]['DSN'] 		= $args["joinTable"];
+		$this->tables[$args["joinTable"]]['pk_field'] 	= $args["pk_field"];
+		$this->tables[$args["joinTable"]]['fk_field'] 	= $args["fk_field"];
+		$this->tables[$args["joinTable"]]['fk'] 		= $args["fk"];
+		
+		$query = '
+		SELECT * 
+		FROM '.$args["dataTable"].' 
+		WHERE '.$args["pk_field"].' 
+		IN (
+			SELECT '.$args["fk_field"].' 
+			FROM '.$args["joinTable"].'
+			WHERE '.$args["joinField"].' = '.$args["fk"].' 
+		)
+		';
+		echo __METHOD__.'@'.__LINE__.'$query['.$query.'] '.'<br>'.PHP_EOL;
+		#$result = $db->SQL_select($database, $query, $returnArray=true);
+		$result = $GLOBALS["DATA_API"]->retrieve($this->config["DSN"], $query, $args=array('returnArray' => true));
+		#echo '$result<pre>'.var_export($result,true).'</pre>'."\n";
+		foreach($result AS $key => $value){
+			$this->tables[$args["joinTable"]]['values'][$value[$args["pk_field"]]] 	= $value;
+		}
+		
+		return;
+	}
+	/**
+	* DESCRIPTOR: joins a single record from anothe DB/Table
+	* @param	string 	DSN
+	* @param	string 	baseTable
+	* @return	string 	pk_field
+	* @return	string 	pk_field
+	* @return	int 	fk
+	* @return NULL 
+	*/
+	public function joinChildCollection($DSN, $joinTable, $pk_field, $fk_field, $fk){
 		GLOBAL $db;
 		
 		$this->tables[$joinTable] 				= array();

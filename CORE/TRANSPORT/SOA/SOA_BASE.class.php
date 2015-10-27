@@ -53,7 +53,37 @@ abstract class SOA_BASE {
 		#return $serviceDescription;
 		return TRUE;
 	}
-	
+	/**
+	* encapsulates the handling of a DB error 
+	* 
+	*/
+	public function wrapMySQLResultInJSON($result){
+		if(
+			isset($result[0]['EXCEPTION']['ID']) 
+			&& 
+			1062 == $result[0]['EXCEPTION']['ID']
+		){
+			$result['status'] = 'FALED';
+			return $result;
+		}
+
+		if(1 <= count($this->changeList)){
+			$info = implode(',',$this->changeList);
+		}else{
+			$info = 'update info before re-submitting updates (refresh the page)';
+		}
+		$response = array(
+			'status' => 'OK',
+			'info' => $info,
+		);
+		/*
+		if(isset($args['callback'])){
+			angular.callbacks._0
+			$response[$args['callback']] = 'we did something else with your record';
+		}
+		*/
+		return $response;
+	}
 	
 }
 
