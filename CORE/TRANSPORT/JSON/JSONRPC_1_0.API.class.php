@@ -79,32 +79,43 @@ class JSONRPC_1_0_API implements TRANSPORT_INTERFACE {
 		/*
 		echo __METHOD__.'@'.__LINE__.PHP_EOL;
 		echo __METHOD__.'@'.__LINE__.'$_SERVER<pre>['.var_export($_SERVER,true).']</pre>'.PHP_EOL;
-		echo __METHOD__.'@'.__LINE__.'$raw_data<pre>['.var_export($raw_data,true).']</pre>'.PHP_EOL;
 		echo __METHOD__.'@'.__LINE__.'$_POST<pre>['.var_export($_POST,true).']</pre>'.PHP_EOL;
+		echo __METHOD__.'@'.__LINE__.'$_GET<pre>['.var_export($_GET,true).']</pre>'.PHP_EOL;
 		$raw_data = file_get_contents('php://input');
+		echo __METHOD__.'@'.__LINE__.'$raw_data<pre>['.var_export($raw_data,true).']</pre>'.PHP_EOL;
 		*/
-		
+		$rqType = '';
 		if('POST' == $_SERVER["REQUEST_METHOD"]){
 			$raw_data = $_POST;
 			if(0 == count($raw_data)){
+				#echo __METHOD__.'@'.__LINE__.'file_get_contents '.PHP_EOL;
 				$raw_data = file_get_contents('php://input');
+				#echo __METHOD__.'@'.__LINE__.'$raw_data<pre>['.var_export($raw_data,true).']</pre>'.PHP_EOL;
 				$raw_data = JSON::json_decode($raw_data);
+				$rqType = '_POST RAW';
 			}elseif(1 >= count($raw_data)){
+				#echo __METHOD__.'@'.__LINE__.'parse _POST '.PHP_EOL;
 				$raw_data = JSON::json_decode($raw_data);
+				$rqType = '_POST Parameter';
 			}else{
-				#echo __METHOD__.'@'.__LINE__.'count($raw_data)['.count($raw_data).']$raw_data<pre>['.var_export($raw_data,true).']</pre>'.PHP_EOL;
+				$rqType = '_POST OTHER';
+				#echo __METHOD__.'@'.__LINE__.' OTHER '.PHP_EOL;
 				
 			}
 			if(!is_array($raw_data)){
-				exit('{"result": null, "error": {"code": -300, "message": "'.$raw_data.'"}, "id": null}');
+				#echo __METHOD__.'@'.__LINE__.'count($raw_data)['.count($raw_data).']$raw_data<pre>['.var_export($raw_data,true).']</pre>'.PHP_EOL;
+				if($raw_data == ' - Syntax error, malformed JSON'){
+					$raw_data = 'Ensure Service Methods, URLs  and similar parameters are URL escaped before JSON encoding ';
+				}
+				exit('{"result": null, "error": {"code": -300, "message": " Request '.$rqType.' NOT Parsed: '.$raw_data.'"}, "id": null}');
 			}
 		
 		}elseif('GET' == $_SERVER["REQUEST_METHOD"]){
 			$raw_data = urldecode($_SERVER["QUERY_STRING"]);
-			
+			$rqType = '_GET Parameter';
 		}else{
 			#
-			exit('{"result": null, "error": {"code": -300, "message": "failed to get input"}, "id": null}');
+			exit('{"result": null, "error": {"code": -300, "message": "failed to get input '.$rqType.' NOT Parsed: '.$raw_data.'"}, "id": null}');
 		}
 		/**/
 		if(!isset($raw_data['id']) || '' == $raw_data['id']){
