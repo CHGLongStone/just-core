@@ -864,14 +864,9 @@ class DAO{
 								$this->tables[$key]['values'][$this->tables[$key]['pk_field']] = $this->root_pk;
 							}
 						}else{
-							//replace
-							
-							#$GLOBALS["DATA_API"]->
-							#$bodytag = str_replace('$this->root_pk', $this->root_pk, $value2["query"]);
-							#$result = $GLOBALS["DATA_API"]->retrieve($DSN, $query, $args=array('returnArray' => true));
-							#echo __METHOD__.'@'.__LINE__.'<pre>'.var_export($this,true).'</pre>'.PHP_EOL;
-							#echo __METHOD__.'@'.__LINE__.'DSN['.$this->tables[$key]['DSN'].']query['.$value2["query"].'] <pre>'.var_export($this,true).'</pre>'.PHP_EOL;
-							
+							/**
+							*
+							*/
 							$result[] = $GLOBALS["DATA_API"]->create($this->tables[$key]['DSN'], $value2["query"], $args=array('returnArray' => true));
 							if(
 								isset($result[0]["INSERT_ID"]) 
