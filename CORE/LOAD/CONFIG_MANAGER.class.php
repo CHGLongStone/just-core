@@ -283,12 +283,29 @@ class CONFIG_MANAGER{
 	*/
 	public function MergeConfig($settings, $config)
 	{
-	  foreach($config as $key => $Value)
-	  {
-		if(array_key_exists($key, $settings) && is_array($Value))
-		  $settings[$key] = $this->MergeConfig($settings[$key], $config[$key]);
-		else
-		  $settings[$key] = $Value;
+	  if(is_array($config)){
+		foreach($config as $key => $Value){
+			#echo __METHOD__.'@'.__LINE__.'$key<pre>['.$key.']</pre>'.'<br>'; 
+			if(array_key_exists($key, $settings) && is_array($Value)){
+				$settings[$key] = $this->MergeConfig($settings[$key], $config[$key]);
+			}else{
+				$settings[$key] = $Value;
+			}
+		}
+		  
+	  }else{
+			/*
+		 echo __METHOD__.'@'.__LINE__.'
+		  $config is_array ['.is_array($config).']<br>
+		  $config is_bool  ['.is_bool($config).']<br>
+		  $config is_object  ['.is_object($config).']<br>
+		  $config is_scalar  ['.is_scalar($config).']<br>
+		  $config ['.$config.']<br>
+		  
+		  
+		  '.PHP_EOL; 
+			*/
+		  
 	  }
 
 	  return $settings;
