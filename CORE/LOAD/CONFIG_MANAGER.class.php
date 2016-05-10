@@ -3,7 +3,7 @@
  * CONFIG_MANAGER (JCORE) CLASS
  * @author	Jason Medland<jason.medland@gmail.com>
  * @package	JCORE
- * @subpackage	LOAD
+ * @subpackage	LOAD 
  */
 namespace JCORE\LOAD;
 /**
@@ -49,17 +49,8 @@ class CONFIG_MANAGER{
 	*
 	*/
 	public function setCache($args=NULL){
-		#$GLOBALS["CONFIG_MANAGER"]->getSetting('CSN')
-		#echo __METHOD__.'@'.__LINE__.' <pre>'.var_export($args,true).'</pre><br>';
-		#echo __METHOD__.'@'.__LINE__.' <pre>'.var_export($GLOBALS["CONFIG_MANAGER"]->getSetting('CSN'),true).'</pre><br>';
 		if(is_array($args)){
-			
-			/**
-			echo __METHOD__.'@'.__LINE__.' <pre>'.var_export($args,true).'</pre><br>';
-			
-			*/
 			if(isset($args["CSN"])){
-				#echo __METHOD__.'@'.__LINE__.' <pre>'.var_export($args["CSN"],true).'</pre><br>';
 				$this->settings["CSN"] = $args["CSN"]; //for consistancy
 				$this->settings["CACHE_SERIALIZATION"] = 'JSON';
 				if(isset($args["CACHE_SERIALIZATION"])){
@@ -69,33 +60,20 @@ class CONFIG_MANAGER{
 				if(isset($args["UNSERIALIZE_TYPE"])){
 					$this->settings["UNSERIALIZE_TYPE"] = $args["UNSERIALIZE_TYPE"];
 				}
-				$this->settings["IMPLEMENTATION"] = 'STATIC';
-				
-				#echo __METHOD__.'@'.__LINE__.' <pre>'.var_export($args["INSTANCE"],true).'</pre><br>';
-				#$INSTANCE = new $args["INSTANCE"];
-				#echo __METHOD__.'@'.__LINE__.' <pre>'.var_export($INSTANCE,true).'</pre><br>';
-				#$INSTANCE = null;
-				
+				$this->settings["IMPLEMENTATION"] = 'STATIC';				
 				if(isset($args["IMPLEMENTATION"]) 
 					&& 
 					$args["IMPLEMENTATION"] != 'STATIC'
 					&& 
 					(
 						isset($args["INSTANCE"]) 
-						#|| 
-						#is_object($INSTANCE = new $args["INSTANCE"]($args)) 
 					) 
 				){
-					#echo __METHOD__.'@'.__LINE__.' <pre>'.var_export($INSTANCE,true).'</pre><br>';
-					//$this->settings["INSTANCE"] = new $args["INSTANCE"];
 					//INSTANCE
 					@$this->settings["INSTANCE"] = new $args["INSTANCE"]($args);
 					$this->settings["IMPLEMENTATION"] = $args["IMPLEMENTATION"];
-					#echo __METHOD__.'@'.__LINE__.' <pre>'.var_export($this->settings["INSTANCE"], true).'</pre><br><br>';
 				}
 				if(!is_object($this->settings["INSTANCE"])){
-					#echo __METHOD__.'@'.__LINE__.' <pre>'.var_export($INSTANCE,true).'</pre><br>';
-					
 					echo __METHOD__.'@'.__LINE__.'********** !is_object **********<br>';
 					
 					return false;
@@ -115,9 +93,6 @@ class CONFIG_MANAGER{
 	protected function preHookCache($LOAD_ID){
 		if(isset($this->settings["CSN"])){
 			//JCORE_SYSTEM_CACHE
-			#echo __METHOD__.__LINE__.'$this->settings["CSN"]['.$this->settings["CSN"].']<br>';
-			#$this->settings["CSN"]= $args["CSN"];
-			
 			$args = array();
 			if(isset($this->settings["CACHE_SERIALIZATION"])){
 				$args["CACHE_SERIALIZATION"] = $this->settings["CACHE_SERIALIZATION"];
@@ -125,13 +100,9 @@ class CONFIG_MANAGER{
 			if(isset($this->settings["UNSERIALIZE_TYPE"])){
 				$args["UNSERIALIZE_TYPE"] = $this->settings["UNSERIALIZE_TYPE"];
 			}
-			#echo __METHOD__.__LINE__.'<b>$this->settings(<pre>'.var_export($this->settings,true).'</pre>)<br>';
-			#echo __METHOD__.__LINE__.'<pre>'.var_export(get_declared_classes(), true).'</pre><br>';
 			$methodName = 'getValue';
 			$args["KEY"] = $LOAD_ID;
 			if(isset($this->settings["IMPLEMENTATION"]) && $this->settings["IMPLEMENTATION"] == 'STATIC'){
-				#echo __METHOD__.__LINE__.'<b>class_exists($this->settings["CSN"]['.class_exists($this->settings["CSN"]).'] method_exists['.method_exists($this->settings["CSN"], $methodName).']</b><br>';
-				#$myCallBackFunction = array($this->settings["CSN"], '::'.$methodName);
 				$myCallBackFunction = array($this->settings["CSN"], $methodName);
 				$var = call_user_func($myCallBackFunction, $args);
 				
@@ -139,7 +110,6 @@ class CONFIG_MANAGER{
 				$myCallBackFunction = array($this->settings["CSN"],$methodName);
 				$var = call_user_func($myCallBackFunction, $args);
 			}
-			#echo __METHOD__.__LINE__.'<b>'.$myCallBackFunction.'(<pre>'.var_export($args,true).'</pre>)--$var['.gettype($var).']['.(false === $var).']['.$var.'][<pre>'.var_export($var,true).'</pre>]</b><br>';
 			if(null !== $var){
 				
 				$this->LOADED_VALUES[$LOAD_ID] = $var;
@@ -198,40 +168,24 @@ class CONFIG_MANAGER{
 	* loads everything in CONFIG/AUTOLOAD/*{global,local}.php  by default
 	*
 	* @param string $LOAD_ID 
-	* @param string $FILE_NAME 
 	* @return null 
 	* 
 	* $LOAD_ID is the directory path 
-	* $FILE_NAME is the file name with ".php"
 	*/
-	public function loadConfig($LOAD_ID='', $FILE_NAME=''){
-		#echo __METHOD__.'@'.__LINE__.'LOAD_ID::'.$LOAD_ID.'  FILE_NAME::'.$FILE_NAME.'<br>';
-		
-		if($LOAD_ID =='' || $FILE_NAME == ''){
-			#echo __METHOD__.'@'.__LINE__.' <pre>'.var_export($this->settings,true).'</pre><br>';
+	public function loadConfig($LOAD_ID=''){
+		if($LOAD_ID ==''){
 			if(!isset($this->settings) || 0 == count($this->settings) ){
 				$LOAD_ID = 'JCORE';
 				$pattern = 'CONFIG/AUTOLOAD/*{global,local}.php';
-				#echo __METHOD__.'@'.__LINE__.'pattern::'.$pattern.'<br>';
 				$fileList = glob($pattern,GLOB_BRACE);
 				$this->saveConfig($fileList);
 				$args = array();
 				$args["KEY"] = $LOAD_ID;
-				#$args["DATA"] = $this->LOADED_VALUES[$LOAD_ID];
 				$args["DATA"] = $this->settings[$LOAD_ID];
-				#echo __METHOD__.__LINE__.'$this->LOADED_VALUES[$LOAD_ID]<pre>'.var_export($this->LOADED_VALUES[$LOAD_ID], true).'</pre><br>';
 				$this->postHookCache($args);
 			}else{
 				return false;
-				
 			}
-
-		}else{
-			
-			$pattern = $FILE_NAME.'/'.strtolower($LOAD_ID).'.{global,local}.php';
-			#echo __METHOD__.'@'.__LINE__.'pattern::'.$pattern.'<br>';
-			$fileList = glob($pattern,GLOB_BRACE);
-			$this->saveConfig($fileList);
 		}
 		//pre hook into cache
 		if(true === $this->preHookCache($LOAD_ID)){
@@ -239,13 +193,10 @@ class CONFIG_MANAGER{
 		}
 		
 		//post hook set into cache 
-		#if($this->LOADED_VALUES[$LOAD_ID] = parse_ini_file($FILE_NAME,true)){
 		if($this->settings[$LOAD_ID] == $this->LOADED_VALUES[$LOAD_ID]){
 			$args = array();
 			$args["KEY"] = $LOAD_ID;
-			#$args["DATA"] = $this->LOADED_VALUES[$LOAD_ID];
 			$args["DATA"] = $this->settings[$LOAD_ID];
-			#echo __METHOD__.__LINE__.'$this->LOADED_VALUES[$LOAD_ID]<pre>'.var_export($this->LOADED_VALUES[$LOAD_ID], true).'</pre><br>';
 			$this->postHookCache($args);
 			return true;
 		}
@@ -253,25 +204,17 @@ class CONFIG_MANAGER{
 	}
 	
 	/**
-	* DESCRIPTOR: 
-	*
-	*
 	*
 	* @param string $LOAD_ID 
-	* @param string $FILE_NAME 
 	* @return null 
 	*/
 	public function saveConfig($fileList){
-		#echo __METHOD__.'@'.__LINE__.'fileList::<pre>'.var_export($fileList,true).'</pre><br>';
 		foreach($fileList AS $key => $value){
 			$args["file"] = $value;
 			$config = $this->loadConfigFile($args);
-			#$this->settings = array_merge($this->settings, $config);
 			$this->settings = $this->MergeConfig($this->settings, $config);
 		}
-		#echo __METHOD__.'@'.__LINE__.'key['.$key.']$this->settings<pre>'.var_export($this->settings, true).'</pre><br>';
 		foreach(array_keys ($this->settings) AS $key => $value){
-			#echo __METHOD__.'@'.__LINE__.'key['.$key.']$value<pre>'.var_export($value, true).'</pre><br>';
 			$this->LOADED_VALUES[$value] = $this->settings[$value];
 		}
 		
@@ -301,8 +244,6 @@ class CONFIG_MANAGER{
 		  $config is_object  ['.is_object($config).']<br>
 		  $config is_scalar  ['.is_scalar($config).']<br>
 		  $config ['.$config.']<br>
-		  
-		  
 		  '.PHP_EOL; 
 			*/
 		  
@@ -313,7 +254,7 @@ class CONFIG_MANAGER{
 	}	
 	
 	/**
-	* DESCRIPTOR: 
+	* DEPRECATED :  no more *.ini format
 	* loads the bases ini internally, then all the subfiles, and returns a value of true if all good 
 	* @param string $LOAD_ID 
 	* @param string $FILE_NAME 
@@ -337,13 +278,8 @@ class CONFIG_MANAGER{
 			return true;
 		}
 		if($this->LOADED_VALUES[$LOAD_ID] = parse_ini_file($FILE_NAME,true)){
-			
-			/**
-			*/
-			#echo('$LOAD_ID['.$LOAD_ID.']<pre>['.var_export($this->LOADED_VALUES[$LOAD_ID][$LOAD_ID]["CSN"], true).']</pre>').'<br>';
-			#$cachePool = parse_ini_file(JCORE_CONFIG_DIR.'/SERVICE/cachePool.ini', true);
+
 			foreach($this->LOADED_VALUES[$LOAD_ID][$LOAD_ID]["CSN"] AS $key => $POOL_NAME){
-				#echo('$key['.$key.'] $POOL_NAME---['.var_export($POOL_NAME,true).']--').'<br>'; 
 				unset($this->LOADED_VALUES[$LOAD_ID][$LOAD_ID]["CSN"][$key]);
 				$this->LOADED_VALUES[$LOAD_ID][$LOAD_ID]["CSN"][$POOL_NAME] = $this->LOADED_VALUES[$LOAD_ID][$POOL_NAME];
 				if(
@@ -355,20 +291,13 @@ class CONFIG_MANAGER{
 					$SERVER_LIST = parse_ini_file($subname, true);
 					if(false !== $SERVER_LIST && count($SERVER_LIST) > 0){
 						$this->LOADED_VALUES[$LOAD_ID][$LOAD_ID]["CSN"][$POOL_NAME]["POOL"] = $SERVER_LIST; 
-						//parse_ini_file(JCORE_CONFIG_DIR.'/SERVICE/CACHE_POOL/'.$POOL_NAME.'.ini', true);
 					}
-					#echo __METHOD__.__LINE__.'$subname['.$subname.']<pre>['.var_export($SERVER_LIST, true).']</pre>'.'<br>'; 
-					
-
 				}else{
-					#echo __METHOD__.__LINE__.'$subname['.$subname.']<pre>['.var_export($CACHECFG, true).']</pre>'.'<br>'; 
-					#$this->LOADED_VALUES[$LOAD_ID][$LOAD_ID]["CSN"][$POOL_NAME] = '';
-					#$this->LOADED_VALUES[$LOAD_ID][$LOAD_ID]["CSN"][$POOL_NAME] = $this->LOADED_VALUES[$LOAD_ID][$POOL_NAME];
+					#fuck off eh
 				}
 				unset($this->LOADED_VALUES[$LOAD_ID][$POOL_NAME]);
 				
 			}
-			#echo __METHOD__.__LINE__.'$subname['.$subname.']<pre>['.var_export($this->LOADED_VALUES[$LOAD_ID][$LOAD_ID]["CSN"], true).']</pre>'.'<br>'; 
 			$this->LOADED_VALUES[$LOAD_ID] = $this->LOADED_VALUES[$LOAD_ID][$LOAD_ID]["CSN"];
 			$args = array();
 			$args["KEY"] = $LOAD_ID;
@@ -443,7 +372,7 @@ class CONFIG_MANAGER{
 	}
 	//----------------------------------------------------
 	/**
-	* DESCRIPTOR:.
+	* DEPRECATED:.DEPRECATED
 	* loads the ini internally and returns a value of true if all good 
 	* @param string $LOAD_ID 
 	* @param string $SECTION_NAME 
@@ -485,7 +414,7 @@ class CONFIG_MANAGER{
 		return;
 	}
 	/**
-	* DESCRIPTOR:.
+	* DEPRECATED:. FTS just use composer
 	* sets an ini setting as a define
 	* used by:
 	* 	array_walk_recursive( &$input, $funcname [, $userdata]);
@@ -506,21 +435,21 @@ class CONFIG_MANAGER{
 		return;
 	}
 	/**
-	* DESCRIPTOR: Registers a Plugin
+	* DEPRECATED: FTS just use composer
+	* Registers a Plugin
 	* @param string $pluginName 
 	* @return null 
-	*/
 	public function registerPlugin($pluginName=null){
 		if(is_string($pluginName) && $pluginName != ''){
 			$this->PLUGINS[$pluginName] = $pluginName;
 		}
 		return;
 	}
+	*/
 	/**
-	* DESCRIPTOR: Registers a Plugin
+	* DEPRECATED: FTS just use composer
 	* @param string $pluginName 
 	* @return null 
-	*/
 	public function getRegisteredPlugins($pluginName=null){
 		if(is_string($pluginName) && $pluginName != ''){
 			return $this->PLUGINS[$pluginName];
@@ -530,6 +459,7 @@ class CONFIG_MANAGER{
 		}
 		return;
 	}
+	*/
 	
 }
  
