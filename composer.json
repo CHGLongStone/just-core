@@ -1,6 +1,6 @@
 {
 	"name" : "just-core/foundation",
-	"description" : "PHP Enterprise (HA) High Availability Framework",
+	"description" : "PHP Enterprise (HA) High Availability Framework, develop quick and simple, deploy quick and consistent",
 	"license" : "GNU",
 	"keywords" : [
 		"just-core",
