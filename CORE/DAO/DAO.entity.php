@@ -198,7 +198,7 @@ class DAO{
 	 * @param	mixed 	config
 	 */
 	public function __construct($config = null){
-		#action
+		#echo __METHOD__.__LINE__.'<br>'.PHP_EOL;
 		//$DSN, $table, $pk_field, $pk 
 		//echo 'result<pre>'.print_r($result, true).'</pre>'.PHP_EOL;
 		#$config["DSN"];
@@ -744,7 +744,7 @@ class DAO{
 	public function __call($method, $args ){
 		$table 	= $args[0];
 		$column = $args[1];
-
+		#echo __METHOD__.__LINE__.'$method['.$method.']<pre>['.var_export($args, true).']</pre> <br>'.PHP_EOL;
 		#	$baseObj->get_some_data('XXX');
 		switch($method){
 			case"get":

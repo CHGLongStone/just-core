@@ -21,8 +21,10 @@ class CONFIG_MANAGER{
 	#protected $PLUGINS = array();
 	protected $settings = array();
 	private $C = '';
+	private $CONFIG_PATH = 'CONFIG/AUTOLOAD/';
+	private $CACHE_PATH = 'CACHE/FILE/';
 	/**
-	 * CACHEABLE CONFIG.
+	 * CACHEABLE CONFIG. 
 	 * if we don't have a cache with and API we're looking @ an I/O hit for all the config files
 	 * use XDEBUG [or equiv] to VERIFY  your relative execution times [cache vs file load] (these can change under varying types of load)
 	 * 
@@ -42,6 +44,16 @@ class CONFIG_MANAGER{
 	 * @ return bool;
 	 */
 	public function __construct($args=NULL){
+		if(isset($args["CONFIG_PATH"]) && is_dir($args["CONFIG_PATH"])){
+			$this->CONFIG_PATH = $args["CONFIG_PATH"];
+		}
+		if(isset($args["CACHE_PATH"]) && is_dir($args["CACHE_PATH"])){
+			$this->CACHE_PATH = $args["CACHE_PATH"];
+		}else{
+			$this->CACHE_PATH = $GLOBALS["APPLICATION_ROOT"].$this->CACHE_PATH;
+			
+		}
+		
 		return false;
 	}
 	/**
@@ -157,6 +169,32 @@ class CONFIG_MANAGER{
 		//log it?
 		return false;
 	}
+	
+	/**
+	*
+	*/
+	public function checkCompiled($args=null){
+		
+		$passCMD = 'ls -lah '.$this->CONFIG_PATH;
+		#$passResult = null;
+		$passResult = shell_exec($passCMD);
+		#echo __METHOD__.'@'.__LINE__.'  passResult<pre>['.var_export($passResult, true).']</pre> '.'<br>'.PHP_EOL; 
+		$hashResult = md5($passResult);
+		#echo __METHOD__.'@'.__LINE__.'  hashResult<pre>['.var_export($hashResult, true).']</pre> '.'<br>'.PHP_EOL; 
+		
+		$this->lastHash = '';
+		if(is_file($this->CACHE_PATH.'compiled.hash')){
+			$this->lastHash = file_get_contents($this->CACHE_PATH.'compiled.hash');
+		}
+		if($this->lastHash != $hashResult){
+			file_put_contents($this->CACHE_PATH.'compiled.hash', $hashResult);
+			return $hashResult;
+		}
+		return false;
+	}
+	/**
+	*
+	*/
 	public function loadConfigFile($args=null){
 		if(isset($args["file"])){
 			return include $args["file"];
@@ -165,7 +203,7 @@ class CONFIG_MANAGER{
 	/**
 	* DESCRIPTOR: loads the config file and returns a value of true if all good 
 	*
-	* loads everything in CONFIG/AUTOLOAD/*{global,local}.php  by default
+	* loads everything in $this->CONFIG_PATH/*{global,local}.php  by default
 	*
 	* @param string $LOAD_ID 
 	* @return null 
@@ -175,24 +213,56 @@ class CONFIG_MANAGER{
 	public function loadConfig($LOAD_ID=''){
 		if($LOAD_ID ==''){
 			if(!isset($this->settings) || 0 == count($this->settings) ){
+				
+				$checkCompiled = $this->checkCompiled();
+				if(false === $checkCompiled){
+					if(is_file($this->CACHE_PATH.'compiled.'.$this->lastHash.'.php')){
+						$lastConfig = file_get_contents($this->CACHE_PATH.'compiled.'.$this->lastHash.'.php');
+						$lastConfig = include $this->CACHE_PATH.'compiled.'.$this->lastHash.'.php';
+						#echo __METHOD__.'@'.__LINE__.'  lastConfig<pre>['.var_export(array_keys($lastConfig),true).']</pre> '.'<br>'.PHP_EOL; 
+						$this->settings = $lastConfig;
+						#return true;
+					}
+				}
+				
+
+				
 				$LOAD_ID = 'JCORE';
-				$pattern = 'CONFIG/AUTOLOAD/*{global,local}.php';
+				$pattern = $this->CONFIG_PATH.'*{global,local}.php';
 				$fileList = glob($pattern,GLOB_BRACE);
 				$this->saveConfig($fileList);
 				$args = array();
 				$args["KEY"] = $LOAD_ID;
 				$args["DATA"] = $this->settings[$LOAD_ID];
+				
+				if(true == $checkCompiled){
+					#echo __METHOD__.'@'.__LINE__.'  this->settings<pre>['.var_export(array_keys($this->settings),true).']</pre> '.'<br>'.PHP_EOL; 
+					//array_keys 
+					$parsedSettings = var_export($this->settings,true);
+					#echo __METHOD__.'@'.__LINE__.'  parsedSettings<pre>['.var_export(array_keys($parsedSettings),true).']</pre> '.'<br>'.PHP_EOL; 
+					
+					$compiledSettings = '<?php 
+					return '.$parsedSettings.';?>
+					';
+					
+					
+					$putResult = file_put_contents($this->CACHE_PATH.'compiled.'.$checkCompiled.'.php', $compiledSettings);
+					#echo __METHOD__.'@'.__LINE__.'  putResult<pre>['.var_export($putResult, true).']</pre> '.'<br>'.PHP_EOL; 
+				}
 				$this->postHookCache($args);
+		
+		
+			
 			}else{
 				return false;
 			}
 		}
-		//pre hook into cache
+		//pre hook into cache needs catch all 
 		if(true === $this->preHookCache($LOAD_ID)){
 			return true;
 		}
 		
-		//post hook set into cache 
+		//post hook set into cache needs catch all 
 		if($this->settings[$LOAD_ID] == $this->LOADED_VALUES[$LOAD_ID]){
 			$args = array();
 			$args["KEY"] = $LOAD_ID;
@@ -209,6 +279,8 @@ class CONFIG_MANAGER{
 	* @return null 
 	*/
 	public function saveConfig($fileList){
+		
+		
 		foreach($fileList AS $key => $value){
 			$args["file"] = $value;
 			$config = $this->loadConfigFile($args);
@@ -255,6 +327,9 @@ class CONFIG_MANAGER{
 	
 	/**
 	* DEPRECATED :  no more *.ini format
+	* 
+	* tree is still useful... rework MPTT or basic parent hook back
+	* 
 	* loads the bases ini internally, then all the subfiles, and returns a value of true if all good 
 	* @param string $LOAD_ID 
 	* @param string $FILE_NAME 
@@ -262,16 +337,13 @@ class CONFIG_MANAGER{
 	* 
 	* $LOAD_ID is the directory path 
 	* $FILE_NAME is the file name with ".ini"
-	*/
 	public function loadIniTree($LOAD_ID='', $FILE_NAME=''){
 		#echo __METHOD__.__LINE__.'<br>';
 		if($LOAD_ID =='' || $FILE_NAME == ''){
 			return false;
 			//explode on period
-			/**
-				$PACKAGE = strstr  ( $calledClass, ".", true );
-				$PLUGIN = strstr  ( $calledClass, ".");
-			*/
+				#$PACKAGE = strstr  ( $calledClass, ".", true );
+				#$PLUGIN = strstr  ( $calledClass, ".");
 		}
 		//hook into cache
 		if(true === $this->preHookCache($LOAD_ID)){
@@ -307,6 +379,7 @@ class CONFIG_MANAGER{
 		}
 		return false;
 	}
+	*/
 	
 	
 	/**
@@ -370,96 +443,8 @@ class CONFIG_MANAGER{
 		return false;
 		#echo 'defined_constants["user"]<pre>'.var_export($defined_constants["user"], true).'</pre><br>';
 	}
-	//----------------------------------------------------
-	/**
-	* DEPRECATED:.DEPRECATED
-	* loads the ini internally and returns a value of true if all good 
-	* @param string $LOAD_ID 
-	* @param string $SECTION_NAME 
-	* @param string $SETTING_NAME 
-	* @return null 
-	* 
-	*/
-	public function setIniAsConstant($LOAD_ID = null, $SECTION_NAME = null, $SETTING_NAME = NULL){
-		if(!isset($this->LOADED_VALUES)){
-			//hook into cache	
-		}
-		if($SETTING_NAME != NULL){
-			if($this->LOADED_VALUES[$LOAD_ID][$SECTION_NAME][$SETTING_NAME]){
-				array_walk_recursive($this->LOADED_VALUES[$LOAD_ID][$SECTION_NAME][$SETTING_NAME], 'this->wrapDefine');
-				return ;
-			}
-		}elseif($SECTION_NAME != null){
-			if($this->LOADED_VALUES[$LOAD_ID][$SECTION_NAME]){
-				array_walk_recursive($this->LOADED_VALUES[$LOAD_ID][$SECTION_NAME], 'CONFIG_MANAGER::wrapDefine' , $prepend=$LOAD_ID.'_'.$SECTION_NAME.'_');
-				return ;
-			}
-		}elseif($this->LOADED_VALUES[$LOAD_ID]){
-			/**
-			* you really need to load this much
-			*/
-			array_walk_recursive($this->LOADED_VALUES[$LOAD_ID], 'CONFIG_MANAGER::wrapDefine', $prepend=$LOAD_ID.'_');
-			return ;
-		}else{
-			/**
-			* getting rediculous here
-			* array_walk_recursive($this->LOADED_VALUES, '$this->wrapDefine');
-			*/
-			array_walk_recursive($this->LOADED_VALUES[$LOAD_ID], 'CONFIG_MANAGER::wrapDefine', $prepend=$LOAD_ID.'PUUUKE_');
-			return ;
-		}
-		return false;
-	
-		#array_walk_recursive($fruits, '$this->wrapDefine');
-		return;
-	}
-	/**
-	* DEPRECATED:. FTS just use composer
-	* sets an ini setting as a define
-	* used by:
-	* 	array_walk_recursive( &$input, $funcname [, $userdata]);
-	* 		calls: $funcname($value, $key, $userdata)
-	* @param string $defineValue 
-	* @param string $defineName 
-	* @param string $prepend 
-	* @return null 
-	* 
-	* $defineValue is the obvious 
-	* $defineName is the obvious 
-	* $prepend is added before the define name 
-	*/
-	public static function wrapDefine($defineValue, $defineName, $prepend=null){
-		if(is_string($defineValue) && is_string($defineName)){
-			(null !== $prepend)? define($prepend.$defineName, $defineValue) : define ($defineName, $defineValue);
-		}
-		return;
-	}
-	/**
-	* DEPRECATED: FTS just use composer
-	* Registers a Plugin
-	* @param string $pluginName 
-	* @return null 
-	public function registerPlugin($pluginName=null){
-		if(is_string($pluginName) && $pluginName != ''){
-			$this->PLUGINS[$pluginName] = $pluginName;
-		}
-		return;
-	}
-	*/
-	/**
-	* DEPRECATED: FTS just use composer
-	* @param string $pluginName 
-	* @return null 
-	public function getRegisteredPlugins($pluginName=null){
-		if(is_string($pluginName) && $pluginName != ''){
-			return $this->PLUGINS[$pluginName];
-		}else{
-			return $this->PLUGINS;
-		
-		}
-		return;
-	}
-	*/
+
+
 	
 }
  
