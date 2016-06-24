@@ -174,8 +174,19 @@ class CONFIG_MANAGER{
 	*
 	*/
 	public function checkCompiled($args=null){
-		
+		/**
+		* LIST:	 
+		* 	ls -lah - list, all, human readable
+		* http://unix.stackexchange.com/questions/35832/how-do-i-get-the-md5-sum-of-a-directorys-contents-as-one-sum
+		* 
+		* find -s somedir -type f -exec md5sum {} \; | md5sum
+		* find somedir -type f -exec md5sum {} \; | sort -k 2 | md5sum
+		* tar -cf - somedir | md5sum
 		$passCMD = 'ls -lah '.$this->CONFIG_PATH;
+		*/
+		$passCMD = 'tar -cf - '.$this->CONFIG_PATH.' | md5sum';
+		
+		
 		#$passResult = null;
 		$passResult = shell_exec($passCMD);
 		#echo __METHOD__.'@'.__LINE__.'  passResult<pre>['.var_export($passResult, true).']</pre> '.'<br>'.PHP_EOL; 
