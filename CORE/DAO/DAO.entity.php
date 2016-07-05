@@ -832,7 +832,7 @@ class DAO{
 		#echo '-----------------------------------------------------'.PHP_EOL;
 		#echo __METHOD__.'@'.__LINE__.'<pre>'.print_r($this->tables[$key], true).'</pre>'.PHP_EOL;
 		#echo __METHOD__.'@'.__LINE__.'$this->modifiedColumns<pre>'.print_r($this->modifiedColumns, true).'</pre>'.PHP_EOL;
-		#echo __METHOD__.'@'.__LINE__.'$this->queries<pre>'.print_r($this->queries, true).'</pre>'.PHP_EOL;
+		echo __METHOD__.'@'.__LINE__.'$this->queries<pre>'.print_r($this->queries, true).'</pre>'.PHP_EOL;
 		if(isset($this->queries) && count($this->queries) >= 1){
 			#GLOBAL $db;
 			#echo __METHOD__.'@'.__LINE__.'$this->tables['.$key.']<pre>'.print_r($this->tables[$key], true).'</pre>'.PHP_EOL;
@@ -918,7 +918,7 @@ class DAO{
 						);
 					}
 					
-					
+					#echo __METHOD__.'@'.__LINE__.'$result<pre>'.print_r($result, true).'</pre>'.PHP_EOL;
 				}
 			}
 			

@@ -124,15 +124,45 @@ class HTTP_UTIL {
 	 * 
 	 */
 	public static function get_tld($url) {
-		$parts = parse_url($url);
-		#echo __METHOD__.'@'.__LINE__.'$parts<pre>['.var_export($parts, true).']</pre>'.'<br>'.PHP_EOL; 
-		if(isset($parts["host"])){
-			$tld = $parts["host"];
-		}else{
-			$tld = $parts["path"];
+		$tld = parse_url($url,PHP_URL_HOST);
+		if('' == $tld){
+			$parts = parse_url($url);
+			if(isset($parts["host"])){
+				$tld = $parts["host"];
+			}else{
+				$tld = $parts["path"];
+			}
 		}
-		$tld = str_replace('www.', '', $tld);
-		$tld = preg_replace('/:\d+$/', '', $tld);
+		
+		/**
+		* if usage is as expected the $GLOBALS['CONFIG_MANAGER'] will be available
+		* and we will use the TOP_LEVEL_DOMAIN regex filter 
+		* if not we set a default
+		*/
+		$regexPattern = '';
+		if(isset($GLOBALS['CONFIG_MANAGER']) && method_exists($GLOBALS['CONFIG_MANAGER'], 'getSetting' )){
+			$config = $GLOBALS['CONFIG_MANAGER']->getSetting($LOAD_ID = 'REGEX', 'FILTERS');
+			if(isset($config["TOP_LEVEL_DOMAIN"])){
+				$regexPattern = '';
+			}
+		}
+		if('' == $regexPattern){
+			$regexPattern = '/^(?:(?:http[s]?|ftp):\/)?\/?(?:[^:\/\s]+?\.)*([^:\/\s]+\.[^:\/\s]+)/';
+		}
+		
+
+		/**
+		* if we can't parse cleanly we'll try to return a less degraded example
+		*/
+		$matches = array();
+		preg_match($regexPattern, $tld, $matches);
+		if(isset($matches[1]) && '' != $matches[1]){
+			return $matches[1];
+		}
+		if(isset($matches[0]) && '' != $matches[0]){
+			return $matches[0];
+		}
+			
 		
 		return $tld;
 		
