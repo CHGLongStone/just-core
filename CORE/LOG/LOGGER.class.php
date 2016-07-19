@@ -154,10 +154,13 @@ class LOGGER{
 			bufferWrite=FALSE
 			blockSize=[4096]
 		*/
+		if('' == $args["Error"] && '' == $args["Desc"] ){
+			return;
+		}
 		$linePrepend = '';
 		$Error = DATA_UTIL_API::scrubWhitespace($args["Error"]);
 		$Desc = DATA_UTIL_API::scrubWhitespace($args["Desc"]);
-		$usec = DATA_UTIL_API::cleanMicrotime();
+		#$usec = DATA_UTIL_API::cleanMicrotime();
 		if(isset($args["debugLevel"])){
 			$debugLevel = $args["debugLevel"];
 		}else{
@@ -166,7 +169,7 @@ class LOGGER{
 		
 		#echo(__METHOD__.'<pre>['.var_export($this, true).']</pre>').'<br>'; 
 		//dateFormatFile  timeStampFormat
-		$this->traceString .= $linePrepend.' '.date($this->settings["dateFormat"]).'.'.$usec.' ['.$Error.']['.$debugLevel.']::'.$Desc."\n";
+		$this->traceString .= $linePrepend.' '.date($this->settings["dateFormat"]).' ['.$Error.']['.$debugLevel.']::'.$Desc."\n";
 		if($this->settings["bufferWrite"] === true){ //(strlen($this->traceString)+1) >= FILE_LOG_PACKET_SIZE)
 			echo 'TRUE write it to internal buffer<br>';
 		}else{

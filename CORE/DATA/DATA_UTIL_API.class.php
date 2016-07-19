@@ -21,8 +21,8 @@ class DATA_UTIL_API{
 	 * @return string stringval
 	 */
 	public static function scrubWhitespace($stringval){
-		if('' != $stringval){			
-			#echo __FILE__.'@'.__LINE__.'stringval<pre>'.var_export($stringval, true).'</pre><br>';
+			echo __METHOD__.'@'.__LINE__.'stringval<pre>'.var_export($stringval, true).'</pre><br>';
+		if(NULL != $stringval && '' != $stringval){			
 			$stringval = str_replace(array("\n", "\r", "\t","+"), " ", $stringval);
 			#echo __FILE__.'@'.__LINE__.'stringval<pre>'.var_export($stringval, true).'</pre><br>';
 			#@$stringval = trim(preg_replace(" +", " ", $stringval));
@@ -42,6 +42,7 @@ class DATA_UTIL_API{
 	 * @return int
 	 */
 	public static function cleanMicrotime($setTime=null){
+		echo __METHOD__.'@'.__LINE__.'setTime<pre>'.var_export($setTime, true).'</pre><br>';
 		if($setTime != null){
 			list($usec, $sec) = explode(" ", $setTime);	
 		}else{
