@@ -191,17 +191,19 @@ class CONFIG_MANAGER{
 		$passResult = shell_exec($passCMD);
 		#echo __METHOD__.'@'.__LINE__.'  passResult<pre>['.var_export($passResult, true).']</pre> '.'<br>'.PHP_EOL; 
 		$hashResult = md5($passResult);
-		#echo __METHOD__.'@'.__LINE__.'  hashResult<pre>['.var_export($hashResult, true).']</pre> '.'<br>'.PHP_EOL; 
 		
 		$this->lastHash = '';
 		if(is_file($this->CACHE_PATH.'compiled.hash')){
 			$this->lastHash = file_get_contents($this->CACHE_PATH.'compiled.hash');
+			if(!is_file($this->CACHE_PATH.'compiled.'.$this->lastHash.'.php')){
+				$this->lastHash = '';
+			}
 		}
 		if($this->lastHash != $hashResult){
 			file_put_contents($this->CACHE_PATH.'compiled.hash', $hashResult);
 			return $hashResult;
 		}
-		return false;
+		return true;
 	}
 	/**
 	*
@@ -222,65 +224,69 @@ class CONFIG_MANAGER{
 	* $LOAD_ID is the directory path 
 	*/
 	public function loadConfig($LOAD_ID=''){
-		if($LOAD_ID ==''){
+		if($LOAD_ID == ''){
 			if(!isset($this->settings) || 0 == count($this->settings) ){
-				
 				$checkCompiled = $this->checkCompiled();
-				if(false === $checkCompiled){
-					if(is_file($this->CACHE_PATH.'compiled.'.$this->lastHash.'.php')){
-						$lastConfig = file_get_contents($this->CACHE_PATH.'compiled.'.$this->lastHash.'.php');
-						$lastConfig = include $this->CACHE_PATH.'compiled.'.$this->lastHash.'.php';
-						#echo __METHOD__.'@'.__LINE__.'  lastConfig<pre>['.var_export(array_keys($lastConfig),true).']</pre> '.'<br>'.PHP_EOL; 
-						$this->settings = $lastConfig;
-						#return true;
-					}
-				}
-				
+				/**
+				* if true don't reload all files use cached version
+				* else reload everything 
+				*/ 
+				if(true === $checkCompiled ){
+					$lastConfig = include $this->CACHE_PATH.'compiled.'.$this->lastHash.'.php';
+					#echo __METHOD__.'@'.__LINE__.' TRUE  this->lastHash['.$this->lastHash.'] '.'<br>'.PHP_EOL; 
+					$this->settings = $lastConfig;
+					$this->LOADED_VALUES = $this->settings;
 
-				
-				$LOAD_ID = 'JCORE';
-				$pattern = $this->CONFIG_PATH.'*{global,local}.php';
-				$fileList = glob($pattern,GLOB_BRACE);
-				$this->saveConfig($fileList);
-				$args = array();
-				$args["KEY"] = $LOAD_ID;
-				$args["DATA"] = $this->settings[$LOAD_ID];
-				
-				if(true == $checkCompiled){
-					#echo __METHOD__.'@'.__LINE__.'  this->settings<pre>['.var_export(array_keys($this->settings),true).']</pre> '.'<br>'.PHP_EOL; 
-					//array_keys 
+				}else{ // DO reload all files
+					$LOAD_ID = 'JCORE';
+					$pattern = $this->CONFIG_PATH.'*{global,local}.php';
+					$fileList = glob($pattern,GLOB_BRACE);
+					$this->saveConfig($fileList);
 					$parsedSettings = var_export($this->settings,true);
 					#echo __METHOD__.'@'.__LINE__.'  parsedSettings<pre>['.var_export(array_keys($parsedSettings),true).']</pre> '.'<br>'.PHP_EOL; 
 					
 					$compiledSettings = '<?php 
 					return '.$parsedSettings.';?>
 					';
-					
-					
-					$putResult = file_put_contents($this->CACHE_PATH.'compiled.'.$checkCompiled.'.php', $compiledSettings);
-					#echo __METHOD__.'@'.__LINE__.'  putResult<pre>['.var_export($putResult, true).']</pre> '.'<br>'.PHP_EOL; 
-				}
-				$this->postHookCache($args);
-		
-		
+					$putResult = file_put_contents($this->CACHE_PATH.'compiled.'.$checkCompiled.'.php', $compiledSettings);					
+					/*
+					$args = array();
+					$args["KEY"] = $LOAD_ID;
+					$args["DATA"] = $this->settings[$LOAD_ID];
+					$this->postHookCache($args);
+					*/
+				}//END checkCompiled
+
 			
-			}else{
-				return false;
 			}
+		}else{
+			/**
+			*LOAD_ID specified
+			* deprecated given the load every config and "cache"
+			* either by compiling to a single file to reduce I/O 
+			* or by using a data cache (or mixed opcode/data) like XCache
+			* http://xcache.lighttpd.net/
+			* 
+			#echo __METHOD__.'@'.__LINE__.' GET SPECIFIC ['.$LOAD_ID.'] '.PHP_EOL;
+			if('' != $LOAD_ID && $this->settings[$LOAD_ID] == $this->LOADED_VALUES[$LOAD_ID]){
+				$args = array();
+				$args["KEY"] = $LOAD_ID;
+				$args["DATA"] = $this->settings[$LOAD_ID];
+				$this->postHookCache($args);
+				return true;
+			}			
+			*/ 
+			
 		}
-		//pre hook into cache needs catch all 
+		/*
+		* //pre hook into cache needs catch all 
 		if(true === $this->preHookCache($LOAD_ID)){
 			return true;
 		}
+		*/
 		
 		//post hook set into cache needs catch all 
-		if($this->settings[$LOAD_ID] == $this->LOADED_VALUES[$LOAD_ID]){
-			$args = array();
-			$args["KEY"] = $LOAD_ID;
-			$args["DATA"] = $this->settings[$LOAD_ID];
-			$this->postHookCache($args);
-			return true;
-		}
+
 		return false;
 	}
 	
@@ -320,8 +326,9 @@ class CONFIG_MANAGER{
 		}
 		  
 	  }else{
-			/*
-		 echo __METHOD__.'@'.__LINE__.'
+			/**
+			* WTF are you trying to merge? 
+		 echo __METHOD__.'@'.__LINE__.' 
 		  $config is_array ['.is_array($config).']<br>
 		  $config is_bool  ['.is_bool($config).']<br>
 		  $config is_object  ['.is_object($config).']<br>
@@ -411,8 +418,9 @@ class CONFIG_MANAGER{
 	* 
 	*/
 	public function getSetting($LOAD_ID = null, $SECTION_NAME = null, $SETTING_NAME = NULL){
+		#echo __METHOD__.'@'.__LINE__.'$this->LOADED_VALUES['.$LOAD_ID.']<pre>'.print_r($this->LOADED_VALUES, true).'</pre>'.PHP_EOL;
 		if(!isset($this->LOADED_VALUES)){
-			//hook into cache	
+			//hook into cache
 		}
 		if($SETTING_NAME != NULL){
 			if(isset($this->LOADED_VALUES[$LOAD_ID][$SECTION_NAME][$SETTING_NAME])){
