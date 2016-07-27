@@ -142,7 +142,7 @@ class LOGGER{
 	* @param ignored $paramie 
 	* @return outputErrors 
 	*/
-	function writeToFile($args){
+	function writeToFile($args=null){
 		/*
 		func_get_args();
 			logFacility="FILE" 
@@ -154,7 +154,7 @@ class LOGGER{
 			bufferWrite=FALSE
 			blockSize=[4096]
 		*/
-		if('' == $args["Error"] && '' == $args["Desc"] ){
+		if(null == $args || ('' == $args["Error"] && '' == $args["Desc"] )){
 			return;
 		}
 		$linePrepend = '';
