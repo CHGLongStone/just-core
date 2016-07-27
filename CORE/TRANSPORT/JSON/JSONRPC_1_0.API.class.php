@@ -219,6 +219,17 @@ class JSONRPC_1_0_API implements TRANSPORT_INTERFACE {
 	protected function exitNotice(){
 		exit();
 	}
+	
+	/**
+	* DESCRIPTOR: 
+	* a method to exit the notification
+	* @param mixed raw_data 
+	* @return return NULL  
+	*/
+	public function getServiceName(){
+		return $this->parsedRequest["method"];
+	}
+	
 	/**
 	* DESCRIPTOR: 
 	* a method to parse the request
@@ -287,7 +298,7 @@ class JSONRPC_1_0_API implements TRANSPORT_INTERFACE {
 		//Content-type: application/json
 		header("Content-type: application/json");
 		echo $preparedResponse;
-		exit();
+		#exit();
 		#return $preparedResponse;
 	}
 		
