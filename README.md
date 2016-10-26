@@ -1,6 +1,6 @@
 # just-core
 
-##An Enterprise Service Bus PHP framework
+##A PHP Enterprise Service Bus framework
 
 ........
 
