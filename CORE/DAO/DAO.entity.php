@@ -310,8 +310,10 @@ class DAO{
 	* @return NULL 
 	*/
 	public function initializeBySearch($args){ //, $tableName, $foundation=false
-		#echo __METHOD__.'@'.__LINE__.'result<pre>'.print_r($args, true).'</pre>'.PHP_EOL;
+		#echo __METHOD__.'@'.__LINE__.'args<pre>'.print_r($args, true).'</pre>'.PHP_EOL;
+		#echo __METHOD__.'@'.__LINE__.'$this->db<pre>'.print_r($this->db, true).'</pre>'.PHP_EOL;
 		$this->getMYSQLConstants($args["DSN"]);
+		#echo __METHOD__.'@'.__LINE__.'$this->db["logger"]["fullWritePath"]<pre>'.print_r($this->db["logger"]["fullWritePath"], true).'</pre>'.PHP_EOL;
 
 		#$this->initialized = true;
 		$this->tables[$args["table"]] = array();
@@ -669,8 +671,8 @@ class DAO{
 	* @return NULL 
 	*/
 	public function joinCollection($args = null){
-		echo __METHOD__.'@'.__LINE__.' $value<pre>['.var_export($args, true).']</pre>'.'<br>'.PHP_EOL;
 		/*
+		echo __METHOD__.'@'.__LINE__.' $value<pre>['.var_export($args, true).']</pre>'.'<br>'.PHP_EOL;
 		$DSN, $joinTable, $pk_field, $fk_field, $fk
 		GLOBAL $db;
 		*/
@@ -691,11 +693,14 @@ class DAO{
 			WHERE '.$args["joinField"].' = '.$args["fk"].' 
 		)
 		';
-		echo __METHOD__.'@'.__LINE__.'$query['.$query.'] '.'<br>'.PHP_EOL;
+		#echo __METHOD__.'@'.__LINE__.'$query['.$query.'] '.'<br>'.PHP_EOL;
 		#$result = $db->SQL_select($database, $query, $returnArray=true);
-		$result = $GLOBALS["DATA_API"]->retrieve($this->config["DSN"], $query, $args=array('returnArray' => true));
+		$result = $GLOBALS["DATA_API"]->retrieve($this->config["DSN"], $query, $extArgs=array('returnArray' => true));
 		#echo '$result<pre>'.var_export($result,true).'</pre>'."\n";
 		foreach($result AS $key => $value){
+			#echo '$key['.$key.']<pre>'.var_export($value,true).'</pre>'."\n";
+			#echo '$this->tables['.$args["joinTable"].']["values"][$value['.$args["pk_field"].']]'."\n";
+			
 			$this->tables[$args["joinTable"]]['values'][$value[$args["pk_field"]]] 	= $value;
 		}
 		
