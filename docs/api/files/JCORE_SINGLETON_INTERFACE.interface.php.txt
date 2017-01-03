@@ -1,0 +1,37 @@
+<?php
+/***
+* JCORE_SINGLETON_INTERFACE
+ * Instances can be created for any DB supported by PHP inc. NoSQL
+ * 
+ * 
+ * @author		Jason Medland<jason.medland@gmail.com>
+ * @package	JCORE
+ * @subpackage CORE
+ */
+namespace JCORE;
+/**
+ * Interface JCORE_SINGLETON_INTERFACE
+ *
+ * @package JCORE
+*/
+interface JCORE_SINGLETON_INTERFACE{
+	/***
+	* This must be defined here rather than the abstract class because of scope issues
+	* the function should follow this implementation
+    *public static function singleton() 
+    *{
+    *    echo '<b>singleton['.__METHOD__.']['.__CLASS__.']</b>';
+	*	if (!isset(self::$instance)) {
+    *        $c = __CLASS__;
+    *        self::$instance = new $c;
+    *    }
+	*
+    *   return self::$instance;
+    *}
+	*/
+	public static function singleton();
+
+}
+#echo __FILE__.':::'.__LINE__.'<br>';
+
+?>

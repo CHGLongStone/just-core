@@ -1,0 +1,293 @@
+<?php
+/**
+ * SERIALIZATION
+ * 
+ * 
+ * @author	Jason Medland<jason.medland@gmail.com>
+ * @package	JCORE
+ * @subpackage TRANSPORT
+ */
+namespace JCORE\TRANSPORT;
+
+/**
+ * Interface SERIALIZATION
+ *
+ * @package JCORE\TRANSPORT
+*/
+class SERIALIZATION {
+
+	/***
+	* ln -s /var/www/PhpDocumentor-1.4.3 /var/www/HTTP/default_admin_http/PHPDOC 
+	//var/www/JCORE/APIS/default_admin_http
+	*/
+	private function __construct(){
+	
+	}
+	/***
+	* CACHE_SERIALIZATION
+	* $args["DATA"] 					= [STRING/ARRAY/OBJECT] passed to serialization method
+	* $args["CACHE_SERIALIZATION"] 		= [JSON/NATIVE/RAW]
+	* 		JSON						- json_encode($args["DATA"])
+	* 		NATIVE						- serialize($args["DATA"])
+	* 		RAW							- [string]
+	* $args["UNSERIALIZE_TYPE"]			= [def:ARRAY/OBJECT/RAW(string)] for implementations that leverage JSON data and use json_decode ( string $json [, bool $assoc = false]...)
+	* 
+	* 
+	* @param string $args
+	* @return bool
+	*/
+	public static function serialize($args=array()){
+		if(!isset($args["DATA"])){
+			return false;
+		}
+		/***
+		* if $args["CACHE_SERIALIZATION"] is set process as needed
+		* fail back to: constant JCORE_SYSTEM_CACHE_SERIALIZATION set in [API]/config.php
+		*/
+		if(isset($args["CACHE_SERIALIZATION"])){
+			switch($args["CACHE_SERIALIZATION"]){
+				case"RAW": 
+					return $args["DATA"];
+				case"NATIVE":
+					$CACHE_SERIALIZATION = 'PHP';
+					break;
+				case"JSON":
+				default:
+					$CACHE_SERIALIZATION = 'JSON';
+					break;
+			}
+			
+		}elseif(defined(JCORE_SYSTEM_CACHE_SERIALIZATION)){
+			$CACHE_SERIALIZATION = JCORE_SYSTEM_CACHE_SERIALIZATION;
+		}else{ //		if(!isset($CACHE_SERIALIZATION)){
+			$CACHE_SERIALIZATION = 'JSON';
+		}
+		
+		/**
+		* methods may also be invoked statically using this function by passing array($classname, $methodname) 
+		* to this parameter. Additionally methods of an object instance may be called by passing 
+		* array($objectinstance, $methodname) to this parameter. 
+		* call_user_func ( callback $function [, mixed $parameter [, mixed $... ]] ) $callBackFunction
+		*/
+		
+		$callBackFunction = __CLASS__.'::'.'serialize'.$CACHE_SERIALIZATION;
+		switch($CACHE_SERIALIZATION){
+			case"PHP":
+				return call_user_func ( $callBackFunction, $args["DATA"]);
+				break;
+			case"JSON":
+			
+			default: //JSON
+				return call_user_func ( $callBackFunction, $args["DATA"], $args["assoc"]);
+				break;
+		}
+		return false;
+	}
+	/***
+	* CACHE_SERIALIZATION
+	* $args["DATA"] 					= [STRING/ARRAY/OBJECT] passed to serialization method
+	* $args["CACHE_SERIALIZATION"] 		= [JSON/NATIVE/RAW]
+	* 		JSON						- json_encode($args["DATA"])
+	* 		NATIVE						- serialize($args["DATA"])
+	* 		RAW							- [string]
+	* $args["UNSERIALIZE_TYPE"]			= [def:ARRAY/OBJECT/RAW] 
+	* 		for implementations that leverage JSON data and use:
+	* 			json_decode ( string $json [, bool $assoc = false]...)
+	* 
+	* 
+	* @param string $args
+	* @return bool
+	*/
+	public static function unserialize($args=array()){
+		if(!isset($args["DATA"])){
+			return false;
+		}
+		/***
+		* if $args["CACHE_SERIALIZATION"] is set process as needed
+		* fail back to: constant JCORE_SYSTEM_CACHE_SERIALIZATION set in [API]/config.php
+		*/
+		#$callBackFunction = 'serialize';
+		if(isset($args["CACHE_SERIALIZATION"])){
+			switch($args["CACHE_SERIALIZATION"]){
+				case"RAW": 
+					return $args["DATA"];
+				case"NATIVE":
+					$CACHE_SERIALIZATION = 'PHP';
+					break;
+				case"JSON":
+				default:
+					$CACHE_SERIALIZATION = 'JSON';		
+					/***
+					*  defaulting to arrays from JSON
+					*/
+					$args["assoc"] = TRUE; //'ARRAY'; 
+					if(isset($args["UNSERIALIZE_TYPE"]) && $args["UNSERIALIZE_TYPE"] != 'ARRAY'){
+						$args["assoc"] = FALSE;//'OBJECT';
+						unset($args["UNSERIALIZE_TYPE"]);
+					}
+				
+					break;
+			}
+			
+		}elseif(defined(JCORE_SYSTEM_CACHE_SERIALIZATION)){
+			$CACHE_SERIALIZATION = JCORE_SYSTEM_CACHE_SERIALIZATION;
+		}
+		if(!isset($CACHE_SERIALIZATION)){
+			$CACHE_SERIALIZATION = 'JSON';
+		}
+		
+		/**
+		* methods may also be invoked statically using this function by passing array($classname, $methodname) 
+		* to this parameter. Additionally methods of an object instance may be called by passing 
+		* array($objectinstance, $methodname) to this parameter. 
+		*/
+		#call_user_func ( callback $function [, mixed $parameter [, mixed $... ]] ) $callBackFunction
+		
+		$callBackFunction = __CLASS__.'::'.'serialize'.$CACHE_SERIALIZATION;
+		switch($CACHE_SERIALIZATION){
+			case"PHP":
+				return call_user_func ( $callBackFunction, $args["DATA"]);
+				break;
+			case"JSON":
+			
+			default: //JSON
+				return call_user_func ( $callBackFunction, $args["DATA"], $args["assoc"]);
+				break;
+		}
+		return false;
+	
+	}		
+	/***
+	* NATIVE
+	* @param array $args
+	* @param array $args["DATA"]
+	* @return string $serialized
+	*/			
+	public static function serializePHP($args=array()){
+		if(!isset($args["DATA"])){
+			return false;
+		}
+		return serialize($args["DATA"]);
+	}
+	/***
+	* json_encode ( mixed $value [, int $options = 0 ] )
+	* 5.3 [,options Bitmask consisting of JSON_HEX_QUOT, JSON_HEX_TAG, JSON_HEX_AMP, JSON_HEX_APOS, JSON_FORCE_OBJECT. ]
+	* 
+	* @param $args mixed
+	* @return string $JSON
+	*/
+	public static function serializeJSON($args=array()){
+		#echo __METHOD__.__LINE__.'$args<pre>'.var_export($args, true).'</pre><br>';
+		if(!isset($args["DATA"])){
+			return false;
+		}
+		$force = NULL;
+		if(isset($args["force"])){
+			$force = JSON_FORCE_OBJECT;
+		}
+		
+		#$serializedData = json_encode($args["DATA"], $force);		//
+		#echo __METHOD__.__LINE__.'$serializedData<pre>'.var_export($serializedData, true).'</pre><br>';
+		#return $serializedData; 
+		if(true == ($serializedData = json_encode($args["DATA"], $force))){
+			return $serializedData;
+		}else{
+			return SERIALIZATION::getLastJSONError();
+		}
+	}
+	
+	/***
+	* default serializer if args are provided they will be execured
+	* json_decode ( string $json [, bool $assoc = false [, int $depth = 512 [, int $options = 0 ]]] )
+	* $args["assoc"] 		[TRUE/FALSE] bool
+	* $args["DATA"]			array|object|string
+	* 
+	* @param mixed $args
+	* @param mixed $args[""]
+	* @return array|object|string
+	*/
+	public static function unserializeJSON($args=array()){
+		#echo __METHOD__.__LINE__.'$args<pre>'.var_export($args, true).'</pre><br>';
+		if(!isset($args["DATA"])){
+			return false;
+		}
+		if(isset($args["assoc"]) && $args["assoc"] !== TRUE){
+			$args["assoc"] = FALSE;
+		}
+		/***
+		* suppress the error til 5.3 
+		* json_last_error() [PHP 5 >= 5.3.0]
+		*/
+		if(true == ($returnVal = json_decode($args["DATA"],$args["assoc"]))){
+			return $returnVal;
+		}else{
+			return SERIALIZATION::getLastJSONError();
+		}
+	}
+	
+		
+		
+	/***
+	* 
+	* @param mixed $args
+	* @return array|object|string
+	*/
+	public static function getLastJSONError($args=array()){
+		$lastError = json_last_error();
+		$error = array();
+		switch($lastError){
+			case JSON_ERROR_SYNTAX:
+				$error["code"] = 'JSON_ERROR_SYNTAX';
+				$error["message"] = 'Syntax error';
+				$error["data"] = NULL;
+				break;
+			case JSON_ERROR_UTF8:
+				$error["code"] = 'JSON_ERROR_UTF8';
+				$error["message"] = 'Malformed UTF-8 characters, possibly incorrectly encoded';
+				$error["data"] = NULL;
+				break;
+			case JSON_ERROR_CTRL_CHAR:
+				$error["code"] = 'JSON_ERROR_CTRL_CHAR';
+				$error["message"] = 'Control character error, possibly incorrectly encoded';
+				$error["data"] = NULL;
+				break;
+			case JSON_ERROR_STATE_MISMATCH:
+				$error["code"] = 'JSON_ERROR_STATE_MISMATCH';
+				$error["message"] = 'Invalid or malformed JSON';
+				$error["data"] = NULL;
+				break;
+			case JSON_ERROR_DEPTH:
+				$error["code"] = 'JSON_ERROR_DEPTH';
+				$error["message"] = 'The maximum stack depth has been exceeded (default 512)';
+				$error["data"] = NULL;
+				break;
+			default:
+				return FALSE; //JSON_ERROR_NONE
+				break;
+		}
+		$errorObj = new ERROR($error);
+		if(TRUE === $args["obj"]){
+			$errorMsg = $errorObj->getError($args["obj"]);
+		}else{
+			$errorMsg = $errorObj->getError();
+		}
+		
+		return $errorMsg;
+	}
+		
+
+	
+	/***
+	* 
+	* @param mixed $args
+	* @return array|object|string
+	*/
+	public static function unserializePHP($args=array()){
+		if(!isset($args["DATA"])){
+			return false;
+		}
+		return unserialize($args["DATA"]);
+	}
+}
+
+?>
