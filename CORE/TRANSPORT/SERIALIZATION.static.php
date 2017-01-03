@@ -219,6 +219,7 @@ class SERIALIZATION_STATIC {
 		return @json_decode($args["DATA"],$args["assoc"]);
 	}
 	/**
+	* unserializePHP native
 	* 
 	* @param mixed $args
 	* @return array|object|string

@@ -18,7 +18,7 @@ class SERIALIZATION {
 
 	/**
 	* ln -s /var/www/PhpDocumentor-1.4.3 /var/www/HTTP/default_admin_http/PHPDOC 
-	//var/www/JCORE/APIS/default_admin_http
+	* //var/www/JCORE/APIS/default_admin_http
 	*/
 	private function __construct(){
 	
@@ -228,6 +228,8 @@ class SERIALIZATION {
 		
 		
 	/**
+	* Deprecated or move ???
+	* JCORE\TRANSPORT\JSON\JSON.validateJSON
 	* 
 	* @param mixed $args
 	* @return array|object|string
@@ -278,6 +280,7 @@ class SERIALIZATION {
 
 	
 	/**
+	* unserializePHP native 
 	* 
 	* @param mixed $args
 	* @return array|object|string

@@ -16,8 +16,12 @@ namespace JCORE;
 */
 abstract class JCORE_SINGLETON 
 {
-    // Hold an instance of the class
-    private static $instance;
+	/**
+     * Hold an instance of the class
+	 * 
+	 * @access private 
+	 * @var mixed
+	 */    private static $instance;
     
    /*
    // The singleton method
@@ -32,13 +36,23 @@ abstract class JCORE_SINGLETON
     }
    */ 
     
-    // Example method
+	/**
+    * Example method...make some noise
+	* 
+	* @param NULL
+	* @return string
+	*/
     public function bark()
     {
         echo 'Woof!['.__METHOD__.']';
     }
 
-    // Prevent users to clone the instance
+	/**
+    * Prevent users to clone the instance
+	* 
+	* @param NULL
+	* @return string
+	*/
     public function __clone()
     {
         trigger_error('Clone is not allowed.', E_USER_ERROR);

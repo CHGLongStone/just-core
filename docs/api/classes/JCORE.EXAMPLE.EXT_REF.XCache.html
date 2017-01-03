@@ -21,54 +21,54 @@
     <script src="../js/jquery.smooth-scroll.js"></script>
     <script src="../js/prism.min.js"></script>
     <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
-        <script type="text/javascript">
-        function loadExternalCodeSnippets() {
-            Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
-                var src = pre.getAttribute('data-src');
-                var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
-                var language = 'php';
+    <script type="text/javascript">
+    function loadExternalCodeSnippets() {
+        Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
+            var src = pre.getAttribute('data-src');
+            var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
+            var language = 'php';
 
-                var code = document.createElement('code');
-                code.className = 'language-' + language;
+            var code = document.createElement('code');
+            code.className = 'language-' + language;
 
-                pre.textContent = '';
+            pre.textContent = '';
 
-                code.textContent = 'Loading…';
+            code.textContent = 'Loading…';
 
-                pre.appendChild(code);
+            pre.appendChild(code);
 
-                var xhr = new XMLHttpRequest();
+            var xhr = new XMLHttpRequest();
 
-                xhr.open('GET', src, true);
+            xhr.open('GET', src, true);
 
-                xhr.onreadystatechange = function () {
-                    if (xhr.readyState == 4) {
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
 
-                        if (xhr.status < 400 && xhr.responseText) {
-                            code.textContent = xhr.responseText;
+                    if (xhr.status < 400 && xhr.responseText) {
+                        code.textContent = xhr.responseText;
 
-                            Prism.highlightElement(code);
-                        }
-                        else if (xhr.status >= 400) {
-                            code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
-                        }
-                        else {
-                            code.textContent = '✖ Error: File does not exist or is empty';
-                        }
+                        Prism.highlightElement(code);
                     }
-                };
+                    else if (xhr.status >= 400) {
+                        code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
+                    }
+                    else {
+                        code.textContent = '✖ Error: File does not exist or is empty';
+                    }
+                }
+            };
 
-                xhr.send(null);
-            });
-        }
-
-        $(document).ready(function(){
-            loadExternalCodeSnippets();
+            xhr.send(null);
         });
-        $('#source-view').on('shown', function () {
-            loadExternalCodeSnippets();
-        })
-    </script>
+    }
+
+    $(document).ready(function(){
+        loadExternalCodeSnippets();
+    });
+    $('#source-view').on('shown', function () {
+        loadExternalCodeSnippets();
+    })
+</script>
 
     <link rel="shortcut icon" href="../images/favicon.ico"/>
     <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
@@ -144,28 +144,28 @@
                                 <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-200232020"></a>
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-281654078"></a>
                                 <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
             </div>
-            <div id="namespace-200232020" class="accordion-body collapse in">
+            <div id="namespace-281654078" class="accordion-body collapse in">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1821679074"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-240575419"></a>
                                 <a href="../namespaces/JCORE.html" style="margin-left: 30px; padding-left: 0">JCORE</a>
             </div>
-            <div id="namespace-1821679074" class="accordion-body collapse ">
+            <div id="namespace-240575419" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2147166925"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-746548169"></a>
                                 <a href="../namespaces/JCORE.AUTH.html" style="margin-left: 30px; padding-left: 0">AUTH</a>
             </div>
-            <div id="namespace-2147166925" class="accordion-body collapse ">
+            <div id="namespace-746548169" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -182,10 +182,10 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1942114775"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1737539235"></a>
                                 <a href="../namespaces/JCORE.CACHE.html" style="margin-left: 30px; padding-left: 0">CACHE</a>
             </div>
-            <div id="namespace-1942114775" class="accordion-body collapse ">
+            <div id="namespace-1737539235" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -208,19 +208,19 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2018029536"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2100618126"></a>
                                 <a href="../namespaces/JCORE.DAO.html" style="margin-left: 30px; padding-left: 0">DAO</a>
             </div>
-            <div id="namespace-2018029536" class="accordion-body collapse ">
+            <div id="namespace-2100618126" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-350060560"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1877027993"></a>
                                 <a href="../namespaces/JCORE.DAO.TREE.html" style="margin-left: 30px; padding-left: 0">TREE</a>
             </div>
-            <div id="namespace-350060560" class="accordion-body collapse ">
+            <div id="namespace-1877027993" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -245,28 +245,28 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1289631561"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1637668766"></a>
                                 <a href="../namespaces/JCORE.DATA.html" style="margin-left: 30px; padding-left: 0">DATA</a>
             </div>
-            <div id="namespace-1289631561" class="accordion-body collapse ">
+            <div id="namespace-1637668766" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-97168010"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-620309577"></a>
                                 <a href="../namespaces/JCORE.DATA.API.html" style="margin-left: 30px; padding-left: 0">API</a>
             </div>
-            <div id="namespace-97168010" class="accordion-body collapse ">
+            <div id="namespace-620309577" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1910799396"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-928283031"></a>
                                 <a href="../namespaces/JCORE.DATA.API.FILE.html" style="margin-left: 30px; padding-left: 0">FILE</a>
             </div>
-            <div id="namespace-1910799396" class="accordion-body collapse ">
+            <div id="namespace-928283031" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -281,10 +281,10 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1396895173"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1530532655"></a>
                                 <a href="../namespaces/JCORE.DATA.API.MySQL.html" style="margin-left: 30px; padding-left: 0">MySQL</a>
             </div>
-            <div id="namespace-1396895173" class="accordion-body collapse ">
+            <div id="namespace-1530532655" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -300,10 +300,10 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2102201784"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1161043925"></a>
                                 <a href="../namespaces/JCORE.DATA.API.REDIS.html" style="margin-left: 30px; padding-left: 0">REDIS</a>
             </div>
-            <div id="namespace-2102201784" class="accordion-body collapse ">
+            <div id="namespace-1161043925" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -337,19 +337,19 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1335609117"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-749530485"></a>
                                 <a href="../namespaces/JCORE.EXAMPLE.html" style="margin-left: 30px; padding-left: 0">EXAMPLE</a>
             </div>
-            <div id="namespace-1335609117" class="accordion-body collapse ">
+            <div id="namespace-749530485" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-25642816"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1366591861"></a>
                                 <a href="../namespaces/JCORE.EXAMPLE.EXT_REF.html" style="margin-left: 30px; padding-left: 0">EXT_REF</a>
             </div>
-            <div id="namespace-25642816" class="accordion-body collapse ">
+            <div id="namespace-1366591861" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -372,10 +372,10 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-69471904"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1917545033"></a>
                                 <a href="../namespaces/JCORE.EXCEPTION.html" style="margin-left: 30px; padding-left: 0">EXCEPTION</a>
             </div>
-            <div id="namespace-69471904" class="accordion-body collapse ">
+            <div id="namespace-1917545033" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -392,10 +392,10 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1381357394"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-140669328"></a>
                                 <a href="../namespaces/JCORE.L10N.html" style="margin-left: 30px; padding-left: 0">L10N</a>
             </div>
-            <div id="namespace-1381357394" class="accordion-body collapse ">
+            <div id="namespace-140669328" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -410,10 +410,10 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1076282888"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-494711670"></a>
                                 <a href="../namespaces/JCORE.LOAD.html" style="margin-left: 30px; padding-left: 0">LOAD</a>
             </div>
-            <div id="namespace-1076282888" class="accordion-body collapse ">
+            <div id="namespace-494711670" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -430,10 +430,10 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1957422962"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-438457193"></a>
                                 <a href="../namespaces/JCORE.LOG.html" style="margin-left: 30px; padding-left: 0">LOG</a>
             </div>
-            <div id="namespace-1957422962" class="accordion-body collapse ">
+            <div id="namespace-438457193" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -448,19 +448,19 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-900317417"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1358753708"></a>
                                 <a href="../namespaces/JCORE.SERVICE.html" style="margin-left: 30px; padding-left: 0">SERVICE</a>
             </div>
-            <div id="namespace-900317417" class="accordion-body collapse ">
+            <div id="namespace-1358753708" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-654514053"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1884747739"></a>
                                 <a href="../namespaces/JCORE.SERVICE.AUTH.html" style="margin-left: 30px; padding-left: 0">AUTH</a>
             </div>
-            <div id="namespace-654514053" class="accordion-body collapse ">
+            <div id="namespace-1884747739" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -484,10 +484,10 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-422430602"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-419681005"></a>
                                 <a href="../namespaces/JCORE.TEMPLATER.html" style="margin-left: 30px; padding-left: 0">TEMPLATER</a>
             </div>
-            <div id="namespace-422430602" class="accordion-body collapse ">
+            <div id="namespace-419681005" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -502,19 +502,19 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1631059445"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1016883975"></a>
                                 <a href="../namespaces/JCORE.TRANSPORT.html" style="margin-left: 30px; padding-left: 0">TRANSPORT</a>
             </div>
-            <div id="namespace-1631059445" class="accordion-body collapse ">
+            <div id="namespace-1016883975" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1195580907"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-138529033"></a>
                                 <a href="../namespaces/JCORE.TRANSPORT.HTTP.html" style="margin-left: 30px; padding-left: 0">HTTP</a>
             </div>
-            <div id="namespace-1195580907" class="accordion-body collapse ">
+            <div id="namespace-138529033" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -530,10 +530,10 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1221368643"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1742598154"></a>
                                 <a href="../namespaces/JCORE.TRANSPORT.JSON.html" style="margin-left: 30px; padding-left: 0">JSON</a>
             </div>
-            <div id="namespace-1221368643" class="accordion-body collapse ">
+            <div id="namespace-1742598154" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -549,10 +549,10 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-418550142"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-969525206"></a>
                                 <a href="../namespaces/JCORE.TRANSPORT.REST.html" style="margin-left: 30px; padding-left: 0">REST</a>
             </div>
-            <div id="namespace-418550142" class="accordion-body collapse ">
+            <div id="namespace-969525206" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -567,10 +567,10 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-733299805"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-446998710"></a>
                                 <a href="../namespaces/JCORE.TRANSPORT.SOA.html" style="margin-left: 30px; padding-left: 0">SOA</a>
             </div>
-            <div id="namespace-733299805" class="accordion-body collapse ">
+            <div id="namespace-446998710" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -586,10 +586,10 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-988152728"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1506656001"></a>
                                 <a href="../namespaces/JCORE.TRANSPORT.XML.html" style="margin-left: 30px; padding-left: 0">XML</a>
             </div>
-            <div id="namespace-988152728" class="accordion-body collapse ">
+            <div id="namespace-1506656001" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -635,71 +635,219 @@
     <section class="row-fluid">
         <div class="span10 offset2">
             <div class="row-fluid">
-                <div class="span8 content file">
+                <div class="span8 content class">
                     <nav>
-                                                                    </nav>
-
+                                                <a href="../namespaces/JCORE.EXAMPLE.EXT_REF.html">\JCORE\EXAMPLE\EXT_REF</a> <i class="icon-level-up"></i>
+                                            </nav>
                     <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
-                    <h1><small>foundation/CORE/LOAD</small>AUTOLOAD.php</h1>
-                    <p><em>CONFIG_MANAGER (JCORE) CLASS</em></p>
-                    
 
+                    <h1><small>\JCORE\EXAMPLE\EXT_REF</small>XCache</h1>
+                    <p><em>Interface XCache</em></p>
                     
                     
-                                        <h2>Classes</h2>
-                    <table class="table table-hover">
-                                            <tr>
-                            <td><a href="../classes/JCORE.LOAD.ComposerAutoloaderInit.html">ComposerAutoloaderInit</a></td>
-                            <td><em>Class ComposerAutoloaderInit</em></td>
-                        </tr>
-                                        </table>
-                                    </div>
-
+                                        
+                    <section id="summary">
+                        <h2>Summary</h2>
+                        <section class="row-fluid heading">
+                            <section class="span4">
+                                <a href="#methods">Methods</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#properties">Properties</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#constants">Constants</a>
+                            </section>
+                        </section>
+                        <section class="row-fluid public">
+                            <section class="span4">
+                                                                    <a href="../classes/JCORE.EXAMPLE.EXT_REF.XCache.html#method___clone" class="">__clone()</a><br />
+                                                                    <a href="../classes/JCORE.EXAMPLE.EXT_REF.XCache.html#method_getInstance" class="">getInstance()</a><br />
+                                                                    <a href="../classes/JCORE.EXAMPLE.EXT_REF.XCache.html#method___set" class="">__set()</a><br />
+                                                                    <a href="../classes/JCORE.EXAMPLE.EXT_REF.XCache.html#method___get" class="">__get()</a><br />
+                                                                    <a href="../classes/JCORE.EXAMPLE.EXT_REF.XCache.html#method___isset" class="">__isset()</a><br />
+                                                                    <a href="../classes/JCORE.EXAMPLE.EXT_REF.XCache.html#method___unset" class="">__unset()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No public properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No constants found</em>
+                                                            </section>
+                        </section>
+                        <section class="row-fluid protected">
+                            <section class="span4">
+                                                                    <em>No protected methods found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No protected properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                        <section class="row-fluid private">
+                            <section class="span4">
+                                                                    <a href="../classes/JCORE.EXAMPLE.EXT_REF.XCache.html#method___construct" class="">__construct()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <a href="../classes/JCORE.EXAMPLE.EXT_REF.XCache.html#property_xcobj" class="">$xcobj</a><br />
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                    </section>
+                </div>
                 <aside class="span4 detailsbar">
+                                        
+                    
                     <dl>
-                                                    <dt>Package</dt>
-                            <dd><div class="namespace-wrapper">\JCORE\LOAD</div></dd>
+                        <dt>File</dt>
+                            <dd><a href="../files/foundation.CORE.CACHE.XCACHE.example.html"><div class="path-wrapper">foundation/CORE/CACHE/XCACHE/example.php</div></a></dd>
+                                                <dt>Package</dt>
+                            <dd><div class="namespace-wrapper">EXAMPLE\EXT_REF</div></dd>
+                                                <dt>Class hierarchy</dt>
+                            <dd class="hierarchy">
+                                                                                                                                                                    <div class="namespace-wrapper">\JCORE\EXAMPLE\EXT_REF\XCache</div>
+                            </dd>
+
                         
                         
-                    </dl>
+                        
+                        
+                                                                        </dl>
                     <h2>Tags</h2>
                     <table class="table table-condensed">
-                                                    <tr>
-                                <th>
-                                    author
-                                </th>
-                                <td>
-                                                                            <p>Jason Medland<a href="mailto:jason.medland@gmail.com">jason.medland@gmail.com</a></p>
-                                                                    </td>
-                            </tr>
-                                            </table>
-
+                                            <tr><td colspan="2"><em>None found</em></td></tr>
+                                        </table>
                 </aside>
             </div>
 
-            
-                        <div class="row-fluid">
-                <section class="span8 content file">
-                    <h2>Functions</h2>
-                </section>
+                        
+                                    <a id="properties" name="properties"></a>
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <h2>Properties</h2>
+                </div>
                 <aside class="span4 detailsbar"></aside>
             </div>
 
-                                        <div class="row-fluid">
+                                                                    <div class="row-fluid">
         <div class="span8 content class">
-            <a id="method_composerRequire" name="method_composerRequire" class="anchor"></a>
-            <article class="method">
-                <h3 class=" ">composerRequire()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">composerRequire(  <span class="argument">$file</span>) </pre>
+            <a id="property_xcobj" name="property_xcobj" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$xcobj</h3>
+                <pre class="signature">$xcobj : </pre>
                 <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                            
+                                    <a id="methods" name="methods"></a>
+            <div class="row-fluid">
+                <div class="span8 content class"><h2>Methods</h2></div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method___clone" name="method___clone" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">__clone()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">__clone() </pre>
+                <p><em></em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                    <span class="label label-info">final</span>
+                                    <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getInstance" name="method_getInstance" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getInstance()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getInstance() : object</pre>
+                <p><em>getInstance</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    object
+                                            &mdash; <p>XCache instance</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            static
+                        </th>
+                        <td>
+                                                                                            
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method___set" name="method___set" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">__set()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">__set(mixed  <span class="argument">$name</span>, mixed  <span class="argument">$value</span>) : void</pre>
+                <p><em>__set</em></p>
                 
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
                                                     <tr>
+                                <td>mixed</td>
+                                <td>$name </td>
                                 <td></td>
-                                <td>$file </td>
+                            </tr>
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$value </td>
                                 <td></td>
                             </tr>
                                             </table>
@@ -711,34 +859,154 @@
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
                                                             <dl>
-                                    <dt>File</dt>
-                    <dd><a href=""><div class="path-wrapper">foundation/CORE/LOAD/AUTOLOAD.php</div></a></dd>
                                                                             </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
-                                    <tr>
-                        <th>
-                            package
-                        </th>
-                        <td>
-                                                                                            <p>JCORE</p>
-                                                    </td>
-                    </tr>
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
                             </table>
         </aside>
     </div>
 
-                            
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method___get" name="method___get" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">__get()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">__get(mixed  <span class="argument">$name</span>) : void</pre>
+                <p><em>__get</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$name </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
         </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method___isset" name="method___isset" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">__isset()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">__isset(mixed  <span class="argument">$name</span>) : boolean</pre>
+                <p><em>__isset</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$name </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    boolean
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method___unset" name="method___unset" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">__unset()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">__unset(mixed  <span class="argument">$name</span>) : void</pre>
+                <p><em>__unset</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$name </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method___construct" name="method___construct" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">__construct()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">__construct() </pre>
+                <p><em></em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    </div>
     </section>
 
     <div id="source-view" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="source-view-label" aria-hidden="true">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-            <h3 id="source-view-label"></h3>
+            <h3 id="source-view-label">example.php</h3>
         </div>
         <div class="modal-body">
-            <pre data-src="../files/foundation/CORE/LOAD/AUTOLOAD.php.txt" class="language-php line-numbers"></pre>
+            <pre data-src="../files/foundation/CORE/CACHE/XCACHE/example.php.txt" class="language-php line-numbers"></pre>
         </div>
     </div>
 
