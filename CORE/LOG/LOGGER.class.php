@@ -28,22 +28,39 @@ use JCORE\DATA\API\DATA_UTIL_API as DATA_UTIL_API;
 */
 class LOGGER{
 	/**
-	 * @access public 
-	 * @var string
-	 */
+	* errors
+	* @access public 
+	* @var array
+	*/
 	protected $errors = array();
+	/**
+	* traceString
+	* @access public 
+	* @var string
+	*/
 	protected $traceString = '';
-	
-	private $settings = '';
-	
+	/**
+	* settings
+	* @access public 
+	* @var string
+	*/
+	private $settings = array();
+	/**
+	* logFacility
+	* @access public 
+	* @var string
+	*/
 	private $logFacility; //serviceType
 	#public $fileLoggingMode;
 	
 	/**
-	 * Constructor
-	 * make this as dynamic as possible
-	 * @param array $settings
-	 */
+	* Constructor
+	* make this as dynamic as possible
+	* 
+	* @access public
+	* @param array settings
+	* @return mixed  
+	*/
 	function __construct($settings=NULL){
 		#action
 		if(NULL!==$settings){
@@ -94,8 +111,11 @@ class LOGGER{
 	}
 	/**
 	* DESCRIPTOR: sets up the class for file output
-	* @param ignored $paramie 
-	* @return outputErrors 
+	* 
+	* 
+	* @access private
+	* @param null
+	* @return null  
 	*/
 	private function initFILE(){
 		/**
@@ -123,9 +143,11 @@ class LOGGER{
 		return;
 	}	
 	/**
-	* DESCRIPTOR: sets up the class for file output
-	* @param ignored $paramie 
-	* @return outputErrors 
+	* DESCRIPTOR: sets up the class for UDP output
+	* 
+	* @access private
+	* @param null
+	* @return null  
 	*/
 	private function initUDP(){
 		$this->serverhost 	= $this->settings["serverhost"];
@@ -137,12 +159,15 @@ class LOGGER{
 		}
 	
 	}
+	
 	/**
-	* DESCRIPTOR: IE: This always returns a myclass
-	* @param ignored $paramie 
-	* @return outputErrors 
+	* DESCRIPTOR: writeToFile
+	* 
+	* @access public
+	* @param array args
+	* @return null  
 	*/
-	function writeToFile($args=null){
+	public function writeToFile($args=null){
 		/*
 		func_get_args();
 			logFacility="FILE" 
@@ -190,28 +215,32 @@ class LOGGER{
 					#unset($this->traceString);
 					$this->traceString = '';
 		}
+		return;
 	}
+	
+	
 	/**
 	* DESCRIPTOR: IE: This always returns a myclass
-	* @param int $debugLevel 
-	* @param string $Error 
-	* @param string $Desc 
-	* @param mixed $CC
 	* 
-	* $debugLevel see: JCORE/CONFIG/SERVICES/LOG/logServices.ini or http://us.php.net/manual/en/function.syslog.php
-	* $Error: error name or ID
-	* $Desc: long description
-	* $CC: "Carbon Copy" send the log to another logger as well
+	* debugLevel see: JCORE/CONFIG/SERVICES/LOG/logServices.ini or http://us.php.net/manual/en/function.syslog.php
+	* Error: error name or ID
+	* Desc: long description
+	* CC: "Carbon Copy" send the log to another logger as well
 	* 		accepts:
 	* 			string [one of the Loggers defined in JCORE/LOAD/BOOTSTRAP.php]
 	* 			OR
 	* 			object an instantiated instance of this class or one 
 	* 				that uses a "log" method with the same signature
-	* 				($debugLevel=LOG_DEBUG, $Error ='', $Desc ='')
+	* 				(debugLevel=LOG_DEBUG, Error ='', Desc ='')
 	* 
-	* @return outputErrors 
+	* @access public
+	* @param int debugLevel 
+	* @param string Error 
+	* @param string Desc 
+	* @param mixed CC
+	* @return null  
 	*/
-	function log($debugLevel=LOG_DEBUG, $Error ='', $Desc ='', $CC=null){
+	public function log($debugLevel=LOG_DEBUG, $Error ='', $Desc ='', $CC=null){
 		if(null !== $CC){
 			switch($CC){
 				case is_string($CC):
@@ -243,6 +272,7 @@ class LOGGER{
 	
 	/**
 	 * DESCRIPTOR: writes errors to log on destruction
+	 * 
 	 * @param NULL
 	 * @return NULL
 	 */

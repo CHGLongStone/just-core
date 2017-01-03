@@ -20,40 +20,67 @@ use JCORE\CACHE\PHP_SESSION as PHP_SESSION;
 */
 class SESSION implements PHP_SESSION{
 	/**
-	*
+	* __construct
+	* @access public
+	* @param null
+	* @return NULL  
 	*/
 	public function __construct(){
 	}
 	/**
-	*
-	//first is the save path and the second is the session name
-	*/	
+	* open
+	* 
+	* 
+	* @access public
+	* @param string savePath 
+	* @param mixed sessioneName 
+	* @return bool 
+	*/
 	public function open($savePath, $sessioneName){
 		return false;
 	} 
 	/**
-	*
+	* close
+	* 
+	* 
+	* @access public
+	* @param null
+	* @return bool 
 	*/
 	public function close(){
 		return false;
 	}
 	/**
-	*
-	//must return string value 
+	* read
+	* must return string value 
+	* 
+	* @access public
+	* @param string key 
+	* @param mixed data 
+	* @return bool 
 	*/
 	public function read($key, $data){
 		
 		return false;
 	}
 	/**
-	*
-	//identifier and the data associated with it.
+	* identifier and the data associated with it.
+	* write
+	* 
+	* @access public
+	* @param string key 
+	* @param mixed data 
+	* @return bool 
 	*/
 	public function write($key, $data){
 		return false;
 	}
 	/**
-	*
+	* destroy
+	* 
+	* @access public
+	* @param NULL
+	* @return bool 
 	*/
 	public function destroy(){
 	
@@ -61,7 +88,12 @@ class SESSION implements PHP_SESSION{
 	}
 	/**
 	*
-	//max session lifetime as its only parameter.
+	* max session lifetime as its only parameter.
+	* 
+	* 
+	* @access public
+	* @param int ttl 
+	* @return bool 
 	*/
 	public function gc($ttl){
 		return false;

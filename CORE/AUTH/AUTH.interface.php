@@ -1,7 +1,8 @@
 <?php
 /**
-
-
+* AUTH_INTERFACE
+* INTERFACE DEFINES BASIC AUTH CALLS 
+* 
  * @author	Jason Medland<jason.medland@gmail.com>
  * @package	JCORE
  * @subpackage	AUTH
@@ -13,10 +14,22 @@ namespace JCORE\AUTH;
  * @package JCORE\AUTH
 */
 interface AUTH_INTERFACE{
+
 	/**
-	* INTERFACE DEFINES BASIC AUTH CALLS 
-	 */
+	* DESCRIPTOR: authenticate
+	* 
+	* @access public
+	* @param mixed raw_data 
+	* @return return NULL  
+	*/
 	public function authenticate($params = null);
+	/**
+	* DESCRIPTOR: authorize
+	* 
+	* @access public
+	* @param mixed raw_data 
+	* @return return NULL  
+	*/
 	public function authorize($params = null);
 
 }

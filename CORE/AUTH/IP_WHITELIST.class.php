@@ -22,7 +22,11 @@ use JCORE\TRANSPORT\HTTP\HTTP_UTIL as HTTP_UTIL;
 class IP_WHITELIST implements AUTH_INTERFACE{
 
 	/**
+	* __construct
 	* 
+	* @access public
+	* @param null
+	* @return null 
 	*/
 	public function __construct(){
 		
@@ -31,7 +35,11 @@ class IP_WHITELIST implements AUTH_INTERFACE{
 	
 	
 	/**
+	* authenticate
 	* 
+	* @access public
+	* @param array params
+	* @return null 
 	*/
 	public function authenticate($params = null){
 		
@@ -55,7 +63,11 @@ class IP_WHITELIST implements AUTH_INTERFACE{
 		return false;		
 	}	
 	/**
+	* authorize
 	* 
+	* @access public
+	* @param array params
+	* @return null 
 	*/
 	public function authorize($params = null){
 		return false;
@@ -69,7 +81,12 @@ class IP_WHITELIST implements AUTH_INTERFACE{
 		*/
 	}
 	/**
+	* getIPList
 	* 
+	* @access public
+	* @param mixed params
+	* @param mixed params
+	* @return null 
 	*/
 	public function getIPList($AUTH_TYPE=null,$SERVICE_NAME=null){ 
 		#echo __METHOD__.__LINE__.'$AUTH_TYPE['.$AUTH_TYPE.']  $SERVICE_NAME['.$SERVICE_NAME.']  '.PHP_EOL; 
@@ -81,11 +98,6 @@ class IP_WHITELIST implements AUTH_INTERFACE{
 			
 		return $IPList;
 	}
-	
-	
-
-	
-	
 	
 	
 }

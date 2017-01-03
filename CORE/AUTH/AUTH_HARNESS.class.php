@@ -21,13 +21,18 @@ use JCORE\TRANSPORT\SOA\SERVICE_VALIDATOR as SERVICE_VALIDATOR;
 */
 class AUTH_HARNESS {
 	/**
+	* implementation
 	 * @access public 
-	 * @var string
+	 * @var array
 	 */
 	protected $implementation = array();
 	
 	/**
-	*
+	* __construct
+	* 
+	* @access public
+	* @param null
+	* @return null 
 	*/
 	public function __construct(){
 		
@@ -38,7 +43,8 @@ class AUTH_HARNESS {
 	 * authClass must be a string of the full\namespace
 	 * 
 	 * @access public 
-	 * @var string $authClass
+	 * @var string authClass
+	 * @return bool
 	*/
 	public function register($authClass = null){
 		if(null == $authClass){
@@ -54,7 +60,12 @@ class AUTH_HARNESS {
 	
 		
 	/**
-	*
+	* authenticate
+	* 
+	* @access public 
+	* @var string authClass
+	* @var array params
+	* @return bool
 	*/
 	public function authenticate($authClass = null, $params =  null ){
 		if(null == $authClass){

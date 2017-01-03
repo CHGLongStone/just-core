@@ -19,7 +19,7 @@ use JCORE\CACHE\CACHE_STATIC_API_INTERFACE as CACHE_STATIC_API_INTERFACE;
 namespace JCORE\CACHE;
 
 /**
- * Interface XCACHE_static
+ * class XCACHE
  *
  * @package JCORE\CACHE
 */
@@ -27,10 +27,14 @@ class XCACHE implements CACHE_STATIC_API_INTERFACE{
 	
 	/**
 	* is the object initialized 
+	* 
+	* @access private 
+	* @var bool 
 	*/
 	private $intialized = false;
 	/**
-	* DESCRIPTOR: 
+	* DESCRIPTOR: __construct
+	* 
 	* @param null
 	* @return null
 	*/
@@ -39,9 +43,10 @@ class XCACHE implements CACHE_STATIC_API_INTERFACE{
 	
 	}
 	/**
-	* DESCRIPTOR: 
-	* @param null
-	* @return null
+	* DESCRIPTOR: intialize
+	* 
+	* @param array args
+	* @return bool
 	*/
 	public function intialize($args){
 		if(isset($args) && is_array($args)){
@@ -53,7 +58,8 @@ class XCACHE implements CACHE_STATIC_API_INTERFACE{
 		$this->intialized = true;
 	}
 	/**
-	* DESCRIPTOR: 
+	* DESCRIPTOR: isIntialized
+	* 
 	* @param null
 	* @return bool
 	*/
@@ -64,12 +70,11 @@ class XCACHE implements CACHE_STATIC_API_INTERFACE{
 		}
 	}
 	/**
-	* DESCRIPTOR: 
+	* DESCRIPTOR: getValue
 	* result or false on failure
-	* $args["KEY"]
+	* args["KEY"]
 	* 
-	
-	* @param $args array
+	* @param array args
 	* @return mixed
 	*/
 	public static function getValue($args = array()){
@@ -95,13 +100,13 @@ class XCACHE implements CACHE_STATIC_API_INTERFACE{
 		return false;
 	}
 	/**
-	* DESCRIPTOR: 
+	* DESCRIPTOR: setValue
 	* result or false on failure
-	* $args["KEY"]
-	* $args["DATA"]
-	* $args["ttl"]
+	* args["KEY"]
+	* args["DATA"]
+	* args["ttl"]
 	* 
-	* @param $args array
+	* @param array args 
 	* @return mixed
 	*/
 	public static function setValue($args = array()){
@@ -119,13 +124,13 @@ class XCACHE implements CACHE_STATIC_API_INTERFACE{
 		return xcache_set($args["KEY"], $args["DATA"], $args["ttl"]);
 	}
 	/**
-	* DESCRIPTOR: 
+	* DESCRIPTOR: updateSharedValue
 	* result or false on failure
-	* $args["KEY"]
-	* $args["DATA"]
-	* $args["ttl"]
+	* args["KEY"]
+	* args["DATA"]
+	* args["ttl"]
 	* 
-	* @param $args array
+	* @param args array
 	* @return mixed
 	*/
 	public static function updateSharedValue($args = array()){
@@ -148,13 +153,13 @@ class XCACHE implements CACHE_STATIC_API_INTERFACE{
 	}
 	
 	/**
-	* DESCRIPTOR: 
+	* DESCRIPTOR: setSharedValue
 	* result or false on failure
-	* $args["KEY"]
-	* $args["DATA"]
-	* $args["ttl"]
+	* args["KEY"]
+	* args["DATA"]
+	* args["ttl"]
 	* 
-	* @param $args array
+	* @param args array
 	* @return mixed
 	*/
 	public static function setSharedValue($args = array()){
@@ -178,10 +183,10 @@ class XCACHE implements CACHE_STATIC_API_INTERFACE{
 	/**
 	* DESCRIPTOR: 
 	* result or false on failure
-	* $args["KEY"]
-	* $args["ttl"]
+	* args["KEY"]
+	* args["ttl"]
 	* 
-	* @param $args array
+	* @param args array
 	* @return mixed
 	*/
 	public static function getSharedValue($args = array()){
