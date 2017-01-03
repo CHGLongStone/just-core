@@ -1,0 +1,299 @@
+<?php
+/**
+ * POSTGRES_TABLE_META
+ * @author		Jason Medland<jason.medland@gmail.com>
+ * @package		JCORE
+ * @subpackage	DATA\API
+ */
+namespace JCORE\DATA\API\POSTGRES;
+use JCORE\EXCEPTION\DATA_Exception as DATA_Exception;
+/**
+ * Class POSTGRES_TABLE_META
+ *
+ * @package JCORE\DATA\API\POSTGRES
+*/
+class POSTGRES_TABLE_META{
+	
+	/**
+	* dbType
+	 * @access private 
+	 * @var string
+	 */
+	private $dbType = 'POSTGRES';
+	
+	/**
+	* tableName
+	 * @access public 
+	 * @var string
+	 */
+	public $tableName = NULL;
+	
+	/**
+	* Data Source Name
+	 * @access public 
+	 * @var string
+	 */
+	public $DSN = NULL;
+	
+	/**
+	* tableProperties
+	 * @access public 
+	 * @var string
+	 */
+	public $tableProperties = NULL; //array();
+	
+	/**
+	* connectionObject
+	 * @access public 
+	 * @var string
+	 */
+	public $connectionObject = NULL; //array();
+	
+	
+	/**
+	 * Constructor
+	 * 
+	 * @access public
+	 * @param null
+	 * @return	NULL
+	 */
+	public function __construct(){
+		#action
+		/*
+		GLOBAL $logCFG;
+		$settings 		= $logCFG["DATA"];
+		$this->logger	= new logInternal($settings);
+		*/
+		$this->logger	=& $GLOBALS['LOG_DATA'];
+		return;
+	}
+	/**
+	* DESCRIPTOR: unsets internal properties
+	*
+	* @access public
+	* @param	NULL
+	* @return NULL 
+	*/
+	public function flushData(){
+		echo __METHOD__.'::'.__LINE__.'-------================()()()())()()())()()()()()()()()()()()()()()('.LN;
+		$this->connectionObject	= NULL;
+		$this->tableName 		= '';
+		$this->DSN 				= '';
+		#$this->setProperties 	= '';
+		$this->tableProperties	= array();
+		return;
+	}
+	
+	/**
+	* DESCRIPTOR: Get the "private" dbType
+	* 
+	* @access public
+	* @param	NULL
+	* @return string $dbType 
+	*/
+	public function getDbType(){
+		return $this->dbType;
+	}
+	
+	/**
+	* DESCRIPTOR: IE: Stores meta data for table in a traversable form
+	*
+	* @access public
+	* @param	String $DSN
+	* @param	String $tableName
+	* @param	mixed $connectionObject
+	* @return NULL 
+	*/
+	public function initialize($DSN, $tableName, $connectionObject=NULL){
+		#echo __FILE__.'::'.__LINE__.'$introspectionClass['.$connectionObject.']---------[$connectionObject]['.gettype($connectionObject).']<pre>'.var_export($connectionObject,true).'</pre>'.LN;
+		/**
+		* always pass the connection object 
+		*/
+		#echo __METHOD__.'::'.__LINE__.'$DSN['.$DSN.']'.LN;
+		if(!isset($connectionObject) || !is_object($connectionObject)){
+			#echo __METHOD__.'::'.__LINE__.'FAIL NO CONN OBJECT $DSN['.$DSN.']['.$tableName.']'.gettype($connectionObject).'$data<pre>'.print_r($data, true).'</pre>'.LN;
+			return FALSE;
+		}
+		
+		unset($this->tableProperties);
+		$this->tableProperties	= array();
+		$this->DSN = $DSN;
+		$this->tableName = $tableName;
+		if(FALSE === $this->validateConnectionObject($connectionObject)){
+			echo __METHOD__.'::'.__LINE__.'-----------------------------RESET $connectionObject['.gettype($connectionObject).']'.LN;
+			$this->connectionObject = $connectionObject;
+		}
+		$this->connectionObject->set_connection();
+		$result = pg_meta_data  ( $this->connectionObject->connection  , $this->tableName  );
+		
+		
+		
+		$query = "SELECT 
+					pg_class.relname, 
+					pg_attribute.attname, 
+					pg_type.typname, 
+					pg_type.typlen 
+				FROM pg_class, 
+					pg_attribute, 
+					pg_type  
+				WHERE pg_class.relname = '".$this->tableName."' 
+				#	AND pg_class.oid = pg_attribute.attrelid 
+				#	AND pg_type.oid = pg_attribute.atttypid 
+				#GROUP BY pg_class.relname
+				#HAVING attnum > 0";
+		$result2 = $this->connectionObject->SQL_select($query, $returnArray=true);///, $returnArray=true
+		echo __METHOD__.'::'.__LINE__.'$result<pre>'.var_export($result2, true).'</pre>'.LN;
+		
+		#echo __METHOD__.'::'.__LINE__.' *!*!*!**!*!**!*!*!*$result = pg_meta_data<pre>'.var_export($result, true).'</pre>'.LN;
+
+		$this->setProperties($result);
+		/*
+		*/
+		return;
+	}
+	/**
+	* DESCRIPTOR: check if the DB connection is valid to what we want to do
+	* 
+	* @access private
+	* @param mixed $data 
+	* @return bool $valid 
+	*/
+	private function validateConnectionObject($connectionObject = NULL){
+		echo __METHOD__.'::'.__LINE__.'$connectionObject['.gettype($connectionObject).']'.LN;
+		$valid = FALSE;
+		//
+		if(isset($this->connectionObject)){
+			if(isset($this->connectionObject->DSN) && $this->connectionObject->DSN == $connectionObject->DSN){
+				return TRUE;
+			}
+		}		
+		return $valid;
+	}
+	/**
+	* DESCRIPTOR: setProperties
+	* 
+	* @access private
+	* @param mixed $data 
+	* @return NULL 
+	*/
+	private function setProperties($data = NULL){
+		#echo '$data['.__FUNCTION__.']<pre>'.print_r($data, true).'</pre>';
+		//echo __METHOD__.'::'.__LINE__.'$data<pre>'.print_r($data, true).'</pre>'.LN;
+		if($data == NULL){
+			$this->logger->log(LOG_WARNING, __METHOD__, '$data == NULL');
+			return;
+		}
+		#$this->tableProperties = $data;
+		foreach($data AS $key => $value){
+			#echo __METHOD__.'::'.__LINE__.'key['.$key.'] value['.var_export($value,true).']'.LN;
+			$this->tableProperties[$key]['type'] = $value['type'];
+			$this->tableProperties[$key]['length'] = $value['len'];
+			if($value['not null'] == TRUE){
+				$allowNull = 'NO';
+			}
+			$this->tableProperties[$key]['allowNull'] = $allowNull;
+			
+			if($value['has default'] == TRUE){
+				$hasDefault = 'NO';
+			}
+			$this->tableProperties[$key]['allowNull'] = $hasDefault;
+			
+			
+			
+		}
+		#echo __METHOD__.'::'.__LINE__.'$this->tableProperties['.var_export($this->tableProperties,true).'] '.LN;
+		echo __METHOD__.'::'.__LINE__.'$$data['.var_export($data,true).']'.LN;
+		/**
+		pg_field_type_oid  ( resource $result  , int $field_number  )  	Returns the type ID (OID) for the corresponding field number 
+		pg_field_table  ( resource $result  , int $field_number  [, 	bool $oid_only = false  ] ) Returns the name or oid of the tables field
+		pg_field_type  ( resource $result  , int $field_number  )  		Returns the type name for the corresponding field number
+		pg_field_name  ( resource $result  , int $field_number  ) 		Returns the name of a field
+		pg_field_num  ( resource $result  , string $field_name  ) 		Returns the field number of the named field
+		pg_field_size  ( resource $result  , int $field_number  )		Returns the internal storage size of the named field 
+		
+		*/
+		/*
+		foreach($data AS $key => $value){
+			$subject = $value["Type"];
+			$pattern = '/ ^  (\w*)  \(    (\d*)    \)       /x';
+			$matches = array();
+			preg_match($pattern, $subject, $matches);
+			$this->columnNames->$value["Field"]->index = $key;
+			#echo '['.$value["Field"].']matches<pre>'.print_r($matches, true).'</pre>'.LN;
+			if( strpos ( $value["Type"], 'enum') === false){
+				if(count($matches) == 0){
+					$this->tableProperties[$value["Field"]]["type"] 	= $value["Type"];
+					#$this->tableProperties[$value["Field"]]["length"] 	= $matches[2];				
+				}else{
+					$this->tableProperties[$value["Field"]]["type"] 	= $matches[1];
+					$this->tableProperties[$value["Field"]]["length"] 	= $matches[2];				
+				}
+				
+
+			}else{
+				$this->tableProperties[$value["Field"]]["type"] 	= 'enum';
+				$this->tableProperties[$value["Field"]]["options"] 	= explode("','",preg_replace("/(enum|set)\('(.+?)'\)/","\\2",stripslashes($value["Type"])));
+			}
+			
+			$this->tableProperties[$value["Field"]]["default"] 		= $value["Default"];
+			$this->tableProperties[$value["Field"]]["allowNull"] 	= $value["Null"];
+			if($value["Extra"] == 'auto_increment'){
+				$this->tableProperties[$value["Field"]]["autoIncrement"] 	= true;
+			}
+			if($value["Key"] == 'PRI'){
+				$this->tableProperties[$value["Field"]]["key"] 	= 'primary';
+			}
+			
+		}
+		*/
+		return;
+		#$this->errors[] = '';
+	}
+	/**
+	* DESCRIPTOR: getTableProperties
+	* 
+	* @access public
+	* @param mixed $data 
+	* @return NULL 
+	*/
+	public function getTableProperties($data = NULL){
+		echo __METHOD__.'::'.__LINE__.'$data<pre>'.print_r($data, true).'</pre>'.LN;
+		if(isset($this->tableProperties) && is_array($this->tableProperties) && count($this->tableProperties) > 0){
+			return $this->tableProperties;
+		}
+		return NULL;
+	}
+	/**
+	* DESCRIPTOR: gets the primary key from the data set in "tableProperties"
+	* 
+	* @access public
+	* @param mixed $data 
+	* @return NULL 
+	*/
+	public function getPrimaryKeyField($data = NULL){
+		echo __METHOD__.'::'.__LINE__.'$data<pre>'.print_r($data, true).'</pre>'.LN;
+		if($data == NULL || !is_array($data)){
+			$this->logger->log(LOG_WARNING, __METHOD__, '$data == '.gettype($data).'');
+			return;
+		}
+		foreach($data AS $Key => $value){
+			#echo '$Key=['.$Key.']<pre>'.var_export($value,true).'</pre>';
+			//autoIncrement' => true,
+			//key' => 'primary'
+			if( isset($value["key"]) && $value["key"] == 'primary'){
+				return $Key;
+			}elseif(isset($value["autoIncrement"]) && $value["key"] == 'primary'){
+				return $Key;
+			}else{
+				return;
+			}
+		}
+	}
+
+	//----------------------------------------------------
+	
+	//----------------------------------------------------
+}
+ 
+
+?>

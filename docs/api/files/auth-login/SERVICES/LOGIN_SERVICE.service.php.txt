@@ -1,19 +1,11 @@
 <?php
 /**
- * Very basic auth mechanism to white list API calls from other servers
- * this is ONLY in place to limit access to an API based on white list
- * there is no other authentication hook behind this fro granular control
- * implementation ripped straight from here: 
- * https://sunnyis.me/blog/secure-passwords/
- * input from here:
- * http://www.openwall.com/articles/PHP-Users-Passwords
- * https://github.com/ircmaxell/password_compat
- * http://php.net/manual/en/function.password-hash.php
- * 
- * @author	Jason Medland<jason.medland@gmail.com>
- * @package	JCORE
- * @subpackage	AUTH
- */
+* Class LOGIN_SERVICE 
+* 
+* @author	Jason Medland<jason.medland@gmail.com>
+* @package	JCORE
+* @subpackage	AUTH
+*/
  
 
 namespace JCORE\SERVICE\AUTH;
@@ -24,21 +16,41 @@ use JCORE\AUTH\AUTH_INTERFACE as AUTH_INTERFACE;
 
 
 /**
- * Class LOGIN_SERVICE
- *
- * @package JCORE\SERVICE\AUTH 
+* Class LOGIN_SERVICE 
+* https://github.com/CHGLongStone/just-core-auth-login
+* 
+* Very basic auth mechanism to white list API calls from other servers
+* this is ONLY in place to limit access to an API based on white list
+* there is no other authentication hook behind this fro granular control
+* implementation ripped straight from here: 
+*  https://sunnyis.me/blog/secure-passwords/
+* input from here:
+*  http://www.openwall.com/articles/PHP-Users-Passwords
+*  https://github.com/ircmaxell/password_compat
+*  http://php.net/manual/en/function.password-hash.php
+* 
+* @package JCORE\SERVICE\AUTH 
 */
 class LOGIN_SERVICE extends SOA_BASE implements AUTH_INTERFACE{ 
-	/** 
+	/**
+	* serviceRequest
 	* 
+	* @access protected 
+	* @var string
 	*/
 	protected $serviceRequest = null;
-	/** 
+	/**
+	* serviceResponse
 	* 
+	* @access public 
+	* @var string
 	*/
 	public $serviceResponse = null;
-	/** 
+	/**
+	* error
 	* 
+	* @access public 
+	* @var string
 	*/
 	public $error = null;
 	
@@ -48,13 +60,19 @@ class LOGIN_SERVICE extends SOA_BASE implements AUTH_INTERFACE{
 	* in the method property of the JSONRPC request in this format
 	* 		""method":"AJAX_STUB.aServiceMethod"
 	* 
-	* @param param 
-	* @return return  
+	* @param null 
+	* @return null  
 	*/
 	public function __construct(){
 		return;
 	}
-	
+	/**
+	* DESCRIPTOR: init
+	* 
+	* @access public 
+	* @param array args
+	* @return null
+	*/
 	public function init($args){
 		/**
 		* echo __METHOD__.__LINE__.'$args<pre>['.var_export($args, true).']</pre>'.'<br>'; 
@@ -62,7 +80,13 @@ class LOGIN_SERVICE extends SOA_BASE implements AUTH_INTERFACE{
 		$this->cfg = $GLOBALS["CONFIG_MANAGER"]->getSetting('AUTH','LOGIN_SERVICE','AUTH_TYPE');
 		return;
 	}
-	
+	/**
+	* DESCRIPTOR: testInstall
+	* 
+	* @access public 
+	* @param array args
+	* @return null
+	*/
 	public function testInstall($args){
 		
 		if (isset($_SERVER['APPLICATION_ENV']) && $_SERVER['APPLICATION_ENV'] != 'production') {
@@ -83,10 +107,16 @@ class LOGIN_SERVICE extends SOA_BASE implements AUTH_INTERFACE{
 		return;
 	}
 	/**
-	* DESCRIPTOR: an example namespace call 
+	* DESCRIPTOR: authenticate against:
+	* abstracted for JCORE-AUTH-AUTH_HARNESS
+	*   UserLogin
+	*   UserSession
+	*   APICall
+	*   APICallToken
 	* 
-	* @params array 
-	* @return this->serviceResponse  
+	* @access public 
+	* @param array params
+	* @return bool
 	*/
 	public function authenticate($params = null){
 		if(!isset($params["AUTH_TYPE"])){
@@ -121,21 +151,27 @@ class LOGIN_SERVICE extends SOA_BASE implements AUTH_INTERFACE{
 	
 	
 	/**
-	* DESCRIPTOR: complete the implementation
+	* DESCRIPTOR: authorize
+	* ACL hook stub
 	* 
-	* @args array 
-	* @return this->serviceResponse  
+	* @access public 
+	* @param array params
+	* @return bool
 	*/
 	public function authorize($params = null){
 		
 		return false;
 	}
 	/**
-	* DESCRIPTOR: authenticate a login
+	* DESCRIPTOR: authenticateUserLogin
+	* authenticate a login 
+	*   - email
+	*   - password
+	* - get the user role ACL hook
 	* 
-	* 
-	* @args array 
-	* @return this->serviceResponse  
+	* @access public 
+	* @param array args
+	* @return array
 	*/
 	public function authenticateUserLogin($args){
 		
@@ -169,9 +205,12 @@ class LOGIN_SERVICE extends SOA_BASE implements AUTH_INTERFACE{
 	
 	
 	/**
-	* DESCRIPTOR: an example namespace call 
-	* @param param 
-	* @return return  
+	* DESCRIPTOR: authenticateUserSession 
+	* user_id or user_email
+	* 
+	* @access public 
+	* @param array args
+	* @return array
 	*/
 	public function authenticateUserSession($args){
 
@@ -208,9 +247,14 @@ class LOGIN_SERVICE extends SOA_BASE implements AUTH_INTERFACE{
 		return false;
 	}
 	/**
-	* DESCRIPTOR: an example namespace call 
-	* @param param 
-	* @return return  
+	* DESCRIPTOR: authenticateAPICall
+	* http header based 
+	*   HTTP_API_KEY
+	*   HTTP_PASS_PHRASE
+	* 
+	* @access public 
+	* @param array args
+	* @return array
 	*/
 	public function authenticateAPICall($args){
 		/*
@@ -259,9 +303,12 @@ class LOGIN_SERVICE extends SOA_BASE implements AUTH_INTERFACE{
 	}
 	
 	/**
-	* DESCRIPTOR: an example namespace call 
-	* @param param 
-	* @return return  
+	* DESCRIPTOR: authenticateAPICallToken
+	* check a "PUBLIC_TOKEN" in an auth whitelist
+	* 
+	* @access public 
+	* @param array args
+	* @return array
 	*/
 	public function authenticateAPICallToken($args){
 		/*
@@ -297,9 +344,12 @@ class LOGIN_SERVICE extends SOA_BASE implements AUTH_INTERFACE{
 	
 	
 	/**
-	* DESCRIPTOR: an example namespace call 
-	* @param param 
-	* @return return  
+	* DESCRIPTOR: stubbeh 
+	* 
+	* 
+	* @access public 
+	* @param array args
+	* @return array
 	*/
 	public function aServiceMethod($args){
 		#echo __METHOD__.__LINE__.'<br>';

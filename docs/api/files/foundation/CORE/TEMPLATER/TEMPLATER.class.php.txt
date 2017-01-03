@@ -25,20 +25,62 @@ namespace JCORE\TEMPLATER;
 */
 class TEMPLATER
 {
-	// Variables
+	/**
+	* _tpldata
+	* 
+	* @access public 
+	* @var string
+	*/
 	public $_tpldata = array();
+	/**
+	* files
+	* 
+	* @access public 
+	* @var string
+	*/
 	public $files = array();
+	/**
+	* root
+	* 
+	* @access public 
+	* @var string
+	*/
 	public $root = "";
+	/**
+	* compiled_code
+	* 
+	* @access public 
+	* @var string
+	*/
 	public $compiled_code = array();
+	/**
+	* uncompiled_code
+	* 
+	* @access public 
+	* @var string
+	*/
 	public $uncompiled_code = array();
+	/**
+	* resultString
+	* 
+	* @access public 
+	* @var string
+	*/
 	public $resultString = "";
+	/**
+	* cacher
+	* 
+	* @access protected 
+	* @var string
+	*/
 	protected $cacher;
 	
 	
 	/**
 	 * Constructor
+	 * set Root path of the template
 	 * 
-	 * @param	string $root Root path of the template
+	 * @param	string root 
 	 * @return	none
 	 */
 	public function __construct($root = "."){
@@ -59,22 +101,34 @@ class TEMPLATER
 	}
 	
 	/**
-	 * 
-	 */
+	* DESCRIPTOR: __destruct
+	* 
+	* @access public
+	* @param null 
+	* @return NULL  
+	*/
 	public function __destruct(){
 		$this->_tpldata = array();
 	}
 	
 	/**
-	 * 
-	 */
+	* DESCRIPTOR: destroy
+	* 
+	* @access public
+	* @param null 
+	* @return NULL  
+	*/
 	public function destroy(){
 		$this->_tpldata = array();
 	}
 	
 	/**
-	 * 
-	 */
+	* DESCRIPTOR: set_rootdir
+	* 
+	* @access public
+	* @param string  dir
+	* @return NULL  
+	*/
 	public function set_rootdir($dir){
 		if (!is_dir($dir))		{
 			return false;
@@ -84,8 +138,12 @@ class TEMPLATER
 	}
 	
 	/**
-	 * 
-	 */
+	* DESCRIPTOR: set_filenames
+	* 
+	* @access public
+	* @param array  filename_array
+	* @return NULL  
+	*/
 	public function set_filenames($filename_array){
 		if (!is_array($filename_array)){
 			return false;
@@ -99,8 +157,12 @@ class TEMPLATER
 	}
 	
 	/**
-	 * 
-	 */
+	* DESCRIPTOR: pparse
+	* 
+	* @access public
+	* @param string handle 
+	* @return NULL  
+	*/
 	public function pparse($handle){
 		#echo '<b>pparse</b><pre>'.var_export($handle,true).'</pre>';
 		if (!$this->loadfile($handle)){
@@ -118,10 +180,12 @@ class TEMPLATER
 	}
 	/**
 	* DESCRIPTOR: renders the template to a string
-	* @param string $handle 
-	* @param bool 	$do_not_echo 
-	* @param string $retvar 
-	* @return string $newVar 
+	* 
+	* @access public
+	* @param string handle 
+	* @param bool 	do_not_echo 
+	* @param string retvar 
+	* @return string newVar 
 	*/
 	public function sparse($handle, $do_not_echo = false, $retvar = '')
 	{
@@ -155,14 +219,16 @@ class TEMPLATER
 	}
 	/**
 	* DESCRIPTOR: sets up the class for file output
-	* @param string $handle 
-	* @param mixed $oBc 
-	* $oBc Output Buffering Control
+	* oBc Output Buffering Control
 	* SETTINGS:
 	* default:	NULL 		will return a string of the rendered data
 	* 			BUFFER		will send the rendered data to the output buffer
 	* 			FLUSH		the rendered data will be sent to the output buffer and the buffer flushed immediately 
 	* this function will re-render the contents very time it is called
+	* 
+	* @access public
+	* @param string handle 
+	* @param mixed oBc 
 	* @return mixed  
 	*/
 	public function render($handle, $oBc=null){ //, $do_not_echo = false, $retvar = '' 
@@ -208,8 +274,13 @@ class TEMPLATER
 		return;
 	}
 	/**
-	 * 
-	 */
+	* assign_var_from_handle
+	* 
+	* @access public
+	* @param string varname 
+	* @param string handle 
+	* @return mixed  
+	*/
 	public function assign_var_from_handle($varname, $handle){
 		if (!$this->loadfile($handle)){
 			die("TEMPLATE->assign_var_from_handle(): Couldn't load template file for handle ".$handle);
@@ -225,16 +296,28 @@ class TEMPLATER
 	}
 	
 	/**
-	 * 
-	 */
+	* unset_block_vars
+	* vararray dafuq not even a call back
+	* 
+	* @access public
+	* @param string blockname 
+	* @param null vararray 
+	* @return mixed  
+	*/
 	public function unset_block_vars($blockname, $vararray = null){
 		$this->_tpldata[$blockname] = null;
 		return true;
 	}	
 	
 	/**
-	 * 
-	 */
+	* assign_block_vars
+	*
+	* 
+	* @access public
+	* @param string blockname 
+	* @param array vararray 
+	* @return mixed  
+	*/
 	public function assign_block_vars($blockname, $vararray){
 		$lastiteration  = 0;
 		
@@ -259,8 +342,12 @@ class TEMPLATER
 	}
 	
 	/**
-	 * 
-	 */
+	* assign_vars
+	* 
+	* @access public
+	* @param array vararray 
+	* @return mixed  
+	*/
 	public function assign_vars($vararray){
 		reset ($vararray);
 		while (list($key, $val) = each($vararray)){
@@ -271,8 +358,13 @@ class TEMPLATER
 	}
 	
 	/**
-	 * 
-	 */
+	* assign_var
+	* 
+	* @access public
+	* @param string varname 
+	* @param string varval 
+	* @return mixed  
+	*/
 	public function assign_var($varname, $varval){
 		$this->_tpldata['.'][0][$varname] = $varval;
 		
@@ -280,8 +372,12 @@ class TEMPLATER
 	}
 	
 	/**
-	 * 
-	 */
+	* check_filename
+	* 
+	* @access public
+	* @param string filename 
+	* @return mixed  
+	*/
 	function check_filename($filename){
 		if (!file_exists($filename)){
 			die(__METHOD__."(): Error - file [".$filename."] does not exist");
@@ -291,8 +387,12 @@ class TEMPLATER
 	}
 	
 	/**
-	 * 
-	 */
+	* loadfile
+	* 
+	* @access public
+	* @param string handle 
+	* @return mixed  
+	*/
 	public function loadfile($handle){
 		if (isset($this->uncompiled_code[$handle]) && !empty($this->uncompiled_code[$handle])){
 			return true;
@@ -318,16 +418,27 @@ class TEMPLATER
 	}
 	
 	/**
-	 * 
-	 */
+	* loadCachedFile 
+	* still dragging this boat anchor...implement this cache sometime eh?
+	* 
+	* @access public
+	* @param string handle 
+	* @return mixed  
+	*/
 	public function loadCachedFile($handle){
 	
 	
 	}
 	
 	/**
-	 * 
-	 */
+	* compile
+	* 
+	* @access public
+	* @param string handle 
+	* @param bool do_not_echo 
+	* @param string retvar 
+	* @return mixed  
+	*/
 	public function compile($code, $do_not_echo = false, $retvar = ''){
 		#echo 'compile($code='.$code.', $do_not_echo = '.$do_not_echo.', $retvar = '.$retvar.')<br>';
 		$code = str_replace('\\', '\\\\', $code);
@@ -452,8 +563,13 @@ class TEMPLATER
 	}
 	
 	/**
-	 * 
-	 */
+	* generate_block_varref
+	* 
+	* @access public
+	* @param string namespace 
+	* @param string varname 
+	* @return mixed  
+	*/
 	public function generate_block_varref($namespace, $varname)
 	{
 		$namespace = substr($namespace, 0, strlen($namespace) - 1);
@@ -465,8 +581,13 @@ class TEMPLATER
 	}
 	
 	/**
-	 * 
-	 */
+	* generate_block_data_ref
+	* 
+	* @access public
+	* @param string blockname 
+	* @param bool include_last_iterator 
+	* @return mixed  
+	*/
 	public function generate_block_data_ref($blockname, $include_last_iterator)
 	{
 		$blocks = explode(".", $blockname);

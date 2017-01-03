@@ -20,16 +20,25 @@ use JCORE\AUTH\AUTH_INTERFACE as AUTH_INTERFACE;
  * @package JCORE\SERVICE\AUTH 
 */
 class PAGE_FILTER extends SOA_BASE implements AUTH_INTERFACE{ 
-	/** 
+	/**
+	* serviceRequest
 	* 
+	* @access protected 
+	* @var string
 	*/
 	protected $serviceRequest = null;
-	/** 
+	/**
+	* serviceResponse
 	* 
+	* @access public 
+	* @var string
 	*/
 	public $serviceResponse = null;
-	/** 
+	/**
+	* error
 	* 
+	* @access public 
+	* @var mixed
 	*/
 	public $error = null;
 	
@@ -39,13 +48,19 @@ class PAGE_FILTER extends SOA_BASE implements AUTH_INTERFACE{
 	* in the method property of the JSONRPC request in this format
 	* 		""method":"AJAX_STUB.aServiceMethod"
 	* 
-	* @param param 
-	* @return return  
+	* @param null 
+	* @return null
 	*/
 	public function __construct(){
 		return;
 	}
-	
+	/**
+	* DESCRIPTOR: init
+	* 
+	* @access public 
+	* @param array args
+	* @return null
+	*/
 	public function init($args){
 		/**
 		* echo __METHOD__.__LINE__.'$args<pre>['.var_export($args, true).']</pre>'.'<br>'; 
@@ -54,10 +69,16 @@ class PAGE_FILTER extends SOA_BASE implements AUTH_INTERFACE{
 	}
 	
 	/**
-	* DESCRIPTOR: an example namespace call 
+	* DESCRIPTOR: authenticate against:
+	* abstracted for JCORE-AUTH-AUTH_HARNESS
+	*   WHITELIST
+	*   BLACKLIST
+	*   TOKEN
+	*  
 	* 
-	* @params array 
-	* @return this->serviceResponse  
+	* @access public 
+	* @param array params
+	* @return bool
 	*/
 	public function authenticate($params = null){
 		#echo __METHOD__.__LINE__.'$params<pre>['.var_export($params, true).']</pre>'.'<br>'; 
@@ -87,20 +108,24 @@ class PAGE_FILTER extends SOA_BASE implements AUTH_INTERFACE{
 	
 	
 	/**
-	* DESCRIPTOR: an example namespace call 
+	* DESCRIPTOR: authorize
 	* 
-	* @args array 
-	* @return this->serviceResponse  
+	*  
+	* 
+	* @access public 
+	* @param array params
+	* @return bool
 	*/
 	public function authorize($params = null){
 		
 		return false;
 	}
 	/**
-	* DESCRIPTOR: an example namespace call 
+	* DESCRIPTOR: authenticateWHITELIST
 	* 
-	* @args array 
-	* @return this->serviceResponse  
+	* @access public 
+	* @param array args
+	* @return bool
 	*/
 	public function authenticateWHITELIST($args){
 		$result = array();
@@ -135,10 +160,12 @@ class PAGE_FILTER extends SOA_BASE implements AUTH_INTERFACE{
 		return false;
 	}
 	/**
-	* DESCRIPTOR: an example namespace call 
+	* DESCRIPTOR: authenticateBLACKLIST 
+	*  
 	* 
-	* @args array 
-	* @return this->serviceResponse  
+	* @access public 
+	* @param array params
+	* @return bool
 	*/
 	public function authenticateBLACKLIST($args){
 		$result = array();
@@ -173,10 +200,13 @@ class PAGE_FILTER extends SOA_BASE implements AUTH_INTERFACE{
 		return false;
 	}
 	/**
-	* DESCRIPTOR: an example namespace call 
+	* DESCRIPTOR: authenticateTOKEN
 	* 
-	* @args array 
-	* @return this->serviceResponse  
+	*  
+	* 
+	* @access public 
+	* @param array args
+	* @return bool
 	*/
 	public function authenticateTOKEN($args){
 		$result = array();
@@ -248,9 +278,12 @@ class PAGE_FILTER extends SOA_BASE implements AUTH_INTERFACE{
 	
 
 	/**
-	* DESCRIPTOR: an example namespace call 
-	* @param param 
-	* @return return  
+	* DESCRIPTOR: aServiceMethod..an example namespace call 
+	*  
+	* 
+	* @access public 
+	* @param array args
+	* @return bool
 	*/
 	public function aServiceMethod($args){
 		#echo __METHOD__.__LINE__.'<br>';

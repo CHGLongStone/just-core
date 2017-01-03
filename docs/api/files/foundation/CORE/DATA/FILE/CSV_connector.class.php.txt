@@ -39,24 +39,28 @@ class CSV_connector implements \JCORE\DATA\API\DATA_API_INTERFACE{
 	private $host = '';
 	
 	/**
+	* username
 	 * @access private 
 	 * @var string
 	 */
 	private $username = '';
 	
 	/**
+	* password
 	 * @access private 
 	 * @var string
 	 */
 	private $password = '';
 	
 	/**
+	* password
 	 * @access private 
 	 * @var string
 	 */
 	private $database = '';
 	
 	/**
+	* password
 	 * stores the connection resource
 	 * @access public 
 	 * @var string
@@ -64,6 +68,7 @@ class CSV_connector implements \JCORE\DATA\API\DATA_API_INTERFACE{
 	public $connection;
 	
 	/**
+	* password
 	 * @access private 
 	 * @var bool
 	 */

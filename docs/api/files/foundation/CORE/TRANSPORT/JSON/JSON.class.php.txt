@@ -1,22 +1,22 @@
 <?php
 /**
- * JSONRPC_1_0_API 
- *
-$filePath = JCORE_BASE_DIR.'TRANSPORT/TRANSPORT_INTERFACE.interface.php';
-require_once($filePath);
- *
- * @author	Jason Medland<jason.medland@gmail.com>
- * @package	JCORE\TRANSPORT\JSON
- * @subpackage	JCORE\TRANSPORT\JSON
- */
+* JSONRPC_1_0_API 
+*
+* $filePath = JCORE_BASE_DIR.'TRANSPORT/TRANSPORT_INTERFACE.interface.php';
+* require_once($filePath);
+*
+* @author	Jason Medland<jason.medland@gmail.com>
+* @package	JCORE\TRANSPORT\JSON
+* @subpackage	JCORE\TRANSPORT\JSON
+*/
 namespace JCORE\TRANSPORT\JSON;
 #use JCORE\TRANSPORT\TRANSPORT_INTERFACE as TRANSPORT_INTERFACE;
 
 
 /**
- * Class JSON
- *
- * @package JCORE\TRANSPORT\JSON
+* Class JSON
+*
+* @package JCORE\TRANSPORT\JSON
 */
 class JSON{
 
@@ -24,29 +24,44 @@ class JSON{
 	
 	
 	/**
-	* DESCRIPTOR: 
-	* enforce a method to parse the request in the sub class
-	* @param mixed raw_data 
-	* @return return NULL  
+	* DESCRIPTOR: __construct
+	* 
+	* 
+	* @access private
+	* @param null 
+	* @return NULL  
 	*/
 	public function __construct(){
 	}
-/**
-code	message	meaning
--32700	Parse error	Invalid JSON was received by the server.
-An error occurred on the server while parsing the JSON text.
--32600	Invalid Request	The JSON sent is not a valid Request object.
--32601	Method not found	The method does not exist / is not available.
--32602	Invalid params	Invalid method parameter(s).
--32603	Internal error	Internal JSON-RPC error.
--32000 to -32099	Server error	Reserved for implementation-defined server-errors.
-
-*/
+	/**
+	* json_decode
+	* code	message	meaning
+	* -32700	Parse error	Invalid JSON was received by the server.
+	* An error occurred on the server while parsing the JSON text.
+	* -32600	Invalid Request	The JSON sent is not a valid Request object.
+	* -32601	Method not found	The method does not exist / is not available.
+	* -32602	Invalid params	Invalid method parameter(s).
+	* -32603	Internal error	Internal JSON-RPC error.
+	* -32000 to -32099	Server error	Reserved for implementation-defined server-errors.
+	* 
+	* @access public 
+	* @param string JSON 
+	* @param bool toArray 
+	* @return array
+	*/
 	public static function json_decode($JSON, $toArray = true){
 		#echo __METHOD__.'::'.__LINE__.'$JSON<pre>'.print_r($JSON, true).'</pre>'.PHP_EOL;
 		return \JCORE\TRANSPORT\JSON\JSON::validateJSON($JSON, $toArray = true);
 	}
-		
+	
+	/**
+	* json_encode
+	* 
+	* @access public 
+	* @param string JSON 
+	* @param bool toArray 
+	* @return return NULL  
+	*/
 	public static function json_encode($JSON, $toArray = true){
 		if($response = json_encode($JSON)){
 			
@@ -56,8 +71,14 @@ An error occurred on the server while parsing the JSON text.
 		return $response;
 	}
 		
-		
-
+	/**
+	* validateJSON
+	* 
+	* @access public 
+	* @param string JSON 
+	* @param bool toArray 
+	* @return return NULL  
+	*/
 	public static function validateJSON($JSON, $toArray = true){
 		$JSONtoPHPVal = json_decode($JSON, $toArray);
 		$error = null;
@@ -92,13 +113,6 @@ An error occurred on the server while parsing the JSON text.
 		}
 	}
 
-			
-
-		
-		
-	
-	
-	
 }
 
 ?>

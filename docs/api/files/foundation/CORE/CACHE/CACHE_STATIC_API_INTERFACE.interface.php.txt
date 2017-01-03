@@ -17,26 +17,63 @@ use JCORE\JCORE_SINGLETON_INTERFACE AS JCORE_SINGLETON_INTERFACE;
 */
 interface STATIC_API_INTERFACE extends JCORE_SINGLETON_INTERFACE
 { 
-	/* 
-	* Defines base fuctions to support public methods of CACHE_API 
+	/** 
+	* Defines base functions to support public methods of CACHE_API 
 	* interface for common frequent reads, occasional writes to cache 
+	* DESCRIPTOR: getValue
+	* 
+	* @access public
+	* @param array args 
+	* @return return NULL  
 	*/
-	#public function setValue($args = array());
-	#public function intialize($cfg = array());
 	public static function getValue($args = array());
+	/** 
+	* Defines base functions to support public methods of CACHE_API 
+	* interface for common frequent reads, occasional writes to cache 
+	* DESCRIPTOR: setValue
+	* 
+	* @access public
+	* @param array args 
+	* @return return NULL  
+	*/
 	public static function setValue($args = array());
-	/* 
-	* Defines fuctions to support access to shared resoures 
+	/** 
+	* Defines functions to support access to shared resoures 
 	* interface for common frequent reads, frequent writes to cache 
+	* DESCRIPTOR: updateSharedValue
+	* 
+	* @access public
+	* @param mixed raw_data 
+	* @return return NULL  
 	*/
 	public static function updateSharedValue($args = array());
+	/** 
+	* Defines functions to support access to shared resoures 
+	* interface for common frequent reads, frequent writes to cache 
+	* DESCRIPTOR: setSharedValue
+	* 
+	* @access public
+	* @param array args 
+	* @return return NULL  
+	*/
 	public static function setSharedValue($args = array());
+	/** 
+	* Defines functions to support access to shared resoures 
+	* interface for common frequent reads, frequent writes to cache 
+	* DESCRIPTOR: getSharedValue
+	* 
+	* @access public
+	* @param array args 
+	* @return return NULL  
+	*/
 	public static function getSharedValue($args = array());
 	/**
 	* 
 	*/
 	#public static function sissslestones();
 	#public static function getSharedValue($args = array());
+	#public function setValue($args = array());
+	#public function intialize($cfg = array());
 }
 
 ?>

@@ -1,5 +1,5 @@
 <?php
-/***
+/**
 * if you need to track users over a distributed environment use cookies 
 * or write a custom session handler http://php.net/manual/en/session.customhandler.php
 *
