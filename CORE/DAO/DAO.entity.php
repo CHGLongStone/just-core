@@ -198,8 +198,8 @@ class DAO{
 	 * int 	pk
 	 * 
 	 * @access public
-	 * @param	array 	config
-	 * @return	null
+	 * @param array config
+	 * @return null
 	 */
 	public function __construct($config = null){
 		#echo __METHOD__.__LINE__.'<br>'.PHP_EOL;
@@ -284,13 +284,13 @@ class DAO{
 	}
 	
 	/**
-	* DESCRIPTOR: construct from table def (information_schema)
+	* DESCRIPTOR: construct from table definition (information_schema)
 	* initialize AND set table values
 	*
 	* @access public
-	* @param	string 	DSN
-	* @param	string 	tableName
-	* @param	bool 	foundation
+	* @param string DSN
+	* @param string tableName
+	* @param bool foundation
 	* @return NULL 
 	*/
 	public function initialize($DSN, $tableName, $foundation=false){ //
@@ -310,10 +310,10 @@ class DAO{
 	}
 	
 	/**
-	* DESCRIPTOR: construct from table def (information_schema)
+	* DESCRIPTOR: construct from table definition (information_schema)
 	* 
 	* @access public
-	* @param	array 	args
+	* @param array args
 	* @return NULL 
 	*/
 	public function initializeBySearch($args){ //, $tableName, $foundation=false
@@ -432,14 +432,14 @@ class DAO{
 	
 	
 	/**
-	* DESCRIPTOR: construct from table def
+	* DESCRIPTOR: construct from table definition
 	* 
 	* @access public
-	* @param	string 	DSN
-	* @param	string 	tableName
-	* @param	string 	pk_field
-	* @param	string 	fk_field
-	* @return NULL SCHEMA
+	* @param string DSN
+	* @param string tableName
+	* @param string pk_field
+	* @param string fk_field
+	* @return NULL 
 	*/
 	public function initializeChildRecord($DSN, $tableName, $pk_field, $fk_field){
 		$this->tables[$tableName] = array();
@@ -455,12 +455,12 @@ class DAO{
 	}
 	
 	/**
-	* DESCRIPTOR: construct from table def
+	* DESCRIPTOR: construct from table definition
 	* 
 	* @access public
-	* @param	string 	DSN
-	* @param	string 	tableName
-	* @param	array 	args
+	* @param string DSN
+	* @param string tableName
+	* @param array args
 	* @return NULL SCHEMA
 	*/
 	public function initializeJoinRecord($DSN, $tableName, $args=null){
@@ -523,13 +523,13 @@ class DAO{
 	}
 	
 	/**
-	* DESCRIPTOR: contruct from table def
+	* DESCRIPTOR: construct from table definition
 	* 
 	* @access public
-	* @param	string 	DSN
-	* @param	string 	tableName
-	* @param	string 	pk_field
-	* @param	string 	fk_field
+	* @param string DSN
+	* @param string tableName
+	* @param string pk_field
+	* @param string fk_field
 	* @return NULL SCHEMA
 	*/
 	public function initializeCollectionRecord($DSN, $tableName, $pk_field, $fk_field){
@@ -549,11 +549,11 @@ class DAO{
 		return;
 	}
 	/**
-	* DESCRIPTOR: contruct from table def
+	* DESCRIPTOR: construct from table definition
 	* 
 	* @access public
-	* @param	string 	DSN
-	* @param	string 	tableName
+	* @param string DSN
+	* @param string tableName
 	* @return mixed SCHEMA
 	*/
 	public function initializeSchema($DSN, $tableName){	
@@ -570,24 +570,20 @@ class DAO{
 		return $schema;
 	}
 	/**
-	* DESCRIPTOR: contruct from table def
+	* DESCRIPTOR: construct from table definition
 	* initialize DO NOT set table values
 	* 
 	* @access public
-	* @param	string 	DSN
-	* @param	string 	tableName
-	* @param	bool 	set_fk
+	* @param string DSN
+	* @param string tableName
+	* @param bool set_fk
 	* @return array
 	*/
 	public function initializeFromSchema($DSN, $tableName, $set_fk=true){
 		#GLOBAL $db;
 		$this->getMYSQLConstants($DSN);
 		/**
-		go get the table def
-		$db->introspectTable($DSN, $tableName);
-		echo __METHOD__.'::'.__LINE__.'tableName<pre>'.print_r($tableName, true).'</pre>';
-
-		$result = $GLOBALS["DATA_API"]->introspectTable($DSN, $tableName);
+		* go get the table def
 		*/ 
 		if(
 			(
@@ -686,14 +682,14 @@ class DAO{
 		return;
 	}
 	/**
-	* DESCRIPTOR: joins a single record from anothe DB/Table
+	* DESCRIPTOR: joins a single record from another DB/Table
 	* 
 	* @access public 
-	* @param	array 	args
+	* @param array args
 	* @return NULL 
 	*/
 	public function joinCollection($args = null){
-		/*
+		/**
 		echo __METHOD__.'@'.__LINE__.' $value<pre>['.var_export($args, true).']</pre>'.'<br>'.PHP_EOL;
 		$DSN, $joinTable, $pk_field, $fk_field, $fk
 		GLOBAL $db;
@@ -758,6 +754,7 @@ class DAO{
 		
 		return;
 	}
+	
 	/**
 	* DESCRIPTOR: Dynamic GETTER SETTER 
 	* SIGNATURE
@@ -766,9 +763,10 @@ class DAO{
 	* 
 	* userObj->set(table, field, value); base table
 	* userObj->set(table, field, value, pk); entity table
+	* 
 	* @access public 
-	* @param	string 	method
-	* @param	array 	args
+	* @param string method
+	* @param array args
 	* @return mixed
 	*/
 	public function __call($method, $args ){
@@ -847,7 +845,7 @@ class DAO{
 	* DESCRIPTOR: STORES CHANGES TO THE DAO TO THE DB(s)
 	* 
 	* @access public 
-	* @param	string 	table
+	* @param string table
 	* @return array 
 	*/
 	public function save($table=null){
@@ -1012,7 +1010,7 @@ class DAO{
 		}
 		
 		foreach($value AS $key2 => $value2){
-			/*
+			/**
 			* if the table is not set do everything, if it is do only that table
 			*/
 			#echo 'XXXXX$key=['.$key.'] $key2=['.$key2.']<pre>'.var_export($value2,true).'</pre>'.PHP_EOL;
@@ -1078,8 +1076,8 @@ class DAO{
 	* http://dev.mysql.com/doc/refman/5.5/en/insert.html
 	*
 	* @access protected 
-	* @param string $table 
-	* @param string $value 
+	* @param string table 
+	* @param string value 
 	* @return string 
 	*/
 	protected function generateInsertQuery($table, $value){
@@ -1108,11 +1106,11 @@ class DAO{
 
 	/**
 	* DESCRIPTOR: strips column from the end of a string
-	* if you're creating values like this:: $query .= $key2.' = "'.$value2.'",';
+	* if you're creating values like this:: query .= key2.' = "'.value2.'",';
 	* 
 	* @access public 
-	* @param string $stringValue 
-	* @return string $stringValue
+	* @param string stringValue 
+	* @return string stringValue
 	*/
 	public function stripTrailingComma($stringValue){
 		#echo '$string['.$string.']'.PHP_EOL;
@@ -1160,7 +1158,7 @@ class DAO{
 	* DESCRIPTOR: Saves the changes to the DB IF $commit=true (default)
 	* 
 	* @access public 
-	* @param bool $commit 
+	* @param null
 	* @return NULL 
 	*/
 	public function __destruct(){ //allow an over-ride from inherited classes $commit=true has to be internalized property

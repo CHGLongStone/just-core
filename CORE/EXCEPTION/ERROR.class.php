@@ -19,7 +19,7 @@ use JCORE\TRANSPORT\JSON as JSON;
 */
 class ERROR {
 
-	/*
+	/**
 	*	code
 	*	A Number that indicates the error type that occurred.
 	*	This MUST be an integer.

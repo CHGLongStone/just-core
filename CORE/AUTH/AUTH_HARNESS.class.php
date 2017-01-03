@@ -40,10 +40,10 @@ class AUTH_HARNESS {
 	}
 	
 	/**
-	 * authClass must be a string of the full\namespace
+	 * authClass must be a string of the full psr-4 namespace
 	 * 
 	 * @access public 
-	 * @var string authClass
+	 * @param string authClass
 	 * @return bool
 	*/
 	public function register($authClass = null){
@@ -63,8 +63,8 @@ class AUTH_HARNESS {
 	* authenticate
 	* 
 	* @access public 
-	* @var string authClass
-	* @var array params
+	* @param string authClass
+	* @param array params
 	* @return bool
 	*/
 	public function authenticate($authClass = null, $params =  null ){

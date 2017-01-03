@@ -128,7 +128,7 @@ class CACHE_API2 implements CACHE_COMMON_API_INTERFACE{
 	public function setValue($args = array()){
 	}
 	/**
-	* 
+	* updateSharedValue
 	* 
 	* @access public
 	* @param array args 

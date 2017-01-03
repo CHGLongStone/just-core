@@ -202,8 +202,13 @@ class FILECACHE_API implements CACHE_COMMON_API_INTERFACE {
 	//----------//START UTIL FUNCTIONS 	//----------//----------
 	//----------//----------//----------//----------//----------
 	/*
+	* validateBasicArgs
 	* just check that there are args in the array
 	* define it here for re-use
+	* 
+	* @access public
+	* @param array args
+	* @return bool 
 	*/
 	public function validateBasicArgs($args = array()){
 		echo 'METHOD['.__METHOD__.'] '.'<br>';
@@ -226,8 +231,13 @@ class FILECACHE_API implements CACHE_COMMON_API_INTERFACE {
 	
 		
 	/*
+	* verifyArgs
 	* just check that there are args in the array
 	* define it here for re-use
+	* 
+	* @access public
+	* @param array args
+	* @return bool 
 	*/
 	public function verifyArgs($args = array()){
 		echo 'METHOD['.__METHOD__.'] count($args)['.count($args).']'.'<br>';
@@ -238,8 +248,13 @@ class FILECACHE_API implements CACHE_COMMON_API_INTERFACE {
 		return true;
 	}
 	/*
+	* validateCachePool
 	* just check that there are args in the array
 	* define it here for re-use
+	* 
+	* @access public
+	* @param array args
+	* @return bool 
 	*/
 	public function validateCachePool($args){
 		echo 'METHOD['.__METHOD__.'] $args["CACHE_POOL"]['.$args["CACHE_POOL"].']'.'<br>';
@@ -251,8 +266,13 @@ class FILECACHE_API implements CACHE_COMMON_API_INTERFACE {
 	}
 	
 	/*
+	* validateCacheKey
 	* just check that there are args in the array
 	* define it here for re-use
+	* 
+	* @access public
+	* @param array args
+	* @return bool 
 	*/
 	public function validateCacheKey($args = array()){	
 		echo 'METHOD['.__METHOD__.'] $args["CACHE_KEY"]['.$args["CACHE_KEY"].']'.'<br>';
