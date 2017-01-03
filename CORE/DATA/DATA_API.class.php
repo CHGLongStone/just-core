@@ -95,7 +95,7 @@
  * @subpackage DATA
  */
 namespace JCORE\DATA\API;
-/***
+/**
 * DATA_API_INTERFACE
 *
 */

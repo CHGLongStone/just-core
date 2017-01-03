@@ -114,7 +114,7 @@ class MySQL_connector implements \JCORE\DATA\API\DATA_API_INTERFACE{
 		$this->logger->log(LOG_DEBUG, __METHOD__, '$this->DSN==['.$this->DSN.'] $host=['.$config["host"].']');
 		return;
 	}
-	/***
+	/**
 	* DESCRIPTOR: Get the "private" dbType
 	* @param	NULL
 	* @return string $dbType 

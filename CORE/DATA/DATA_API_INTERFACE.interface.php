@@ -1,5 +1,5 @@
 <?php
-/***
+/**
 * DATA_API_INTERFACE
 * Instances can be created for any DB supported by PHP inc. NoSQL
 * 
@@ -9,7 +9,7 @@
 */
 namespace JCORE\DATA\API;
 
-/***
+/**
  * Interface DATA_API_INTERFACE
  *
  * @package JCORE\DATA\API

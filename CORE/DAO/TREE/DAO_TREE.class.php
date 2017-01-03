@@ -23,11 +23,11 @@ namespace JCORE\DAO\TREE;
  * @package JCORE\DAO\TREE
 */
 class DAO_TREE{
-	/***
+	/**
 	*
 	*/
 	protected $DATA_API;
-	/***
+	/**
 	*
 	*/
 	protected $config = array(
@@ -42,31 +42,31 @@ class DAO_TREE{
 		'callBackDisplay' => null,
 		'treeStyle'	=> 'EXTENDED' // /TEXT/SIMPLE/FULL/EXTENDED
 	);
-	/***
+	/**
 	*
 	*/
 	protected $treeStyle = array('TEXT','SIMPLE','FULL','EXTENDED');
-	/***
+	/**
 	*
 	*/
 	public $itCounter = 0;
 
-	/***
+	/**
 	*
 	*/
 	protected $outputString = '';
-	/***
+	/**
 	*
 	*/
 	protected $whereClause = '';
-	/***
+	/**
 	*
 	*/
 	#public $whereCols = array();
 	public $whereCols = null;
 	public $treeArray = array();
 	public $extensionTables = array();
-	/***
+	/**
 	*
 	*
 	*
@@ -184,19 +184,19 @@ class DAO_TREE{
 		}
 		return false;
 	}
-	/***
+	/**
 	*
 	*/
 	public function getTreeStyle(){
 		return $this->config["treeStyle"];
 	}
-	/***
+	/**
 	*
 	*/
 	public function getCallBackDisplay(){
 		return $this->config["callBackDisplay"];
 	}
-	/***
+	/**
 	*
 	*/
 	public function setCallBackDisplay($callBackDisplay){
@@ -205,7 +205,7 @@ class DAO_TREE{
 		$this->config["callBackDisplay"] = $callBackDisplay;// STATIC: array($classname, $methodname) INSTANCE: array($objectinstance, $methodname)
 		return;
 	}	
-	/***
+	/**
 	*
 	*/
 	protected function setWhereClause($setAnd=true, $prepend=''){
@@ -247,7 +247,7 @@ class DAO_TREE{
 		#return true;
 		return $this->whereClause;
 	}
-	/***
+	/**
 	*
 	*/
 	protected function setUniqueColumns($baseColumn='', $asInsert=false){
@@ -288,7 +288,7 @@ class DAO_TREE{
 		#return true;
 		return $uniqueColList;
 	}
-	/***
+	/**
 	* must return
 	* Select extension (add the fields of multiple attributes tables)
 	* From extension (add the attributes table)
@@ -337,7 +337,7 @@ class DAO_TREE{
 		return $result;
 	}
 	
-	/***
+	/**
 	* 
 	* this is a bias towards selecting the whole menu rather than a sub-branch
 	* break out functions for these conditions
@@ -387,7 +387,7 @@ class DAO_TREE{
 		}
 		
 		$selectNodeString = ''; // 
-		/***
+		/**
 		* was a pk passed?
 		*/
 		if(is_numeric($root)){
@@ -432,7 +432,7 @@ class DAO_TREE{
 		#echo __FUNCTION__.'@'.__LINE__.'$result<pre>'.var_export($result,true).'</pre><br>';
 		return $result;
 	}
-	/***
+	/**
 	* catch all method to render a tree
 	* calls the internal text or array methods 
 	* or passes off to a handler method
@@ -455,7 +455,7 @@ class DAO_TREE{
 
 		return $result;
 	}  	
-	/***
+	/**
 	* converts the array from a mysql result into a tree array
 	* 
 	* @param array result
@@ -536,7 +536,7 @@ class DAO_TREE{
 		$this->treeArray = $treeArray;
 		return $this->treeArray;
 	}  
-	/***
+	/**
 	* output a basic text tree with indentation
 	* 
 	* 
@@ -568,7 +568,7 @@ class DAO_TREE{
 
 	
 	
-	/***
+	/**
 	* DESCRIPTOR: loads the ini internally and returns a value of true if all good 
 	* @param int $nodeId 
 	* @param array $values 
@@ -581,7 +581,7 @@ class DAO_TREE{
 		if(null===$nodeId || !is_numeric($nodeId)){
 			return false;
 		}
-		/***
+		/**
 		* need to fix this section
 		*/
 		if(null===$values){
@@ -646,7 +646,7 @@ class DAO_TREE{
 		$this->addAttributes($insertID,$values);
 		return $insertID;
 	}
-	/***
+	/**
 	* DESCRIPTOR: adds attribute record 
 	* @param int $nodeId
 	* @return null 
@@ -672,7 +672,7 @@ class DAO_TREE{
 		}
 		return;
 	}
-	/***
+	/**
 	* DESCRIPTOR: loads the ini internally and returns a value of true if all good 
 	* @param int $nodeId
 	* @return null 
@@ -716,7 +716,7 @@ class DAO_TREE{
 		return;
 	}	
 	
-	/***
+	/**
 	* DESCRIPTOR: removes attribute record 
 	* @param int $nodeId 
 	* 
@@ -743,7 +743,7 @@ class DAO_TREE{
 		return;
 	}
 	
-	/***
+	/**
 	* DESCRIPTOR: loads the ini internally and returns a value of true if all good 
 	* @param string $LOAD_ID 
 	* @param string $SECTION_NAME 
@@ -791,7 +791,7 @@ class DAO_TREE{
 		
 		return false;
 	}
-	/***
+	/**
 	* DESCRIPTOR: loads the ini internally and returns a value of true if all good 
 	* @param int $nodeId 
 	* @param arrray $values 
@@ -868,7 +868,7 @@ class DAO_TREE{
 		
 		return $childID;
 	}
-	/***
+	/**
 	* DESCRIPTOR: loads the ini internally and returns a value of true if all good 
 	* @param int $nodeId 
 	* @param string $sortOrder 
@@ -972,7 +972,7 @@ class DAO_TREE{
 		#echo __METHOD__.'@'.__LINE__.' <b>RETURN FAIL</b> ['.$indexName.']<br>';
 		return false;
 	}
-	/***
+	/**
 	* DESCRIPTOR:
 	* @return bool 
 	*
@@ -996,7 +996,7 @@ class DAO_TREE{
 		$result = $GLOBALS["DATA_API"]->raw($this->config["DSN"], $query, $args=array('returnArray' => true));
 		return $result;
 	}
-	/***
+	/**
 	* DESCRIPTOR:
 	* @return bool 
 	*
@@ -1019,7 +1019,7 @@ class DAO_TREE{
 		#echo __METHOD__.'@'.__LINE__.'LOCKED!<br>';
 		return;
 	}
-	/***
+	/**
 	* DESCRIPTOR:
 	* @return bool 
 	*
