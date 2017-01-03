@@ -9,7 +9,12 @@
  * @author Cristian Rodriguez <judas.iscariote@flyspray.org>
  * @license BSD {@link http://www.opensource.org/licenses/bsd-license.php}
  */
-
+namespace JCORE\EXAMPLE\EXT_REF;
+/**
+ * Interface XCache
+ *
+ * @package JCORE\EXAMPLE\EXT_REF
+*/
 class XCache {
     
     private static $xcobj;

@@ -21,55 +21,7 @@
     <script src="../js/jquery.smooth-scroll.js"></script>
     <script src="../js/prism.min.js"></script>
     <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
-        <script type="text/javascript">
-        function loadExternalCodeSnippets() {
-            Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
-                var src = pre.getAttribute('data-src');
-                var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
-                var language = 'php';
-
-                var code = document.createElement('code');
-                code.className = 'language-' + language;
-
-                pre.textContent = '';
-
-                code.textContent = 'Loading…';
-
-                pre.appendChild(code);
-
-                var xhr = new XMLHttpRequest();
-
-                xhr.open('GET', src, true);
-
-                xhr.onreadystatechange = function () {
-                    if (xhr.readyState == 4) {
-
-                        if (xhr.status < 400 && xhr.responseText) {
-                            code.textContent = xhr.responseText;
-
-                            Prism.highlightElement(code);
-                        }
-                        else if (xhr.status >= 400) {
-                            code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
-                        }
-                        else {
-                            code.textContent = '✖ Error: File does not exist or is empty';
-                        }
-                    }
-                };
-
-                xhr.send(null);
-            });
-        }
-
-        $(document).ready(function(){
-            loadExternalCodeSnippets();
-        });
-        $('#source-view').on('shown', function () {
-            loadExternalCodeSnippets();
-        })
-    </script>
-
+    
     <link rel="shortcut icon" href="../images/favicon.ico"/>
     <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
     <link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png"/>
@@ -144,28 +96,28 @@
                                 <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-194527973"></a>
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-681326396"></a>
                                 <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
             </div>
-            <div id="namespace-194527973" class="accordion-body collapse in">
+            <div id="namespace-681326396" class="accordion-body collapse in">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1972962863"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1816663437"></a>
                                 <a href="../namespaces/JCORE.html" style="margin-left: 30px; padding-left: 0">JCORE</a>
             </div>
-            <div id="namespace-1972962863" class="accordion-body collapse ">
+            <div id="namespace-1816663437" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1044534243"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-482848314"></a>
                                 <a href="../namespaces/JCORE.AUTH.html" style="margin-left: 30px; padding-left: 0">AUTH</a>
             </div>
-            <div id="namespace-1044534243" class="accordion-body collapse ">
+            <div id="namespace-482848314" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -182,10 +134,10 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1421020665"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-45631115"></a>
                                 <a href="../namespaces/JCORE.CACHE.html" style="margin-left: 30px; padding-left: 0">CACHE</a>
             </div>
-            <div id="namespace-1421020665" class="accordion-body collapse ">
+            <div id="namespace-45631115" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -208,19 +160,19 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-573509874"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1505639574"></a>
                                 <a href="../namespaces/JCORE.DAO.html" style="margin-left: 30px; padding-left: 0">DAO</a>
             </div>
-            <div id="namespace-573509874" class="accordion-body collapse ">
+            <div id="namespace-1505639574" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1222739928"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1895518110"></a>
                                 <a href="../namespaces/JCORE.DAO.TREE.html" style="margin-left: 30px; padding-left: 0">TREE</a>
             </div>
-            <div id="namespace-1222739928" class="accordion-body collapse ">
+            <div id="namespace-1895518110" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -245,28 +197,28 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1346014856"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-446552403"></a>
                                 <a href="../namespaces/JCORE.DATA.html" style="margin-left: 30px; padding-left: 0">DATA</a>
             </div>
-            <div id="namespace-1346014856" class="accordion-body collapse ">
+            <div id="namespace-446552403" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1518728322"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1282366859"></a>
                                 <a href="../namespaces/JCORE.DATA.API.html" style="margin-left: 30px; padding-left: 0">API</a>
             </div>
-            <div id="namespace-1518728322" class="accordion-body collapse ">
+            <div id="namespace-1282366859" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-213860210"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-672881755"></a>
                                 <a href="../namespaces/JCORE.DATA.API.FILE.html" style="margin-left: 30px; padding-left: 0">FILE</a>
             </div>
-            <div id="namespace-213860210" class="accordion-body collapse ">
+            <div id="namespace-672881755" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -281,10 +233,10 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-601771353"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2112835010"></a>
                                 <a href="../namespaces/JCORE.DATA.API.MySQL.html" style="margin-left: 30px; padding-left: 0">MySQL</a>
             </div>
-            <div id="namespace-601771353" class="accordion-body collapse ">
+            <div id="namespace-2112835010" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -300,10 +252,10 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-8028640"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-33795082"></a>
                                 <a href="../namespaces/JCORE.DATA.API.REDIS.html" style="margin-left: 30px; padding-left: 0">REDIS</a>
             </div>
-            <div id="namespace-8028640" class="accordion-body collapse ">
+            <div id="namespace-33795082" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -337,19 +289,19 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-236775226"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-861585853"></a>
                                 <a href="../namespaces/JCORE.EXAMPLE.html" style="margin-left: 30px; padding-left: 0">EXAMPLE</a>
             </div>
-            <div id="namespace-236775226" class="accordion-body collapse ">
+            <div id="namespace-861585853" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-902564687"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-266311933"></a>
                                 <a href="../namespaces/JCORE.EXAMPLE.EXT_REF.html" style="margin-left: 30px; padding-left: 0">EXT_REF</a>
             </div>
-            <div id="namespace-902564687" class="accordion-body collapse ">
+            <div id="namespace-266311933" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -372,10 +324,10 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1413875432"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1150344629"></a>
                                 <a href="../namespaces/JCORE.EXCEPTION.html" style="margin-left: 30px; padding-left: 0">EXCEPTION</a>
             </div>
-            <div id="namespace-1413875432" class="accordion-body collapse ">
+            <div id="namespace-1150344629" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -392,10 +344,10 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-471381949"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-964241404"></a>
                                 <a href="../namespaces/JCORE.L10N.html" style="margin-left: 30px; padding-left: 0">L10N</a>
             </div>
-            <div id="namespace-471381949" class="accordion-body collapse ">
+            <div id="namespace-964241404" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -410,10 +362,10 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1082519071"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-536564343"></a>
                                 <a href="../namespaces/JCORE.LOAD.html" style="margin-left: 30px; padding-left: 0">LOAD</a>
             </div>
-            <div id="namespace-1082519071" class="accordion-body collapse ">
+            <div id="namespace-536564343" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -430,10 +382,10 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1597837742"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-195868070"></a>
                                 <a href="../namespaces/JCORE.LOG.html" style="margin-left: 30px; padding-left: 0">LOG</a>
             </div>
-            <div id="namespace-1597837742" class="accordion-body collapse ">
+            <div id="namespace-195868070" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -448,10 +400,10 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1372479493"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2399619"></a>
                                 <a href="../namespaces/JCORE.TEMPLATER.html" style="margin-left: 30px; padding-left: 0">TEMPLATER</a>
             </div>
-            <div id="namespace-1372479493" class="accordion-body collapse ">
+            <div id="namespace-2399619" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -466,19 +418,19 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1072401034"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2034914419"></a>
                                 <a href="../namespaces/JCORE.TRANSPORT.html" style="margin-left: 30px; padding-left: 0">TRANSPORT</a>
             </div>
-            <div id="namespace-1072401034" class="accordion-body collapse ">
+            <div id="namespace-2034914419" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-567449962"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2063184327"></a>
                                 <a href="../namespaces/JCORE.TRANSPORT.HTTP.html" style="margin-left: 30px; padding-left: 0">HTTP</a>
             </div>
-            <div id="namespace-567449962" class="accordion-body collapse ">
+            <div id="namespace-2063184327" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -494,10 +446,10 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1168251035"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1768467078"></a>
                                 <a href="../namespaces/JCORE.TRANSPORT.JSON.html" style="margin-left: 30px; padding-left: 0">JSON</a>
             </div>
-            <div id="namespace-1168251035" class="accordion-body collapse ">
+            <div id="namespace-1768467078" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -513,10 +465,10 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-974767559"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1722524511"></a>
                                 <a href="../namespaces/JCORE.TRANSPORT.REST.html" style="margin-left: 30px; padding-left: 0">REST</a>
             </div>
-            <div id="namespace-974767559" class="accordion-body collapse ">
+            <div id="namespace-1722524511" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -531,10 +483,10 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1220682003"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1295325210"></a>
                                 <a href="../namespaces/JCORE.TRANSPORT.SOA.html" style="margin-left: 30px; padding-left: 0">SOA</a>
             </div>
-            <div id="namespace-1220682003" class="accordion-body collapse ">
+            <div id="namespace-1295325210" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -550,10 +502,10 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1882805764"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-547257931"></a>
                                 <a href="../namespaces/JCORE.TRANSPORT.XML.html" style="margin-left: 30px; padding-left: 0">XML</a>
             </div>
-            <div id="namespace-1882805764" class="accordion-body collapse ">
+            <div id="namespace-547257931" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -599,121 +551,34 @@
     <section class="row-fluid">
         <div class="span10 offset2">
             <div class="row-fluid">
-                <div class="span8 content file">
+                <div class="span8 content namespace">
                     <nav>
-                                                                    </nav>
+                                                <a href="../namespaces/JCORE.html">\JCORE</a>
+                                            </nav>
+                    <h1><small>\JCORE</small>EXAMPLE</h1>
 
-                    <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
-                    <h1><small>DATA</small>DATA_API.class.php</h1>
-                    <p><em>[SUMMARY]
-DATA BASE CLASS</em></p>
-                    <p>This class provides access to data databases or files system.
-There is an assumption that more than one data source will be required
-if you want to cache your objects, this object should ALWAYS be referenced
-in the global space as
-$GLOBALS[&quot;DATA_API&quot;]
-OR
-GLOBAL $DATA_API</p>
-<p>if you &quot;internalize&quot; this object in your classes (making it a property of the class)
-serialization will ONLY store a reference to the object and not the &quot;property&quot; object</p>
-<p>[INSTANTIATION]</p>
-<p>the contructor requires no arguements as all DB sonnection information is loaded from
-JCORE_CONFIG_DIR.'/dataPool.ini'
-into:
-$this-&gt;connectorCfg
-Databases are referenced by a simple name space or &quot;DSN&quot; (Data Source Name)
-i.e. &quot;SERVICES&quot;, &quot;USERDATA&quot;, &quot;AUTH&quot;, &quot;AUTH_SLAVE&quot;...
-No database connections are set by default, the class automatically checks to see
-if a valid DB resource exists, if not it tries to establish a connection.
-a LOG_EMERG message will be recorded if the connection to the DB fails
-a LOG_ALERT message will be recorded if the query fails</p>
-<p>the class is not a singleton so it can have persistent maleable members
-i.e. the config settings, so any connection can be called @ any time</p>
-<p>[CORE METHODS]</p>
-<p>$DATA_API-&gt;create($DSN, $query, $returnArray);
-$DSN            &quot;Data Source Name&quot;
-$query          standard CREATE statement
-$args           array(
-'returnArray' = TRUE/FALSE
-)
-if TRUE the result is returned as
-$resultArray[&quot;INSERT_ID&quot;]       = mysql_insert_id($connection);
-$resultArray[&quot;AFFECTED_ROWS&quot;]   = mysql_affected_rows($connection);
-$resultArray[&quot;INFO&quot;]            = mysql_info($connection);</p>
-<p>$DATA_API-&gt;retrieve($DSN, $query, $args=array('returnArray' =&gt; true));
-$DSN            &quot;Data Source Name&quot;
-$query          standard RETRIEVE(SELECT) statement
-$args           array(
-'returnArray' = TRUE/FALSE
-)
-if TRUE the result is returned as a PHP array</p>
-<p>$DATA_API-&gt;update($DSN, $query, $returnArray);
-$DSN            &quot;Data Source Name&quot;
-$query          standard UPDATE statement
-$args           array(
-'returnArray' = TRUE/FALSE
-)
-if TRUE the result is returned as
-$resultArray[&quot;AFFECTED_ROWS&quot;]   = mysql_affected_rows($connection);
-$resultArray[&quot;INFO&quot;]            = mysql_info($connection);</p>
-<p>$DATA_API-&gt;delete($DSN, $query, $args=array('returnArray' =&gt; true));
-$DSN            &quot;Data Source Name&quot;
-$query          standard DELETE statement
-$args           array(
-'returnArray' = TRUE/FALSE
-)
-if TRUE the result is returned as
-$resultArray[&quot;AFFECTED_ROWS&quot;]   = mysql_affected_rows($connection);
-$resultArray[&quot;INFO&quot;]            = mysql_info($connection);</p>
-<p>[SECONDARY METHODS]
-set_connection($DSN, $settings);
-$DSN            &quot;DSN&quot;
-$settings       array of settings following the format of [JCORE_CONFIG_DIR.'dataPool.ini']
-assumed to be $this-&gt;connectorCfg[$DSN]
-SETS/RESETS the connection object itself</p>
-<p>verify_connection($DSN);
-$DSN            &quot;DSN&quot;</p>
-<ul>
-<li>checks if the connection object is set</li>
-<li>checks if the connection object has a resource and resets if not</li>
-<li>Passes to the connection object
-[KEY PROPERTIES]
-$connector
-$dataSchema
-dbConnection classes must implement dbConnection.interface.php
-in order to support the base methods of this class</li>
-</ul>
-
-                    
-                    
-                                        <h2>Classes</h2>
+                                        <h2>Namespaces</h2>
                     <table class="table table-hover">
-                                            <tr>
-                            <td><a href="../classes/JCORE.DATA.API.DATA_API.html">DATA_API</a></td>
-                            <td><em>Interface DATA_API</em></td>
-                        </tr>
-                                        </table>
+                                                    <tr>
+                                <td><a href="../namespaces/JCORE.EXAMPLE.EXT_REF.html">EXT_REF</a></td>
+                            </tr>
+                                            </table>
+                    
+                    
+                    
                                     </div>
 
                 <aside class="span4 detailsbar">
                     <dl>
-                                                    <dt>Package</dt>
-                            <dd><div class="namespace-wrapper">\JCORE\DATA</div></dd>
-                        
-                        
+                        <dt>Namespace hierarchy</dt>
+                        <dd class="hierarchy">
+                                                                                                                                                                                                                                                                                                                                                                                                            
+                                    <div class="namespace-wrapper"><a href="../namespaces/default.html">\</a></div>
+                                                            
+                                    <div class="namespace-wrapper"><a href="../namespaces/JCORE.html">\JCORE</a></div>
+                                                                                        <div class="namespace-wrapper">\JCORE\EXAMPLE</div>
+                        </dd>
                     </dl>
-                    <h2>Tags</h2>
-                    <table class="table table-condensed">
-                                                    <tr>
-                                <th>
-                                    author
-                                </th>
-                                <td>
-                                                                            <p>Jason Medland<a href="mailto:jason.medland@gmail.com">jason.medland@gmail.com</a></p>
-                                                                    </td>
-                            </tr>
-                                            </table>
-
                 </aside>
             </div>
 
@@ -721,16 +586,6 @@ in order to support the base methods of this class</li>
             
         </div>
     </section>
-
-    <div id="source-view" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="source-view-label" aria-hidden="true">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-            <h3 id="source-view-label"></h3>
-        </div>
-        <div class="modal-body">
-            <pre data-src="../files/DATA/DATA_API.class.php.txt" class="language-php line-numbers"></pre>
-        </div>
-    </div>
 
     <footer class="row-fluid">
         <section class="span10 offset2">
