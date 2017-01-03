@@ -15,36 +15,42 @@ use JCORE\EXCEPTION\DATA_Exception as DATA_Exception;
  class MySQL_TABLE_META{
 	
 	/**
+	 * dbType
 	 * @access private 
 	 * @var string $dbType
 	 */
 	private $dbType = 'MYSQL';
 	
 	/**
+	 * tableName 
 	 * @access public 
 	 * @var string
 	 */
 	public $tableName = NULL;
 	
 	/**
+	 * DSN Data Source Name
 	 * @access public 
 	 * @var string
 	 */
 	public $DSN = NULL;
 	
 	/**
+	 * tableProperties
 	 * @access public 
 	 * @var string
 	 */
 	public $tableProperties = NULL; //array();
 	
 	/**
+	 * connectionObject
 	 * @access public 
 	 * @var string
 	 */
 	public $connectionObject = NULL; //array();
 	
 	/**
+	 * columnNames
 	 * @access protected 
 	 * @var string
 	 */

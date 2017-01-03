@@ -39,18 +39,21 @@ class MySQL_connector implements \JCORE\DATA\API\DATA_API_INTERFACE{
 	private $host = '';
 	
 	/**
+	 * username 
 	 * @access private 
 	 * @var string
 	 */
 	private $username = '';
 	
 	/**
+	 * password
 	 * @access private 
 	 * @var string
 	 */
 	private $password = '';
 	
 	/**
+	 * database.name 
 	 * @access private 
 	 * @var string
 	 */
@@ -64,6 +67,7 @@ class MySQL_connector implements \JCORE\DATA\API\DATA_API_INTERFACE{
 	public $connection;
 	
 	/**
+	 * persistent connection 
 	 * @access private 
 	 * @var bool
 	 */
@@ -114,7 +118,7 @@ class MySQL_connector implements \JCORE\DATA\API\DATA_API_INTERFACE{
 		$this->logger->log(LOG_DEBUG, __METHOD__, '$this->DSN==['.$this->DSN.'] $host=['.$config["host"].']');
 		return;
 	}
-	/***
+	/**
 	* DESCRIPTOR: Get the "private" dbType
 	* @param	NULL
 	* @return string $dbType 
@@ -439,7 +443,9 @@ class MySQL_connector implements \JCORE\DATA\API\DATA_API_INTERFACE{
 		return $result;
 	}
 	
-	
+	/**
+	* write to log on destruct
+	*/
 	function __destruct(){
 		#echo __METHOD__.__LINE__.'<br>';
 		$this->logger->log(LOG_DEBUG,__METHOD__, '()');
