@@ -15,12 +15,56 @@ namespace JCORE\CACHE;
  * @package JCORE\CACHE
 */
 interface PHP_SESSION{
-	#public function __construct(){}
+	/**
+	* DESCRIPTOR: open
+	* 
+	* @access public
+	* @param string savePath 
+	* @param string sessionID 
+	* @return  NULL  
+	*/
 	public function open($savePath, $sessionID);
+	/**
+	* DESCRIPTOR: close
+	* 
+	* @access public
+	* @param NULL 
+	* @return NULL  
+	*/
 	public function close();
+	/**
+	* DESCRIPTOR: read
+	* 
+	* @access public
+	* @param string key 
+	* @param mixed data 
+	* @return return NULL  
+	*/
 	public function read($key, $data);
+	/**
+	* DESCRIPTOR: write
+	* 
+	* @access public
+	* @param string key 
+	* @param mixed data 
+	* @return return NULL  
+	*/
 	public function write($key, $data);
+	/**
+	* DESCRIPTOR: destroy
+	* 
+	* @access public
+	* @param null 
+	* @return NULL  
+	*/
 	public function destroy();
+	/**
+	* DESCRIPTOR: gc
+	* 
+	* @access public
+	* @param int ttl 
+	* @return NULL  
+	*/
 	public function gc($ttl);
 
 }

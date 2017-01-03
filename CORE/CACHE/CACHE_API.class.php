@@ -21,17 +21,19 @@ use JCORE\LOG\LOG as LOG;
 class CACHE_API2 implements CACHE_COMMON_API_INTERFACE{
 
 	/**
-	 * @access protected 
-	 * @var array
-	 * an array to store tables definitions for MySQL/postgres
-	 * or the equivelent for NoSQL/File stores
-	 */
+	* an array to store tables definitions for MySQL/postgres
+	* or the equivelent for NoSQL/File stores
+	* 
+	* @access protected 
+	* @var array
+	*/
 	protected $cacheCfg = array();  //cfg
 	/**
-	 * @access private 
-	 * @var string
-	 */
-	
+	* logger
+	* 
+	* @access private 
+	* @var string
+	*/
 	private $logger; // = new LOG();		
 	
 	
@@ -45,6 +47,7 @@ class CACHE_API2 implements CACHE_COMMON_API_INTERFACE{
 	 * connections are automatically set/checked on request
 	 * cache implementations can be static or concrete 
 	 * 
+	 * @access public
 	 * @param	null
 	 * @return	null
 	 */
@@ -63,9 +66,10 @@ class CACHE_API2 implements CACHE_COMMON_API_INTERFACE{
 
 	/**
 	* DESCRIPTOR: VERIFIES A CONNECTION OBJECT && RESOURCE
-	* @param string $CSN 
-	* @return outputErrors 
-	** done
+	* 
+	* @access public
+	* @param string CSN 
+	* @return null 
 	*/
 	public function verify_cache_source($CSN){
 		#echo __METHOD__.__LINE__.LN;
@@ -79,9 +83,11 @@ class CACHE_API2 implements CACHE_COMMON_API_INTERFACE{
 	/**
 	* DESCRIPTOR: EXECUTE A QUERY
 	* exception handling and logging dealt with
-	* @param string $CSN 
-	* @param string $query 
-	* @return $result 
+	* 
+	* @access public
+	* @param string CSN 
+	* @param string query 
+	* @return mixed result 
 	*/
 	public function raw($CSN, $query){//, $returnArray=false
 		$this->logger->log(LOG_DEBUG,__METHOD__, '(CSN='.$CSN.', query='.$query.')');
@@ -92,47 +98,76 @@ class CACHE_API2 implements CACHE_COMMON_API_INTERFACE{
 		return $result;
 	}
 	/**
-	* $args["CSN"]
-	* $args["KEY"]
-	* $args["DATA"]
-	* $args["CACHE_SERIALIZATION"] 
+	* getValue
+	* args["CSN"]
+	* args["KEY"]
+	* args["DATA"]
+	* args["CACHE_SERIALIZATION"] 
 	* 		JSON
 	* 		NATIVE	[serialize()]
 	* 		RAW		[string]
-	* $args["UNSERIALIZE_TYPE"]  
+	* args["UNSERIALIZE_TYPE"]  
 	* 		ARRAY
 	* 		OBJECT
 	* 		RAW		[string]
+	* 
+	* 
+	* @access public 
 	* @param array $args
-	* @return $result 
-	* 
-	* 
-	* 
+	* @return null
 	*/
 	public function getValue($args = array()){
 	}
+	/**
+	* setValue
+	* 
+	* @access public
+	* @param array args 
+	* @return null
+	*/
 	public function setValue($args = array()){
 	}
-
+	/**
+	* 
+	* 
+	* @access public
+	* @param array args 
+	* @return null
+	*/
 	public function updateSharedValue($args = array()){
 	}
+	/**
+	* setSharedValue
+	* 
+	* @access public
+	* @param array args 
+	* @return null
+	*/
 	public function setSharedValue($args = array()){
 	}
+	/**
+	* getSharedValue
+	* 
+	* @access public
+	* @param array args 
+	* @return null
+	*/
 	public function getSharedValue($args = array()){
 	}
-	/*
-	*/
+
 	
 	
 	/**
 	
 	* DESCRIPTOR: EXECUTE A SELECT
-	* if $returnArray === true the function will return the result
+	* if returnArray === true the function will return the result
 	* as a PHP array use stdobj to get an object back
-	* @param string $CSN 
-	* @param string $query 
-	* @param bool $returnArray 
-	* @return $result 
+	* 
+	* @access public
+	* @param string CSN 
+	* @param string query 
+	* @param bool returnArray 
+	* @return mixed result 
 	*/
 	public function retrieve($CSN, $query, $returnArray=false){
 		#echo __METHOD__.__LINE__.LN;
@@ -152,9 +187,12 @@ class CACHE_API2 implements CACHE_COMMON_API_INTERFACE{
 	* must be maintained allow passtrough
 	* PASSED DOWN TO THE CONNECCTION OBJECT
 	* DESCRIPTOR: coverts a SQL result to a PHP array
-	* @param resource $result 
-	* @param string $CSN 
-	* @return array  $result
+	* 
+	* @access public
+	* @param resource result 
+	* @param string type 
+	* @param string CSN 
+	* @return array  result
 	*/
 	public function unserialize($result, $type, $CSN){ //type [NATIVE, JSON, PLAINTXT]
 		#echo __METHOD__.__LINE__.LN;
@@ -176,6 +214,13 @@ class CACHE_API2 implements CACHE_COMMON_API_INTERFACE{
 	//----------------------------------------------------
 	
 	//----------------------------------------------------
+	/**
+	* DESCRIPTOR: __destruct
+	* 
+	* @access public
+	* @param null 
+	* @return NULL  
+	*/
 	function __destruct(){
 		#echo __METHOD__.__LINE__.LN;
 		$this->logger->log(LOG_DEBUG,__METHOD__, '()');

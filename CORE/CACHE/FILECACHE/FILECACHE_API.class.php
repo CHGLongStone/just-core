@@ -25,14 +25,23 @@ use JCORE\EXCEPTION\ERROR as ERROR;
 class FILECACHE_API implements CACHE_COMMON_API_INTERFACE {
 	
 	/**
+	 * error
 	 * @access public 
-	 * @var string 
+	 * @var array 
 	 */
 	protected $error = array(); // ;
-	
+	/**
+	 * SOMEVAR
+	 * @access public 
+	 * @var array 
+	 */
 	public $SOMEVAR; // = array();
 	/**
-	*
+	* DESCRIPTOR: __construct
+	* 
+	* 
+	* @param array args
+	* @return null
 	*/
 	public function __construct($args=null){
 		#echo __METHOD__.'@'.__LINE__.' <pre>'.var_export($args,true).'</pre><br>';
@@ -87,6 +96,10 @@ class FILECACHE_API implements CACHE_COMMON_API_INTERFACE {
 	* 	$args["KEY"] 		= [string]; 		// a Memcached asset ID
 	* 	$args["cas_token"] 	= &$cas_token; 		// a var passed by reference to return the cas_token used by: updateSharedResource
 	* 	$args["cache_cb"] 	= NULL/[string]; 	// the call back function. probably not much use for resetting (big tangle, too many functions) BUT could be usefull for logging
+	* 
+	* 
+	* @param array args
+	* @return null
 	*/
 	public function getValue($args = array()){
 		echo 'METHOD['.__METHOD__.'] LINE['.__LINE__.']'.'<br>';
@@ -131,6 +144,10 @@ class FILECACHE_API implements CACHE_COMMON_API_INTERFACE {
 	* 	$args["KEY"] 		= [string]; 		// a Memcached asset ID
 	* 	$args["value"] 		= [mixed]; 			// a asset to be stored in Memcached
 	* 	$args["expiration"] = [int]; 	// the call back function. probably not much use for resetting (big tangle, too many functions) BUT could be usefull for logging
+	* 
+	* 
+	* @param array args
+	* @return null
 	*/
 	public function setValue($args = array()){
 		echo __METHOD__.'@'.__LINE__.' <pre>'.var_export($args,true).'</pre><br>';
@@ -149,17 +166,36 @@ class FILECACHE_API implements CACHE_COMMON_API_INTERFACE {
 	//----------//----------//----------//----------//----------
 	//----------//END USER RESOURCES 	//----------//----------
 	//----------//----------//----------//----------//----------
+	/**
+	* updateSharedValue
+	* 
+	* @access public
+	* @param array args
+	* @return bool 
+	*/
 	public function updateSharedValue($args = array()){
-		
-		
+	
 	}
+	/**
+	* setSharedValue
+	* 
+	* @access public
+	* @param array args
+	* @return bool 
+	*/
 	public function setSharedValue($args = array()){
-		
-		
+	
 	}
+	/**
+	* getSharedValue
+	* 
+	* @access public
+	* @param array args
+	* @return bool 
+	*/
 	public function getSharedValue($args = array()){
-		
-		
+	
+	
 	}
 	
 	//----------//----------//----------//----------//----------
