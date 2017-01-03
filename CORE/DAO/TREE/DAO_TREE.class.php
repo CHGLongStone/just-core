@@ -24,12 +24,16 @@ namespace JCORE\DAO\TREE;
 */
 class DAO_TREE{
 	/**
-	*
-	*/
+	* DATA_API
+	 * @access protected 
+	 * @var mixed DATA_API
+	 */
 	protected $DATA_API;
 	/**
-	*
-	*/
+	* config
+	 * @access protected 
+	 * @var mixed config
+	 */
 	protected $config = array(
 		'DSN' => 'JCORE',
 		'table' => 'ACLARO',
@@ -43,34 +47,57 @@ class DAO_TREE{
 		'treeStyle'	=> 'EXTENDED' // /TEXT/SIMPLE/FULL/EXTENDED
 	);
 	/**
-	*
-	*/
+	* treeStyle
+	 * @access protected 
+	 * @var mixed treeStyle
+	 */
 	protected $treeStyle = array('TEXT','SIMPLE','FULL','EXTENDED');
 	/**
-	*
-	*/
+	* itCounter
+	 * @access public 
+	 * @var mixed itCounter
+	 */
 	public $itCounter = 0;
 
 	/**
-	*
-	*/
+	* outputString
+	 * @access protected 
+	 * @var mixed outputString
+	 */
 	protected $outputString = '';
 	/**
-	*
-	*/
+	* whereClause
+	 * @access protected 
+	 * @var mixed whereClause
+	 */
 	protected $whereClause = '';
-	/**
-	*
-	*/
 	#public $whereCols = array();
-	public $whereCols = null;
-	public $treeArray = array();
-	public $extensionTables = array();
 	/**
-	*
-	*
-	*
-	*
+	* whereCols
+	 * @access public 
+	 * @var mixed whereCols
+	 */
+	public $whereCols = null;
+	/**
+	* treeArray
+	 * @access public 
+	 * @var mixed treeArray
+	 */
+	public $treeArray = array();
+	/**
+	* extensionTables
+	 * @access public 
+	 * @var mixed extensionTables
+	 */
+	public $extensionTables = array();
+	
+	
+	/**
+	* DESCRIPTOR: __construct
+	* 
+	* @access public 
+	* @param mixed config
+	* @return NULL 
 	*/
 	public function __construct($config=null){
 		#action
@@ -155,6 +182,8 @@ class DAO_TREE{
 	* SIMPLE 	- basic tree array 
 	* FULL		- basic tree array with data for each node
 	* EXTENDED	- tree array with join data for each node 
+	* 
+	* @access public 
 	* @param string $treeStyle
 	* @param array $extArgs
 	* @return bool 
@@ -185,19 +214,31 @@ class DAO_TREE{
 		return false;
 	}
 	/**
-	*
+	* DESCRIPTOR: getTreeStyle
+	* 
+	* @access public 
+	* @param mixed config
+	* @return NULL 
 	*/
 	public function getTreeStyle(){
 		return $this->config["treeStyle"];
 	}
 	/**
-	*
+	* DESCRIPTOR:  getCallBackDisplay
+	* 
+	* @access public 
+	* @param null
+	* @return NULL 
 	*/
 	public function getCallBackDisplay(){
 		return $this->config["callBackDisplay"];
 	}
 	/**
-	*
+	* DESCRIPTOR: setCallBackDisplay 
+	* 
+	* @access public 
+	* @param mixed callBackDisplay
+	* @return NULL 
 	*/
 	public function setCallBackDisplay($callBackDisplay){
 		#'treeStyle'	=> 'TEXT' 
@@ -206,7 +247,12 @@ class DAO_TREE{
 		return;
 	}	
 	/**
-	*
+	* DESCRIPTOR: setWhereClause 
+	* 
+	* @access protected 
+	* @param mixed setAnd
+	* @param string prepend
+	* @return NULL 
 	*/
 	protected function setWhereClause($setAnd=true, $prepend=''){
 		#echo __METHOD__.'@'.__LINE__.'<br>';
@@ -248,7 +294,12 @@ class DAO_TREE{
 		return $this->whereClause;
 	}
 	/**
-	*
+	* DESCRIPTOR: setUniqueColumns
+	* 
+	* @access protected 
+	* @param string baseColumn
+	* @param mixed asInsert
+	* @return NULL 
 	*/
 	protected function setUniqueColumns($baseColumn='', $asInsert=false){
 		
@@ -289,17 +340,21 @@ class DAO_TREE{
 		return $uniqueColList;
 	}
 	/**
+	* joinAttributes
 	* must return
 	* Select extension (add the fields of multiple attributes tables)
 	* From extension (add the attributes table)
 	* Where extension (scope the look up to FK join)
-			
-		SELECT [$structureScopeTable]leftBound, [$structureScopeTable]rightBound [selectExt]
-		FROM treeStructure [structureScopeTableFrom] [fromExt]
-		[setWhereClause()]
-		[whereExt]
-		ORDER BY leftBound ASC ; 
-			
+	* 
+	*	SELECT [$structureScopeTable]leftBound, [$structureScopeTable]rightBound [selectExt]
+	*	FROM treeStructure [structureScopeTableFrom] [fromExt]
+	*	[setWhereClause()]
+	*	[whereExt]
+	*	ORDER BY leftBound ASC ; 
+	*		
+	* @access protected 
+	* @param mixed setAnd
+	* @return NULL 
 	*/
 	protected function joinAttributes($setAnd=true){
 		#echo __METHOD__.'@'.__LINE__.'<br>';
@@ -349,6 +404,10 @@ class DAO_TREE{
 	* 	- select all sub-nodes of the tree
 	* B) if $this->config["treeStyle"] == EXTENDED
 	* 	- 
+	* 
+	* @access public 
+	* @param mixed root
+	* @return NULL 
 	*/
 	public function select_tree($root) { 
 		/**
@@ -437,10 +496,11 @@ class DAO_TREE{
 	* calls the internal text or array methods 
 	* or passes off to a handler method
 	* 
+	* @access public 
 	* @param array result
 	* @return string result
 	*/
-	function render_tree($result) {  
+	public function render_tree($result) {  
 		#echo __METHOD__.'@'.__LINE__.'<br>';
 		$this->config["callBackDisplay"];
 		$this->outputString = '';
@@ -458,11 +518,13 @@ class DAO_TREE{
 	/**
 	* converts the array from a mysql result into a tree array
 	* 
-	* @param array result
 	* 
+	* @access public 
+	* @param array result
+	* @param mixed ACL
 	* @return this->treeArray
 	*/
-	function render_tree_array($result, $ACL = false) {  
+	public function render_tree_array($result, $ACL = false) {  
 		#echo __METHOD__.'@'.__LINE__.'<br>';
 		#echo __FUNCTION__.'@'.__LINE__.'$result<pre>'.var_export($result,true).'</pre><br>';
 		$treeArray = array();
@@ -539,7 +601,9 @@ class DAO_TREE{
 	/**
 	* output a basic text tree with indentation
 	* 
-	* 
+	* @access public 
+	* @param mixed config
+	* @return NULL 
 	*/
 	function render_tree_text($result) {  
 		#echo __METHOD__.'@'.__LINE__.'<br>';
@@ -569,12 +633,14 @@ class DAO_TREE{
 	
 	
 	/**
-	* DESCRIPTOR: loads the ini internally and returns a value of true if all good 
+	* DESCRIPTOR: addNode
+	* loads the cfg internally and returns a value of true if all good 
+	*
+	* @access public 
 	* @param int $nodeId 
 	* @param array $values 
 	* @param bool $child 
 	* @return int|bool  
-	*
 	*/
 	public function addNode($nodeId=null, $values=null, $child=false){
 		
@@ -648,9 +714,10 @@ class DAO_TREE{
 	}
 	/**
 	* DESCRIPTOR: adds attribute record 
+	*
+	* @access public 
 	* @param int $nodeId
 	* @return null 
-	*
 	*/
 	public function addAttributes($nodeId=null){	
 		#echo __METHOD__.'@'.__LINE__.'$nodeId['.$nodeId.']<br>';
@@ -674,9 +741,10 @@ class DAO_TREE{
 	}
 	/**
 	* DESCRIPTOR: loads the ini internally and returns a value of true if all good 
+	* 
+	* @access public 
 	* @param int $nodeId
 	* @return null 
-	*
 	*/
 	public function deleteNode($nodeId=null){
 		$query = 'SELECT ST.* 
@@ -718,10 +786,11 @@ class DAO_TREE{
 	
 	/**
 	* DESCRIPTOR: removes attribute record 
-	* @param int $nodeId 
 	* 
+	* 
+	* @access public 
+	* @param int $nodeId 
 	* @return null 
-	*
 	*/
 	public function removeAttributes($nodeId=null){	
 		#echo __METHOD__.'@'.__LINE__.'$nodeId['.$nodeId.']<br>';
@@ -745,11 +814,10 @@ class DAO_TREE{
 	
 	/**
 	* DESCRIPTOR: loads the ini internally and returns a value of true if all good 
-	* @param string $LOAD_ID 
-	* @param string $SECTION_NAME 
-	* @param string $SETTING_NAME 
-	* @return null 
 	*
+	* @access public 
+	* @param mull nodeData
+	* @return null 
 	*/
 	public function unsetNode($nodeData=null){
 		#echo __METHOD__.'@'.__LINE__.'$query['.$query.']<br>';
@@ -792,12 +860,13 @@ class DAO_TREE{
 		return false;
 	}
 	/**
-	* DESCRIPTOR: loads the ini internally and returns a value of true if all good 
+	* DESCRIPTOR: loads the cfg internally and returns a value of true if all good 
+	*
+	* @access public 
 	* @param int $nodeId 
 	* @param arrray $values 
 	* @param bool $child 
 	* @return null 
-	*
 	*/
 	public function resetNode($nodeId=null, $values=null, $child=true){
 		#echo __METHOD__.'@'.__LINE__.'$nodeId['.$nodeId.']$child['.$child.']<br>';
@@ -868,14 +937,17 @@ class DAO_TREE{
 		
 		return $childID;
 	}
+	
 	/**
-	* DESCRIPTOR: loads the ini internally and returns a value of true if all good 
+	* DESCRIPTOR: sortNode
+	* loads the cfg internally and returns a value of true if all good 
+	* $sortOrder UP/DOWN
+	* 
+	* @access public 
 	* @param int $nodeId 
 	* @param string $sortOrder 
 	* @return bool 
-	* $sortOrder UP/DOWN
 	*/
-	
 	public function sortNode($nodeId=null, $sortOrder='UP'){
 		#echo __METHOD__.'@'.__LINE__.'<br>';
 		$query = 'SELECT * 
@@ -957,8 +1029,12 @@ class DAO_TREE{
 		$result = $GLOBALS["DATA_API"]->retrieve($this->config["DSN"], $query, $args=array('returnArray' => true));
 		return $result;
 	}
-	/****
-	
+	/**
+	* DESCRIPTOR: checkIndex
+	* 
+	* @access public 
+	* @param string indexName
+	* @return NULL 
 	*/
 	public function checkIndex($indexName=null){
 		#echo __METHOD__.'@'.__LINE__.'CALLED!<br>';
@@ -973,9 +1049,11 @@ class DAO_TREE{
 		return false;
 	}
 	/**
-	* DESCRIPTOR:
-	* @return bool 
-	*
+	* DESCRIPTOR: unlockTable
+	* 
+	* @access public 
+	* @param bool reIndex
+	* @return mixed result 
 	*/
 	public function unlockTable($reIndex=false){
 		#echo '<b>'.__METHOD__.'@'.__LINE__.'['.$reIndex.']</b>CALLED!<br>';
@@ -997,9 +1075,11 @@ class DAO_TREE{
 		return $result;
 	}
 	/**
-	* DESCRIPTOR:
-	* @return bool 
-	*
+	* DESCRIPTOR: lockTable
+	* 
+	* @access public 
+	* @param bool deIndex
+	* @return NULL 
 	*/
 	public function lockTable($deIndex=false){
 		#echo '<b>'.__METHOD__.'@'.__LINE__.'['.$deIndex.']</b>CALLED!<br>';
@@ -1020,9 +1100,12 @@ class DAO_TREE{
 		return;
 	}
 	/**
-	* DESCRIPTOR:
-	* @return bool 
-	*
+	* DESCRIPTOR: changeParent
+	* 
+	* @access public 
+	* @param string nodeId
+	* @param string newParentId
+	* @return NULL 
 	*/
 	public function changeParent($nodeId=null, $newParentId=null){
 		#echo __METHOD__.'@'.__LINE__.'<br>';

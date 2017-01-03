@@ -61,6 +61,7 @@ use JCORE\EXCEPTION\DATA_Exception as DATA_Exception;
 	/**
 	 * Constructor
 	 * 
+	 * @access public 
 	 * @return	NULL
 	 */
 	public function __construct(){
@@ -76,6 +77,8 @@ use JCORE\EXCEPTION\DATA_Exception as DATA_Exception;
 	}
 	/**
 	* DESCRIPTOR: unsets internal properties
+	* 
+	* @access public 
 	* @param	NULL
 	* @return NULL 
 	*/
@@ -91,6 +94,8 @@ use JCORE\EXCEPTION\DATA_Exception as DATA_Exception;
 	
 	/**
 	* DESCRIPTOR: Get the "private" dbType
+	* 
+	* @access public 
 	* @param	NULL
 	* @return string $dbType 
 	*/
@@ -100,13 +105,15 @@ use JCORE\EXCEPTION\DATA_Exception as DATA_Exception;
 	
 	/**
 	* DESCRIPTOR: IE: Stores meta data for table in a traversable form
-	* @param	String $tableName
-	* @param	String $tableName
-	* @param	String $tableName
+	* 
+	* @access public 
+	* @param	String DSN
+	* @param	String tableName
+	* @param	mixed connectionObject
 	* @return NULL 
 	*/
 	public function initialize($DSN, $tableName, $connectionObject=NULL){
-		/**
+		/***
 		#echo __METHOD__.'::'.__LINE__.'$DSN['.$DSN.']'.PHP_EOL;
 		echo __METHOD__.'::'.__LINE__.'$DSN<pre>'.var_export($DSN, true).'</pre>'.PHP_EOL;
 		echo __METHOD__.'::'.__LINE__.'$tableName['.$tableName.']'.PHP_EOL;
@@ -213,7 +220,10 @@ use JCORE\EXCEPTION\DATA_Exception as DATA_Exception;
 	}
 	*/
 	/**
-	* DESCRIPTOR: IE: Stores meta resultArray for table in a traversable form
+	* DESCRIPTOR: setProperties
+	*  this->tableProperties
+	*  
+	* @access private 
 	* @param mixed $resultArray 
 	* @return NULL 
 	*/
@@ -285,7 +295,10 @@ use JCORE\EXCEPTION\DATA_Exception as DATA_Exception;
 	}
 	/**
 	* DESCRIPTOR: IE: Stores meta data for table in a traversable form
-	* @param mixed $data ARG NEEDED??
+	*  data ARG NEEDED??
+	* 
+	* @access public 
+	* @param mixed $data
 	* @return NULL 
 	*/
 	public function getTableProperties($data = NULL){
@@ -297,6 +310,8 @@ use JCORE\EXCEPTION\DATA_Exception as DATA_Exception;
 	}
 	/**
 	* DESCRIPTOR: gets the primary key from the data set in "tableProperties"
+	* 
+	* @access public 
 	* @param mixed $data 
 	* @return NULL 
 	*/

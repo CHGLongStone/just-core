@@ -78,6 +78,7 @@ class MySQL_connector implements \JCORE\DATA\API\DATA_API_INTERFACE{
 	/**
 	 * Constructor
 	 * 
+	 * @access public 
 	 * @param	array $value (connection info)
 	 * @param	bool $persistent
 	 * @return	NULL
@@ -120,6 +121,8 @@ class MySQL_connector implements \JCORE\DATA\API\DATA_API_INTERFACE{
 	}
 	/**
 	* DESCRIPTOR: Get the "private" dbType
+	* 
+	* @access public 
 	* @param	NULL
 	* @return string $dbType 
 	*/
@@ -128,9 +131,10 @@ class MySQL_connector implements \JCORE\DATA\API\DATA_API_INTERFACE{
 	}
 	/**
 	* DESCRIPTOR: This sets a connection resource
+	* 
+	* @access public 
 	* @param bool/string $persistent  pass TRUE/FALSE OR 'true' from ini [config.dbConnectionPool.ini]
 	* @return NULL 
-	** done
 	*/
 	public function set_connection($persistent=NULL){
 		#echo __METHOD__.__LINE__.'<br>';
@@ -222,6 +226,8 @@ class MySQL_connector implements \JCORE\DATA\API\DATA_API_INTERFACE{
 	
 	/**
 	* DESCRIPTOR: This checks if a connection resource is persistent
+	* 
+	* @access public 
 	* @param NULL
 	* @return bool  $this->persistent
 	*/
@@ -232,9 +238,10 @@ class MySQL_connector implements \JCORE\DATA\API\DATA_API_INTERFACE{
 	//----------------------------------------------------
 	/**
 	* DESCRIPTOR: VERIFIES A CONNECTION
+	*
+	* @access public 
 	* @param ignored $paramie 
 	* @return NULL 
-	** done
 	*/
 	public function verify_connection(){
 		#echo __METHOD__.__LINE__.'<br>';
@@ -255,7 +262,10 @@ class MySQL_connector implements \JCORE\DATA\API\DATA_API_INTERFACE{
 	* would rather not send the query (its unneeded for functionality)
 	* but we do want to know what happened if the convert to array failed
 	* 
-	* @return array  $result
+	* @access public 
+	* @param string query
+	* @param mixed result
+	* @return array  $resultArray
 	*/
 	public function resultToAssoc($result, $query){ ///, $DSN, $resultType = 'MySQL'
 		#echo __METHOD__.__LINE__.'<br>';
@@ -294,8 +304,8 @@ class MySQL_connector implements \JCORE\DATA\API\DATA_API_INTERFACE{
 	}
 	/**
 	* DESCRIPTOR: EXECUTE A QUERY
-	* exception handling and logging dealt with
-	* @param string $database 
+	* raw string
+	* 	
 	* @param string $query 
 	* @return $result 
 	*/
@@ -343,9 +353,10 @@ class MySQL_connector implements \JCORE\DATA\API\DATA_API_INTERFACE{
 	* DESCRIPTOR: EXECUTE A SELECT
 	* if $args["returnArray"] === true the function will return the result
 	* as a PHP array
-	* @param string $database 
+	*
+	* @access public 
 	* @param string $query 
-	* @param bool $returnArray 
+	* @param mixed $args 
 	* @return $result 
 	*/
 	public function retrieve($query, $args=false){
@@ -370,6 +381,8 @@ class MySQL_connector implements \JCORE\DATA\API\DATA_API_INTERFACE{
 	* DESCRIPTOR: EXECUTE AN UPDATE
 	* if $args["returnArray"] === true the function will return the number of 
 	* affected rows as well as the "mysql_info" from the query
+	* 
+	* @access public 
 	* @param string $query 
 	* @param array $args 
 	* @return $result 
@@ -396,6 +409,8 @@ class MySQL_connector implements \JCORE\DATA\API\DATA_API_INTERFACE{
 	* DESCRIPTOR: EXECUTE AN INSERT
 	* if $args["returnArray"] === true the function will return the "mysql_insert_id"
 	* the number of "mysql_affected_rows" as well as the "mysql_info" from the query
+	* 
+	* @access public 
 	* @param string $query 
 	* @param array $args 
 	* @return $result 
@@ -422,6 +437,8 @@ class MySQL_connector implements \JCORE\DATA\API\DATA_API_INTERFACE{
 	* DESCRIPTOR: EXECUTE A DELETE
 	* if $args["returnArray"] === true the function will return the number of 
 	* affected rows as well as the "mysql_info" from the query
+	* 
+	* @access public  
 	* @param string $query 
 	* @param array $args 
 	* @return bool/array $result 
@@ -444,7 +461,12 @@ class MySQL_connector implements \JCORE\DATA\API\DATA_API_INTERFACE{
 	}
 	
 	/**
-	* write to log on destruct
+	* DESCRIPTOR: __destruct
+	* if $args["returnArray"] === true the function will return the number of 
+	* affected rows as well as the "mysql_info" from the query
+	* 
+	* @param null 
+	* @return null
 	*/
 	function __destruct(){
 		#echo __METHOD__.__LINE__.'<br>';

@@ -1,20 +1,21 @@
 <?php 
 /**
+* TRANSPORT_FILTER
+* 
  * @author	Jason Medland<jason.medland@gmail.com>
  * @package	JCORE
  * @subpackage TRANSPORT
  */
-#echo __FILE__.'<br>';
 
-	# run down the chain and process it
-	/**
-	do arg v
-	do URI [GET/POST]
-	do XML
-	do JSON
-		do REST
-		do SOA
-	*/	
+/**
+* # run down the chain and process it
+* do arg v
+* do URI [GET/POST]
+* do XML
+* do JSON
+* 	do REST
+* 	do SOA
+*/	
 
 	
 if(!defined('JCORE_API_TRANSPORT_IN')){

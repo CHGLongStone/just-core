@@ -21,28 +21,28 @@ use JCORE\TRANSPORT\TRANSPORT_INTERFACE as TRANSPORT_INTERFACE;
 class URL_API implements TRANSPORT_INTERFACE{
 	
 	
-	/***
+	/**
 	* [hostname][API-dir]?[serviceObjectName]=[serviceObjectMessage]
 	* 
 	* 
 	*/
 	
-	/***
+	/**
 	*	the request headers 
 	*/
 	protected $requestHeaders = null;
-	/***
+	/**
 	*	the request raw_data 
 	*/
 	protected $raw_data = null;
 	
-	/***
+	/**
 	*	the request parsedData 
 	*/
 	protected $parsedData = null;
 	
 	
-	/***
+	/**
 	* DESCRIPTOR: 
 	* will parse the $_SERVER["REQUEST_METHOD"] 
 	* and set the raw data from the request
@@ -63,7 +63,7 @@ class URL_API implements TRANSPORT_INTERFACE{
 		$this->parsedData = $this->parseRequest($raw_data);
 		return $this->parsedData;
 	}
-	/***
+	/**
 	* DESCRIPTOR: 
 	*	HTTP request types handled
 	*	GET, POST, PUT, DELETE, 
@@ -103,7 +103,7 @@ class URL_API implements TRANSPORT_INTERFACE{
 		return $raw_data;
 	}
 	
-	/***
+	/**
 	* DESCRIPTOR: 
 	* enforce a method to parse the request in the sub class
 	* @param mixed raw_data 
@@ -115,7 +115,7 @@ class URL_API implements TRANSPORT_INTERFACE{
 		
 		return $requestData;
 	}
-	/***
+	/**
 	* DESCRIPTOR: 
 	* enforce a method to compile a response (in the transport format)
 	* in the sub class

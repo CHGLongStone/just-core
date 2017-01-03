@@ -1,5 +1,5 @@
 <?php 
-/***
+/**
  * REST_API
  * 
  * 
@@ -28,30 +28,30 @@ use JCORE\TRANSPORT\HTTP\HTTP_API as HTTP_API;
 abstract class REST_API implements TRANSPORT_INTERFACE{
 	
 	
-	/***
+	/**
 	* [hostname][API-dir]?[serviceObjectName]=[serviceObjectMessage]
 	* 
 	* 
 	*/
 	
-	/***
+	/**
 	*	the request headers 
 	*/
 	protected $requestHeaders = null;
-	/***
+	/**
 	*	the request raw_data 
 	*/
 	protected $raw_data = null;
-	/***
+	/**
 	*	the request raw_data 
 	*/
 	protected $crudType = 'GET';
-	/***
+	/**
 	*	the request raw_data 
 	*/
 	protected $msgObj = 'HTTP_API';
 	
-	/***
+	/**
 	* DESCRIPTOR: 
 	* will parse the $_SERVER["REQUEST_METHOD"] 
 	* and set the raw data from the request
@@ -73,7 +73,7 @@ abstract class REST_API implements TRANSPORT_INTERFACE{
 		}
 		return;
 	}
-	/***
+	/**
 	* DESCRIPTOR: 
 	*	HTTP request types handled
 	*	GET, POST, PUT, DELETE, 
@@ -121,14 +121,14 @@ abstract class REST_API implements TRANSPORT_INTERFACE{
 		return $raw_data;
 	}
 	
-	/***
+	/**
 	* DESCRIPTOR: 
 	* enforce a method to parse the request in the child
 	* @param mixed raw_data 
 	* @return return NULL  
 	*/
 	abstract public function parseRequest($raw_data);
-	/***
+	/**
 	* DESCRIPTOR: 
 	* enforce a method to compile a response (in the transport format)
 	* in the child
@@ -137,7 +137,7 @@ abstract class REST_API implements TRANSPORT_INTERFACE{
 	*/
 	abstract public function compileResponse($dataSet);
 	
-	/***
+	/**
 	* DESCRIPTOR: 
 	* map HTTP GET to CRUD operation RETRIEVE 
 	* enforce a method in the child to handle it
@@ -148,7 +148,7 @@ abstract class REST_API implements TRANSPORT_INTERFACE{
 	abstract public function RETRIEVE($args);
 	
 	
-	/***
+	/**
 	* DESCRIPTOR: 
 	* UPDATE a resource
 	* map HTTP POST to CRUD operation UPDATE 
@@ -158,7 +158,7 @@ abstract class REST_API implements TRANSPORT_INTERFACE{
 	* @return return NULL
 	*/
 	abstract public function UPDATE($args);
-	/***
+	/**
 	* DESCRIPTOR: 
 	* map HTTP PUT to CRUD operation CREATE 
 	* enforce a method in the child to handle it
@@ -167,7 +167,7 @@ abstract class REST_API implements TRANSPORT_INTERFACE{
 	* @return return  
 	*/
 	abstract public function CREATE($args);
-	/***
+	/**
 	* DESCRIPTOR: 
 	* map HTTP DELETE to CRUD operation DELETE 
 	* enforce a method in the child to handle it

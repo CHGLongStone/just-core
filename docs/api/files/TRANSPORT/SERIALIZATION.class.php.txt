@@ -16,14 +16,14 @@ namespace JCORE\TRANSPORT;
 */
 class SERIALIZATION {
 
-	/***
+	/**
 	* ln -s /var/www/PhpDocumentor-1.4.3 /var/www/HTTP/default_admin_http/PHPDOC 
 	//var/www/JCORE/APIS/default_admin_http
 	*/
 	private function __construct(){
 	
 	}
-	/***
+	/**
 	* CACHE_SERIALIZATION
 	* $args["DATA"] 					= [STRING/ARRAY/OBJECT] passed to serialization method
 	* $args["CACHE_SERIALIZATION"] 		= [JSON/NATIVE/RAW]
@@ -40,7 +40,7 @@ class SERIALIZATION {
 		if(!isset($args["DATA"])){
 			return false;
 		}
-		/***
+		/**
 		* if $args["CACHE_SERIALIZATION"] is set process as needed
 		* fail back to: constant JCORE_SYSTEM_CACHE_SERIALIZATION set in [API]/config.php
 		*/
@@ -83,7 +83,7 @@ class SERIALIZATION {
 		}
 		return false;
 	}
-	/***
+	/**
 	* CACHE_SERIALIZATION
 	* $args["DATA"] 					= [STRING/ARRAY/OBJECT] passed to serialization method
 	* $args["CACHE_SERIALIZATION"] 		= [JSON/NATIVE/RAW]
@@ -102,7 +102,7 @@ class SERIALIZATION {
 		if(!isset($args["DATA"])){
 			return false;
 		}
-		/***
+		/**
 		* if $args["CACHE_SERIALIZATION"] is set process as needed
 		* fail back to: constant JCORE_SYSTEM_CACHE_SERIALIZATION set in [API]/config.php
 		*/
@@ -117,7 +117,7 @@ class SERIALIZATION {
 				case"JSON":
 				default:
 					$CACHE_SERIALIZATION = 'JSON';		
-					/***
+					/**
 					*  defaulting to arrays from JSON
 					*/
 					$args["assoc"] = TRUE; //'ARRAY'; 
@@ -157,7 +157,7 @@ class SERIALIZATION {
 		return false;
 	
 	}		
-	/***
+	/**
 	* NATIVE
 	* @param array $args
 	* @param array $args["DATA"]
@@ -169,7 +169,7 @@ class SERIALIZATION {
 		}
 		return serialize($args["DATA"]);
 	}
-	/***
+	/**
 	* json_encode ( mixed $value [, int $options = 0 ] )
 	* 5.3 [,options Bitmask consisting of JSON_HEX_QUOT, JSON_HEX_TAG, JSON_HEX_AMP, JSON_HEX_APOS, JSON_FORCE_OBJECT. ]
 	* 
@@ -196,7 +196,7 @@ class SERIALIZATION {
 		}
 	}
 	
-	/***
+	/**
 	* default serializer if args are provided they will be execured
 	* json_decode ( string $json [, bool $assoc = false [, int $depth = 512 [, int $options = 0 ]]] )
 	* $args["assoc"] 		[TRUE/FALSE] bool
@@ -214,7 +214,7 @@ class SERIALIZATION {
 		if(isset($args["assoc"]) && $args["assoc"] !== TRUE){
 			$args["assoc"] = FALSE;
 		}
-		/***
+		/**
 		* suppress the error til 5.3 
 		* json_last_error() [PHP 5 >= 5.3.0]
 		*/
@@ -227,7 +227,7 @@ class SERIALIZATION {
 	
 		
 		
-	/***
+	/**
 	* 
 	* @param mixed $args
 	* @return array|object|string
@@ -277,7 +277,7 @@ class SERIALIZATION {
 		
 
 	
-	/***
+	/**
 	* 
 	* @param mixed $args
 	* @return array|object|string

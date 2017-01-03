@@ -8,7 +8,7 @@
  */
 #echo __FILE__.'::'.__LINE__.' '.JCORE_SESSION_NAME.'getmypid['.getmypid().']<br>';
 
-/***
+/**
 VERY HANDY FUNC get_extension_funcs( 'eaccelerator' )
 #echo __METHOD__.__LINE__.'<pre>'.var_export(get_extension_funcs( 'eaccelerator' ), true).'</pre><br>';
 #require_once(JCORE_BASE_DIR.'/LOAD/CONFIG_MANAGER.class.php');
@@ -28,7 +28,7 @@ if(isset($_SESSION["CONFIG_MANAGER"])){
 }
 */
 
-/***
+/**
 
 tie the session to the PID
 

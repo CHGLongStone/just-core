@@ -1,5 +1,5 @@
 <?php
-/***
+/**
 * JCORE_SINGLETON_INTERFACE
  * Instances can be created for any DB supported by PHP inc. NoSQL
  * 
@@ -15,7 +15,7 @@ namespace JCORE;
  * @package JCORE
 */
 interface JCORE_SINGLETON_INTERFACE{
-	/***
+	/**
 	* This must be defined here rather than the abstract class because of scope issues
 	* the function should follow this implementation
     *public static function singleton() 
