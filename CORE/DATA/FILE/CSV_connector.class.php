@@ -115,8 +115,9 @@ class CSV_connector implements \JCORE\DATA\API\DATA_API_INTERFACE{
 		*/
 		return;
 	}
-	/***
+	/**
 	* DESCRIPTOR: Get the "private" dbType
+	* 
 	* @param	NULL
 	* @return string $dbType 
 	*/
@@ -434,7 +435,11 @@ class CSV_connector implements \JCORE\DATA\API\DATA_API_INTERFACE{
 		return $result;
 	}
 	
-	
+	/**
+	* DESCRIPTOR: __destruct
+	* @param	NULL
+	* @return NULL 
+	*/
 	function __destruct(){
 		#echo __METHOD__.__LINE__.'<br>';
 		$this->logger->log(LOG_DEBUG,__METHOD__, '()');
