@@ -1,0 +1,36 @@
+<?php
+/***
+* if you need to track users over a distributed environment use cookies 
+* or write a custom session handler http://php.net/manual/en/session.customhandler.php
+*
+*
+*
+*/
+session_start();
+/**
+* AUTH HOOK
+* we test for session/cookie/nonce what ever here an do a redirect to our authentication page
+* we add a condition to ensure we don't have an endless redirect with an unauthenticated user
+* set some data
+*/
+$AUTH_HARNESS = new JCORE\AUTH\AUTH_HARNESS();
+if(true !== $AUTH_HARNESS->register('JCORE\SERVICE\AUTH\LOGIN_SERVICE')){
+	die('failed to load LOGIN_SERVICE');
+}
+
+/**
+* call our authentication method/service, we're only looking for a boolean response
+* for a basic website, for an API we'll do a different hook forcing 
+* authentication at the header level or in the transport request
+* 
+*/
+#$AUTH_TEST = true; //add your hook here
+$AUTH_TEST = $AUTH_HARNESS->authenticate('JCORE\SERVICE\AUTH\LOGIN_SERVICE', array('AUTH_TYPE' => 'SESSION'));
+
+if(false === $AUTH_TEST){
+	header('Location: http://'.$_SERVER['HTTP_HOST'].'/login.php');
+	exit;
+}
+?>
+
+
