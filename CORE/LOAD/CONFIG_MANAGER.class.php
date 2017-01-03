@@ -75,7 +75,7 @@ class CONFIG_MANAGER{
 	 * 		["IMPLEMENTATION"] != 'STATIC' we either use an instantiated class or fail to no cache
 	 * 
 	 * @param array $args
-	 * @ return bool;
+	 * @return bool;
 	 */
 	public function __construct($args=NULL){
 		if(isset($args["CONFIG_PATH"]) && is_dir($args["CONFIG_PATH"])){

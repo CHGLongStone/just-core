@@ -1,22 +1,22 @@
 <?php
 /**
- * JSONRPC_1_0_API 
- *
-$filePath = JCORE_BASE_DIR.'TRANSPORT/TRANSPORT_INTERFACE.interface.php';
-require_once($filePath);
- *
- * @author	Jason Medland<jason.medland@gmail.com>
- * @package	JCORE\TRANSPORT\JSON
- * @subpackage	JCORE\TRANSPORT\JSON
- */
+* JSONRPC_1_0_API 
+*
+* $filePath = JCORE_BASE_DIR.'TRANSPORT/TRANSPORT_INTERFACE.interface.php';
+* require_once($filePath);
+*
+* @author	Jason Medland<jason.medland@gmail.com>
+* @package	JCORE\TRANSPORT\JSON
+* @subpackage	JCORE\TRANSPORT\JSON
+*/
 namespace JCORE\TRANSPORT\JSON;
 #use JCORE\TRANSPORT\TRANSPORT_INTERFACE as TRANSPORT_INTERFACE;
 
 
 /**
- * Class JSON
- *
- * @package JCORE\TRANSPORT\JSON
+* Class JSON
+*
+* @package JCORE\TRANSPORT\JSON
 */
 class JSON{
 
@@ -71,7 +71,7 @@ class JSON{
 		return $response;
 	}
 		
-	/*
+	/**
 	* validateJSON
 	* 
 	* @access public 

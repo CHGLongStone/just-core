@@ -654,14 +654,14 @@ class DAO{
 		return $values;
 	}	
 	/**
-	* DESCRIPTOR: joins a single record from anothe DB/Table
+	* DESCRIPTOR: joins a single record from another DB/Table
 	* 
 	* @access public
-	* @param	string 	DSN
-	* @param	string 	tableName
-	* @return	string 	pk_field
-	* @return	string 	fk_field
-	* @return	int 	fk
+	* @param string DSN
+	* @param string tableName
+	* @return string pk_field
+	* @return string fk_field
+	* @return int fk
 	* @return NULL 
 	*/
 	public function joinRecord($DSN, $tableName, $pk_field, $fk_field, $fk){
@@ -729,14 +729,14 @@ class DAO{
 		return;
 	}
 	/**
-	* DESCRIPTOR: joins a single record from anothe DB/Table
+	* DESCRIPTOR: joins a single record from another DB/Table
 	* 
 	* @access public 
-	* @param	string 	DSN
-	* @param	string 	joinTable
-	* @return	string 	pk_field
-	* @return	string 	fk_field
-	* @return	int 	fk
+	* @param string DSN
+	* @param string joinTable
+	* @return string pk_field
+	* @return string fk_field
+	* @return int fk
 	* @return NULL 
 	*/
 	public function joinChildCollection($DSN, $joinTable, $pk_field, $fk_field, $fk){

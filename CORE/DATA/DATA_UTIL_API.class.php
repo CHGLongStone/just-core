@@ -58,8 +58,9 @@ class DATA_UTIL_API{
 	 * scrubString
 	 * 
 	 * @access public 
-	 * @param string $stringVal 
-	 * @return string|bool stringval|false
+	 * @param string stringVal 
+	 * @param string invalidList 
+	 * @return mixedstringval
 	 */
 	public static function scrubString($stringVal, $invalidList="\"\\?*:/@|<>"){
 		if (strlen($stringVal) != strcspn($stringVal,$invalidList)) {

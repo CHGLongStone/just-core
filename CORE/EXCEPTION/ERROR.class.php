@@ -1,40 +1,40 @@
 <?php 
-/***
+/**
 * ERROR
- * basic error object move to jsonrpc 2.0  compatible errors as default
- * 
- * 
- * @author		Jason Medland<jason.medland@gmail.com>
- * @package	JCORE
- * @subpackage EXCEPTION
- */
+* basic error object move to jsonrpc 2.0  compatible errors as default
+* 
+* 
+* @author		Jason Medland<jason.medland@gmail.com>
+* @package	JCORE
+* @subpackage EXCEPTION
+*/
 
 namespace JCORE\EXCEPTION;
 use JCORE\LOAD\CONFIG_MANAGER;
 use JCORE\TRANSPORT\JSON as JSON;
 /**
- * Class ERROR
- *
- * @package JCORE\EXCEPTION
+* Class ERROR
+*
+* @package JCORE\EXCEPTION
 */
 class ERROR {
 
 	/*
-		code
-		A Number that indicates the error type that occurred.
-		This MUST be an integer.
-		message
-		A String providing a short description of the error.
-		The message SHOULD be limited to a concise single sentence.
-		data
-		A Primitive or Structured value that contains additional information about the error.
-		This may be omitted.
-		The value of this member is defined by the Server (e.g. detailed error information, nested errors etc.).	
-		
-		code message data
-		get_object_vars();
-	 *
-     * @var object $Code
+	*	code
+	*	A Number that indicates the error type that occurred.
+	*	This MUST be an integer.
+	*	message
+	*	A String providing a short description of the error.
+	*	The message SHOULD be limited to a concise single sentence.
+	*	data
+	*	A Primitive or Structured value that contains additional information about the error.
+	*	This may be omitted.
+	*	The value of this member is defined by the Server (e.g. detailed error information, nested errors etc.).	
+	*	
+	*	code message data
+	*	get_object_vars();
+	*
+    * @var object Code
 	*/
     private $Code = null;
 

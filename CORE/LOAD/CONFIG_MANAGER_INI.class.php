@@ -67,7 +67,7 @@ class CONFIG_MANAGER_INI{
 	 * 
 	 * @access public
 	 * @param array args
-	 * @ return bool;
+	 * @return bool;
 	 */
 	public function __construct($args=NULL){
 		#echo __METHOD__.__LINE__.'<br>';
