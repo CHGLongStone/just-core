@@ -92,10 +92,10 @@ class FILECACHE_API implements CACHE_COMMON_API_INTERFACE {
 	//----------//----------//----------//----------//----------
 	/**
 	* DESCRIPTOR: Does a "Get" on a Memcached resource 
-	* 	$args is an array that MUST follow this format
-	* 	$args["KEY"] 		= [string]; 		// a Memcached asset ID
-	* 	$args["cas_token"] 	= &$cas_token; 		// a var passed by reference to return the cas_token used by: updateSharedResource
-	* 	$args["cache_cb"] 	= NULL/[string]; 	// the call back function. probably not much use for resetting (big tangle, too many functions) BUT could be usefull for logging
+	* 	args is an array that MUST follow this format
+	* 	args["KEY"] 		= [string]; 		- a Memcached asset ID
+	* 	args["cas_token"] 	= &cas_token; 		- a var passed by reference to return the cas_token used by: updateSharedResource
+	* 	args["cache_cb"] 	= NULL/[string]; 	- the call back function. probably not much use for resetting (big tangle, too many functions) BUT could be useful for logging
 	* 
 	* 
 	* @param array args
@@ -141,9 +141,9 @@ class FILECACHE_API implements CACHE_COMMON_API_INTERFACE {
 	/**
 	* DESCRIPTOR: Does a "Check and Set" on a shared resource 
 	* 	$args is an array that MUST follow this format
-	* 	$args["KEY"] 		= [string]; 		// a Memcached asset ID
-	* 	$args["value"] 		= [mixed]; 			// a asset to be stored in Memcached
-	* 	$args["expiration"] = [int]; 	// the call back function. probably not much use for resetting (big tangle, too many functions) BUT could be usefull for logging
+	* 	$args["KEY"] 		= [string]; 		- a Memcached asset ID
+	* 	$args["value"] 		= [mixed]; 			- a asset to be stored in Memcached
+	* 	$args["expiration"] = [int]; 			- the call back function. probably not much use for resetting (big tangle, too many functions) BUT could be usefull for logging
 	* 
 	* 
 	* @param array args

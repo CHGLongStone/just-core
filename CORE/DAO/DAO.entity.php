@@ -650,7 +650,7 @@ class DAO{
 		return $values;
 	}	
 	/**
-	* DESCRIPTOR: joins a single record from another DB/Table
+	* DESCRIPTOR: joins a single record from another DB or Table
 	* 
 	* @access public
 	* @param string DSN
@@ -682,7 +682,7 @@ class DAO{
 		return;
 	}
 	/**
-	* DESCRIPTOR: joins a single record from another DB/Table
+	* DESCRIPTOR: joins a single record from another DB or Table
 	* 
 	* @access public 
 	* @param array args
@@ -725,7 +725,7 @@ class DAO{
 		return;
 	}
 	/**
-	* DESCRIPTOR: joins a single record from another DB/Table
+	* DESCRIPTOR: joins a single record from another DB or Table
 	* 
 	* @access public 
 	* @param string DSN
