@@ -1,5 +1,5 @@
 <?php 
-/***
+/**
 * DATA_Exception
  * Instances can be created for any DB supported by PHP inc. NoSQL
  * this is a stub class just extended for the name space,

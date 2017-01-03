@@ -1,5 +1,5 @@
 <?php
-/***
+/**
 * JCORE_SINGLETON
  * Instances can be created for any DB supported by PHP inc. NoSQL
  * 

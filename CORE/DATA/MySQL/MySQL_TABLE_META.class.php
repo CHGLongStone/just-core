@@ -106,7 +106,7 @@ use JCORE\EXCEPTION\DATA_Exception as DATA_Exception;
 	* @return NULL 
 	*/
 	public function initialize($DSN, $tableName, $connectionObject=NULL){
-		/***
+		/**
 		#echo __METHOD__.'::'.__LINE__.'$DSN['.$DSN.']'.PHP_EOL;
 		echo __METHOD__.'::'.__LINE__.'$DSN<pre>'.var_export($DSN, true).'</pre>'.PHP_EOL;
 		echo __METHOD__.'::'.__LINE__.'$tableName['.$tableName.']'.PHP_EOL;
