@@ -17,7 +17,7 @@ namespace JCORE\TRANSPORT\HTTP;
 */
 class HTTP_UTIL {
 	
-	/***
+	/**
 	* DESCRIPTOR:  
 	* 
 	* @param param bool NULL
@@ -34,6 +34,10 @@ class HTTP_UTIL {
 	 * Retrieves the best guess of the client's actual IP address.
 	 * Takes into account numerous HTTP proxy headers due to variations
 	 * in how different ISPs handle IP addresses in headers between hops.
+	 * 
+	 * @access public 
+	 * @param NULL
+	 * @return string serverIP
 	 */
 	public static function get_ip_address() {
 		// check for shared internet/ISP IP
@@ -74,9 +78,13 @@ class HTTP_UTIL {
 		return $_SERVER['REMOTE_ADDR'];
 	}
 
+	
 	/**
 	 * Ensures an ip address is both a valid IP and does not fall within
 	 * a private network range.
+	 * @access public 
+	 * @param string $ip 
+	 * @return bool 
 	 */
 	public static function validate_ip($ip) {
 		if (strtolower($ip) === 'unknown'){
@@ -119,9 +127,12 @@ class HTTP_UTIL {
 		}
 		return true;
 	}
+
 	/**
 	 * gets a top level domain from a url
-	 * 
+	 * @access public 
+	 * @param string url 
+	 * @return string tld
 	 */
 	public static function get_tld($url) {
 		$tld = parse_url($url,PHP_URL_HOST);

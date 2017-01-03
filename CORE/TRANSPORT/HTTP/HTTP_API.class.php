@@ -21,31 +21,37 @@ use JCORE\TRANSPORT\TRANSPORT_INTERFACE as TRANSPORT_INTERFACE;
 class HTTP_API implements TRANSPORT_INTERFACE{
 	
 	
-	/***
+	/**
 	* [hostname][API-dir]?[serviceObjectName]=[serviceObjectMessage]
-	* 
-	* 
 	*	the request headers 
-	*/
+	 * requestHeaders
+	 * @access protected 
+	 * @var mixed
+	 */
 	protected $requestHeaders = null;
-	/***
+	/**
 	*	the request raw_data 
-	*/
+	 * @access protected 
+	 * @var string
+	 */
 	protected $raw_data = null;
 	
-	/***
+
+	/**
 	*	the request parsedData 
-	*/
+	 * @access protected 
+	 * @var string
+	 */
 	protected $parsedData = null;
 	
 	
-	/***
+	/**
 	* DESCRIPTOR: 
 	* will parse the $_SERVER["REQUEST_METHOD"] 
 	* and set the raw data from the request
 	* 
 	* 
-	* 
+	* @access public 
 	* @param param bool NULL
 	* @return return bool NULL
 	*/
@@ -60,7 +66,7 @@ class HTTP_API implements TRANSPORT_INTERFACE{
 		$this->parsedData = $this->parseRequest($raw_data);
 		return $this->parsedData;
 	}
-	/***
+	/**
 	* DESCRIPTOR: 
 	*	HTTP request types handled
 	*	GET, POST, PUT, DELETE, 
@@ -73,11 +79,12 @@ class HTTP_API implements TRANSPORT_INTERFACE{
 	* 	CONNECT, 
 	* 	get_headers()
 	* 
-	* @param param array $args
-	* @return return mixed $raw_data 
+	* @access public 
+	* @param array args
+	* @return mixed raw_data 
 	*/
 	public function request($args){
-		echo __METHOD__.__LINE__.'<br>';
+		#echo __METHOD__.__LINE__.'<br>';
 		if(isset($args["headers"])){
 			$this->requestHeaders = $args["headers"];
 		}else{
@@ -100,9 +107,11 @@ class HTTP_API implements TRANSPORT_INTERFACE{
 		return $raw_data;
 	}
 	
-	/***
+	/**
 	* DESCRIPTOR: 
 	* enforce a method to parse the request
+	* 
+	* @access protected 
 	* @param mixed raw_data 
 	* @return return NULL  
 	*/
@@ -112,14 +121,16 @@ class HTTP_API implements TRANSPORT_INTERFACE{
 		
 		return $requestData;
 	}
-	/***
+	/**
 	* DESCRIPTOR: 
 	* enforce a method to compile a response (in the transport format)
+	*
+	* @access protected 
 	* @param mixed dataSet 
 	* @return return NULL  
 	*/
 	protected function compileResponse($dataSet){
-		$responseData  = urldencode ($raw_data);
+		$responseData  = urldencode ($dataSet);
 		return $responseData;
 	}
 	

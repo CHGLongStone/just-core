@@ -26,14 +26,15 @@ class SERIALIZATION_STATIC {
 	}
 	/**
 	* CACHE_SERIALIZATION
-	* $args["DATA"] 					= [STRING/ARRAY/OBJECT] passed to serialization method
-	* $args["CACHE_SERIALIZATION"] 		= [JSON/NATIVE/RAW]
+	* args["DATA"] 					= [STRING/ARRAY/OBJECT] passed to serialization method
+	* args["CACHE_SERIALIZATION"] 		= [JSON/NATIVE/RAW]
 	* 		JSON						- json_encode($args["DATA"])
 	* 		NATIVE						- serialize($args["DATA"])
 	* 		RAW							- [string]
-	* $args["UNSERIALIZE_TYPE"]			= [def:ARRAY/OBJECT/RAW(string)] for implementations that leverage JSON data and use json_decode ( string $json [, bool $assoc = false]...)
+	* args["UNSERIALIZE_TYPE"]			= [def:ARRAY/OBJECT/RAW(string)] for implementations that leverage JSON data and use json_decode ( string $json [, bool $assoc = false]...)
 	* 
 	* 
+	* @access public 
 	* @param string $args
 	* @return bool
 	*/
@@ -90,16 +91,17 @@ class SERIALIZATION_STATIC {
 	}
 	/**
 	* CACHE_SERIALIZATION
-	* $args["DATA"] 					= [STRING/ARRAY/OBJECT] passed to serialization method
-	* $args["CACHE_SERIALIZATION"] 		= [JSON/NATIVE/RAW]
+	* args["DATA"] 					= [STRING/ARRAY/OBJECT] passed to serialization method
+	* args["CACHE_SERIALIZATION"] 		= [JSON/NATIVE/RAW]
 	* 		JSON						- json_encode($args["DATA"])
 	* 		NATIVE						- serialize($args["DATA"])
 	* 		RAW							- [string]
-	* $args["UNSERIALIZE_TYPE"]			= [def:ARRAY/OBJECT/RAW] 
+	* args["UNSERIALIZE_TYPE"]			= [def:ARRAY/OBJECT/RAW] 
 	* 		for implementations that leverage JSON data and use:
 	* 			json_decode ( string $json [, bool $assoc = false]...)
 	* 
 	* 
+	* @access public 
 	* @param string $args
 	* @return bool
 	*/

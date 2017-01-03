@@ -17,18 +17,22 @@ use JCORE\EXCEPTION\ERROR as ERROR;
 */
 class SERVICE_VALIDATOR{ 
 	/**
+	* __construct
 	* 
-	* @param param NULL
-	* @return return  NULL
+	* @access private 
+	* @param null
+	* @return NULL
 	*/
 	private function __construct(){
 		return;
 	}
 	
 	/**
+	* validateService
 	* 
-	* @param param NULL
-	* @return string return  NULL
+	* @access public 
+	* @param array $serviceCallRaw 
+	* @return array 
 	*/
 	public static function validateService($serviceCallRaw = null ){
 		if(null == $serviceCallRaw){
@@ -59,9 +63,11 @@ class SERVICE_VALIDATOR{
 	}
 	
 	/**
+	* validateServiceCall
 	* 
-	* @param param NULL
-	* @return string return  NULL
+	* @access public 
+	* @param array $serviceCall
+	* @return array 
 	*/
 	public static function validateServiceCall($serviceCall = null ){
 		if(null == $serviceCall){

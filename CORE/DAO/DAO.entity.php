@@ -141,6 +141,7 @@ use JCORE\DATA\MYSQL\MySQL_TABLE_META as MySQL_TABLE_META;
 class DAO{
 
 	/**
+	* root_pk
 	 * @access public 
 	 * @var int
 	 */
@@ -155,6 +156,7 @@ class DAO{
 	 * @var string
 	 */
 	/**
+	* initialized
 	 * @access public 
 	 * @var bool
 	 */
@@ -195,7 +197,9 @@ class DAO{
 	 * string 	pk_field
 	 * int 	pk
 	 * 
-	 * @param	mixed 	config
+	 * @access public
+	 * @param	array 	config
+	 * @return	null
 	 */
 	public function __construct($config = null){
 		#echo __METHOD__.__LINE__.'<br>'.PHP_EOL;
@@ -283,8 +287,10 @@ class DAO{
 	* DESCRIPTOR: construct from table def (information_schema)
 	* initialize AND set table values
 	*
+	* @access public
 	* @param	string 	DSN
 	* @param	string 	tableName
+	* @param	bool 	foundation
 	* @return NULL 
 	*/
 	public function initialize($DSN, $tableName, $foundation=false){ //
@@ -305,8 +311,9 @@ class DAO{
 	
 	/**
 	* DESCRIPTOR: construct from table def (information_schema)
-	* @param	string 	DSN
-	* @param	string 	tableName
+	* 
+	* @access public
+	* @param	array 	args
 	* @return NULL 
 	*/
 	public function initializeBySearch($args){ //, $tableName, $foundation=false
@@ -426,8 +433,12 @@ class DAO{
 	
 	/**
 	* DESCRIPTOR: construct from table def
+	* 
+	* @access public
 	* @param	string 	DSN
 	* @param	string 	tableName
+	* @param	string 	pk_field
+	* @param	string 	fk_field
 	* @return NULL SCHEMA
 	*/
 	public function initializeChildRecord($DSN, $tableName, $pk_field, $fk_field){
@@ -445,8 +456,11 @@ class DAO{
 	
 	/**
 	* DESCRIPTOR: construct from table def
+	* 
+	* @access public
 	* @param	string 	DSN
 	* @param	string 	tableName
+	* @param	array 	args
 	* @return NULL SCHEMA
 	*/
 	public function initializeJoinRecord($DSN, $tableName, $args=null){
@@ -510,8 +524,12 @@ class DAO{
 	
 	/**
 	* DESCRIPTOR: contruct from table def
+	* 
+	* @access public
 	* @param	string 	DSN
 	* @param	string 	tableName
+	* @param	string 	pk_field
+	* @param	string 	fk_field
 	* @return NULL SCHEMA
 	*/
 	public function initializeCollectionRecord($DSN, $tableName, $pk_field, $fk_field){
@@ -532,9 +550,11 @@ class DAO{
 	}
 	/**
 	* DESCRIPTOR: contruct from table def
+	* 
+	* @access public
 	* @param	string 	DSN
 	* @param	string 	tableName
-	* @return NULL SCHEMA
+	* @return mixed SCHEMA
 	*/
 	public function initializeSchema($DSN, $tableName){	
 		if(!isset($this->db->dataSchema[$DSN]["table"][$tableName])){
@@ -553,9 +573,11 @@ class DAO{
 	* DESCRIPTOR: contruct from table def
 	* initialize DO NOT set table values
 	* 
+	* @access public
 	* @param	string 	DSN
 	* @param	string 	tableName
-	* @return NULL SCHEMA
+	* @param	bool 	set_fk
+	* @return array
 	*/
 	public function initializeFromSchema($DSN, $tableName, $set_fk=true){
 		#GLOBAL $db;
@@ -633,10 +655,12 @@ class DAO{
 	}	
 	/**
 	* DESCRIPTOR: joins a single record from anothe DB/Table
+	* 
+	* @access public
 	* @param	string 	DSN
-	* @param	string 	baseTable
+	* @param	string 	tableName
 	* @return	string 	pk_field
-	* @return	string 	pk_field
+	* @return	string 	fk_field
 	* @return	int 	fk
 	* @return NULL 
 	*/
@@ -663,11 +687,9 @@ class DAO{
 	}
 	/**
 	* DESCRIPTOR: joins a single record from anothe DB/Table
-	* @param	string 	DSN
-	* @param	string 	baseTable
-	* @return	string 	pk_field
-	* @return	string 	pk_field
-	* @return	int 	fk
+	* 
+	* @access public 
+	* @param	array 	args
 	* @return NULL 
 	*/
 	public function joinCollection($args = null){
@@ -708,10 +730,12 @@ class DAO{
 	}
 	/**
 	* DESCRIPTOR: joins a single record from anothe DB/Table
+	* 
+	* @access public 
 	* @param	string 	DSN
-	* @param	string 	baseTable
+	* @param	string 	joinTable
 	* @return	string 	pk_field
-	* @return	string 	pk_field
+	* @return	string 	fk_field
 	* @return	int 	fk
 	* @return NULL 
 	*/
@@ -737,14 +761,15 @@ class DAO{
 	/**
 	* DESCRIPTOR: Dynamic GETTER SETTER 
 	* SIGNATURE
-	* $userObj->get(table, field); entity table
-	* $userObj->get(table, field, pk); collection table
+	* userObj->get(table, field); entity table
+	* userObj->get(table, field, pk); collection table
 	* 
-	*$userObj->set(table, field, value); base table
-	* $userObj->set(table, field, value, pk); entity table
+	* userObj->set(table, field, value); base table
+	* userObj->set(table, field, value, pk); entity table
+	* @access public 
 	* @param	string 	method
 	* @param	array 	args
-	* @return value/true/false 
+	* @return mixed
 	*/
 	public function __call($method, $args ){
 		$table 	= $args[0];
@@ -820,8 +845,10 @@ class DAO{
 	}
 	/**
 	* DESCRIPTOR: STORES CHANGES TO THE DAO TO THE DB(s)
+	* 
+	* @access public 
 	* @param	string 	table
-	* @return outputErrors 
+	* @return array 
 	*/
 	public function save($table=null){
 		if(count($this->modifiedColumns) >= 1){
@@ -939,6 +966,8 @@ class DAO{
 	* DESCRIPTOR: checks the "modifiedColumns" array and generates update statements
 	* based on the values of that array
 	* if the table is not set [NULL] do everything, if it is do only that table
+	* 
+	* @access protected 
 	* @param string $key 
 	* @param string $value 
 	* @param string $table 
@@ -1048,10 +1077,10 @@ class DAO{
 	* 	ON DUPLICATE KEY UPDATE
 	* http://dev.mysql.com/doc/refman/5.5/en/insert.html
 	*
-	* @param string $key 
-	* @param string $value 
+	* @access protected 
 	* @param string $table 
-	* @return NULL
+	* @param string $value 
+	* @return string 
 	*/
 	protected function generateInsertQuery($table, $value){
 		#echo 'XXXXX$table=['.$table.']<pre>'.var_export($value,true).'</pre>'.PHP_EOL;
@@ -1081,6 +1110,7 @@ class DAO{
 	* DESCRIPTOR: strips column from the end of a string
 	* if you're creating values like this:: $query .= $key2.' = "'.$value2.'",';
 	* 
+	* @access public 
 	* @param string $stringValue 
 	* @return string $stringValue
 	*/
@@ -1092,7 +1122,10 @@ class DAO{
 	}
 	/**
 	* DESCRIPTOR: PUKE SELF
-	* @return obj 
+	* 
+	* @access public 
+	* @param NULL
+	* @return NULL 
 	*/
 	public function DUMP(){
 		echo __CLASS__.'->'.__METHOD__.'<pre>'.print_r($this->tables, true).'</pre>'."\n";
@@ -1100,8 +1133,11 @@ class DAO{
 	}
 	
 	/**
-	* DESCRIPTOR: PUKE SELF
-	* @return obj 
+	* DESCRIPTOR: set_connection
+	* 
+	* @access public 
+	* @param string DSN
+	* @return array 
 	*/
 	public function getMYSQLConstants($DSN=null){
 		if(!isset($this->MYSQL_CONSTANTS) || false === $this->MYSQL_CONSTANTS){
@@ -1122,6 +1158,8 @@ class DAO{
 	//----------------------------------------------------
 	/**
 	* DESCRIPTOR: Saves the changes to the DB IF $commit=true (default)
+	* 
+	* @access public 
 	* @param bool $commit 
 	* @return NULL 
 	*/

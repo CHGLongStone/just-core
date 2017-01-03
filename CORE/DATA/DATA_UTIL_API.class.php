@@ -1,5 +1,6 @@
 <?php
 /**
+ * DATA_UTIL_API
  * 
  * @author	Jason Medland<jason.medland@gmail.com>
  * @package	JCORE
@@ -15,7 +16,7 @@ namespace JCORE\DATA\API;
 class DATA_UTIL_API{
 
 	/**
-	 * 
+	 * scrubWhitespace
 	 * @access public 
 	 * @param string $stringval 
 	 * @return string stringval
@@ -35,11 +36,12 @@ class DATA_UTIL_API{
 		return $stringval;
 	}
 	/**
+	 * cleanMicrotime
 	 * 
 	 * @static
 	 * @access public 
 	 * @param float $setTime 
-	 * @return int
+	 * @return string usec
 	 */
 	public static function cleanMicrotime($setTime=null){
 		echo __METHOD__.'@'.__LINE__.'setTime<pre>'.var_export($setTime, true).'</pre><br>';
@@ -53,6 +55,7 @@ class DATA_UTIL_API{
 		return $usec;
 	}
 	/**
+	 * scrubString
 	 * 
 	 * @access public 
 	 * @param string $stringVal 
@@ -66,9 +69,12 @@ class DATA_UTIL_API{
 	}
 	
 	/**
+	 * getEnumValues - postgres work with this?
 	 * 
 	 * @access public 
-	 * @param string $stringVal 
+	 * @param string $DSN 
+	 * @param string $table 
+	 * @param string $column 
 	 * @return string|bool stringval|false
 	 */
 	public static function getEnumValues($DSN, $table, $column){
@@ -104,8 +110,12 @@ class DATA_UTIL_API{
 		return $getEnumValues;
 	}
 	/**
+	 * _selectEnum
 	 * 
 	 * @access public 
+	 * @param array $arrayVal 
+	 * @param string $preSelect 
+	 * @param string $IDname 
 	 * @param string $stringVal 
 	 * @return string|bool stringval|false
 	 */
@@ -132,15 +142,17 @@ class DATA_UTIL_API{
 	
 	
 	/**
+	 * _selectFromResult
+	*	args["dspCol"] = 'NodeName';
+	*	args["idCol"] = 'RuleItemID';
+	*	args["preSelect"] = 'wdf';
+	*	args["DOMID"] = $_REQUEST["extFK"];
 	 * 
 	 * @access public 
-	 * @param string $stringVal 
+	 * @param mixed $result 
+	 * @param array $stringVal 
 	 * @return string|bool stringval|false
-		$args["dspCol"] = 'NodeName';
-		$args["idCol"] = 'RuleItemID';
-		$args["preSelect"] = 'wdf';
-		$args["DOMID"] = $_REQUEST["extFK"];
-	 */
+	*/
 	public static function _selectFromResult($result, $args=array() ){ //$keyField=idCol, $descField=dspCol, $preSelect, $IDname=DOMID){
 		$selectBox ='';
 		$selectList = '';

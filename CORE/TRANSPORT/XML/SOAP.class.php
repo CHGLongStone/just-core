@@ -22,45 +22,65 @@ use JCORE\TRANSPORT\SERIALIZATION_STATIC as SERIALIZATION; #deprecated?
 class SOAP implements TRANSPORT_INTERFACE{
 
 	/**
-	* 
+	* id
+	* @access protected 
+	* @var string
 	*/
 	public $id = NULL;
 	/**
-	* 
+	* result
+	* @access protected 
+	* @var string
 	*/
 	public $result = NULL;
 	/**
-	* 
+	* error
+	* @access protected 
+	* @var string
 	*/
 	public $error  = NULL;
 	
 	/**
-	* 
+	* responseData
+	* @access protected 
+	* @var string
 	*/
-	#protected $requestMethod = 'exitNotice';
 	public $responseData = array();
+	#protected $requestMethod = 'exitNotice';
 	/**
-	* 
+	* params
+	* @access protected 
+	* @var string
 	*/
 	protected $params = array();
 	/**
-	* 
+	* raw_data
+	* @access protected 
+	* @var string
 	*/
 	protected $raw_data = NULL;
 	/**
-	* 
+	* parsedRequest
+	* @access protected 
+	* @var string
 	*/
 	protected $parsedRequest = NULL;
 	/**
-	* 
+	* serviceObject
+	* @access protected 
+	* @var string
 	*/
 	protected $serviceObject = NULL;
 	/**
-	* 
+	* serviceResponse
+	* @access protected 
+	* @var string
 	*/
 	protected $serviceResponse = NULL;
 	/**
-	* 
+	* resultHandler
+	* @access protected 
+	* @var string
 	*/
 	protected $resultHandler = NULL;
 	
@@ -68,6 +88,8 @@ class SOAP implements TRANSPORT_INTERFACE{
 	/**
 	* DESCRIPTOR: 
 	* enforce a method to parse the request in the sub class
+	* 
+	* @access public 
 	* @param mixed raw_data 
 	* @return return NULL  
 	*/
@@ -186,6 +208,8 @@ class SOAP implements TRANSPORT_INTERFACE{
 	/**
 	* DESCRIPTOR: 
 	* a method to exit the notification
+	* 
+	* @access protected  
 	* @param mixed raw_data 
 	* @return return NULL  
 	*/
@@ -195,6 +219,8 @@ class SOAP implements TRANSPORT_INTERFACE{
 	/**
 	* DESCRIPTOR: 
 	* a method to parse the request
+	* 
+	* @access public 
 	* @param mixed raw_data 
 	* @return return NULL  
 	*/
@@ -223,6 +249,8 @@ class SOAP implements TRANSPORT_INTERFACE{
 	/**
 	* DESCRIPTOR: 
 	* enforce a method to compile the response in the sub class
+	* 
+	* @access public 
 	* @param mixed dataSet 
 	* @return return NULL  
 	*/
@@ -251,7 +279,13 @@ class SOAP implements TRANSPORT_INTERFACE{
 		
 
 	
-
+	/**
+	* callService
+	* 
+	 * @access protected 
+	 * @param array $result 
+	 * @return array 
+	 */
 	protected function callService($parsedRequest = null){
 		#echo __METHOD__.__LINE__.PHP_EOL;
 		#echo __METHOD__.__LINE__.'$parsedRequest<pre>['.var_export($parsedRequest, true).']</pre>'.PHP_EOL; 

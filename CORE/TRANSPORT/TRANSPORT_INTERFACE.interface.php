@@ -1,6 +1,7 @@
 <?php
 /**
  * TRANSPORT_INTERFACE
+	* INTERFACE DEFINES REQUEST ACCESS TO JSONRPC SERVICES 
  * couple good ideas here http://www.flickr.com/services/api/
 HTTP
 	REQUEST
@@ -27,9 +28,23 @@ namespace JCORE\TRANSPORT;
  * @package JCORE\DAO\TREE
 */
 interface TRANSPORT_INTERFACE{
-	/*INTERFACE DEFINES REQUEST ACCESS TO JSONRPC SERVICES 
-	 */
+	/**
+	* DESCRIPTOR: 
+	* parseRequest
+	* 
+	* @access public
+	* @param mixed raw_data 
+	* @return return NULL  
+	*/
 	public function parseRequest($raw_data);
+	/**
+	* DESCRIPTOR: 
+	* compileResponse
+	* 
+	* @access public
+	* @param mixed dataSet 
+	* @return return NULL  
+	*/
 	public function compileResponse($dataSet); //returns $this->RPCResponse;
 }
 

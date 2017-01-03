@@ -39,15 +39,29 @@ class ERROR {
     private $Code = null;
 
 	/**
-     * @var object $Message
+	* Message
+	* 
+	* @access public 
+    * @var object 
 	*/
     private $Message = null;
 
 	/**
-     * @var object $Data
+    *  Data
+	* 
+	* @access public 
+    * @var object 
 	*/
-    private $Data = null;    
+    private $Data = null;
 	
+	
+	/**
+	* __construct
+	* 
+	* @access public
+	* @param array args
+	* @return null 
+	*/
     public function __construct($args = null)
     {
 		#$this->cfg = $GLOBALS["CONFIG_MANAGER"];//->getSetting("ERROR")
@@ -69,29 +83,61 @@ class ERROR {
 		*/
 		$this->setData($args['Data']);
 		#$this->codes = $GLOBALS["CONFIG_MANAGER"]->getSetting('ERROR');
-
+		return;
 	}
-	
+	/**
+	* getCode
+	* 
+	* @access public
+	* @param null
+	* @return int 
+	*/
     public function getCode(){ 
 		return $this->Code;
 	}
-
+	/**
+	* setCode
+	* 
+	* @access public
+	* @param int code
+	* @return mixed 
+	*/
     public function setCode($Code = null){ 
 		if(null !== $Code){
 			$this->Code = $Code;
 		}
 	}
-
+	/**
+	* getMessage
+	* 
+	* @access public
+	* @param null
+	* @return string 
+	*/
     public function getMessage(){ 
 
 		return $this->Message;
 	}    
-
+	/**
+	* getConfigCode
+	* 
+	* @access public
+	* @param string LOAD_ID
+	* @param string SECTION_NAME
+	* @param string SETTING_NAME
+	* @return array 
+	*/
 	public function getConfigCode($LOAD_ID="ERROR",$SECTION_NAME=null,$SETTING_NAME=null){ 
 		return $GLOBALS["CONFIG_MANAGER"]->getSetting("ERROR",$this->Code);
 		#$this->Message;
 	}
-
+	/**
+	* setMessage
+	* 
+	* @access public
+	* @param string Message
+	* @return string 
+	*/
     public function setMessage($Message = null){ 
 		if(null !== $Message){
 			$this->Message = $Message;
@@ -115,11 +161,23 @@ class ERROR {
 	}
 	
 
-
+	/**
+	* getData
+	* 
+	* @access public
+	* @param null
+	* @return mixed 
+	*/
     public function getData(){ 
 		return $this->Data;
 	}
-
+	/**
+	* setData
+	* 
+	* @access public
+	* @param array Data
+	* @return mixed 
+	*/
     public function setData($Data = null){ 
 		#echo __METHOD__.'@'.__LINE__.'Data<pre>'.var_export($Data, true).'</pre>';
 		
@@ -133,7 +191,13 @@ class ERROR {
 			$this->Data = var_export($Data, true);
 		}
 	}
-
+	/**
+	* getError
+	* 
+	* @access public
+	* @param bool AsJSON
+	* @return mixed 
+	*/
     public function getError($AsJSON = false){ 
 		
 		$error =  array();
@@ -147,7 +211,14 @@ class ERROR {
 
 		#return $this;
 		return $error;
-	}  	
+	}  
+	/**
+	* __toString
+	* 
+	* @access public
+	* @param null
+	* @return mixed 
+	*/
 	public function __toString(){
 		#$error =  array();
 		#echo __METHOD__.'@'.__LINE__.'<pre>'.var_export($this->getMessage(), true).'</pre>';
@@ -161,10 +232,23 @@ class ERROR {
 		return $error;
 		
 	}
+	/**
+	* __sleep
+	* 
+	* @access public
+	* @param null
+	* @return mixed 
+	*/
 	public function __sleep(){
 		#echo __METHOD__.'@'.__LINE__.'$error<pre>'.var_export($error, true).'</pre>';
 	}
-	
+	/**
+	* __set_state
+	* 
+	* @access public
+	* @param array error
+	* @return mixed 
+	*/
 	public static function __set_state($error = array( 'gdmf'=>''))
     {
 		unset($error['cfg']);

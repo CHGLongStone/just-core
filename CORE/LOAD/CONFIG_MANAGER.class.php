@@ -13,16 +13,50 @@ namespace JCORE\LOAD;
 */
 class CONFIG_MANAGER{
 	/**
-	 * @access public 
-	 * @var string
-	 */
+	* A
+	* 
+	* @access public 
+	* @var string
+	*/
 	public $A = array();
+	/**
+	* LOADED_VALUES
+	* 
+	* @access public 
+	* @var string
+	*/
 	protected $LOADED_VALUES = array();
 	#protected $PLUGINS = array();
+	/**
+	* settings
+	* 
+	* @access public 
+	* @var string
+	*/
 	protected $settings = array();
+	/**
+	* C
+	* 
+	* @access public 
+	* @var string
+	*/
 	private $C = '';
+	/**
+	* CONFIG_PATH
+	* 
+	* @access public 
+	* @var string
+	*/
 	private $CONFIG_PATH = 'CONFIG/AUTOLOAD/';
+	/**
+	* CACHE_PATH
+	* 
+	* @access public 
+	* @var string
+	*/
 	private $CACHE_PATH = 'CACHE/FILE/';
+	
+	
 	/**
 	 * CACHEABLE CONFIG. 
 	 * if we don't have a cache with and API we're looking @ an I/O hit for all the config files
@@ -57,8 +91,11 @@ class CONFIG_MANAGER{
 		return false;
 	}
 	/**
-	*
-	*
+	* setCache
+	* 
+	* @access public
+	* @param array args
+	* @return mixed 
 	*/
 	public function setCache($args=NULL){
 		if(is_array($args)){
@@ -96,10 +133,12 @@ class CONFIG_MANAGER{
 		}
 	}
 
-	/*****
+	/**
 	* DESCRIPTOR: Checks the cache if the value is set
 	* cache args are set in the constructor
-	* @param string $LOAD_ID 
+	* 
+	* @access protected
+	* @param string LOAD_ID 
 	* @return mixed 
 	*/
 	protected function preHookCache($LOAD_ID){
@@ -130,12 +169,15 @@ class CONFIG_MANAGER{
 		}
 		return false;
 	}
-	/*****
+	/**
 	* DESCRIPTOR: Checks the cache if the value is set
-	* $args["KEY"]
-	* $args["DATA"]
-	* $args["CACHE_SERIALIZATION"]
-	* $args["UNSERIALIZE_TYPE"]
+	* args["KEY"]
+	* args["DATA"]
+	* args["CACHE_SERIALIZATION"]
+	* args["UNSERIALIZE_TYPE"]
+	* 
+	* @access protected
+	* @param array args
 	* @return mixed 
 	*/
 	protected function postHookCache($args){
@@ -171,7 +213,11 @@ class CONFIG_MANAGER{
 	}
 	
 	/**
-	*
+	* checkCompiled
+	* 
+	* @access public
+	* @param array args
+	* @return bool
 	*/
 	public function checkCompiled($args=null){
 		/**
@@ -206,7 +252,11 @@ class CONFIG_MANAGER{
 		return true;
 	}
 	/**
-	*
+	* loadConfigFile
+	* 
+	* @access public
+	* @param array args
+	* @return array
 	*/
 	public function loadConfigFile($args=null){
 		if(isset($args["file"])){
@@ -216,12 +266,13 @@ class CONFIG_MANAGER{
 	/**
 	* DESCRIPTOR: loads the config file and returns a value of true if all good 
 	*
-	* loads everything in $this->CONFIG_PATH/*{global,local}.php  by default
+	* loads everything in this->CONFIG_PATH/*{global,local}.php  by default
+	* LOAD_ID is the directory path 
 	*
-	* @param string $LOAD_ID 
-	* @return null 
 	* 
-	* $LOAD_ID is the directory path 
+	* @access public
+	* @param string LOAD_ID 
+	* @return null 
 	*/
 	public function loadConfig($LOAD_ID=''){
 		if($LOAD_ID == ''){
@@ -291,8 +342,10 @@ class CONFIG_MANAGER{
 	}
 	
 	/**
-	*
-	* @param string $LOAD_ID 
+	* saveConfig
+	* 
+	* @access public 
+	* @param string fileList 
 	* @return null 
 	*/
 	public function saveConfig($fileList){
@@ -308,10 +361,15 @@ class CONFIG_MANAGER{
 		}
 		
 	}
-	/***
+	/**
 	* lifted from example by andyidol at gmail dot com
 	* here http://php.net/manual/en/function.array-merge-recursive.php
 	* to address disfunctionality of array_merge and array_merge_recursive
+	* 
+	* @access public 
+	* @param array settings 
+	* @param array config
+	* @return null 
 	*/
 	public function MergeConfig($settings, $config)
 	{
@@ -349,8 +407,8 @@ class CONFIG_MANAGER{
 	* tree is still useful... rework MPTT or basic parent hook back
 	* 
 	* loads the bases ini internally, then all the subfiles, and returns a value of true if all good 
-	* @param string $LOAD_ID 
-	* @param string $FILE_NAME 
+	* @param string LOAD_ID 
+	* @param string FILE_NAME 
 	* @return null 
 	* 
 	* $LOAD_ID is the directory path 
@@ -402,20 +460,20 @@ class CONFIG_MANAGER{
 	
 	/**
 	* DESCRIPTOR: gets the setting.
-	* @param string $LOAD_ID 
-	* @param string $SECTION_NAME
-	* @param string $SETTING_NAME 
+	* 
+	* treat args as setting[LOAD_ID][SECTION_NAME][SETTING_NAME]
+	* LOAD_ID is the directory path LOAD_ID only will return all vars defined in the file
+	* SECTION_NAME [section] name in the ".ini" SECTION_NAME, LOAD_ID only will return the whole section
+	* SETTING_NAME setting under [section]  in the ".ini"
+	* 
+	* 
+	* 
+	* 
+	* @access public 
+	* @param string LOAD_ID 
+	* @param string SECTION_NAME
+	* @param string SETTING_NAME 
 	* @return null 
-	* 
-	* treat args as $setting[LOAD_ID][SECTION_NAME][SETTING_NAME]
-	* $LOAD_ID is the directory path $LOAD_ID only will return all vars defined in the file
-	* $SECTION_NAME [section] name in the ".ini" $SECTION_NAME, $LOAD_ID only will return the whole section
-	* $SETTING_NAME setting under [section]  in the ".ini"
-	* 
-	* 
-	* 
-	* 
-	* 
 	*/
 	public function getSetting($LOAD_ID = null, $SECTION_NAME = null, $SETTING_NAME = NULL){
 		#echo __METHOD__.'@'.__LINE__.'$this->LOADED_VALUES['.$LOAD_ID.']<pre>'.print_r($this->LOADED_VALUES, true).'</pre>'.PHP_EOL;
@@ -441,8 +499,6 @@ class CONFIG_MANAGER{
 	/**
 	* DESCRIPTOR: .
 	* loads the ini internally and returns a value of true if all good 
-	* @param string $section 
-	* @return array
 	* returns the defined constants array with the "categories" flag
 	* $section is the "category" returned 
 	* "user" is default
@@ -450,6 +506,11 @@ class CONFIG_MANAGER{
 	* internal, date, libxml, openssl, pcre, zlib, calendar, hash, filter, ftp, gmp, iconv, standard,
 	* sockets, exif, tokenizer, xml, curl,dom, gd, imap, ldap, mbstring, mcrypt, mhash, mysql, mysqli
 	* pgsql, posix, snmp, soap
+	* 
+	* 
+	* @access public 
+	* @param string $section 
+	* @return bool
 	*/
 	public function getConstants($section="user"){
 		$defined_constants = get_defined_constants(true);
