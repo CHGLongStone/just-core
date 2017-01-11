@@ -29,6 +29,7 @@
      - database backup and syncronization (MySQL inc InnoDb) 
 * to support enterprise level applications 
  - Service Oriented Architecture supporting a modular and extensible core Enterprise Service Bus
+  * dafuq
  - Name Space loading of service classes by multiple transport methods
  - Multiple Cache and Data store options
  - Extensible Data Access Objects and Data Store Connectors for rapid development without compromising `late optimization`
