@@ -9,27 +9,27 @@
 
 ### Providing:
 * Things you need in any framework 
- - core services with clearly defined interfaces 
+ - Core services with clearly defined interfaces 
  - No BLOAT by giving you modular control to include the things you need and ignore the ones you do not
- - low cost of entry on the learning curve 
+ - Low Cost Of Entry on the learning curve 
   * providing common utilities without imposing a coding style on you by
    - Staying close to the native language 
-   - using common standards like
+   - Using common standards like
     * Dependency Management via Composer/Packagist and PSR-4 namespaces
     * Simple configuration management for multiple environments from `dev/uat/prod` to dev sandboxes 
-     - with `*{global,local}.php` Zend style configuration file naming pattern
- - low cost of effort for
-  * new development - add a service class, update composer autoconfig and call it by namespace
-  * change management 
-   - clear separation of the framework from your own intelectual property
-   - configurable scripts to support the SLDC including:
-    * installing/updating the project
-    * release tag generation for git repositories with pre-validation checking:
-     - commonly used project directories for changes
-     - your own included packages for changes
-     - database schema changes between upstream and downstream environments
-     - upstream and downstream primary and compostie/dependant repository changes 
-    * before creating the tag as well as supporting scripts for
+     - with `*{global,local}.php` Zend style configuration file naming patterns
+ - Low level of effort for
+  * New development - add a service class, update composer autoconfig and call it by namespace
+  * Change Management 
+   - Clear separation of the framework from your own intelectual property
+   - Configurable scripts to support the SLDC including:
+    * Installing/updating the project
+    * Release Tag Generation for git repositories with pre-validation checking:
+     - Commonly used project directories for changes
+     - Your own included packages for changes
+     - Database Schema Changes between Upstream and Downstream environments
+     - Upstream and Downstream primary and composite/dependant repository changes 
+    * Before creating the release tag as well as supporting scripts for
      - deploying releases to your production environment
      - database backup and syncronization MySQL inc. InnoDb supported 
 * To support Enterprise Applications 
@@ -37,7 +37,7 @@
  - Name Space loading of service classes by multiple transport methods
  - Multiple Cache and Data store options
  - Extensible Data Access Objects and Data Store Connectors for 
-  * rapid development without compromising late optimization
+   * rapid development without compromising late optimization
  - Easy to implement logging and change auditing 
  - A bias towards performance tuning with
    * low framework overhead, complete an http request with a complete stack trace of 10K+ internal function calls 
