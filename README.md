@@ -31,7 +31,7 @@
  - Service Oriented Architecture supporting a modular and extensible core Enterprise Service Bus
  - Name Space loading of service classes by multiple transport methods
  - Multiple Cache and Data store options
- - Extensible Data Access Objects and Data Store Connectors for rapid development without compromising "late optimization" 
+ - Extensible Data Access Objects and Data Store Connectors for rapid development without compromising `late optimization`
  - Easy to implement logging and change auditing 
  - A bias towards performance tuning with: 
   * low framework overhead, complete an http request with a complete stack trace of 10K(+) internal function calls 
