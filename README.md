@@ -27,7 +27,7 @@
     * before creating the tag as well as supporting scripts for:
      - deploying releases to your production environment
      - database backup and syncronization (MySQL inc InnoDb) 
-* ...to support enterprise level applications 
+* to support enterprise level applications 
  - Service Oriented Architecture supporting a modular and extensible core Enterprise Service Bus
  - Name Space loading of service classes by multiple transport methods
  - Multiple Cache and Data store options
