@@ -1,4 +1,9 @@
 # just-core
+### Qick menu
+* [Quick Start Guide](https://github.com/CHGLongStone/just-core/wiki/QuickStart)
+* [Installation](https://github.com/CHGLongStone/just-core-stub/wiki/Project-Installation)
+* [Framework-Structure](https://github.com/CHGLongStone/just-core/wiki/Framework-Structure)
+
 
 ## A PHP Enterprise Service Bus framework
 
@@ -41,11 +46,6 @@
     - Using [XDEBUG](https://xdebug.org/) for complete stack traces is dependent on your development environment
 
 
-
-### Qick menu
-* [Quick Start Guide](https://github.com/CHGLongStone/just-core/wiki/QuickStart)
-* [Installation](https://github.com/CHGLongStone/just-core-stub/wiki/Project-Installation)
-* [Framework-Structure](https://github.com/CHGLongStone/just-core/wiki/Framework-Structure)
 
 
 
