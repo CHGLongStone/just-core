@@ -60,9 +60,9 @@
  * [Caching API](https://github.com/CHGLongStone/just-core/wiki/Cache) 
   - API for:
     * multiple cache types 
-     - opcode, data - read or write through, http, etc. 
+      -opcode, data - read or write through, http, etc. 
     * with multiple caching options
-     - file, memcached, NoSQL, xcache, etc.
+      -file, memcached, NoSQL, xcache, etc.
  * [Data API](https://github.com/CHGLongStone/just-core/wiki/Data-layer) 
   - Connection management and CRUD interace to multiple data store types
     * SQL - Standard RDBMS types like MySQL and PostgreSQL
