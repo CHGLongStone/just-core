@@ -13,7 +13,7 @@
     * Dependency Management via Composer/Packagist and PSR-4 namespaces
     * Simple configuration management for multiple environments from dev/uat/prod to dev sandboxes with
      - `*{global,local}.php` "Zend style" configuration file naming pattern
- - low cost of effort for: 
+ - low cost of effort for
   * new development - add a service class, update composer autoconfig and call it by namespace
   * change management 
    - clear separation of the framework from your own intelectual property
@@ -24,20 +24,20 @@
      - your own included packages for changes
      - database schema changes between upstream and downstream environments
      - upstream and downstream primary and compostie/dependant repository changes 
-    * before creating the tag as well as supporting scripts for:
+    * before creating the tag as well as supporting scripts for
      - deploying releases to your production environment
-     - database backup and syncronization (MySQL inc InnoDb) 
-* to support enterprise level applications 
+     - database backup and syncronization `MySQL inc. InnoDb` 
+* To support Enterprise Applications 
  - Service Oriented Architecture supporting a modular and extensible core Enterprise Service Bus
-  * dafuq
+   * dafuq
  - Name Space loading of service classes by multiple transport methods
  - Multiple Cache and Data store options
  - Extensible Data Access Objects and Data Store Connectors for rapid development without compromising `late optimization`
  - Easy to implement logging and change auditing 
- - A bias towards performance tuning with: 
-  * low framework overhead, complete an http request with a complete stack trace of 10K(+) internal function calls 
+ - A bias towards performance tuning with
+   * low framework overhead, complete an http request with a complete stack trace of 10K+ internal function calls 
    - rather than waiting for 7K+ internal calls before you even load your service classes...like some other frameworks
-  * Application profiling via [xhprof](https://github.com/phacility/xhprof)
+   * Application profiling via [xhprof](https://github.com/phacility/xhprof)
    -  Using [XDEBUG](https://xdebug.org/) for complete stack traces is dependent on your development environment
 
 
