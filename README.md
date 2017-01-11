@@ -3,10 +3,41 @@
 ## A PHP Enterprise Service Bus framework
 
 ### Providing:
-* Service Oriented Architecture supporting a modular and extensible core Enterprise Service Bus
-* Simple configuration management for multiple environments
-* Dependency Management via Composer/Packagist and PSR-4 namespaces
-* Support for rapid development without compromising optimization 
+* Things you need in any framework 
+ - core services with clearly defined interfaces 
+ - low cost of entry on the learning curve 
+  * providing common utilities without imposing a coding style on you by:
+   - Staying close to the native language 
+   - using common standards like:
+    * Dependency Management via Composer/Packagist and PSR-4 namespaces
+    * Simple configuration management for multiple environments from dev/uat/prod to dev sandboxes with
+     - `*{global,local}.php` "Zend style" configuration file naming pattern
+   - 
+ - low cost of effort for: 
+  * new development - add a service class, update composer autoconfig and call it by namespace
+  * change management 
+   - clear separation of the framework from your own intelectual property
+   - configurable scripts to support the SLDC including:
+    * installing/updating the project
+    * release tag generation for git repositories with pre-validation checking:
+     - commonly used project directories for changes
+     - your own included packages for changes
+     - database schema changes between upstream and downstream environments
+     - upstream and downstream primary and compostie/dependant repository changes 
+    * before creating the tag as well as supporting scripts for:
+     - database backup and syncronization (MySQL inc InnoDb) 
+     - 
+ 
+ - 
+* ...to support enterprise level applications 
+ - Service Oriented Architecture supporting a modular and extensible core Enterprise Service Bus
+
+ - Name Space loading of service classes by multiple transport methods
+ - Multiple Cache and Data store options
+ - Extensible Data Access Objects and Data Store Connectors for rapid development without compromising "late optimization" 
+ - Easy to implement logging and change auditing 
+
+
 
 ### Qick menu
 * [Quick Start Guide](https://github.com/CHGLongStone/just-core/wiki/QuickStart)
@@ -40,6 +71,8 @@
  * [Transport](https://github.com/CHGLongStone/just-core/wiki/Transport)
   - Clear Separation of the transport layer from business logic
   - Send/Recieve JSON-RPC, ReST, XML requests/responses to the same service classes
+ * [Log](https://github.com/CHGLongStone/just-core/wiki/Log)
+  - log at varried thresholds to multiple targets (DB, File, UDP) 
  * [Exception Management](https://github.com/CHGLongStone/just-core/wiki/Exception)
  * [Localization](https://github.com/CHGLongStone/just-core/wiki/Localization) 
   - later implementation but not an afterthought
