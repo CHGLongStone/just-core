@@ -16,8 +16,8 @@
    - Staying close to the native language 
    - using common standards like
     * Dependency Management via Composer/Packagist and PSR-4 namespaces
-    * Simple configuration management for multiple environments from `dev/uat/prod` to dev sandboxes with
-     - `*{global,local}.php` Zend style configuration file naming pattern
+    * Simple configuration management for multiple environments from `dev/uat/prod` to dev sandboxes 
+     - with `*{global,local}.php` Zend style configuration file naming pattern
  - low cost of effort for
   * new development - add a service class, update composer autoconfig and call it by namespace
   * change management 
