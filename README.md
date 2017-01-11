@@ -3,6 +3,7 @@
 * [Quick Start Guide](https://github.com/CHGLongStone/just-core/wiki/QuickStart)
 * [Installation](https://github.com/CHGLongStone/just-core-stub/wiki/Project-Installation)
 * [Framework-Structure](https://github.com/CHGLongStone/just-core/wiki/Framework-Structure)
+* [Packages](https://github.com/CHGLongStone/just-core/wiki/Packages-(extensions))
 
 
 ## A PHP Enterprise Service Bus framework
