@@ -51,7 +51,7 @@
 
 # Architecture
 
-## just-core service busses
+## just-core service buses
  * [Initialization](https://github.com/CHGLongStone/just-core/wiki/Load)
   - Configuration Mangement
   - Application bootstrap and "lazy loading" of service classes
@@ -60,13 +60,13 @@
  * [Caching API](https://github.com/CHGLongStone/just-core/wiki/Cache) 
   - API for:
    * multiple cache types 
-    - opcode, data (read or write through), http...
+    - opcode, data - read or write through, http, etc. 
    * with multiple caching options
     - file, memcached, NoSQL, xcache, etc.
  * [Data API](https://github.com/CHGLongStone/just-core/wiki/Data-layer) 
   - Connection management and CRUD interace to multiple data store types
-   * SQL (Standard RDBMS types like MySQL and PostgreSQL)
-   * NoSQL (Redis and other document based data stores )
+   * SQL - Standard RDBMS types like MySQL and PostgreSQL
+   * NoSQL - Redis and other document based data stores 
    * file
   - [Data Access Objects](https://github.com/CHGLongStone/just-core/wiki/DAO)
    * Basic and extesnsible 
