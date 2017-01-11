@@ -5,6 +5,7 @@
 ### Providing:
 * Things you need in any framework 
  - core services with clearly defined interfaces 
+ - No BLOAT by giving you modular control to include the things you need and ignore the ones you don't
  - low cost of entry on the learning curve 
   * providing common utilities without imposing a coding style on you by:
    - Staying close to the native language 
@@ -12,7 +13,6 @@
     * Dependency Management via Composer/Packagist and PSR-4 namespaces
     * Simple configuration management for multiple environments from dev/uat/prod to dev sandboxes with
      - `*{global,local}.php` "Zend style" configuration file naming pattern
-   - 
  - low cost of effort for: 
   * new development - add a service class, update composer autoconfig and call it by namespace
   * change management 
@@ -25,17 +25,19 @@
      - database schema changes between upstream and downstream environments
      - upstream and downstream primary and compostie/dependant repository changes 
     * before creating the tag as well as supporting scripts for:
+     - deploying releases to your production environment
      - database backup and syncronization (MySQL inc InnoDb) 
-     - 
- 
- - 
 * ...to support enterprise level applications 
  - Service Oriented Architecture supporting a modular and extensible core Enterprise Service Bus
-
  - Name Space loading of service classes by multiple transport methods
  - Multiple Cache and Data store options
  - Extensible Data Access Objects and Data Store Connectors for rapid development without compromising "late optimization" 
  - Easy to implement logging and change auditing 
+ - A bias towards performance tuning with: 
+  * low framework overhead, complete an http request with a complete stack trace of 10K(+) internal function calls 
+   - rather than waiting for 7K+ internal calls before you even load your service classes...like some other frameworks
+  * Application profiling via [xhprof](https://github.com/phacility/xhprof)
+   -  Using [XDEBUG](https://xdebug.org/) for complete stack traces is dependent on your development environment
 
 
 
@@ -80,7 +82,7 @@
     - older standards like `*.po` files
     - newer standards like DITA, TMX 
  * [Templater]()
-  - it's basic, it's there...but why render html server side?
+  - it's basic, it's there...but why at this point in time, render html server side?
 
  
 the foundation [just-core service bus](https://github.com/CHGLongStone/just-core/wiki/just-core-service-bus)
