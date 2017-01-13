@@ -17,10 +17,10 @@
  -  No BLOAT by giving you modular control to include the things you need and ignore the ones you do not
  -  Low Cost Of Entry on the learning curve by
    -   providing common utilities without imposing a coding style on you 
-   -   Staying close to the native language and using common standards like
-     -   Dependency Management via Composer/Packagist and PSR-4 namespaces
-     -    Simple configuration management for multiple environments from `dev/uat/prod` to dev sandboxes 
-     -       with `*{global,local}.php` Zend style configuration file naming patterns
+    -   Staying close to the native language and using common standards like
+      -    Dependency Management via Composer/Packagist and PSR-4 namespaces
+      -    Simple configuration management for multiple environments from `dev/uat/prod` to dev sandboxes 
+        -       with `*{global,local}.php` Zend style configuration file naming patterns
  -  Low level of effort for
    -  New development - add a service class, update composer autoconfig and call it by namespace
     -  Change Management 
@@ -32,9 +32,9 @@
        -  Your own included packages for changes
         -   Database Schema Changes between Upstream and Downstream environments
         -   Upstream and Downstream primary and composite/dependant repository changes 
-      -   Creating the release tag as with supporting scripts for
-       -   deploying releases to your production, UAT and other environments
-       -   database backup and syncronization MySQL inc. InnoDb supported 
+      -   Deployment with supporting scripts for
+       -   deploying releases to your multiple environments
+       -   database backup and syncronization for MySQL (InnoDb supported) Postgres...
 * To support Enterprise Applications 
  - Service Oriented Architecture supporting a modular and extensible core Enterprise Service Bus
   -  Name Space loading of service classes by multiple transport methods
