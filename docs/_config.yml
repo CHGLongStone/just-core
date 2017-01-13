@@ -1,1 +1,4 @@
 theme: jekyll-theme-architect
+title: [just-core]
+description: [ A PHP Framework for Enterprise Service Buses]
+show_downloads: ["true"]
