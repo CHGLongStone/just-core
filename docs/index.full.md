@@ -22,6 +22,7 @@
     - Dependency Management via Composer/Packagist and PSR-4 namespaces
     - Simple configuration management for multiple environments from `dev/uat/prod` to dev sandboxes 
      - with `*{global,local}.php` Zend style configuration file naming patterns
+	 
  - Low level of effort for
   * New development - add a service class, update composer autoconfig and call it by namespace
   * Change Management 
@@ -36,6 +37,7 @@
     * Before creating the release tag as well as supporting scripts for
      - deploying releases to your production environment
      - database backup and syncronization MySQL inc. InnoDb supported 
+	 
 * To support Enterprise Applications 
  -Service Oriented Architecture supporting a modular and extensible core Enterprise Service Bus
  - Name Space loading of service classes by multiple transport methods
