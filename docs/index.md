@@ -12,24 +12,24 @@ reducing "ramp up" time and more importantly they are easy to modify and extend.
 
 
 # Providing Things you need in any framework... 
- - ## Clear Architecture
-   - ### Core services with clearly defined interfaces 
- - ## Flexibility 
-   -  ### Service Modularity + Lazy Loading = No Bloat
-   -  ### Multiple Cache and Data store options
-   -  ### Easy to implement logging and change auditing 
- - ## Reduced effort for
-   -  ### New development 
-     -  #### Low Cost Of Entry on the learning curve 
-     -  #### Using common standards
-     -  #### Staying close to the native language 
-     -  #### providing common utilities without imposing a coding style on your work
-   -  ### Optimization and performance tuning 
-     - #### Extensible or replaceable Service Objects 
-   -  ### Change Management 
-     -  #### Clear separation of the framework from your own intellectual property
-     -  #### Simple configuration management for multiple environments
-     -  #### Configurable scripts to support the SLDC
+ -  Clear Architecture
+   -  Core services with clearly defined interfaces 
+ -  Flexibility 
+   -   Service Modularity + Lazy Loading = No Bloat
+   -   Multiple Cache and Data store options
+   -   Easy to implement logging and change auditing 
+ -  Reduced effort for
+   -   New development 
+     -   Low Cost Of Entry on the learning curve 
+     -   Using common standards
+     -   Staying close to the native language 
+     -   providing common utilities without imposing a coding style on your work
+   -   Optimization and performance tuning 
+     -  Extensible or replaceable Service Objects 
+   -   Change Management 
+     -   Clear separation of the framework from your own intellectual property
+     -   Simple configuration management for multiple environments
+     -   Configurable scripts to support the SLDC
 
 
 	 
