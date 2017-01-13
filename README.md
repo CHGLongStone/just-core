@@ -1,5 +1,6 @@
 # just-core
 ### Qick menu
+* [KIKI](https://github.com/CHGLongStone/just-core/wiki)
 * [Quick Start Guide](https://github.com/CHGLongStone/just-core/wiki/QuickStart)
 * [Installation](https://github.com/CHGLongStone/just-core-stub/wiki/Project-Installation)
 * [Framework-Structure](https://github.com/CHGLongStone/just-core/wiki/Framework-Structure)
