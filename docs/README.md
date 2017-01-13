@@ -36,17 +36,17 @@
        -   deploying releases to your production, UAT and other environments
        -   database backup and syncronization MySQL inc. InnoDb supported 
 * To support Enterprise Applications 
- -Service Oriented Architecture supporting a modular and extensible core Enterprise Service Bus
- - Name Space loading of service classes by multiple transport methods
- - Multiple Cache and Data store options
- - Extensible Data Access Objects and Data Store Connectors for 
-  -  rapid development without compromising late optimization
- - Easy to implement logging and change auditing 
- - A bias towards performance tuning with
-   * low framework overhead, complete an http request with a complete stack trace of 10K+ internal function calls 
-     -rather than waiting for 7K+ internal calls before you even load your service classes...like some other frameworks
-   * Application profiling via [xhprof](https://github.com/phacility/xhprof)
-    - Using [XDEBUG](https://xdebug.org/) for complete stack traces is dependent on your development environment
+ - Service Oriented Architecture supporting a modular and extensible core Enterprise Service Bus
+  -  Name Space loading of service classes by multiple transport methods
+  -  Multiple Cache and Data store options
+  -  Extensible Data Access Objects and Data Store Connectors for 
+  -   rapid development without compromising late optimization
+  -   Easy to implement logging and change auditing 
+  -  A bias towards performance tuning with
+    -   low framework overhead, complete an http request with a complete stack trace of 10K+ internal function calls 
+      -   rather than waiting for 7K+ internal calls before you even load your service classes...like some other frameworks
+    -   Application profiling via [xhprof](https://github.com/phacility/xhprof)
+     -   Using [XDEBUG](https://xdebug.org/) for complete stack traces is dependent on your development environment
 
 
 
