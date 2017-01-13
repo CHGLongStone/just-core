@@ -1,4 +1,5 @@
 # just-core
+
 ### Qick menu
 * [WIKI](https://github.com/CHGLongStone/just-core/wiki)
 * [Quick Start Guide](https://github.com/CHGLongStone/just-core/wiki/QuickStart)
@@ -14,11 +15,11 @@
  - Core services with clearly defined interfaces 
  - No BLOAT by giving you modular control to include the things you need and ignore the ones you do not
  - Low Cost Of Entry on the learning curve 
-  * providing common utilities without imposing a coding style on you by
+  - providing common utilities without imposing a coding style on you by
    - Staying close to the native language 
    - Using common standards like
-    * Dependency Management via Composer/Packagist and PSR-4 namespaces
-    * Simple configuration management for multiple environments from `dev/uat/prod` to dev sandboxes 
+    - Dependency Management via Composer/Packagist and PSR-4 namespaces
+    - Simple configuration management for multiple environments from `dev/uat/prod` to dev sandboxes 
      - with `*{global,local}.php` Zend style configuration file naming patterns
  - Low level of effort for
   * New development - add a service class, update composer autoconfig and call it by namespace
