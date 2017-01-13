@@ -2,12 +2,8 @@
 
 ### Qick menu
 
-* [WIKI](https://github.com/CHGLongStone/just-core/wiki)
-* [Quick Start Guide](https://github.com/CHGLongStone/just-core/wiki/QuickStart)
-* [Installation](https://github.com/CHGLongStone/just-core-stub/wiki/Project-Installation)
-* [Framework-Structure](https://github.com/CHGLongStone/just-core/wiki/Framework-Structure)
-* [Packages](https://github.com/CHGLongStone/just-core/wiki/Packages-(extensions))
-
+* [Local Project Documentation](https://github.com/CHGLongStone/just-core/wiki)
+* [Main Project Documentation](https://chglongstone.github.io/just-core/)
 
 ## A PHP Enterprise Service Bus framework
 
