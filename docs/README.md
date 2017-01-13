@@ -17,14 +17,13 @@
  -  No BLOAT by giving you modular control to include the things you need and ignore the ones you do not
  -  Low Cost Of Entry on the learning curve 
   -  providing common utilities without imposing a coding style on you by
-    -  Staying close to the native language 
-      -  Using common standards like
-       -     Dependency Management via Composer/Packagist and PSR-4 namespaces
-       -     Simple configuration management for multiple environments from `dev/uat/prod` to dev sandboxes 
+    -  Staying close to the native language and using common standards like
+      -     Dependency Management via Composer/Packagist and PSR-4 namespaces
+      -     Simple configuration management for multiple environments from `dev/uat/prod` to dev sandboxes 
          -       with `*{global,local}.php` Zend style configuration file naming patterns
  - Low level of effort for
-  * New development - add a service class, update composer autoconfig and call it by namespace
-  * Change Management 
+  -  New development - add a service class, update composer autoconfig and call it by namespace
+  -  Change Management 
    - Clear separation of the framework from your own intelectual property
    - Configurable scripts to support the SLDC including:
     * Installing/updating the project
@@ -41,7 +40,7 @@
  - Name Space loading of service classes by multiple transport methods
  - Multiple Cache and Data store options
  - Extensible Data Access Objects and Data Store Connectors for 
-   * rapid development without compromising late optimization
+  -  rapid development without compromising late optimization
  - Easy to implement logging and change auditing 
  - A bias towards performance tuning with
    * low framework overhead, complete an http request with a complete stack trace of 10K+ internal function calls 
