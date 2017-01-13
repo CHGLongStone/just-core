@@ -21,20 +21,20 @@
       -     Dependency Management via Composer/Packagist and PSR-4 namespaces
       -     Simple configuration management for multiple environments from `dev/uat/prod` to dev sandboxes 
          -       with `*{global,local}.php` Zend style configuration file naming patterns
- - Low level of effort for
-  -  New development - add a service class, update composer autoconfig and call it by namespace
-  -  Change Management 
-   - Clear separation of the framework from your own intelectual property
-   - Configurable scripts to support the SLDC including:
-    * Installing/updating the project
-    * Release Tag Generation for git repositories with pre-validation checking:
-     - Commonly used project directories for changes
-     - Your own included packages for changes
-     - Database Schema Changes between Upstream and Downstream environments
-     - Upstream and Downstream primary and composite/dependant repository changes 
-    * Before creating the release tag as well as supporting scripts for
-     - deploying releases to your production environment
-     - database backup and syncronization MySQL inc. InnoDb supported 
+ -  Low level of effort for
+   -  New development - add a service class, update composer autoconfig and call it by namespace
+    -  Change Management 
+    -  Clear separation of the framework from your own intelectual property
+    -  Configurable scripts to support the SLDC including:
+     -   Installing/updating the project
+      -   Release Tag Generation for git repositories with pre-validation checking:
+       -  Commonly used project directories for changes
+       -  Your own included packages for changes
+        -   Database Schema Changes between Upstream and Downstream environments
+        -   Upstream and Downstream primary and composite/dependant repository changes 
+      -   Creating the release tag as with supporting scripts for
+       -   deploying releases to your production, UAT and other environments
+       -   database backup and syncronization MySQL inc. InnoDb supported 
 * To support Enterprise Applications 
  -Service Oriented Architecture supporting a modular and extensible core Enterprise Service Bus
  - Name Space loading of service classes by multiple transport methods
