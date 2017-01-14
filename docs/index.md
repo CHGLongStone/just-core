@@ -35,7 +35,7 @@ reducing "ramp up" time and more importantly they are easy to modify and extend.
 	 
 	 
 	 
-## The Break down:
+# The Break down:
 
 
 
@@ -43,10 +43,10 @@ reducing "ramp up" time and more importantly they are easy to modify and extend.
 
 
 
-[#Architecture](Architecture)
+## Architecture
 
 
-## just-core service buses
+### just-core service buses
  * [Initialization](https://github.com/CHGLongStone/just-core/wiki/Load)
   - Configuration Mangement
   - Application bootstrap and "lazy loading" of service classes
@@ -80,29 +80,29 @@ reducing "ramp up" time and more importantly they are easy to modify and extend.
 
 
 
-#[Flexibility](Flexibility)
+## Flexibility
 
-## Name Space loading
+### Name Space loading
 
 Dependency Management via Composer/Packagist and PSR-4 namespaces, Lazy Loading of service calls by namespace 
 through multiple transport types from AJAX to XML. 
 
 
-## Cache and Data Store
+### Cache and Data Store
 
 Multiple Cache and Data store options with extensible Data Access Objects and Data Store Connectors for rapid development without 
 compromising late optimization
 
 
 
-#[Reduced Effort](Reduced-Effort)
+## Reduced Effort
 
-## Simplified Development 
+### Simplified Development 
 
 Add a service class, update composer autoconfig and call it by namespace 
 
 
-## Optimization
+### Optimization
 
 A bias towards performance tuning with low framework overhead, complete an http request with a complete stack trace of 10K+ internal function calls 
 rather than waiting for 7K+ internal calls before you even load your service classes...like some other frameworks
@@ -110,21 +110,21 @@ rather than waiting for 7K+ internal calls before you even load your service cla
 Application profiling via [xhprof](https://github.com/phacility/xhprof) or using [XDEBUG](https://xdebug.org/) for complete stack traces 
 __dependent on your development environment__
 
-## Change Management
+### Change Management
 
-### Simple configuration management
+#### Simple configuration management
 
 Simple configuration management for multiple environments from `dev/uat/prod` to dev sandboxes with Zend style  `*{global,local}.php`  configuration file naming patterns.
 
 Clear separation of the framework from your own intellectual property
 
-### Business Intelligence and System oversight
+#### Business Intelligence and System oversight
 
 Easy to implement logging and change auditing 
 
  
 
-### Scripts to support the SLDC
+#### Scripts to support the SLDC
 
 Configurable scripts to support the Software Development Life Cycle including:
 - Installing/updating the project
