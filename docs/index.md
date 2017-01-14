@@ -38,7 +38,7 @@ reducing "ramp up" time and more importantly they are easy to modify and extend.
 # The Break down:
 
 ## Architecture
-
+###### [](#header-6)Header 6
 
 ### just-core service buses
 
@@ -122,6 +122,7 @@ Easy to implement logging and change auditing
 #### Scripts to support the SLDC
 
 Configurable scripts to support the Software Development Life Cycle including:
+
 - Installing/updating the project
 - Release Tag Generation for git repositories with pre-validation checking:
   - Commonly used project directories for changes
