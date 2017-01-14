@@ -12,12 +12,12 @@ reducing "ramp up" time and more importantly they are easy to modify and extend.
 
 
 # Providing Things you need in any framework... 
--  Clear Architecture
-  -  Core services with clearly defined interfaces 
--  Flexibility 
-  -   Service Modularity + Lazy Loading = No Bloat
-  -   Multiple Cache and Data store options
-  -   Easy to implement logging and change auditing 
+- Clear Architecture
+  - Core services with clearly defined interfaces 
+- Flexibility 
+  - Service Modularity + Lazy Loading = No Bloat
+  - Multiple Cache and Data store options
+  - Easy to implement logging and change auditing 
 -  Reduced effort for
    -   New development 
      -   Low Cost Of Entry on the learning curve 
