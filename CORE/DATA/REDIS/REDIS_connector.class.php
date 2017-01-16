@@ -18,7 +18,7 @@ use JCORE\EXCEPTION\networkException as networkException;
 */
 class REDIS_connector implements \JCORE\DATA\API\DATA_API_INTERFACE{
 	/**
-	 * The data base "dbType" MYSQL/POSTGRES/...
+	 * The data base dbType MYSQL/POSTGRES/...
 	 * @access private 
 	 * @var string
 	 */
@@ -119,7 +119,7 @@ class REDIS_connector implements \JCORE\DATA\API\DATA_API_INTERFACE{
 		*/
 		return;
 	}
-	/***
+	/**
 	* DESCRIPTOR: Get the "private" dbType
 	* 
 	* @param	NULL

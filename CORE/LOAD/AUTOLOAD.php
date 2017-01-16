@@ -18,15 +18,33 @@ namespace JCORE\LOAD;
 */
 class ComposerAutoloaderInit
 {
-    private static $loader;
-
+	/**
+	* private instance of Composer Autoload ClassLoader
+	*
+	* @access private
+	* @var mixed
+	*/
+	private static $loader;
+	
+	/**
+	* get the composer class loader file
+	* 
+	* @param mixed class
+	* @return NULL 
+	*/
     public static function loadClassLoader($class)
     {
         if ('Composer\Autoload\ClassLoader' === $class) {
             require __DIR__ . '/vendor/composer/ClassLoader.php';
         }
     }
-
+	
+	/**
+	* parse the PSR-4 name spaces to generate the autoload
+	* 
+	* @param null
+	* @return NULL 
+	*/
     public static function getLoader()
     {
         if (null !== self::$loader) {
@@ -66,6 +84,13 @@ class ComposerAutoloaderInit
     }
 }
 
+
+/**
+* load the composer file
+* 
+* @param null
+* @return NULL 
+*/
 function composerRequire($file)
 {
     require $file;
