@@ -5,23 +5,23 @@
  * @ignore
  * @author		Jason Medland
  * @package		JCORE
- * @subpackage	CACHE
 *
 */
 /**
 *
 */	
 namespace JCORE\CACHE;
-use JCORE\CACHE\CACHE_STATIC_API_INTERFACE as CACHE_STATIC_API_INTERFACE;
+use JCORE\CACHE\CACHE_STATIC_API_INTERFACE ;
 #require_once($CACHE_STATIC_API_INTERFACE);
 #$CACHE_STATIC_API_INTERFACE = JCORE_BASE_DIR.'CACHE/CACHE_STATIC_API_INTERFACE.interface.php';
 
 /**
  * Class XCACHE_static
- *
+ * 
+ * @implements JCORE\CACHE\STATIC_API_INTERFACE
  * @package JCORE\CACHE
 */
-class XCACHE_static extends JCORE_SINGLETON implements CACHE_STATIC_API_INTERFACE 
+class XCACHE_static extends JCORE_SINGLETON implements JCORE\CACHE\CACHE_STATIC_API_INTERFACE 
 {
 	/**
 	* private instance of the class 
