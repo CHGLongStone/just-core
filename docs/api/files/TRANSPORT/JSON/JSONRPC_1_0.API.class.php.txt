@@ -26,54 +26,86 @@ use JCORE\TRANSPORT\SOA\SERVICE_VALIDATOR as SERVICE_VALIDATOR;
 class JSONRPC_1_0_API implements TRANSPORT_INTERFACE {
 
 	/**
+	* id
 	* 
+	* @access public 
+	* @var string
 	*/
 	public $id = NULL;
 	/**
+	* result
 	* 
+	* @access public 
+	* @var array
 	*/
 	public $result = NULL;
 	/**
+	* error
 	* 
+	* @access public 
+	* @var mixed
 	*/
 	public $error  = NULL;
 	
 	/**
+	* responseData
 	* 
+	* @access public 
+	* @var array
 	*/
-	#protected $requestMethod = 'exitNotice';
 	public $responseData = array();
+	#protected $requestMethod = 'exitNotice';
 	/**
+	* params
 	* 
+	* @access protected 
+	* @var array
 	*/
 	protected $params = array();
 	/**
+	* raw_data
 	* 
+	* @access protected 
+	* @var mixed
 	*/
 	protected $raw_data = NULL;
 	/**
+	* parsedRequest
 	* 
+	* @access protected 
+	* @var string
 	*/
 	protected $parsedRequest = NULL;
 	/**
+	* serviceObject
 	* 
+	* @access protected 
+	* @var mixed
 	*/
 	protected $serviceObject = NULL;
 	/**
+	* serviceResponse
 	* 
+	* @access protected 
+	* @var mixed
 	*/
 	protected $serviceResponse = NULL;
 	/**
+	* resultHandler
 	* 
+	* @access protected 
+	* @var mixed
 	*/
 	protected $resultHandler = NULL;
 	
 	
 	/**
 	* DESCRIPTOR: 
-	* enforce a method to parse the request in the sub class
-	* @param mixed raw_data 
-	* @return return NULL  
+	* __construct
+	* 
+	* @access public
+	* @param null
+	* @return null
 	*/
 	public function __construct(){
 		/*
@@ -212,9 +244,11 @@ class JSONRPC_1_0_API implements TRANSPORT_INTERFACE {
 				
 	/**
 	* DESCRIPTOR: 
-	* a method to exit the notification
-	* @param mixed raw_data 
-	* @return return NULL  
+	* exitNotice
+	* 
+	* @access public
+	* @param NULL 
+	* @return NULL  
 	*/
 	protected function exitNotice(){
 		exit();
@@ -222,9 +256,11 @@ class JSONRPC_1_0_API implements TRANSPORT_INTERFACE {
 	
 	/**
 	* DESCRIPTOR: 
-	* a method to exit the notification
-	* @param mixed raw_data 
-	* @return return NULL  
+	* a method to get the called service name
+	* 
+	* @access public
+	* @param null 
+	* @return string
 	*/
 	public function getServiceName(){
 		return $this->parsedRequest["method"];
@@ -233,6 +269,8 @@ class JSONRPC_1_0_API implements TRANSPORT_INTERFACE {
 	/**
 	* DESCRIPTOR: 
 	* a method to parse the request
+	* 
+	* @access public
 	* @param mixed raw_data 
 	* @return return NULL  
 	*/
@@ -267,6 +305,8 @@ class JSONRPC_1_0_API implements TRANSPORT_INTERFACE {
 	/**
 	* DESCRIPTOR: 
 	* enforce a method to compile the response in the sub class
+	* 
+	* @access public
 	* @param mixed dataSet 
 	* @return return NULL  
 	*/
@@ -304,7 +344,13 @@ class JSONRPC_1_0_API implements TRANSPORT_INTERFACE {
 		
 
 	
-
+	/**
+	* callService
+	* 
+	* @access public 
+	* @param array parsedRequest 
+	* @return bool  
+	*/
 	protected function callService($parsedRequest = null){
 		#echo __METHOD__.'@'.__LINE__.PHP_EOL;
 		#echo __METHOD__.'@'.__LINE__.'$parsedRequest<pre>['.var_export($parsedRequest, true).']</pre>'.PHP_EOL; 

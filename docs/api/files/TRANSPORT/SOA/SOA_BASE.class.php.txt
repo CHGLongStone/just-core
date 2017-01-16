@@ -56,7 +56,10 @@ abstract class SOA_BASE {
 	/**
 	* encapsulates the handling of a DB error 
 	* 
-	*/
+	 * @access public 
+	 * @param array $result 
+	 * @return array 
+	 */
 	public function wrapMySQLResultInJSON($result){
 		if(
 			isset($result[0]['EXCEPTION']['ID']) 

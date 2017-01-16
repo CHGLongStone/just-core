@@ -14,33 +14,60 @@ namespace JCORE\LOAD;
 */
 class CONFIG_MANAGER_INI{
 	/**
-	 * @access public 
-	 * @var string
-	 */
+	* A
+	* 
+	* @access public 
+	* @var array
+	*/
 	public $A = array();
+	/**
+	* A
+	* 
+	* @access public 
+	* @var array
+	*/
 	protected $LOADED_VALUES = array();
+	/**
+	* A
+	* 
+	* @access protected 
+	* @var array
+	*/
 	protected $PLUGINS = array();
+	/**
+	* A
+	* 
+	* @access protected 
+	* @var array
+	*/
 	protected $settings = array();
+	/**
+	* C
+	* 
+	* @access private 
+	* @var string
+	*/
 	private $C = '';
 	/**
 	 * CACHEABLE CONFIG.
 	 * if we don't have a cache with and API we're looking @ an I/O hit for all the config files
 	 * use XDEBUG [or equiv] to VERIFY  your relative execution times [cache vs file load] (these can change under varying types of load)
 	 * 
-	 * $args["CSN"]
-	 * $args["INSTANCE"]
-	 * $args["CACHE_SERIALIZATION"]
-	 * $args["UNSERIALIZE_TYPE"]
+	 * args["CSN"]
+	 * args["INSTANCE"]
+	 * args["CACHE_SERIALIZATION"]
+	 * args["UNSERIALIZE_TYPE"]
 	 * 
 	 * if no chache source nothing else to do...
 	 * otherwise set defaults and over-ride if the arg is passed
-	 * $this->settings["CACHE_SERIALIZATION"] = 'JSON';
-	 * $this->settings["UNSERIALIZE_TYPE"] = 'ARRAY';
-	 * $this->settings["IMPLEMENTATION"] = 'STATIC';
+	 * this->settings["CACHE_SERIALIZATION"] = 'JSON';
+	 * this->settings["UNSERIALIZE_TYPE"] = 'ARRAY';
+	 * this->settings["IMPLEMENTATION"] = 'STATIC';
 	 * 		["IMPLEMENTATION"] != 'STATIC' we either use an instantiated class or fail to no cache
 	 * 
-	 * @param array $args
-	 * @ return bool;
+	 * @access public
+	 * @param array args
+	 * @return bool;
 	 */
 	public function __construct($args=NULL){
 		#echo __METHOD__.__LINE__.'<br>';
@@ -75,9 +102,11 @@ class CONFIG_MANAGER_INI{
 		return false;
 	}
 				
-	/*****
+	/**
 	* DESCRIPTOR: Checks the cache if the value is set
 	* cache args are set in the constructor
+	* 
+	* @access public
 	* @param string $LOAD_ID 
 	* @return mixed 
 	*/
@@ -117,12 +146,15 @@ class CONFIG_MANAGER_INI{
 		}
 		return false;
 	}
-	/*****
+	/**
 	* DESCRIPTOR: Checks the cache if the value is set
-	* $args["KEY"]
-	* $args["DATA"]
-	* $args["CACHE_SERIALIZATION"]
-	* $args["UNSERIALIZE_TYPE"]
+	* args["KEY"]
+	* args["DATA"]
+	* args["CACHE_SERIALIZATION"]
+	* args["UNSERIALIZE_TYPE"]
+	* 
+	* @access public
+	* @param array args
 	* @return mixed 
 	*/
 	protected function postHookCache($args){
@@ -155,12 +187,12 @@ class CONFIG_MANAGER_INI{
 	}
 	/**
 	* DESCRIPTOR: loads the ini internally and returns a value of true if all good 
-	* @param string $LOAD_ID 
-	* @param string $FILE_NAME 
-	* @return null 
+	* LOAD_ID is the directory path 
+	* FILE_NAME is the file name with ".ini"
 	* 
-	* $LOAD_ID is the directory path 
-	* $FILE_NAME is the file name with ".ini"
+	* @param string LOAD_ID 
+	* @param string FILE_NAME 
+	* @return null 
 	*/
 	public function loadIni($LOAD_ID='', $FILE_NAME=''){
 		if($LOAD_ID =='' || $FILE_NAME == ''){
@@ -191,12 +223,13 @@ class CONFIG_MANAGER_INI{
 	/**
 	* DESCRIPTOR: 
 	* loads the bases ini internally, then all the subfiles, and returns a value of true if all good 
-	* @param string $LOAD_ID 
-	* @param string $FILE_NAME 
-	* @return null 
+	* LOAD_ID is the directory path 
+	* FILE_NAME is the file name with ".ini"
 	* 
-	* $LOAD_ID is the directory path 
-	* $FILE_NAME is the file name with ".ini"
+	* @access public
+	* @param string LOAD_ID 
+	* @param string FILE_NAME 
+	* @return null 
 	*/
 	public function loadIniTree($LOAD_ID='', $FILE_NAME=''){
 		#echo __METHOD__.__LINE__.'<br>';
@@ -258,20 +291,20 @@ class CONFIG_MANAGER_INI{
 	
 	/**
 	* DESCRIPTOR: gets the setting.
+	* 
+	* treat args as setting[LOAD_ID][SECTION_NAME][SETTING_NAME]
+	* LOAD_ID is the directory path LOAD_ID only will return all vars defined in the file
+	* SECTION_NAME [section] name in the ".ini" SECTION_NAME, $LOAD_ID only will return the whole section
+	* SETTING_NAME setting under [section]  in the ".ini"
+	* 
+	* 
+	* 
+	* 
+	* 
 	* @param string $LOAD_ID 
 	* @param string $SECTION_NAME
 	* @param string $SETTING_NAME 
 	* @return null 
-	* 
-	* treat args as $setting[LOAD_ID][SECTION_NAME][SETTING_NAME]
-	* $LOAD_ID is the directory path $LOAD_ID only will return all vars defined in the file
-	* $SECTION_NAME [section] name in the ".ini" $SECTION_NAME, $LOAD_ID only will return the whole section
-	* $SETTING_NAME setting under [section]  in the ".ini"
-	* 
-	* 
-	* 
-	* 
-	* 
 	*/
 	public function getSetting($LOAD_ID = null, $SECTION_NAME = null, $SETTING_NAME = NULL){
 		if(!isset($this->LOADED_VALUES)){
@@ -296,8 +329,6 @@ class CONFIG_MANAGER_INI{
 	/**
 	* DESCRIPTOR: .
 	* loads the ini internally and returns a value of true if all good 
-	* @param string $section 
-	* @return array
 	* returns the defined constants array with the "categories" flag
 	* $section is the "category" returned 
 	* "user" is default
@@ -305,6 +336,10 @@ class CONFIG_MANAGER_INI{
 	* internal, date, libxml, openssl, pcre, zlib, calendar, hash, filter, ftp, gmp, iconv, standard,
 	* sockets, exif, tokenizer, xml, curl,dom, gd, imap, ldap, mbstring, mcrypt, mhash, mysql, mysqli
 	* pgsql, posix, snmp, soap
+	* 
+	* @access public
+	* @param string $section 
+	* @return array
 	*/
 	public function getConstants($section="user"){
 		$defined_constants = get_defined_constants(true);
@@ -321,6 +356,8 @@ class CONFIG_MANAGER_INI{
 	/**
 	* DESCRIPTOR:.
 	* loads the ini internally and returns a value of true if all good 
+	* 
+	* @access public
 	* @param string $LOAD_ID 
 	* @param string $SECTION_NAME 
 	* @param string $SETTING_NAME 
@@ -371,6 +408,7 @@ class CONFIG_MANAGER_INI{
 	* @param string $prepend 
 	* @return null 
 	* 
+	* @access public
 	* $defineValue is the obvious 
 	* $defineName is the obvious 
 	* $prepend is added before the define name 
@@ -394,6 +432,7 @@ class CONFIG_MANAGER_INI{
 	}
 	/**
 	* DESCRIPTOR: Registers a Plugin
+	* @access public
 	* @param string $pluginName 
 	* @return null 
 	*/

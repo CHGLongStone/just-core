@@ -655,9 +655,9 @@ class DAO{
 	* @access public
 	* @param string DSN
 	* @param string tableName
-	* @return string pk_field
-	* @return string fk_field
-	* @return int fk
+	* @param string pk_field
+	* @param string fk_field
+	* @param int fk
 	* @return NULL 
 	*/
 	public function joinRecord($DSN, $tableName, $pk_field, $fk_field, $fk){
@@ -730,9 +730,9 @@ class DAO{
 	* @access public 
 	* @param string DSN
 	* @param string joinTable
-	* @return string pk_field
-	* @return string fk_field
-	* @return int fk
+	* @param string pk_field
+	* @param string fk_field
+	* @param int fk
 	* @return NULL 
 	*/
 	public function joinChildCollection($DSN, $joinTable, $pk_field, $fk_field, $fk){

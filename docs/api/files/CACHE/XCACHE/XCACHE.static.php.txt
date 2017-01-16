@@ -11,13 +11,13 @@
 /**
 *
 */	
-#$CACHE_STATIC_API_INTERFACE = JCORE_BASE_DIR.'CACHE/CACHE_STATIC_API_INTERFACE.interface.php';
-#require_once($CACHE_STATIC_API_INTERFACE);
-use JCORE\CACHE\CACHE_STATIC_API_INTERFACE as CACHE_STATIC_API_INTERFACE;
 namespace JCORE\CACHE;
+use JCORE\CACHE\CACHE_STATIC_API_INTERFACE as CACHE_STATIC_API_INTERFACE;
+#require_once($CACHE_STATIC_API_INTERFACE);
+#$CACHE_STATIC_API_INTERFACE = JCORE_BASE_DIR.'CACHE/CACHE_STATIC_API_INTERFACE.interface.php';
 
 /**
- * Interface XCACHE_static
+ * Class XCACHE_static
  *
  * @package JCORE\CACHE
 */
@@ -25,23 +25,36 @@ class XCACHE_static extends JCORE_SINGLETON implements CACHE_STATIC_API_INTERFAC
 {
 	/**
 	* private instance of the class 
+	* 
+	* @access private 
+	* @var bool 
 	*/
 	private static $instance;
 	/**
 	* is the object initialized 
+	* 
+	* @access private 
+	* @var bool 
 	*/
 	private $intialized = false;
+	
 	/**
-	* DESCRIPTOR: 
-	* @param null
+	* DESCRIPTOR: __construct
+	* 
+	* @access private 
+	* @param array args
 	* @return null
 	*/
-	private function __construct($arg=null){
+	private function __construct($args=null){
 	
 	
 	}
 	/**
 	* singleton method
+	* 
+	* @access public 
+	* @param array args
+	* @return mixed
 	*/
     public static function singleton($args=null){
         #echo '<b>singleton['.__METHOD__.']['.__CLASS__.']['.get_class(self).']['.self::$instance.']</b>';
@@ -53,8 +66,10 @@ class XCACHE_static extends JCORE_SINGLETON implements CACHE_STATIC_API_INTERFAC
 		return self::$instance;
     }
 	/**
-	* DESCRIPTOR: 
-	* @param null
+	* DESCRIPTOR: intialize
+	* 
+	* @access public 
+	* @param array args
 	* @return null
 	*/
 	public function intialize($args){
@@ -67,9 +82,11 @@ class XCACHE_static extends JCORE_SINGLETON implements CACHE_STATIC_API_INTERFAC
 		$this->intialized = true;
 	}
 	/**
-	* DESCRIPTOR: 
+	* DESCRIPTOR: isIntialized
+	* 
+	* @access public 
 	* @param null
-	* @return bool
+	* @return null
 	*/
 	public function isIntialized(){
 		if($this->intialized === true){
@@ -78,13 +95,14 @@ class XCACHE_static extends JCORE_SINGLETON implements CACHE_STATIC_API_INTERFAC
 		}
 	}
 	/**
-	* DESCRIPTOR: 
+	* DESCRIPTOR: getValue
 	* result or false on failure
-	* $args["KEY"]
+	* args["KEY"]
 	* 
-	
-	* @param $args array
-	* @return mixed
+	* 
+	* @access public 
+	* @param array args
+	* @return null
 	*/
 	public static function getValue($args = array()){
 		#mixed xcache_get (string $key) 
@@ -113,12 +131,14 @@ class XCACHE_static extends JCORE_SINGLETON implements CACHE_STATIC_API_INTERFAC
 	/**
 	* DESCRIPTOR: 
 	* result or false on failure
-	* $args["KEY"]
-	* $args["DATA"]
-	* $args["ttl"]
+	* args["KEY"]
+	* args["DATA"]
+	* args["ttl"]
 	* 
-	* @param $args array
-	* @return mixed
+	* 
+	* @access public 
+	* @param array args
+	* @return null
 	*/
 	public static function setValue($args = array()){
 		#boolean xcache_set (string $key, mixed $value, [int $ttl = 0]) 
@@ -137,12 +157,14 @@ class XCACHE_static extends JCORE_SINGLETON implements CACHE_STATIC_API_INTERFAC
 	/**
 	* DESCRIPTOR: 
 	* result or false on failure
-	* $args["KEY"]
-	* $args["DATA"]
-	* $args["ttl"]
+	* args["KEY"]
+	* args["DATA"]
+	* args["ttl"]
 	* 
-	* @param $args array
-	* @return mixed
+	* 
+	* @access public 
+	* @param array args
+	* @return null
 	*/
 	public static function updateSharedValue($args = array()){
 		//Warning, you don't need this to lock the keys used with eaccelerator_get and eaccelerator_put
@@ -166,11 +188,12 @@ class XCACHE_static extends JCORE_SINGLETON implements CACHE_STATIC_API_INTERFAC
 	/**
 	* DESCRIPTOR: 
 	* result or false on failure
-	* $args["KEY"]
-	* $args["DATA"]
-	* $args["ttl"]
+	* args["KEY"]
+	* args["DATA"]
+	* args["ttl"]
 	* 
-	* @param $args array
+	* @access public
+	* @param args array
 	* @return mixed
 	*/
 	public static function setSharedValue($args = array()){
@@ -191,10 +214,11 @@ class XCACHE_static extends JCORE_SINGLETON implements CACHE_STATIC_API_INTERFAC
 	/**
 	* DESCRIPTOR: 
 	* result or false on failure
-	* $args["KEY"]
-	* $args["ttl"]
+	* args["KEY"]
+	* args["ttl"]
 	* 
-	* @param $args array
+	* @access public
+	* @param args array
 	* @return mixed
 	*/
 	public static function getSharedValue($args = array()){
