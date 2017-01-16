@@ -10,38 +10,100 @@ The primary objective is KISS (Keep It Simple Stupid) for ease of development, c
 Very "simple" choices in structure and interface have been made in core because they are more readily understood, 
 reducing "ramp up" time and more importantly they are easy to modify and extend.
 
+[test](#test)
+[Reduced-Effort](#Reduced-Effort)
 
 # Providing Things you need in any framework... 
-- Clear Architecture
+- **Clear Architecture**
   - Core services with clearly defined interfaces 
-- Flexibility 
-  - Service Modularity + Lazy Loading = No Bloat
-  - Multiple Cache and Data store options
+- **Flexibility**
+  - Reduced Bloat with _Service Modularity_ and _Lazy Loading_
+  - Multiple Data store and Cache options
   - Easy to implement logging and change auditing 
-- Reduced effort for
-  - New development 
+- **Reduced effort** for
+  - _New development_ 
     - Low Cost Of Entry on the learning curve 
     - Using common standards
     - Staying close to the native language 
     - providing common utilities without imposing a coding style on your work
-  - Optimization and performance tuning 
-    - Extensible or replaceable Service Objects 
-  - Change Management 
+  - _Optimization and performance tuning_
+    - With easily extensible or replaceable Services or Service Objects 
+  - _Change Management_
     - Clear separation of the framework from your own intellectual property
     - Simple configuration management for multiple environments
     - Configurable scripts to support the SLDC
 
-
-	 
-	 
-	 
 # The Break down:
 
-## Architecture
+## Architectural Principles
 
-### [](#header-6)Header 6
+**just-core was culled and refined from over a decade of practical experience in a number of distributed environments 
+and developed with a number of driving influences:**
 
-### just-core service buses
+* **A Response to "Overhead" in other frameworks **
+* **Pure self interest**
+* **The Need to Support Enterprise/Service Oriented Architecture environments at _scale_**
+
+### Response to "Overhead" in other frameworks 
+
+Frustration with available frameworks in the language 
+
+* **Marketing BS deeper than a java memory leak**
+  * ascribing "magical" or non-required/non-existent properties like dependency injection to runtime languages/frameworks
+  
+* **trying to "do all, be all" for _every possible feature and function_**
+ * **_NOT abstracted solutions_**
+      * that increase overhead for IP specific solutions by requiring rewrite
+ * **_OVER abstracted solutions_**
+      * incurring **_BLOAT_** factor 
+      * _undermining_ the ability to optimize or "performance tune" 
+* **requiring the developer to learn a "new language"**
+  *  by enforcing specific patterns through the entire application stack 
+  
+  
+### Pure self interest
+
+**To save effort and frustration _seek out the best_ in each work environment and _learn hard lessons early_: **
+
+* **your opinions how it "should work" mean nothing until it runs a clean stack trace**
+  * in a production environment
+  * with a concurrency that forces load balancing
+* **the biggest contrarian to your approach might be your greatest teacher** 
+  * cover your blind spots
+  * if you can't pass the internal criticism benchmark don't expect it to "survive the wild"
+* **differentiate and learn from(save references to) good design patterns **
+* **Keep control of YOUR Intellectual Property**
+  * maintain the IP stack that is core to your business offering
+  * keep it un-entangled from proprietary dependencies wherever possible
+
+The project started as an attempt to pull a decade of lessons learned and a very fragmented personal tool kit into a coherent package 
+to support personal as well as professional projects.
+
+The project was migrated from sourceforge and subversion to github and git as a source control mechanism in 2014 as well as updated 
+to address new standards in the language (PSR name-spaces) as well as new tools for 
+
+- a Name-space/lazy loading mechanism 
+- package / plugin management 
+
+which had been "standardized" with [composer](https://getcomposer.org) and [packagist](https://packagist.org) providing both public 
+and private distribution channels.
+
+
+### The Need to Support Enterprise/Service Oriented Architecture environments at _scale_
+
+Providing the Foundation Framework (minimum core services buses) required for any genuine enterprise level application at scale (_minimum_ 100K concurrent connections)
+
+* boot-strapping servers or applications with configuration management for multiple environments
+* Clear and consistent interfaces for core services 
+  * Authentication/Authorization support
+  * Data Store Access
+  * Caching 
+  * Agnosticism towards the transport layer
+  * logging and auditing 
+* Ability to easily extend or replace any given service class/api/layer
+
+
+##### Service Oriented Architecture: the just-core service buses
 
  - [Initialization](https://github.com/CHGLongStone/just-core/wiki/Load)
    - Configuration Mangement
@@ -76,6 +138,50 @@ reducing "ramp up" time and more importantly they are easy to modify and extend.
 
 
 
+
+
+# Business by Design
+
+just-core is designed around the Enterprise Service Bus and Enterprise Architecture Requirements but is grounded 
+in the Pareto Principle, "80% of the effects come from 20% of the causes" from both business and practical approaches.
+
+##  Business: Focus on the 20% 
+
+In many case your business is probably operating in a crowded market space and despite the delusions of grandeur of your CEO or VP of Sales  
+the differentiation of your product offering in all probability, realistically offers far less than a 20% variance of functionality to your competitors.
+If your company has accumulated a large degree of technical debt through your development phase you will have great difficulty achieving scale if you are 
+lucky enough to require it.
+
+Ensure your company is able to develop it's market differentiation by ensuring the practical "housekeeping" is part of process from the ground up
+
+## Practical: Cover the 80% so you can focus on the 20% 
+
+The bottom line is that most business ignore "general housekeeping" leading to "technical debt" that frequently ends up consuming 80% of the resources 
+required to operate the business because of poor or ineffective policies or procedures around change management in the forms of:
+
+* lack of coherent architecture
+  * confusing and inconsistent implementations 
+  * lack of institutional knowledge around core systems
+* lack of basic performance optimization 
+ * succumbing to the "throw hardware at it" method of application tuning and increasing op-ex
+
+
+**Reduce the overhead through clear and common standards and mechanisms providing:**
+
+ * clear separation between the transport mechanism and the business logic
+ * data and cache store interactions
+ * logging for performance motoring
+ * auditing services for:
+   * business intelligence KPIs
+   * regulatory or contractual compliance 
+		  
+		
+**So you can focus on the innovation and intellectual property development that is _driving_ your business**
+ 
+
+
+
+
 ## Flexibility
 
 ### Name Space loading
@@ -91,12 +197,13 @@ compromising late optimization
 
 
 
-## Reduced Effort
+#Reduced-Effort
 
 ### Simplified Development 
 
 Add a service class, update composer autoconfig and call it by namespace 
 
+[#test]()
 
 ### Optimization
 
@@ -144,7 +251,7 @@ Configurable scripts to support the Software Development Life Cycle including:
 
 
 
-
+#test
 
 
 
