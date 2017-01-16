@@ -20,10 +20,14 @@ use JCORE\CACHE\CACHE_COMMON_API_INTERFACE as CACHE_COMMON_API_INTERFACE;
  * @package JCORE\CACHE
 */
 class MEMCACHED implements CACHE_COMMON_API_INTERFACE{
-	
+	/**
+	* intialized
+	 * @access private 
+	 * @var bool
+	 */
 	private $intialized = false;
 	/**
-	* DESCRIPTOR: 
+	* DESCRIPTOR: __construct
 	* @param null
 	* @return null
 	*/
@@ -32,7 +36,7 @@ class MEMCACHED implements CACHE_COMMON_API_INTERFACE{
 	
 	}
 	/**
-	* DESCRIPTOR: 
+	* DESCRIPTOR:  intialize
 	* @param null
 	* @return null
 	*/
@@ -40,7 +44,7 @@ class MEMCACHED implements CACHE_COMMON_API_INTERFACE{
 		$this->intialized = true;
 	}
 	/**
-	* DESCRIPTOR: 
+	* DESCRIPTOR:  isIntialized
 	* @param null
 	* @return bool
 	*/
@@ -54,11 +58,16 @@ class MEMCACHED implements CACHE_COMMON_API_INTERFACE{
 	//----------//USER RESOURCES 		//----------//----------
 	//----------//----------//----------//----------//----------
 	/**
+	* getValue
 	* DESCRIPTOR: Does a "Get" on a Memcached resource 
-	* 	$args is an array that MUST follow this format
-	* 	$args["KEY"] 		= [string]; 		// a Memcached asset ID
-	* 	$args["cas_token"] 	= &$cas_token; 		// a var passed by reference to return the cas_token used by: updateSharedResource
-	* 	$args["cache_cb"] 	= NULL/[string]; 	// the call back function. probably not much use for resetting (big tangle, too many functions) BUT could be usefull for logging
+	* 	args is an array that MUST follow this format
+	* 	args["KEY"] 		= [string]; 		// a Memcached asset ID
+	* 	args["cas_token"] 	= &cas_token; 		// a var passed by reference to return the cas_token used by: updateSharedResource
+	* 	args["cache_cb"] 	= NULL/[string]; 	// the call back function. probably not much use for resetting (big tangle, too many functions) BUT could be usefull for logging
+	* 
+	* @access public
+	* @param array args
+	* @return bool 
 	*/
 	public static function getValue($args = array()){
 		echo 'METHOD['.__METHOD__.'] LINE['.__LINE__.']'.'<br>';
@@ -97,11 +106,16 @@ class MEMCACHED implements CACHE_COMMON_API_INTERFACE{
 	}
 
 	/**
+	* setValue
 	* DESCRIPTOR: Does a "Check and Set" on a shared resource 
-	* 	$args is an array that MUST follow this format
-	* 	$args["KEY"] 		= [string]; 		// a Memcached asset ID
-	* 	$args["value"] 		= [mixed]; 			// a asset to be stored in Memcached
-	* 	$args["expiration"] = [int]; 	// the call back function. probably not much use for resetting (big tangle, too many functions) BUT could be usefull for logging
+	* 	args is an array that MUST follow this format
+	* 	args["KEY"] 		= [string]; 		// a Memcached asset ID
+	* 	args["value"] 		= [mixed]; 			// a asset to be stored in Memcached
+	* 	args["expiration"] = [int]; 	// the call back function. probably not much use for resetting (big tangle, too many functions) BUT could be usefull for logging
+	* 
+	* @access public
+	* @param array args
+	* @return bool 
 	*/
 	public static function setValue($args = array()){
 		
@@ -123,9 +137,14 @@ class MEMCACHED implements CACHE_COMMON_API_INTERFACE{
 	//----------//----------//----------//----------//----------
 	//----------//START UTIL FUNCTIONS 	//----------//----------
 	//----------//----------//----------//----------//----------
-	/*
+	/** 
+	* validateBasicArgs
 	* just check that there are args in the array
 	* define it here for re-use
+	* 
+	* @access public
+	* @param array args
+	* @return bool 
 	*/
 	public static function validateBasicArgs($args = array()){
 		echo 'METHOD['.__METHOD__.'] '.'<br>';
@@ -147,9 +166,14 @@ class MEMCACHED implements CACHE_COMMON_API_INTERFACE{
 	}
 	
 		
-	/*
+	/**
+	* verifyArgs
 	* just check that there are args in the array
 	* define it here for re-use
+	* 
+	* @access public
+	* @param array args
+	* @return bool 
 	*/
 	public static function verifyArgs($args = array()){
 		echo 'METHOD['.__METHOD__.'] count($args)['.count($args).']'.'<br>';
@@ -159,9 +183,14 @@ class MEMCACHED implements CACHE_COMMON_API_INTERFACE{
 		}
 		return true;
 	}
-	/*
+	/**
+	* validateCachePool
 	* just check that there are args in the array
 	* define it here for re-use
+	* 
+	* @access public
+	* @param array args
+	* @return bool 
 	*/
 	public static function validateCachePool($args){
 		echo 'METHOD['.__METHOD__.'] $args["CACHE_POOL"]['.$args["CACHE_POOL"].']'.'<br>';
@@ -172,9 +201,14 @@ class MEMCACHED implements CACHE_COMMON_API_INTERFACE{
 		return true;
 	}
 	
-	/*
+	/**
+	* validateCacheKey
 	* just check that there are args in the array
 	* define it here for re-use
+	* 
+	* @access public
+	* @param array args
+	* @return bool 
 	*/
 	public static function validateCacheKey($args = array()){	
 		echo 'METHOD['.__METHOD__.'] $args["CACHE_KEY"]['.$args["CACHE_KEY"].']'.'<br>';
@@ -189,12 +223,33 @@ class MEMCACHED implements CACHE_COMMON_API_INTERFACE{
 	//----------//----------//----------//----------//----------
 	//----------//END UTIL FUNCTIONS 	//----------//----------
 	//----------//----------//----------//----------//----------
+	/**
+	* updateSharedValue
+	* 
+	* @access public
+	* @param array args
+	* @return bool 
+	*/
 	public function updateSharedValue($args = array()){
 	
 	}
+	/**
+	* setSharedValue
+	* 
+	* @access public
+	* @param array args
+	* @return bool 
+	*/
 	public function setSharedValue($args = array()){
 	
 	}
+	/**
+	* getSharedValue
+	* 
+	* @access public
+	* @param array args
+	* @return bool 
+	*/
 	public function getSharedValue($args = array()){
 	
 	

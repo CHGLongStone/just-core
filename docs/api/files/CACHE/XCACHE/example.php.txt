@@ -16,13 +16,29 @@ namespace JCORE\EXAMPLE\EXT_REF;
  * @package JCORE\EXAMPLE\EXT_REF
 */
 class XCache {
-    
+	/**
+	 * xcobj
+	 * @access public 
+	 * @var mixed 
+	 */
     private static $xcobj;
-    
+	/**
+	* DESCRIPTOR: __construct
+	* 
+	* 
+	* @param null
+	* @return null
+	*/
     private function __construct()
     {
     }
-
+	/**
+	* DESCRIPTOR: __clone
+	* 
+	* 
+	* @param null
+	* @return null
+	*/
     public final function __clone()
     {
         throw new BadMethodCallException("Clone is not allowed");

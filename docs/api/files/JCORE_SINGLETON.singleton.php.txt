@@ -10,7 +10,7 @@
  */
 namespace JCORE;
 /**
- * Interface JCORE_SINGLETON
+ * Class JCORE_SINGLETON
  *
  * @package JCORE
 */

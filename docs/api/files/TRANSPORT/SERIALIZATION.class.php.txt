@@ -17,8 +17,13 @@ namespace JCORE\TRANSPORT;
 class SERIALIZATION {
 
 	/**
+	* __construct
 	* ln -s /var/www/PhpDocumentor-1.4.3 /var/www/HTTP/default_admin_http/PHPDOC 
 	* //var/www/JCORE/APIS/default_admin_http
+	* 
+	* @access private 
+	* @param mixed raw_data 
+	* @return return NULL  
 	*/
 	private function __construct(){
 	
@@ -33,6 +38,7 @@ class SERIALIZATION {
 	* $args["UNSERIALIZE_TYPE"]			= [def:ARRAY/OBJECT/RAW(string)] for implementations that leverage JSON data and use json_decode ( string $json [, bool $assoc = false]...)
 	* 
 	* 
+	* @access public 
 	* @param string $args
 	* @return bool
 	*/
@@ -95,6 +101,7 @@ class SERIALIZATION {
 	* 			json_decode ( string $json [, bool $assoc = false]...)
 	* 
 	* 
+	* @access public 
 	* @param string $args
 	* @return bool
 	*/
@@ -158,7 +165,9 @@ class SERIALIZATION {
 	
 	}		
 	/**
-	* NATIVE
+	* serializePHP NATIVE
+	* 
+	* @access public 
 	* @param array $args
 	* @param array $args["DATA"]
 	* @return string $serialized
@@ -173,6 +182,7 @@ class SERIALIZATION {
 	* json_encode ( mixed $value [, int $options = 0 ] )
 	* 5.3 [,options Bitmask consisting of JSON_HEX_QUOT, JSON_HEX_TAG, JSON_HEX_AMP, JSON_HEX_APOS, JSON_FORCE_OBJECT. ]
 	* 
+	* @access public 
 	* @param $args mixed
 	* @return string $JSON
 	*/
@@ -202,6 +212,7 @@ class SERIALIZATION {
 	* $args["assoc"] 		[TRUE/FALSE] bool
 	* $args["DATA"]			array|object|string
 	* 
+	* @access public 
 	* @param mixed $args
 	* @param mixed $args[""]
 	* @return array|object|string
@@ -231,6 +242,7 @@ class SERIALIZATION {
 	* Deprecated or move ???
 	* JCORE\TRANSPORT\JSON\JSON.validateJSON
 	* 
+	* @access public 
 	* @param mixed $args
 	* @return array|object|string
 	*/
@@ -282,6 +294,7 @@ class SERIALIZATION {
 	/**
 	* unserializePHP native 
 	* 
+	* @access public 
 	* @param mixed $args
 	* @return array|object|string
 	*/
