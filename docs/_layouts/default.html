@@ -57,7 +57,9 @@
 		  <br>
 		  <p>Source Code <a href="{{site.github.relative_url}}/{{site.github.repository_name}}/api">Documentation:</a></p>
 		  <br>
-		  {% include project_list.md | markdownify  %}
+		  
+		{% capture project_list %}{% include project_list.md %}{% endcapture %}
+		{{ project_list | markdownify }}
         </aside>
       </div>
     </div>
