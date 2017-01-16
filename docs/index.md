@@ -261,7 +261,7 @@ Configurable scripts to support the Software Development Life Cycle including:
 ## Quick menu
 
 * [WIKI](https://github.com/CHGLongStone/just-core/wiki)
-* [Quick Start Guide](https://github.com/CHGLongStone/just-core/wiki/QuickStart)
+* [Quick Start Guide](QuickStart)
 * [Installation](https://github.com/CHGLongStone/just-core-stub/wiki/Project-Installation)
 * [Framework-Structure](https://github.com/CHGLongStone/just-core/wiki/Framework-Structure)
 * [Packages](https://github.com/CHGLongStone/just-core/wiki/Packages-(extensions))

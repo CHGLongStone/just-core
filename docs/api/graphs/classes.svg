@@ -501,12 +501,12 @@
 <text text-anchor="middle" x="666" y="-2530.19" font-family="Courier,monospace" font-size="11.00">REDIS</text>
 </g>
 <!-- \\JCORE\\CACHE\\JCORE\\CACHE\\STATIC_API_INTERFACE -->
-<g id="node101" class="node"><title>\\JCORE\\CACHE\\JCORE\\CACHE\\STATIC_API_INTERFACE</title>
+<g id="node101" class="node"><title>\\JCORE\\CACHE\\STATIC_API_INTERFACE</title>
 <ellipse fill="none" stroke="black" cx="259" cy="-131.089" rx="258.801" ry="19.0919"/>
-<text text-anchor="middle" x="259" y="-127.989" font-family="Times Roman,serif" font-size="14.00" fill="gray">\JCORE\CACHE\JCORE\CACHE\STATIC_API_INTERFACE</text>
+<text text-anchor="middle" x="259" y="-127.989" font-family="Times Roman,serif" font-size="14.00" fill="gray">\JCORE\CACHE\STATIC_API_INTERFACE</text>
 </g>
 <!-- \\JCORE\\CACHE\\REDIS&#45;&gt;\\JCORE\\CACHE\\JCORE\\CACHE\\STATIC_API_INTERFACE -->
-<g id="edge52" class="edge"><title>\\JCORE\\CACHE\\REDIS&#45;&gt;\\JCORE\\CACHE\\JCORE\\CACHE\\STATIC_API_INTERFACE</title>
+<g id="edge52" class="edge"><title>\\JCORE\\CACHE\\REDIS&#45;&gt;\\JCORE\\CACHE\\STATIC_API_INTERFACE</title>
 <path fill="none" stroke="black" stroke-dasharray="1,5" d="M638.741,-2532.28C619.309,-2530.11 594.352,-2523.75 581,-2506.09 446.325,-2327.93 589.014,-708.83 518,-497.089 469.301,-351.886 342.477,-213.693 286.377,-157.499"/>
 <polygon fill="none" stroke="black" points="288.508,-154.683 278.946,-150.122 283.577,-159.651 288.508,-154.683"/>
 </g>
