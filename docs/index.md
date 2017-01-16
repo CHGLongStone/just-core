@@ -39,7 +39,7 @@ reducing "ramp up" time and more importantly they are easy to modify and extend.
 
 ## Architecture
 
-###[](#header-6)Header 6
+### [](#header-6)Header 6
 
 ### just-core service buses
 
