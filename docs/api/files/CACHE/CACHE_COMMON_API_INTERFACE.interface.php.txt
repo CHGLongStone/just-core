@@ -12,7 +12,6 @@ namespace JCORE\CACHE;
 /**
  * Interface CACHE_COMMON_API_INTERFACE
  *
- * @package JCORE\CACHE
 */
 interface CACHE_COMMON_API_INTERFACE{
 	/** 
