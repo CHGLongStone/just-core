@@ -10,8 +10,6 @@ The primary objective is KISS (Keep It Simple Stupid) for ease of development, c
 Very "simple" choices in structure and interface have been made in core because they are more readily understood, 
 reducing "ramp up" time and more importantly they are easy to modify and extend.
 
-[test](#test)
-[Reduced-Effort](#Reduced-Effort)
 
 # Providing Things you need in any framework... 
 - **Clear Architecture**
