@@ -8,11 +8,11 @@
  * @package	JCORE
  * @subpackage CORE
  */
-namespace JCORE;
+namespace JCORE\CORE;
 /**
  * Interface JCORE_SINGLETON_INTERFACE
  *
- * @package JCORE
+ * @package JCORE\CORE
 */
 interface JCORE_SINGLETON_INTERFACE{
 	/**
