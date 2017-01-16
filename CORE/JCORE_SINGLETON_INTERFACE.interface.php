@@ -6,13 +6,12 @@
  * 
  * @author		Jason Medland<jason.medland@gmail.com>
  * @package	JCORE
- * @subpackage CORE
+ * 
  */
-namespace JCORE\CORE;
+namespace JCORE;
 /**
  * Interface JCORE_SINGLETON_INTERFACE
  *
- * @package JCORE\CORE
 */
 interface JCORE_SINGLETON_INTERFACE{
 	/**
