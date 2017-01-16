@@ -40,7 +40,7 @@ reducing "ramp up" time and more importantly they are easy to modify and extend.
 **just-core was culled and refined from over a decade of practical experience in a number of distributed environments 
 and developed with a number of driving influences:**
 
-* **A Response to "Overhead" in other frameworks **
+* **A Response to "Overhead" in other frameworks**
 * **Pure self interest**
 * **The Need to Support Enterprise/Service Oriented Architecture environments at _scale_**
 
@@ -63,7 +63,7 @@ Frustration with available frameworks in the language
   
 ### Pure self interest
 
-**To save effort and frustration _seek out the best_ in each work environment and _learn hard lessons early_: **
+**To save effort and frustration _seek out the best_ in each work environment and _learn hard lessons early_:**
 
 * **your opinions how it "should work" mean nothing until it runs a clean stack trace**
   * in a production environment
@@ -71,7 +71,7 @@ Frustration with available frameworks in the language
 * **the biggest contrarian to your approach might be your greatest teacher** 
   * cover your blind spots
   * if you can't pass the internal criticism benchmark don't expect it to "survive the wild"
-* **differentiate and learn from(save references to) good design patterns **
+* **differentiate and learn from(save references to) good design patterns**
 * **Keep control of YOUR Intellectual Property**
   * maintain the IP stack that is core to your business offering
   * keep it un-entangled from proprietary dependencies wherever possible
@@ -203,7 +203,6 @@ compromising late optimization
 
 Add a service class, update composer autoconfig and call it by namespace 
 
-[#test]()
 
 ### Optimization
 
@@ -249,9 +248,6 @@ Configurable scripts to support the Software Development Life Cycle including:
 
 
 
-
-
-#test
 
 
 
