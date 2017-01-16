@@ -1,7 +1,7 @@
 <?php
 /**
 * JCORE_SINGLETON
- * Instances can be created for any DB supported by PHP inc. NoSQL
+ * 
  * 
  * 
  * @author		Jason Medland<jason.medland@gmail.com>
