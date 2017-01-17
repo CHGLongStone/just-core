@@ -2,7 +2,6 @@
 
 ### Qick menu
 
-* [Local Project Documentation](https://github.com/CHGLongStone/just-core/wiki)
 * [Main Project Documentation](https://chglongstone.github.io/just-core/)
 
 ## A PHP Enterprise Service Bus framework
