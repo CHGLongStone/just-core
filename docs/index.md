@@ -34,7 +34,7 @@ reducing "ramp up" time and more importantly they are easy to modify and extend.
 
 # Business by Design
 
-##### just-core is designed around the Enterprise Service Bus and Enterprise Architecture Requirements and is grounded in the Pareto Principle, "80% of the effects come from 20% of the causes" from both business and practical approaches.
+#### just-core is designed around the Enterprise Service Bus and Enterprise Architecture Requirements and is grounded in the Pareto Principle, "80% of the effects come from 20% of the causes" from both business and practical approaches.
 
 ##  Business: Focus on the 20% 
 
