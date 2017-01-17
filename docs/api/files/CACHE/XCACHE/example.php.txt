@@ -9,7 +9,7 @@
  * @author Cristian Rodriguez <judas.iscariote@flyspray.org>
  * @license BSD {@link http://www.opensource.org/licenses/bsd-license.php}
  */
-namespace JCORE\EXAMPLE\EXT_REF;
+namespace JCORE\CACHE\EXAMPLE\EXT_REF;
 /**
  * Interface XCache
  *
