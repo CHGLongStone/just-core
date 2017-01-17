@@ -31,12 +31,10 @@ reducing "ramp up" time and more importantly they are easy to modify and extend.
     - Simple configuration management for multiple environments
     - Configurable scripts to support the SLDC
 
-# The Break down:
 
 # Business by Design
 
-just-core is designed around the Enterprise Service Bus and Enterprise Architecture Requirements and is grounded 
-in the Pareto Principle, "80% of the effects come from 20% of the causes" from both business and practical approaches.
+##### just-core is designed around the Enterprise Service Bus and Enterprise Architecture Requirements and is grounded in the Pareto Principle, "80% of the effects come from 20% of the causes" from both business and practical approaches.
 
 ##  Business: Focus on the 20% 
 
@@ -70,119 +68,9 @@ required to operate the business because of poor or ineffective policies or proc
 		  
 		
 **So you can focus on the innovation and intellectual property development that is _driving_ your business**
- 
-## Service Oriented Architecture: the just-core service buses
-
- - [Initialization](https://github.com/CHGLongStone/just-core/wiki/Load)
-   - Configuration Mangement
-   - Application bootstrap and "lazy loading" of service classes
- - [Auth API](https://github.com/CHGLongStone/just-core/wiki/AUTH)
-   - Harness for an Authentication/Authorization API 
- - [Caching API](https://github.com/CHGLongStone/just-core/wiki/Cache) 
-    - API for:
-      - multiple cache types -opcode, data - read or write through, http, etc. 
-      - with multiple caching options -file, memcached, NoSQL, xcache, etc.
- - [Data API](https://github.com/CHGLongStone/just-core/wiki/Data-layer) 
-   - Connection management and CRUD interace to multiple data store types
-     - SQL - Standard RDBMS types like MySQL and PostgreSQL
-     - NoSQL - Redis and other document based data stores 
-     - file
-  - [Data Access Objects](https://github.com/CHGLongStone/just-core/wiki/DAO)
-    - Basic and extesnsible 
-    - "Scheama Aware" without the bloat of Object Relational Management
- - [Transport](https://github.com/CHGLongStone/just-core/wiki/Transport)
-   - Clear Separation of the transport layer from business logic
-   - Send/Recieve JSON-RPC, ReST, XML requests/responses to the same service classes
- - [Log](https://github.com/CHGLongStone/just-core/wiki/Log)
-   - log at varried thresholds to multiple targets (DB, File, UDP) 
-   - [Exception Management](https://github.com/CHGLongStone/just-core/wiki/Exception)
-   - [Localization](https://github.com/CHGLongStone/just-core/wiki/Localization) 
-  - later implementation but not an afterthought
-    - expected support for: 
-      - older standards like `*.po` files
-      - newer standards like DITA, TMX 
- - [Templater]()
-   - it's basic, it's there...but why at this point in time, render html server side?
 
 
-
-
-
-
-
-
-## [Architectural Principles](Architecture)
-
-**just-core was culled and refined from over a decade of practical experience in a number of distributed environments 
-and developed with a number of driving influences:**
-
-* **A Response to "Overhead" in other frameworks**
-* **Pure self interest**
-* **The Need to Support Enterprise/Service Oriented Architecture environments at _scale_**
-
-### Response to "Overhead" in other frameworks 
-
-Frustration with available frameworks in the language 
-
-* **Marketing BS deeper than a java memory leak**
-  * ascribing "magical" or non-required/non-existent properties like dependency injection to runtime languages/frameworks
-  
-* **trying to "do all, be all" for _every possible feature and function_**
- * **_NOT abstracted solutions_**
-      * that increase overhead for IP specific solutions by requiring rewrite
- * **_OVER abstracted solutions_**
-      * incurring **_BLOAT_** factor 
-      * _undermining_ the ability to optimize or "performance tune" 
-* **requiring the developer to learn a "new language"**
-  *  by enforcing specific patterns through the entire application stack 
-  
-  
-### Pure self interest
-
-**To save effort and frustration _seek out the best_ in each work environment and _learn hard lessons early_:**
-
-* **your opinions how it "should work" mean nothing until it runs a clean stack trace**
-  * in a production environment
-  * with a concurrency that forces load balancing
-* **the biggest contrarian to your approach might be your greatest teacher** 
-  * cover your blind spots
-  * if you can't pass the internal criticism benchmark don't expect it to "survive the wild"
-* **differentiate and learn from(save references to) good design patterns**
-* **Keep control of YOUR Intellectual Property**
-  * maintain the IP stack that is core to your business offering
-  * keep it un-entangled from proprietary dependencies wherever possible
-
-The project started as an attempt to pull a decade of lessons learned and a very fragmented personal tool kit into a coherent package 
-to support personal as well as professional projects.
-
-The project was migrated from sourceforge and subversion to github and git as a source control mechanism in 2014 as well as updated 
-to address new standards in the language (PSR name-spaces) as well as new tools for 
-
-- a Name-space/lazy loading mechanism 
-- package / plugin management 
-
-which had been "standardized" with [composer](https://getcomposer.org) and [packagist](https://packagist.org) providing both public 
-and private distribution channels.
-
-
-### The Need to Support Enterprise/Service Oriented Architecture environments at _scale_
-
-Providing the Foundation Framework (minimum core services buses) required for any genuine enterprise level application at scale (_minimum_ 100K concurrent connections)
-
-* boot-strapping servers or applications with configuration management for multiple environments
-* Clear and consistent interfaces for core services 
-  * Authentication/Authorization support
-  * Data Store Access
-  * Caching 
-  * Agnosticism towards the transport layer
-  * logging and auditing 
-* Ability to easily extend or replace any given service class/api/layer
-
-
-
-
-
-## Flexibility
+# Flexibility Through:
 
 ### Name Space loading
 
@@ -190,21 +78,21 @@ Dependency Management via Composer/Packagist and PSR-4 namespaces, Lazy Loading 
 through multiple transport types from AJAX to XML. 
 
 
-### Cache and Data Store
+### Extensible Cache and Data Store options
 
 Multiple Cache and Data store options with extensible Data Access Objects and Data Store Connectors for rapid development without 
 compromising late optimization
 
 
 
-#Reduced-Effort
+#Reduced-Effort with:
 
 ### Simplified Development 
 
 Add a service class, update composer autoconfig and call it by namespace 
 
 
-### Optimization
+### Architectural Emphasis on Late Optimization
 
 A bias towards performance tuning with low framework overhead, complete an http request with a complete stack trace of 10K+ internal function calls 
 rather than waiting for 7K+ internal calls before you even load your service classes...like some other frameworks
@@ -214,19 +102,19 @@ __dependent on your development environment__
 
 ### Change Management
 
-#### Simple configuration management
+##### Simple configuration management
 
 Simple configuration management for multiple environments from `dev/uat/prod` to dev sandboxes with Zend style  `*{global,local}.php`  configuration file naming patterns.
 
 Clear separation of the framework from your own intellectual property
 
-#### Business Intelligence and System oversight
+### Business Intelligence and System oversight from the start
 
-Easy to implement logging and change auditing 
+Easy to implement logging, application/performance monitoring and change auditing 
 
  
 
-#### Scripts to support the SLDC
+### Scripts to support the SLDC
 
 Configurable scripts to support the Software Development Life Cycle including:
 
@@ -238,25 +126,56 @@ Configurable scripts to support the Software Development Life Cycle including:
   - Upstream and Downstream primary and composite/dependant repository changes 
 - Before creating the release tag as well as supporting scripts for
   - deploying releases to your production environment
-  - database backup and syncronization MySQL inc. InnoDb supported 
+  - database backup and synchronization MySQL inc. InnoDb supported 
 
 
 
 
 
 
+ 
+## Service Oriented Architecture: 
+
+Read more about the projects [Architectural Principles](Architecture) or explore the service bus below
+
+
+## The just-core service buses:
+ - [Initialization](Load)
+   - Configuration Management
+   - Application bootstrap and "lazy loading" of service classes
+ - [Auth API](AUTH)
+   - Harness for an Authentication/Authorization API 
+ - [Caching API](Cache) 
+    - multiple cache types -opcode, data - read or write through, http, etc. 
+    - with multiple caching options -file, memcached, NoSQL, xcache, etc.
+ - [Data API](Data-layer) 
+   - Connection management 
+   - CRUD interface to multiple data store types
+     - SQL - Standard RDBMS types like MySQL and PostgreSQL
+     - NoSQL - Redis and other document based data stores 
+     - file
+ - [Data Access Objects](DAO)
+    - Basic and extensible 
+    - "Schema Aware" without the bloat of Object Relational Management
+ - [Transport](Transport)
+   - Clear Separation of the transport layer from business logic
+   - Send/Receive JSON-RPC, ReST, XML requests/responses to the same service classes
+ - [Log](Log)
+   - log at varied thresholds to multiple targets (DB, File, UDP) 
+ - [Exception Management](Exception)
+ - [Localization](Localization) 
+   - later implementation but not an afterthought
+     - expected support for: 
+       - older standards like `*.po` files
+       - newer standards like DITA, TMX 
+ - [Templater](Templater)
+   - it's basic, it's there...but why at this point in time, render html server side?
 
 
 
-
-
-
-
-
-
-
-
-
+   
+   
+   
 
 The project has developed under the TOGAF Architectural Development Model* 
 * see www.opengroup.org/togaf/ for more information on The Open Group Architectural Framework and the TOGAF Architectural Development Model
