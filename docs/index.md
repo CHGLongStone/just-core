@@ -33,7 +33,85 @@ reducing "ramp up" time and more importantly they are easy to modify and extend.
 
 # The Break down:
 
-## Architectural Principles
+# Business by Design
+
+just-core is designed around the Enterprise Service Bus and Enterprise Architecture Requirements and is grounded 
+in the Pareto Principle, "80% of the effects come from 20% of the causes" from both business and practical approaches.
+
+##  Business: Focus on the 20% 
+
+In many case your business is probably operating in a crowded market space and despite the delusions of grandeur of your CEO or VP of Sales  
+the differentiation of your product offering in all probability, realistically offers far less than a 20% variance of functionality to your competitors.
+If your company has accumulated a large degree of technical debt through your development phase you will have great difficulty achieving scale if you are 
+lucky enough to require it.
+
+Ensure your company is able to develop it's market differentiation by ensuring the practical "housekeeping" is part of process from the ground up
+
+## Practical: Cover the 80% so you can focus on the 20% 
+
+The bottom line is that most business ignore "general housekeeping" leading to "technical debt" that frequently ends up consuming 80% of the resources 
+required to operate the business because of poor or ineffective policies or procedures around change management in the forms of:
+
+* lack of coherent architecture
+  * confusing and inconsistent implementations 
+  * lack of institutional knowledge around core systems
+* lack of basic performance optimization 
+ * succumbing to the "throw hardware at it" method of application tuning and increasing op-ex
+
+
+**Reduce the overhead through clear and common standards and mechanisms providing:**
+
+ * clear separation between the transport mechanism and the business logic
+ * data and cache store interactions
+ * logging for performance motoring
+ * auditing services for:
+   * business intelligence KPIs
+   * regulatory or contractual compliance 
+		  
+		
+**So you can focus on the innovation and intellectual property development that is _driving_ your business**
+ 
+## Service Oriented Architecture: the just-core service buses
+
+ - [Initialization](https://github.com/CHGLongStone/just-core/wiki/Load)
+   - Configuration Mangement
+   - Application bootstrap and "lazy loading" of service classes
+ - [Auth API](https://github.com/CHGLongStone/just-core/wiki/AUTH)
+   - Harness for an Authentication/Authorization API 
+ - [Caching API](https://github.com/CHGLongStone/just-core/wiki/Cache) 
+    - API for:
+      - multiple cache types -opcode, data - read or write through, http, etc. 
+      - with multiple caching options -file, memcached, NoSQL, xcache, etc.
+ - [Data API](https://github.com/CHGLongStone/just-core/wiki/Data-layer) 
+   - Connection management and CRUD interace to multiple data store types
+     - SQL - Standard RDBMS types like MySQL and PostgreSQL
+     - NoSQL - Redis and other document based data stores 
+     - file
+  - [Data Access Objects](https://github.com/CHGLongStone/just-core/wiki/DAO)
+    - Basic and extesnsible 
+    - "Scheama Aware" without the bloat of Object Relational Management
+ - [Transport](https://github.com/CHGLongStone/just-core/wiki/Transport)
+   - Clear Separation of the transport layer from business logic
+   - Send/Recieve JSON-RPC, ReST, XML requests/responses to the same service classes
+ - [Log](https://github.com/CHGLongStone/just-core/wiki/Log)
+   - log at varried thresholds to multiple targets (DB, File, UDP) 
+   - [Exception Management](https://github.com/CHGLongStone/just-core/wiki/Exception)
+   - [Localization](https://github.com/CHGLongStone/just-core/wiki/Localization) 
+  - later implementation but not an afterthought
+    - expected support for: 
+      - older standards like `*.po` files
+      - newer standards like DITA, TMX 
+ - [Templater]()
+   - it's basic, it's there...but why at this point in time, render html server side?
+
+
+
+
+
+
+
+
+## [Architectural Principles](Architecture)
 
 **just-core was culled and refined from over a decade of practical experience in a number of distributed environments 
 and developed with a number of driving influences:**
@@ -100,82 +178,6 @@ Providing the Foundation Framework (minimum core services buses) required for an
   * logging and auditing 
 * Ability to easily extend or replace any given service class/api/layer
 
-
-##### Service Oriented Architecture: the just-core service buses
-
- - [Initialization](https://github.com/CHGLongStone/just-core/wiki/Load)
-   - Configuration Mangement
-   - Application bootstrap and "lazy loading" of service classes
- - [Auth API](https://github.com/CHGLongStone/just-core/wiki/AUTH)
-   - Harness for an Authentication/Authorization API 
- - [Caching API](https://github.com/CHGLongStone/just-core/wiki/Cache) 
-    - API for:
-      - multiple cache types -opcode, data - read or write through, http, etc. 
-      - with multiple caching options -file, memcached, NoSQL, xcache, etc.
- - [Data API](https://github.com/CHGLongStone/just-core/wiki/Data-layer) 
-   - Connection management and CRUD interace to multiple data store types
-     - SQL - Standard RDBMS types like MySQL and PostgreSQL
-     - NoSQL - Redis and other document based data stores 
-     - file
-  - [Data Access Objects](https://github.com/CHGLongStone/just-core/wiki/DAO)
-    - Basic and extesnsible 
-    - "Scheama Aware" without the bloat of Object Relational Management
- - [Transport](https://github.com/CHGLongStone/just-core/wiki/Transport)
-   - Clear Separation of the transport layer from business logic
-   - Send/Recieve JSON-RPC, ReST, XML requests/responses to the same service classes
- - [Log](https://github.com/CHGLongStone/just-core/wiki/Log)
-   - log at varried thresholds to multiple targets (DB, File, UDP) 
-   - [Exception Management](https://github.com/CHGLongStone/just-core/wiki/Exception)
-   - [Localization](https://github.com/CHGLongStone/just-core/wiki/Localization) 
-  - later implementation but not an afterthought
-    - expected support for: 
-      - older standards like `*.po` files
-      - newer standards like DITA, TMX 
- - [Templater]()
-   - it's basic, it's there...but why at this point in time, render html server side?
-
-
-
-
-
-# Business by Design
-
-just-core is designed around the Enterprise Service Bus and Enterprise Architecture Requirements but is grounded 
-in the Pareto Principle, "80% of the effects come from 20% of the causes" from both business and practical approaches.
-
-##  Business: Focus on the 20% 
-
-In many case your business is probably operating in a crowded market space and despite the delusions of grandeur of your CEO or VP of Sales  
-the differentiation of your product offering in all probability, realistically offers far less than a 20% variance of functionality to your competitors.
-If your company has accumulated a large degree of technical debt through your development phase you will have great difficulty achieving scale if you are 
-lucky enough to require it.
-
-Ensure your company is able to develop it's market differentiation by ensuring the practical "housekeeping" is part of process from the ground up
-
-## Practical: Cover the 80% so you can focus on the 20% 
-
-The bottom line is that most business ignore "general housekeeping" leading to "technical debt" that frequently ends up consuming 80% of the resources 
-required to operate the business because of poor or ineffective policies or procedures around change management in the forms of:
-
-* lack of coherent architecture
-  * confusing and inconsistent implementations 
-  * lack of institutional knowledge around core systems
-* lack of basic performance optimization 
- * succumbing to the "throw hardware at it" method of application tuning and increasing op-ex
-
-
-**Reduce the overhead through clear and common standards and mechanisms providing:**
-
- * clear separation between the transport mechanism and the business logic
- * data and cache store interactions
- * logging for performance motoring
- * auditing services for:
-   * business intelligence KPIs
-   * regulatory or contractual compliance 
-		  
-		
-**So you can focus on the innovation and intellectual property development that is _driving_ your business**
- 
 
 
 
