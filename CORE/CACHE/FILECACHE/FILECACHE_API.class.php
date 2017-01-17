@@ -10,8 +10,7 @@
  * 
  * @author	Jason Medland<jason.medland@gmail.com>
  * @package	JCORE
- * @subpackage	CACHE
-
+ * 
 */
 namespace JCORE\CACHE;
 
@@ -20,6 +19,7 @@ use JCORE\EXCEPTION\ERROR as ERROR;
 /**
  * class FILECACHE_API
  *
+ * @implements JCORE\CACHE\CACHE_COMMON_API_INTERFACE
  * @package JCORE\CACHE
 */
 class FILECACHE_API implements CACHE_COMMON_API_INTERFACE {
@@ -201,7 +201,7 @@ class FILECACHE_API implements CACHE_COMMON_API_INTERFACE {
 	//----------//----------//----------//----------//----------
 	//----------//START UTIL FUNCTIONS 	//----------//----------
 	//----------//----------//----------//----------//----------
-	/*
+	/**
 	* validateBasicArgs
 	* just check that there are args in the array
 	* define it here for re-use
@@ -230,7 +230,7 @@ class FILECACHE_API implements CACHE_COMMON_API_INTERFACE {
 	}
 	
 		
-	/*
+	/**
 	* verifyArgs
 	* just check that there are args in the array
 	* define it here for re-use
@@ -247,7 +247,7 @@ class FILECACHE_API implements CACHE_COMMON_API_INTERFACE {
 		}
 		return true;
 	}
-	/*
+	/**
 	* validateCachePool
 	* just check that there are args in the array
 	* define it here for re-use
@@ -265,7 +265,7 @@ class FILECACHE_API implements CACHE_COMMON_API_INTERFACE {
 		return true;
 	}
 	
-	/*
+	/**
 	* validateCacheKey
 	* just check that there are args in the array
 	* define it here for re-use

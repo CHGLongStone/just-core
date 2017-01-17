@@ -19,13 +19,13 @@ HTTP
 
  * @author	Jason Medland<jason.medland@gmail.com>
  * @package	JCORE
- * @subpackage	TRANSPORT
+ * 
 */
 namespace JCORE\TRANSPORT;
 /**
  * interface TRANSPORT_INTERFACE
  *
- * @package JCORE\DAO\TREE
+ * @package JCORE
 */
 interface TRANSPORT_INTERFACE{
 	/**

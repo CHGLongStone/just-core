@@ -10,8 +10,8 @@
  */
 namespace JCORE;
 /**
- * Class JCORE_SINGLETON
  *
+ * Class JCORE_SINGLETON
  * @package JCORE
 */
 abstract class JCORE_SINGLETON 
@@ -21,7 +21,8 @@ abstract class JCORE_SINGLETON
 	 * 
 	 * @access private 
 	 * @var mixed
-	 */    private static $instance;
+	 */    
+	private static $instance;
     
    /*
    // The singleton method

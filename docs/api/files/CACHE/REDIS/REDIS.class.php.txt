@@ -10,10 +10,10 @@
  * 
  * @author	Jason Medland<jason.medland@gmail.com>
  * @package		JCORE
- * @subpackage	CACHE
+ * 
 */
 namespace JCORE\CACHE;
-
+use JCORE\CACHE\STATIC_API_INTERFACE AS STATIC_API_INTERFACE;
 use JCORE\CACHE\SERIALIZATION_STATIC as SERIALIZATION;
 /**
  * Class REDIS
@@ -21,7 +21,7 @@ use JCORE\CACHE\SERIALIZATION_STATIC as SERIALIZATION;
  * @implements JCORE\CACHE\STATIC_API_INTERFACE
  * @package JCORE\CACHE
 */
-class REDIS implements JCORE\CACHE\STATIC_API_INTERFACE{
+class REDIS implements STATIC_API_INTERFACE{
 	/**
 	* flag
 	*/

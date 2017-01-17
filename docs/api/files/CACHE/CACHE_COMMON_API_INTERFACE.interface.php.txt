@@ -5,13 +5,14 @@
  * 
  * @author		Jason Medland
  * @package		JCORE
- * @subpackage	CACHE
+ * 
  */
+
 namespace JCORE\CACHE;
 
 /**
- * Interface CACHE_COMMON_API_INTERFACE
- *
+ * interface CACHE_COMMON_API_INTERFACE
+ *  @package		JCORE
 */
 interface CACHE_COMMON_API_INTERFACE{
 	/** 
