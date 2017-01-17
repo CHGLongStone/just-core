@@ -3,20 +3,16 @@
  * REST_API
  * @author	Jason Medland<jason.medland@gmail.com>
  * @package	JCORE
- * @subpackage	TRANSPORT 
+ * 
  */
-/**
-* 
-$filePath = JCORE_BASE_DIR.'TRANSPORT/TRANSPORT_INTERFACE.interface.php';
-require_once($filePath);
-*/
-namespace JCORE\CACHE;
+
+namespace JCORE\TRANSPORT\URL;
 
 use JCORE\TRANSPORT\TRANSPORT_INTERFACE as TRANSPORT_INTERFACE;
 /**
- * Interface URL_API
+ * Class URL_API
  *
- * @package JCORE\TRANSPORT
+ * @package JCORE\TRANSPORT\URL
 */
 class URL_API implements TRANSPORT_INTERFACE{
 	

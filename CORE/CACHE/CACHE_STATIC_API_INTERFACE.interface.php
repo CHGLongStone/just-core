@@ -3,18 +3,23 @@
  * Connection Classes can be created for any CACHE supported by PHP
  * create wrappers for existing API's with this interface
  * 
- * 
  * @author		Jason Medland
  * @package		JCORE
- * @subpackage	CACHE
+ * 
  */
+ 
 namespace JCORE\CACHE;
-use JCORE\JCORE_SINGLETON_INTERFACE;
+use JCORE\JCORE_SINGLETON_INTERFACE AS JCORE_SINGLETON_INTERFACE;
+
+
 /**
- * Interface STATIC_API_INTERFACE
- *
+*  for static implementations
+* 
+* interface STATIC_API_INTERFACE
+* @implements JCORE\JCORE_SINGLETON_INTERFACE
+* @package		JCORE
 */
-interface STATIC_API_INTERFACE extends JCORE\JCORE_SINGLETON_INTERFACE
+interface STATIC_API_INTERFACE extends JCORE_SINGLETON_INTERFACE
 { 
 	/** 
 	* Defines base functions to support public methods of CACHE_API 
