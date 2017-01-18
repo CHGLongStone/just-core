@@ -22,7 +22,7 @@ use JCORE\TRANSPORT\SOA\SERVICE_VALIDATOR as SERVICE_VALIDATOR;
 class AUTH_HARNESS {
 	/**
 	* implementation
-	 * @access public 
+	 * @access protected 
 	 * @var array
 	 */
 	protected $implementation = array();
