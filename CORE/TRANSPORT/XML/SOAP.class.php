@@ -3,11 +3,11 @@
  * SOAP wrapper stub
  * TODO:
  * - try to find a half decent soap lib and wrap it for the transport interface
- * convert from JSON implementation
+ * convert from XML implementation
  *
  * @author	Jason Medland<jason.medland@gmail.com>
- * @package	JCORE\TRANSPORT\JSON
- * @subpackage	JCORE\TRANSPORT\JSON
+ * @package	JCORE\TRANSPORT\XML
+ * 
  */
 namespace JCORE\TRANSPORT\XML;
 use JCORE\TRANSPORT\TRANSPORT_INTERFACE as TRANSPORT_INTERFACE;

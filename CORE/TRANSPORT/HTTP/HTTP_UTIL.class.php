@@ -3,8 +3,8 @@
  * HTTP UTILITIES 
  *
  * @author	Jason Medland<jason.medland@gmail.com>
- * @package	JCORE
- * @subpackage	TRANSPORT 
+ * @package	JCORE\TRANSPORT
+ * 	 
  */
 
 namespace JCORE\TRANSPORT\HTTP;

@@ -15,8 +15,8 @@
  * log() is for BI logging (UDP/DATABASE) 
  * 
  * @author	Jason Medland<jason.medland@gmail.com>
- * @package	JCORE
- * @subpackage	LOG
+ * @package	JCORE\LOG
+ *
  */
 
 namespace JCORE\LOG;

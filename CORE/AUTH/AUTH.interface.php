@@ -1,17 +1,16 @@
 <?php
 /**
 * AUTH_INTERFACE
-* INTERFACE DEFINES BASIC AUTH CALLS 
 * 
- * @author	Jason Medland<jason.medland@gmail.com>
- * @package	JCORE
- * @subpackage	AUTH
+* @author	Jason Medland<jason.medland@gmail.com>
+* @package	JCORE\AUTH
 */
 namespace JCORE\AUTH;
 /**
- * interface AUTH_INTERFACE
- *
- * @package JCORE\AUTH
+* interface AUTH_INTERFACE
+* INTERFACE DEFINES BASIC AUTH CALLS 
+*
+* @package JCORE\AUTH
 */
 interface AUTH_INTERFACE{
 

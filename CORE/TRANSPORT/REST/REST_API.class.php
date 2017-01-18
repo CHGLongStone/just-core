@@ -1,21 +1,13 @@
 <?php 
 /**
- * REST_API
- * 
- * 
- $filePath = JCORE_BASE_DIR.'TRANSPORT/TRANSPORT_INTERFACE.interface.php';
-require_once($filePath);
-
-* load the HTTP handler 
-$filePath = JCORE_BASE_DIR.'TRANSPORT/HTTP/HTTP_API.class.php';
-require_once($filePath);
-
-
-
- * @author	Jason Medland<jason.medland@gmail.com>
- * @package	JCORE\TRANSPORT\REST
- * @subpackage	JCORE\TRANSPORT\REST 
- */
+* REST_API
+* 
+* 
+* 
+* @author	Jason Medland<jason.medland@gmail.com>
+* @package	JCORE\TRANSPORT\REST
+* 
+*/
 
 namespace JCORE\TRANSPORT\REST;
 use JCORE\TRANSPORT\TRANSPORT_INTERFACE as TRANSPORT_INTERFACE;

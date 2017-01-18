@@ -1,12 +1,11 @@
 <?php
 /**
- * REDIS_connector
- * implementation needs to be converted from MySQL
- *
- * @author		Jason Medland<jason.medland@gmail.com>
- * @package	JCORE
- * @subpackage DATA
- */
+* REDIS_connector
+* implementation needs to be converted from MySQL
+*
+* @author		Jason Medland<jason.medland@gmail.com>
+* @package	JCORE\DATA\API\REDIS
+*/
 
 namespace JCORE\DATA\API\REDIS;
 use JCORE\EXCEPTION\DATA_Exception as DATA_Exception;

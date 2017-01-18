@@ -2,8 +2,8 @@
 /**
  * HTML Templating Engine Class
  * @author	Jason Medland<jason.medland@gmail.com>
- * @package	JCORE
- * @subpackage	TRANSPORT
+ * @package	JCORE\TEMPLATER
+ * 
  * 
  * 
  * @author		Furrukh Qureshi/Jason Medland

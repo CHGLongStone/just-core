@@ -2,8 +2,7 @@
 /**
  * Class
  * @author		Jason Medland<jason.medland@gmail.com>
- * @package		JCORE
- * @subpackage	DATA\API
+ * @package		JCORE\DATA\API\MySQL
  */
 namespace JCORE\DATA\API\MySQL;
 use JCORE\EXCEPTION\DATA_Exception as DATA_Exception;

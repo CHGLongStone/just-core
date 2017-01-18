@@ -4,8 +4,7 @@
  * create wrappers for existing API's with this interface
  * 
  * @author		Jason Medland
- * @package		JCORE
- * @subpackage	CACHE
+ * @package		JCORE\CACHE
  */
 namespace JCORE\CACHE;
 

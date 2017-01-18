@@ -3,8 +3,7 @@
  * stub class for PO format translation files
  *
  * @author		Jason Medland<jason.medland@gmail.com>
- * @package	JCORE
- * @subpackage L10N
+ * @package	JCORE\L10N
  */
 
 namespace JCORE\L10N;

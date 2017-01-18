@@ -5,7 +5,7 @@
  *
  * @author	Jason Medland<jason.medland@gmail.com>
  * @package	JCORE\TRANSPORT\SOA
- * @subpackage	JCORE\TRANSPORT\SOA
+ * 
  */
 namespace JCORE\TRANSPORT\SOA;
 use JCORE\EXCEPTION\ERROR as ERROR;

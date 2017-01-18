@@ -1,9 +1,5 @@
 <?php
 /**
- * DAO TREE class
- * this is a Modified Preorder Tree Traversal based on the example given here:
- * http://articles.sitepoint.com/article/hierarchical-data-database
- * http://dev.mysql.com/tech-resources/articles/hierarchical-data.html
  * 
  *
  *
@@ -14,13 +10,16 @@
  *
  * @author		Jason Medland
  * @package		JCORE\DAO\TREE
- * @subpackage	JCORE\DAO\TREE 
+ * 
  */
 namespace JCORE\DAO\TREE;
 /**
- * Class DAO_TREE
- *
- * @package JCORE\DAO\TREE
+* Class DAO_TREE
+* this is a Modified Preorder Tree Traversal based on the example given here:
+* http://articles.sitepoint.com/article/hierarchical-data-database
+* http://dev.mysql.com/tech-resources/articles/hierarchical-data.html
+*
+* @package JCORE\DAO\TREE
 */
 class DAO_TREE{
 	/**

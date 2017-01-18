@@ -1,14 +1,9 @@
 <?php
 /**
- * stub for custom session handler
- * http://php.net/manual/en/session.customhandler.php
- * 
- * implementation would be used for distributed environments
  * 
  * 
  * @author		Jason Medland
- * @package		JCORE
- * @subpackage	DAO
+ * @package		JCORE\DAO
  *
 */
 
@@ -16,6 +11,10 @@ namespace JCORE\DAO;
 
 /**
  * Class SESSION
+ * stub for custom session handler
+ * http://php.net/manual/en/session.customhandler.php
+ * 
+ * implementation would be used for distributed environments
  *
  * @package JCORE\DAO
 */

@@ -5,8 +5,7 @@
 * 
 * 
 * @author		Jason Medland<jason.medland@gmail.com>
-* @package	JCORE
-* @subpackage EXCEPTION
+* @package	JCORE\EXCEPTION
 */
 
 namespace JCORE\EXCEPTION;

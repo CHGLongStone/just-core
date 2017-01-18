@@ -1,13 +1,9 @@
 <?php
 /**
- * Very basic auth mechanism to white list API calls from other servers
- * this is ONLY in place to limit access to an API based on white list
- * there is no other authentication hook behind this fro granular control
  * 
  * 
  * @author	Jason Medland<jason.medland@gmail.com>
- * @package	JCORE
- * @subpackage	AUTH
+ * @package	JCORE\AUTH
  */
 
 namespace JCORE\AUTH;
@@ -16,6 +12,9 @@ use JCORE\TRANSPORT\HTTP\HTTP_UTIL as HTTP_UTIL;
 
 /**
  * Class IP_WHITELIST
+ * Very basic auth mechanism to white list API calls from other servers
+ * this is ONLY in place to limit access to an API based on white list
+ * there is no other authentication hook behind this fro granular control
  *
  * @package JCORE\AUTH
 */

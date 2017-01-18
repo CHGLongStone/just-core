@@ -1,20 +1,19 @@
 <?php
 /**
- * REDIS_connector
- * implementation needs to be converted from MySQL to CSV
- *
- * @author		Jason Medland<jason.medland@gmail.com>
- * @package	JCORE
- * @subpackage DATA
- */
+* CSV_connector
+*
+* @author		Jason Medland<jason.medland@gmail.com>
+* @package	JCORE\DATA\API\FILE
+*/
 
 namespace JCORE\DATA\API\FILE;
 use JCORE\EXCEPTION\DATA_Exception as DATA_Exception;
 use JCORE\EXCEPTION\networkException as networkException;
 /**
- * class CSV_connector
- *
- * @package JCORE\DATA\API\FILE
+* class CSV_connector
+*
+* @implements \JCORE\DATA\API\DATA_API_INTERFACE
+* @package JCORE\DATA\API\FILE
 */
 class CSV_connector implements \JCORE\DATA\API\DATA_API_INTERFACE{
 	/**

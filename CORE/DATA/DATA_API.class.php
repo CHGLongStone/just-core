@@ -1,99 +1,10 @@
 <?php
 /**
- * [SUMMARY]
- * DATA BASE CLASS
- * 
- * This class provides access to data databases or files system. 
- * There is an assumption that more than one data source will be required
- * if you want to cache your objects, this object should ALWAYS be referenced 
- * in the global space as
- * $GLOBALS["DATA_API"]
- * OR
- * GLOBAL $DATA_API
- * 
- * if you "internalize" this object in your classes (making it a property of the class)
- * serialization will ONLY store a reference to the object and not the "property" object
- * 
- * [INSTANTIATION]
- * 
- * the contructor requires no arguements as all DB sonnection information is loaded from 
- * JCORE_CONFIG_DIR.'/dataPool.ini'
- * into: 
- * $this->connectorCfg 
- * Databases are referenced by a simple name space or "DSN" (Data Source Name) 
- * i.e. "SERVICES", "USERDATA", "AUTH", "AUTH_SLAVE"...
- * No database connections are set by default, the class automatically checks to see
- * if a valid DB resource exists, if not it tries to establish a connection.
- * a LOG_EMERG message will be recorded if the connection to the DB fails
- * a LOG_ALERT message will be recorded if the query fails
- * 
- * the class is not a singleton so it can have persistent maleable members
- * i.e. the config settings, so any connection can be called @ any time
- * 
- * [CORE METHODS] 
- * 
-
- * $DATA_API->create($DSN, $query, $returnArray); 
- * 		$DSN 			"Data Source Name"
- * 		$query			standard CREATE statement
- * 		$args			array(
- * 							'returnArray' = TRUE/FALSE
- * 						)	
- * 			if TRUE the result is returned as
- *				$resultArray["INSERT_ID"] 		= mysql_insert_id($connection);
- *				$resultArray["AFFECTED_ROWS"] 	= mysql_affected_rows($connection);
- * 				$resultArray["INFO"] 			= mysql_info($connection);
- * 
- * $DATA_API->retrieve($DSN, $query, $args=array('returnArray' => true)); 
- * 		$DSN 			"Data Source Name"
- * 		$query			standard RETRIEVE(SELECT) statement
- * 		$args			array(
- * 							'returnArray' = TRUE/FALSE
- * 						)	
- * 			if TRUE the result is returned as a PHP array
- *  
- * $DATA_API->update($DSN, $query, $returnArray); 
- * 		$DSN 			"Data Source Name"
- * 		$query			standard UPDATE statement
- * 		$args			array(
- * 							'returnArray' = TRUE/FALSE
- * 						)	
- * 			if TRUE the result is returned as
- *				$resultArray["AFFECTED_ROWS"] 	= mysql_affected_rows($connection);
- * 				$resultArray["INFO"] 			= mysql_info($connection);
- * 
- * $DATA_API->delete($DSN, $query, $args=array('returnArray' => true)); 
- * 		$DSN 			"Data Source Name"
- * 		$query			standard DELETE statement
- * 		$args			array(
- * 							'returnArray' = TRUE/FALSE
- * 						)	
- * 			if TRUE the result is returned as
- *				$resultArray["AFFECTED_ROWS"] 	= mysql_affected_rows($connection);
- * 				$resultArray["INFO"] 			= mysql_info($connection);
- * 
- * [SECONDARY METHODS]
- * set_connection($DSN, $settings);
- * 		$DSN			"DSN"
- * 		$settings		array of settings following the format of [JCORE_CONFIG_DIR.'dataPool.ini']
- * 						assumed to be $this->connectorCfg[$DSN]
- * 		SETS/RESETS the connection object itself
- * 
- * verify_connection($DSN);
- * 		$DSN			"DSN"
- * 		- checks if the connection object is set
- * 		- checks if the connection object has a resource and resets if not
- * 		- Passes to the connection object 
- * [KEY PROPERTIES]
- * $connector
- * $dataSchema
- * dbConnection classes must implement dbConnection.interface.php
- * in order to support the base methods of this class
- * 
- * @author	Jason Medland<jason.medland@gmail.com>
- * @package	JCORE
- * @subpackage DATA
- */
+*
+* 
+* @author	Jason Medland<jason.medland@gmail.com>
+* @package	JCORE\DATA\API
+*/
 namespace JCORE\DATA\API;
 /**
 * DATA_API_INTERFACE
@@ -108,9 +19,98 @@ use JCORE\DATA\API\MySQL\MySQL_TABLE_META as MySQL_TABLE_META;
 #require_once('DATA_API_INTERFACE.interface.php');
 
 /**
- * Interface DATA_API
- *
- * @package JCORE\DATA\API
+* class DATA_API
+* [SUMMARY]
+* DATA BASE CLASS
+* 
+* This class provides access to data databases or files system. 
+* There is an assumption that more than one data source will be required
+* if you want to cache your objects, this object should ALWAYS be referenced 
+* in the global space as
+* $GLOBALS["DATA_API"]
+* OR
+* GLOBAL $DATA_API
+* 
+* if you "internalize" this object in your classes (making it a property of the class)
+* serialization will ONLY store a reference to the object and not the "property" object
+* 
+* [INSTANTIATION]
+* 
+* the contructor requires no arguements as all DB sonnection information is loaded from 
+* JCORE_CONFIG_DIR.'/dataPool.ini'
+* into: 
+* $this->connectorCfg 
+* Databases are referenced by a simple name space or "DSN" (Data Source Name) 
+* i.e. "SERVICES", "USERDATA", "AUTH", "AUTH_SLAVE"...
+* No database connections are set by default, the class automatically checks to see
+* if a valid DB resource exists, if not it tries to establish a connection.
+* a LOG_EMERG message will be recorded if the connection to the DB fails
+* a LOG_ALERT message will be recorded if the query fails
+* 
+* the class is not a singleton so it can have persistent maleable members
+* i.e. the config settings, so any connection can be called @ any time
+* 
+* [CORE METHODS] 
+* 
+*
+* $DATA_API->create($DSN, $query, $returnArray); 
+* 		$DSN 			"Data Source Name"
+* 		$query			standard CREATE statement
+* 		$args			array(
+* 							'returnArray' = TRUE/FALSE
+* 						)	
+* 			if TRUE the result is returned as
+*				$resultArray["INSERT_ID"] 		= mysql_insert_id($connection);
+*				$resultArray["AFFECTED_ROWS"] 	= mysql_affected_rows($connection);
+* 				$resultArray["INFO"] 			= mysql_info($connection);
+* 
+* $DATA_API->retrieve($DSN, $query, $args=array('returnArray' => true)); 
+* 		$DSN 			"Data Source Name"
+* 		$query			standard RETRIEVE(SELECT) statement
+* 		$args			array(
+* 							'returnArray' = TRUE/FALSE
+* 						)	
+* 			if TRUE the result is returned as a PHP array
+*  
+* $DATA_API->update($DSN, $query, $returnArray); 
+* 		$DSN 			"Data Source Name"
+* 		$query			standard UPDATE statement
+* 		$args			array(
+* 							'returnArray' = TRUE/FALSE
+* 						)	
+* 			if TRUE the result is returned as
+*				$resultArray["AFFECTED_ROWS"] 	= mysql_affected_rows($connection);
+* 				$resultArray["INFO"] 			= mysql_info($connection);
+* 
+* $DATA_API->delete($DSN, $query, $args=array('returnArray' => true)); 
+* 		$DSN 			"Data Source Name"
+* 		$query			standard DELETE statement
+* 		$args			array(
+* 							'returnArray' = TRUE/FALSE
+* 						)	
+* 			if TRUE the result is returned as
+*				$resultArray["AFFECTED_ROWS"] 	= mysql_affected_rows($connection);
+* 				$resultArray["INFO"] 			= mysql_info($connection);
+* 
+* [SECONDARY METHODS]
+* set_connection($DSN, $settings);
+* 		$DSN			"DSN"
+* 		$settings		array of settings following the format of [JCORE_CONFIG_DIR.'dataPool.ini']
+* 						assumed to be $this->connectorCfg[$DSN]
+* 		SETS/RESETS the connection object itself
+* 
+* verify_connection($DSN);
+* 		$DSN			"DSN"
+* 		- checks if the connection object is set
+* 		- checks if the connection object has a resource and resets if not
+* 		- Passes to the connection object 
+* [KEY PROPERTIES]
+* $connector
+* $dataSchema
+* dbConnection classes must implement dbConnection.interface.php
+* in order to support the base methods of this class
+* 
+* @package JCORE\DATA\API
 */
 class DATA_API{
 

@@ -4,8 +4,7 @@
  * 
  *
  * @author		Jason Medland<jason.medland@gmail.com>
- * @package	JCORE
- * @subpackage DATA
+ * @package	JCORE\DATA\API\MySQL
  */
 
 namespace JCORE\DATA\API\MySQL;

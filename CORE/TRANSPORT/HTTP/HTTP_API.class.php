@@ -1,13 +1,11 @@
 <?php 
 /**
- * REST_API
+ * HTTP_API 
  *
-require_once($filePath);
-$filePath = JCORE_BASE_DIR.'TRANSPORT/TRANSPORT_INTERFACE.interface.php';
  *
  * @author	Jason Medland<jason.medland@gmail.com>
- * @package	JCORE
- * @subpackage	TRANSPORT 
+ * @package	JCORE\TRANSPORT\HTTP
+ * 
  */
 
 namespace JCORE\TRANSPORT\HTTP;

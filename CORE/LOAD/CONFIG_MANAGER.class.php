@@ -1,9 +1,9 @@
 <?php
 /**
  * CONFIG_MANAGER (JCORE) CLASS
+ * 
  * @author	Jason Medland<jason.medland@gmail.com>
- * @package	JCORE
- * @subpackage	LOAD 
+ * @package	JCORE\LOAD
  */
 namespace JCORE\LOAD;
 /**

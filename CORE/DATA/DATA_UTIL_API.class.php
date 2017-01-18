@@ -1,15 +1,14 @@
 <?php
 /**
- * DATA_UTIL_API
- * 
- * @author	Jason Medland<jason.medland@gmail.com>
- * @package	JCORE
- * @subpackage	DATA
- */
+* DATA_UTIL_API
+* 
+* @author	Jason Medland<jason.medland@gmail.com>
+* @package	JCORE\DATA\API
+*/
 namespace JCORE\DATA\API;
 
 /**
- * Interface DATA_UTIL_API
+ * class DATA_UTIL_API
  *
  * @package JCORE\DATA\API
 */

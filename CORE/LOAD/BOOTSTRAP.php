@@ -1,10 +1,9 @@
 <?php
-#echo __FILE__.'::'.__LINE__.'<br>';
 /**
  * BOOT STRAP (Proceedure)
  * @author	Jason Medland<jason.medland@gmail.com>
- * @package	JCORE
- * @subpackage	LOAD
+ * @package	JCORE\LOAD
+ * 
  */
 #echo __FILE__.'::'.__LINE__.' '.JCORE_SESSION_NAME.'getmypid['.getmypid().']<br>';
 

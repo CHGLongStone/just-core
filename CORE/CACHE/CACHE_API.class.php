@@ -1,20 +1,18 @@
 <?php
 /**
- * Connection objects can be created for any CACHE supported by PHP
- * create wrappers for existing API's with this objects public methods
- * implementing CACHE_COMMON_API_INTERFACE_ or CACHE_STATIC_API_INTERFACE_
-require_once(JCORE_BASE_DIR."CACHE/CACHE_COMMON_API_INTERFACE.interface.php");
  * 
  * 
  * @author		Jason Medland
  * @package		JCORE\CACHE
- * @subpackage	JCORE\CACHE
  */
 namespace JCORE\CACHE;
 use JCORE\CACHE\CACHE_COMMON_API_INTERFACE as CACHE_COMMON_API_INTERFACE;
 use JCORE\LOG\LOG as LOG;
 /**
  * Class CACHE_API2
+ * Connection objects can be created for any CACHE supported by PHP
+ * create wrappers for existing API's with this objects public methods
+ * implementing CACHE_COMMON_API_INTERFACE_ or CACHE_STATIC_API_INTERFACE_
  *
  * @package JCORE\CACHE
 */
