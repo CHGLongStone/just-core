@@ -3,11 +3,11 @@
  * 
  * 
  * @author		Jason Medland
- * @package		JCORE\DAO
+ * @package		JCORE\DAO\SESSION
  *
 */
 
-namespace JCORE\DAO;
+namespace JCORE\DAO\SESSION;
 
 /**
  * Class SESSION
@@ -16,9 +16,9 @@ namespace JCORE\DAO;
  * 
  * implementation would be used for distributed environments
  *
- * @package JCORE\DAO
+ * @package JCORE\DAO\SESSION
 */
-class SESSION{
+abstract class SESSION_HANDLER{
 	
 
 	/**

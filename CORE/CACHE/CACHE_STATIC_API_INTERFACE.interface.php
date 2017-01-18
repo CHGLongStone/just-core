@@ -4,7 +4,7 @@
  * create wrappers for existing API's with this interface
  * 
  * @author		Jason Medland
- * @package		JCORE
+ * @package		JCORE\CACHE
  * 
  */
  
@@ -17,7 +17,7 @@ use JCORE\JCORE_SINGLETON_INTERFACE AS JCORE_SINGLETON_INTERFACE;
 * 
 * interface STATIC_API_INTERFACE
 * @implements JCORE\JCORE_SINGLETON_INTERFACE
-* @package		JCORE
+* @package	JCORE\CACHE
 */
 interface STATIC_API_INTERFACE extends JCORE_SINGLETON_INTERFACE
 { 

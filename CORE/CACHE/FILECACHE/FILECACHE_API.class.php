@@ -9,7 +9,7 @@
  * 
  * 
  * @author	Jason Medland<jason.medland@gmail.com>
- * @package	JCORE
+ * @package	JCORE\CACHE
  * 
 */
 namespace JCORE\CACHE;

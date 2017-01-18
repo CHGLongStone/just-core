@@ -129,7 +129,7 @@
  * 
  * @author	Jason Medland<jason.medland@gmail.com>
  * @package	JCORE\DAO
- * @subpackage	JCORE\DAO
+ *
  */
 namespace JCORE\DAO;
 use JCORE\DATA\MYSQL\MySQL_TABLE_META as MySQL_TABLE_META;

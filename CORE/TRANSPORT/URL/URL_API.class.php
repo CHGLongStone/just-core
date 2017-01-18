@@ -2,7 +2,7 @@
 /**
  * REST_API
  * @author	Jason Medland<jason.medland@gmail.com>
- * @package	JCORE
+ * @package	JCORE\TRANSPORT\URL
  * 
  */
 

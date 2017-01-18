@@ -3,13 +3,13 @@
 * REDIS class
  * Basic stub, implementation to be completed
  * TODO:
- * - dependancy on REDIS api used? 
+ * - dependency on REDIS api used? 
  * - add specific API to composer
- * - unusable as static (no native or insstallable fucntions) so requires a persistent resource
+ * - unusable as static (no native or installable functions) so requires a persistent resource
  * 
  * 
  * @author	Jason Medland<jason.medland@gmail.com>
- * @package		JCORE
+ * @package		JCORE\CACHE
  * 
 */
 namespace JCORE\CACHE;

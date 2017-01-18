@@ -7,7 +7,7 @@
  * create wrappers for existing API's with this interface
  * 
  * @author		Jason Medland
- * @package		JCORE
+ * @package		JCORE\CACHE
  * 
  * 
  *	

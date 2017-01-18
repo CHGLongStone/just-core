@@ -2,18 +2,17 @@
 
 /**
  * XCache
+ */
+namespace JCORE\CACHE\EXAMPLE;
+/**
+ * class XCache
  *	from here: http://xcache.lighttpd.net/wiki/XcacheApi#aSimpleOOwrapper
- * @package XCache
  * @version $Id$
  * @copyright 2007
  * @author Cristian Rodriguez <judas.iscariote@flyspray.org>
  * @license BSD {@link http://www.opensource.org/licenses/bsd-license.php}
- */
-namespace JCORE\CACHE\EXAMPLE\EXT_REF;
-/**
- * Interface XCache
  *
- * @package JCORE\EXAMPLE\EXT_REF
+ * @package JCORE\CACHE\EXAMPLE
 */
 class XCache {
 	/**

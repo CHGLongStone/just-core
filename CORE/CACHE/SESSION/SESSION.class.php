@@ -5,8 +5,7 @@
  * see http://us2.php.net/manual/en/function.session-set-save-handler.php
  * 
  * @author		Jason Medland
- * @package		JCORE
- * @subpackage	CACHE
+ * @package		JCORE\CACHE
  *
  *
  *

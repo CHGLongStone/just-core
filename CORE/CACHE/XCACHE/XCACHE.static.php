@@ -1,10 +1,7 @@
 <?php
 /**
- * Connection Classes can be created for any CACHE supported by PHP
- * create wrappers for existing API's with this interface
- * @ignore
  * @author		Jason Medland
- * @package		JCORE
+ * @package		JCORE\CACHE
 *
 */
 
@@ -15,6 +12,8 @@ use JCORE\CACHE\STATIC_API_INTERFACE AS STATIC_API_INTERFACE;
 
 /**
  * Class XCACHE_static
+ * Connection Classes can be created for any CACHE supported by PHP
+ * create wrappers for existing API's with this interface
  * 
  * @implements JCORE\CACHE\STATIC_API_INTERFACE
  * @package JCORE\CACHE

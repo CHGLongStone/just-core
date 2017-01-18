@@ -18,14 +18,14 @@ HTTP
 		body
 
  * @author	Jason Medland<jason.medland@gmail.com>
- * @package	JCORE
+ * @package	JCORE\TRANSPORT
  * 
 */
 namespace JCORE\TRANSPORT;
 /**
  * interface TRANSPORT_INTERFACE
  *
- * @package JCORE
+ * @package JCORE\TRANSPORT
 */
 interface TRANSPORT_INTERFACE{
 	/**
