@@ -71,7 +71,7 @@
     * file
   - [Data Access Objects](https://chglongstone.github.io/just-core/wiki/DAO)
     * Basic and extesnsible 
-    * "Scheama Aware" without the bloat of Object Relational Management
+    * "Schema Aware" without the bloat of Object Relational Management
  * [Transport](https://chglongstone.github.io/just-core/wiki/Transport)
   - Clear Separation of the transport layer from business logic
   - Send/Recieve JSON-RPC, ReST, XML requests/responses to the same service classes
