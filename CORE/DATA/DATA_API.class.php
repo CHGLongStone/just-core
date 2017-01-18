@@ -285,15 +285,15 @@ class DATA_API{
 				case"REDIS":
 					$this->connector[$DSN] = new Redis_connector($DSN, $settings);
 					break;
-				case"COUCHDB":
-					$this->connector[$DSN] = new COUCHDB_connector($DSN, $settings);
-					break;
+				#case"COUCHDB":
+				#	$this->connector[$DSN] = new COUCHDB_connector($DSN, $settings);
+				#	break;
 				case"POSTGRES":
 					$this->connector[$DSN] = new Postgres_connector($DSN, $settings);
 					break;
 				case"MYSQL":	//NEW CONFIG
-					#$this->connector[$DSN] = new MySQL_connector($DSN, $settings);
-					#break;
+					$this->connector[$DSN] = new MySQL_connector($DSN, $settings);
+					break;
 				default:		//DEFAULT SUPPORT FOR MySQL
 					$this->connector[$DSN] = new MySQL_connector($DSN, $settings);
 					break;
