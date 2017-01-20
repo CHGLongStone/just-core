@@ -6,7 +6,7 @@ The best place to get hands on with just-core is with the [just-core-stub](../ju
 as an example how how to use the framework or to initialize a new project. 
 Dependency management is handled through [Composer and Packagist](Packages-and-Extensions)
 
-{% site.github.repository_url %}
+
 ## Quick Links
 
 * [Main Site and Documentation](https://CHGLongStone.github.io)
