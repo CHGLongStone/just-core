@@ -1,4 +1,4 @@
-#Packages and Extensions
+# Packages and Extensions
 
 
 Packages in the just-core ecosystem are meant to be discrete extensions to the core platform. Package management is handled by [Composer](https://getcomposer.org/) and all public just-core packages are [registered](https://packagist.org/packages/just-core/) with [Packagist](https://packagist.org).
@@ -8,7 +8,7 @@ You can easily include other packages that are available through the [composer l
 
 
 
-####Directory Structure:
+#### Directory Structure:
 
 ```
     [package name]/
@@ -42,6 +42,7 @@ $LOGIN_SERVICE = new JCORE\SERVICE\AUTH\LOGIN_SERVICE;
 ```
 
 ## Quick Ref: 
+
 ### Things to know about Composer
 
 #### Using external repositories [including private ones](https://getcomposer.org/doc/05-repositories.md#package-2)
