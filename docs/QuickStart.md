@@ -9,8 +9,8 @@ Dependency management is handled through [Composer and Packagist](Packages-and-E
 
 ## Quick Links
 
-* [Main Site and Documentation](https://CHGLongStone.github.io)
-* [Installation]({site.github.repository_url}/Installation)
-* [APIS]({site.github.repository_url}/APIs)
-* [Working with Data Stores]({site.github.repository_url}/Data-layer)
+
+* [Installation](Installation)
+* [APIS](APIs)
+* [Working with Data Stores](Data-layer)
 * [Package Documentation](api/)
