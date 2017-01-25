@@ -71,6 +71,7 @@ required to operate the business because of poor or ineffective policies or proc
 		
 **So you can focus on the innovation and intellectual property development that is _driving_ your business**
 
+No matter what you get off the shelf you MUST develop your own IP to differentiate in the market
 
 # Flexibility Through:
 

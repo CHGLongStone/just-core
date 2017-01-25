@@ -11,9 +11,11 @@ Rants and musings...
 
 WhY?
 
-### tired of dealing with other frameworks
+### 1) A Framework designed to support business requirements not just render HTML
 
-With nearly 2 decades in the language the principle developer has seen the bloat factor from 
+### 2) tired of dealing with other frameworks
+
+With nearly 2 decades in the LAMP Stack the principle developer has seen the bloat factor from 
 
 * _hyper abstraction_ for accessibility 
 * _pre-optimization_ or the _no optimization required_ mindset 
@@ -23,9 +25,6 @@ With nearly 2 decades in the language the principle developer has seen the bloat
   * undermine the ability to optimize performance through bloated application structure 
   * require developers to pragmatically speaking _learn a new language_
   
-
-
-* no matter what you get off the shelf you MUST develop your own IP to differentiate in the market
 
 
 ## Clever vs Intelligent Programming
@@ -44,19 +43,41 @@ in the analysis of gender and maturity and the transformation from it's genesis 
 
 ## Shoulders of Giants
 
+Some useful sources
+
+### TOGAF ADM 
+
+[The Open Group Architectural Framework](https://www.opengroup.org/togaf/) [Architectural Development Method](http://pubs.opengroup.org/architecture/togaf9-doc/arch/chap05.html)
+
+### Design Patterns and the Gang of Four
+
+There are design pattern books for almost every modern language, it's worth having a look at the one that started it all
+
+[Design Patterns: Elements of Reusable Object-Oriented Software](https://en.wikipedia.org/wiki/Design_Patterns)
+
+### "Uncle" Bob Martin
+
 ["Uncle" Bob Martin in "The Future of Programming"](https://www.youtube.com/watch?v=ecIWPzGEbFc) effectively elucidates a number of 
-demonstrable issues in the software industry 
+demonstrable issues in the software industry in the analysis of gender distribution and _life maturity_ through the transformation from it's genesis to becoming an industry 
 
-### in the analysis of gender distribution and _life maturity_ through the transformation from it's genesis to becoming an industry 
+#### the mindset of the _un-refined_ male and its impact on the structure and practices within the industry
 
-
-
-### the mindset of the _un-refined_ male and its impact on the structure and practices within the industry
-
-* thinking the _new way is better_ as bob points out there are ONLY 3 fundamental _meta patterns_ in modern coding languages 
+* thinking the _new way is better_ as Bob points out there are ONLY 3 fundamental _meta patterns_ in modern coding languages 
   * functional
   * structured 
   * object 
 
 * the tensions around ownership of risk management and the ownership of risk 
+
+
+
+### Hal Helms 
+
+Hal had some great ideas for clearly structured functional programming and requirements gathering with [Fusebox](https://en.wikipedia.org/wiki/Fusebox_(programming)).
+Hal was also one to put a __heavy__ emphasis on "front loaded" project development with 60-70% of the total effort going to pre-planning and architecture.
+
+
+
+
+
 
