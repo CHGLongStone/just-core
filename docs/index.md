@@ -12,13 +12,15 @@ reducing "ramp up" time and more importantly they are easy to modify and extend.
 
 
 # Providing Things you need in any framework... 
+- **Reduced Risk Management**
+  - Because the framework provides...
 - **Clear Architecture**
   - Core services with clearly defined interfaces 
 - **Flexibility**
   - Reduced Bloat with _Service Modularity_ and _Lazy Loading_
   - Multiple Data store and Cache options
   - Easy to implement logging and change auditing 
-- **Reduced effort** for
+- **Reduced effort** 
   - _New development_ 
     - Low Cost Of Entry on the learning curve 
     - Using common standards
@@ -72,7 +74,7 @@ required to operate the business because of poor or ineffective policies or proc
 
 # Flexibility Through:
 
-### Name Space loading
+### Name Space loading of API Service Calls
 
 Dependency Management via Composer/Packagist and PSR-4 namespaces, Lazy Loading of service calls by namespace 
 through multiple transport types from AJAX to XML. 
@@ -85,36 +87,37 @@ compromising late optimization
 
 
 
-#Reduced-Effort with:
+# Reduced Resource Utilization:
+
+Both human and hardware with 
 
 ### Simplified Development 
 
-Add a service class, update composer autoconfig and call it by namespace 
+Once your environment is configured, add a service class, update composer autoconfig and call it by namespace 
 
 
-### Architectural Emphasis on Late Optimization
+### A Bias Towards Performance
 
-A bias towards performance tuning with low framework overhead, complete an http request with a complete stack trace of 10K+ internal function calls 
-rather than waiting for 7K+ internal calls before you even load your service classes...like some other frameworks
+- low framework overhead
+  - Full API stack traces _as low as 1000 lines per HTTP request_ 
+    - fewer internal calls than it takes other frameworks to even start loading your service classes 
+- Architectural Emphasis on Late Optimization 
+- Internal caching mechanisms to reduce 
+  - Disk and network I/O 
+  - Overhead of (re)generating complex static or semi-static data structures
+- Bundled tools like [xhprof](https://github.com/phacility/xhprof) for application profiling
 
-Application profiling via [xhprof](https://github.com/phacility/xhprof) or using [XDEBUG](https://xdebug.org/) for complete stack traces 
-__dependent on your development environment__
 
-### Change Management
+### Simplified Change Management
 
-##### Simple configuration management
+##### Easy Configuration Management
 
 Simple configuration management for multiple environments from `dev/uat/prod` to dev sandboxes with Zend style  `*{global,local}.php`  configuration file naming patterns.
 
 Clear separation of the framework from your own intellectual property
 
-### Business Intelligence and System oversight from the start
 
-Easy to implement logging, application/performance monitoring and change auditing 
-
- 
-
-### Scripts to support the SLDC
+##### Scripts to support the SLDC
 
 Configurable scripts to support the Software Development Life Cycle including:
 
@@ -128,7 +131,11 @@ Configurable scripts to support the Software Development Life Cycle including:
   - deploying releases to your production environment
   - database backup and synchronization MySQL inc. InnoDb supported 
 
+## Business Intelligence and System oversight from the start
 
+Easy to implement logging, application/performance monitoring and change auditing 
+
+ 
 
 
 
