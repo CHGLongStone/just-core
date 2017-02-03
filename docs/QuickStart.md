@@ -10,7 +10,7 @@ Dependency management is handled through [Composer and Packagist](Packages-and-E
 ## Quick Links
 
 
-* [Installation](Installation)
+* [Installation](Project-Installation)
 * [APIS](APIs)
 * [Working with Data Stores](Data-layer)
 * [Package Documentation](api/)
