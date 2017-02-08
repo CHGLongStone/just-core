@@ -2,6 +2,8 @@
 
 Rants and musings...
 
+"Premature optimization is the root of all evil." -- Donald Knuth.
+
 * [AnOTHER PHP Framework?](#another-php-framework)
 * [Clever vs Intelligent Programming](#clever-vs-intelligent-programming)
 * [Shoulders of Giants](#shoulders-of-giants)
