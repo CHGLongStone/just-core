@@ -49,7 +49,7 @@ Ensure your company is able to develop it's market differentiation by ensuring t
 
 ## Practical: Cover the 80% so you can focus on the 20% 
 
-The bottom line is that most business ignore "general housekeeping" leading to "technical debt" that frequently ends up consuming 80% of the resources 
+The bottom line is that most businesses ignore "general housekeeping" leading to "technical debt" that frequently ends up consuming 80% of the resources 
 required to operate the business because of poor or ineffective policies or procedures around change management in the forms of:
 
 * lack of coherent architecture
