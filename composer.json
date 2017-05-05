@@ -15,7 +15,7 @@
 	},
 	"suggest": {
 		"just-core/scripts": "management scripts for the just-core eco system, basic release management stuff, db syncronization some other things",
-		"just-core/stub": "Stub application for the just-core eco system, see how simple it is...",
+		"just-core/stub": "Stub application for the just-core eco system, see how simple it is..."
 	},
 	"autoload" : {
 		"classmap" : [
