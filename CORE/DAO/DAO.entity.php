@@ -786,6 +786,8 @@ class DAO{
 				}elseif(
 					isset($this->tables[$table])
 					&&
+					isset($this->tables[$table]['values'])
+					&&
 					true == is_array($this->tables[$table]['values']) 
 					&&
 					is_array($this->tables[$table]['values'])
@@ -796,7 +798,9 @@ class DAO{
 						return $this->tables[$table]['values'][$column];
 					}
 				}
-				return 'NO SUCH VALUE'; //false
+				//false;
+				return 'NO SUCH VALUE'; 
+				#return 'NO SUCH VALUE '.$table.'.'.$column; //false
 				break;
 			case"set":
 				/*
@@ -825,7 +829,9 @@ class DAO{
 						return true;
 					}
 				}
-				return 'NO SUCH VALUE'; //false;
+				//false;
+				return 'NO SUCH VALUE'; 
+				#return 'NO SUCH VALUE '.$table.'.'.$column;
 				break;
 				/*
 			case"aaaaaaaa":
