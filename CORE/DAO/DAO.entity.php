@@ -558,15 +558,21 @@ class DAO{
 	*/
 	public function initializeSchema($DSN, $tableName){	
 		if(!isset($this->db->dataSchema[$DSN]["table"][$tableName])){
+			#echo __METHOD__.'@'.__LINE__.' '.'<br>'.PHP_EOL;
 			$schema = $GLOBALS["DATA_API"]->introspectTable($DSN, $tableName);
+			#echo __METHOD__.'::'.__LINE__.'$schema['.$schema.'];<pre>'.print_r($schema, true).'</pre>';
+			return $schema;
 		}
 		$this->getMYSQLConstants($DSN);
+		#echo __METHOD__.'::'.__LINE__.'DSN['.$DSN.'] tableName['.$tableName.']<pre>'.print_r($tableName, true).'</pre>';
+		$schema = $this->db->dataSchema[$DSN]["table"][$tableName];
 		/**
-		echo __METHOD__.'::'.__LINE__.'DSN['.$DSN.'] tableName['.$tableName.']<pre>'.print_r($tableName, true).'</pre>';
-		echo __METHOD__.'::'.__LINE__.'DSN['.$DSN.'] tableName['.$tableName.']<pre>'.print_r($schema, true).'</pre>';
 		$schema = $this->db->dataSchema[$DSN]["table"][$tableName];
+		echo __METHOD__.'::'.__LINE__.'$this->db->dataSchema['.$DSN.']["table"]['.$tableName.']<pre>'.print_r($this->db->dataSchema[$DSN]["table"][$tableName], true).'</pre>';
+		echo __METHOD__.'::'.__LINE__.'$this->db->dataSchema['.$DSN.']["table"]<pre>'.print_r($this->db->dataSchema[$DSN]["table"], true).'</pre>';
+		echo __METHOD__.'::'.__LINE__.'$this->db->dataSchema['.$DSN.']<pre>'.print_r($this->db->dataSchema[$DSN], true).'</pre>';
+		echo __METHOD__.'::'.__LINE__.'$schema['.$schema.'];<pre>'.print_r($schema, true).'</pre>';
 		*/
-		$schema = $this->db->dataSchema[$DSN]["table"][$tableName];
 		return $schema;
 	}
 	/**
@@ -599,13 +605,15 @@ class DAO{
 			)
 		){
 			$result = $this->initializeSchema($DSN, $tableName);
-			#echo __METHOD__.'::'.__LINE__.'result<pre>'.print_r($result, true).'</pre>';
+			#echo __METHOD__.'::'.__LINE__.'$DSN['.$DSN.'] $tableName['.$tableName.'] result<pre>'.print_r($result, true).'</pre>'.PHP_EOL;
 		}else{
 			$result = $this->db->dataSchema[$DSN]["table"][$tableName];
+			#echo __METHOD__.'::'.__LINE__.'result<pre>'.print_r($result, true).'</pre>'.PHP_EOL;
 		}
 		/*
 		echo __METHOD__.'::'.__LINE__.'result<pre>'.print_r($result, true).'</pre>';
 		echo __METHOD__.'::'.__LINE__.'$this->tables<pre>'.print_r($this->tables, true).'</pre>';
+		$this->ADVERTISER_ENTITY->tables[$config["table"]]['values']		= $values;
 		*/
 		$values	= array();
 		//modifiedColumns
@@ -615,24 +623,23 @@ class DAO{
 		#foreach($GLOBALS["DATA_API"]->dataSchema[$DSN][$tableName] AS $key => $value){
 		#foreach($GLOBALS["DATA_API"]->tableDefinitions[$DSN][$tableName] AS $key => $value){
 		foreach($result AS $key => $value){
-			#echo ' key='.$key.' :: value=<pre>'.var_export($value,true).'</pre><br>';
 			
+			#echo ' key='.$key.' :: value=<pre>'.var_export($value,true).'</pre><br>';
 			if(
 				(isset($value["allowNull"]) && $value["allowNull"] == 'NO')
 				||
 				(isset($value["default"]))
 			){
 				$values[$key] = $value["default"];
-				
-				
+				#echo ' $values['.$key.'] :: =<pre>'.var_export($values[$key],true).'</pre><br>'.PHP_EOL;
 			}else{
 				$values[$key] = NULL;
-
+				#echo ' NO DEFAULT $values['.$key.'] :: =<pre>'.var_export($values[$key],true).'</pre><br>'.PHP_EOL;
 			}
 			
 			
 			if(isset($value["key"]["keytype"]) && $value["key"]["keytype"] == 'PRI'){
-				#echo 'PK['.$key.']'.PHP_EOL;
+				#echo  __METHOD__.'::'.__LINE__.'PK['.$key.']'.PHP_EOL;
 				$this->tables[$tableName]['pk_field'] 	= $key;
 				if(!isset($this->tables[$tableName]['pk'])){
 					$this->tables[$tableName]['pk'] = 0;
@@ -640,13 +647,16 @@ class DAO{
 				$values[$key] = $this->tables[$tableName]['pk'];
 			}
 			if(true === $set_fk){
+				#echo  __METHOD__.'::'.__LINE__.'set_fk['.$key.']'.PHP_EOL;
 				#if(isset($value["key"]["keytype"]) && $value["key"]["keytype"] == 'MUL'){} //needs a hook here for sub entities
 				if($key == $this->tables[$tableName]['fk_field']){
 					$values[$key] = $this->root_pk;
 				}
 			}
 			$this->modifiedColumns[$tableName][$key] = $values[$key];
-		}	
+		}
+		$this->tables[$tableName]['DSN'] = $DSN;
+		#echo  __METHOD__.'::'.__LINE__.' this->tables['.$tableName.']'.var_export($this->tables[$tableName],true).'</pre><br>'.PHP_EOL;
 		return $values;
 	}	
 	/**
@@ -800,7 +810,7 @@ class DAO{
 				break;
 			case"set":
 				/*
-				echo __METHOD__.'@'.__LINE__.'$method<pre>'.var_export($args, true).'</pre><br>';
+				echo __METHOD__.'@'.__LINE__.'$method['.$method.']<pre>'.var_export($args, true).'</pre><br>';
 				echo __METHOD__.'@'.__LINE__.'$table['.$table.']$column['.$column.']<pre>'.var_export($this->tables, true).'</pre><br>';
 				*/
 				if(isset($args[3]) && $args[3] != ''){
@@ -836,7 +846,8 @@ class DAO{
 				break;
 				*/
 			default:
-				echo 'default'.__METHOD__.' CALLED ['.$method.'] WITH <pre>'.var_export($args,true).'</pre>'.PHP_EOL;
+				$caller = debug_backtrace();
+				echo 'Improper call ['.$method.'] '.__METHOD__.'  WITH <pre>'.var_export($args,true).'</pre>'.'  FROM ['.$caller[0]["file"].']@ line['.$caller[0]["line"].']@</pre>'.PHP_EOL;
 				break;
 		}
 		return false;
@@ -849,9 +860,10 @@ class DAO{
 	* @return array 
 	*/
 	public function save($table=null){
+		#echo __METHOD__.'@'.__LINE__.'table['.$table.']'.PHP_EOL;
 		if(count($this->modifiedColumns) >= 1){
 			foreach($this->modifiedColumns AS $key => $value){
-				#echo __METHOD__.'@'.__LINE__.'$key=['.$key.']<pre>'.var_export($value,true).'</pre>'."\n";
+				#echo __METHOD__.'@'.__LINE__.'$key=['.$key.']<pre>'.var_export($value,true).'</pre>'.PHP_EOL;
 				if(is_array($value)){
 					#echo '$value<pre>'.print_r($value, true).'</pre>'.PHP_EOL;
 					$this->generateQueries($key, $value, $table);
@@ -878,11 +890,11 @@ class DAO{
 							&& 
 							$this->tables[$key]['foundation'] === true
 						){
-							#echo '$result<pre>'.var_export($result,true).'</pre>'.PHP_EOL;
 							$result[] = $GLOBALS["DATA_API"]->create($this->tables[$key]['DSN'], $value2["query"],  $args=array('returnArray' => true));
+							#echo __METHOD__.'@'.__LINE__.'create('.$this->tables[$key]['DSN'].', '.$value2["query"].' )= $result<pre>'.var_export($result,true).'</pre>'.PHP_EOL;
 							if(
 								isset($result[0]["INSERT_ID"]) 
-								&& 
+								&&
 								is_int($result[0]["INSERT_ID"])
 							){
 								#echo '$result[0]["INSERT_ID"]<pre>'.var_export($result[0]["INSERT_ID"],true).'</pre>'.PHP_EOL;
@@ -893,9 +905,12 @@ class DAO{
 								$this->tables[$key]['pk'] = $this->root_pk;
 								$this->tables[$key]['values'][$this->tables[$key]['pk_field']] = $this->root_pk;
 							}
+							#echo __METHOD__.'@'.__LINE__.' '.'<br>'.PHP_EOL;
 						}else{
 							/**
+							echo __METHOD__.'@'.__LINE__.'$result<pre>'.var_export($result,true).'</pre>'.PHP_EOL;
 							*
+							echo __METHOD__.'@'.__LINE__.'create('.$this->tables[$key]['DSN'].', '.$value2["query"].' )= $result<pre>'.var_export($this->tables[$key],true).'</pre>'.PHP_EOL;
 							*/
 							$result[] = $GLOBALS["DATA_API"]->create($this->tables[$key]['DSN'], $value2["query"], $args=array('returnArray' => true));
 							if(
