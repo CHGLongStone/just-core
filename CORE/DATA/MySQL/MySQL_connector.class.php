@@ -396,7 +396,14 @@ class MySQL_connector implements \JCORE\DATA\API\DATA_API_INTERFACE{
 		#echo __METHOD__.'```````````````````````gettype(this->connection)'.gettype($this->connection).!is_array($this->connection).'<br>';
 		if(true === $args["returnArray"] && is_bool($result) && $result === true){
 			$resultArray["AFFECTED_ROWS"] 	= mysql_affected_rows($this->connection);
-			$resultArray["INFO"] 			= mysql_info($this->connection);
+			$info_update = mysql_info($this->connection);
+			$info_update = explode('  ',$info_update);
+			$info_updated = array();
+			foreach($info_update AS $key => $value){
+				$update = explode(':',$value);
+				$info_updated[trim($update[0])] = trim($update[1]);
+			}
+			$resultArray["INFO"] 			= $info_updated;
 			return $resultArray;
 		}
 		
@@ -425,7 +432,21 @@ class MySQL_connector implements \JCORE\DATA\API\DATA_API_INTERFACE{
 		if(true === $args["returnArray"] && is_bool($result) && $result === true){
 			$resultArray["INSERT_ID"] 		= mysql_insert_id($this->connection); // most important do it first
 			$resultArray["AFFECTED_ROWS"] 	= mysql_affected_rows($this->connection);
-			$resultArray["INFO"] 			= mysql_info($this->connection);
+			$info = mysql_info($this->connection);
+			#echo __METHOD__ .'@'. __LINE__ .'info<pre>['.var_export($info,true).']</pre>'.PHP_EOL;
+			if(false != $info){
+				$info_update = explode('  ',$info);
+				$info_updated = array();
+				
+				foreach($info_update AS $key => $value){
+					$update = explode(':',$value);
+					$info_updated[trim($update[0])] = trim($update[1]);
+				}
+				$info = $info_updated;
+				
+			}
+			
+			$resultArray["INFO"] 			= $info;
 			return $resultArray;
 		}
 		
@@ -452,7 +473,14 @@ class MySQL_connector implements \JCORE\DATA\API\DATA_API_INTERFACE{
 		#echo __METHOD__.'```````````````````````gettype(this->connection)'.gettype($this->connection).!is_array($this->connection).'<br>';
 		if(true === $args["returnArray"] && is_bool($result) && $result === true){
 			$resultArray["AFFECTED_ROWS"] 	= mysql_affected_rows($this->connection); 
-			$resultArray["INFO"] 			= 'MySQL DELETE'.mysql_info($this->connection);
+			$info_update = mysql_info($this->connection);
+			$info_update = explode('  ',$info_update);
+			$info_updated = array();
+			foreach($info_update AS $key => $value){
+				$update = explode(':',$value);
+				$info_updated[trim($update[0])] = trim($update[1]);
+			}
+			$resultArray["INFO"] 			= $info_updated;
 			return $resultArray;
 		}
 		
