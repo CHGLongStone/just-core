@@ -350,7 +350,7 @@ class DAO{
 				&&
 				is_array($args["search"])// could be array search_field:search_value
 			){
-				#echo 'baseObjDDDDD<pre>'.print_r($else, true).'</pre>'.PHP_EOL;
+				#echo 'baseObjDDDDD<pre>'.print_r(true, true).'</pre>'.PHP_EOL;
 				#GLOBAL $db;
 				$this->config = $args;
 				$this->initializeFromSchema($args["DSN"], $args["table"], false);
@@ -780,9 +780,11 @@ class DAO{
 	* @return mixed
 	*/
 	public function __call($method, $args ){
+		#echo __METHOD__.'@'.__LINE__.'   debug_print_backtrace<pre>['.var_export(debug_print_backtrace(), true).']</pre>'.'<br>'.PHP_EOL; 
 		$table 	= $args[0];
 		$column = $args[1];
 		#echo __METHOD__.__LINE__.'$method['.$method.']<pre>['.var_export($args, true).']</pre> <br>'.PHP_EOL;
+		#echo __METHOD__.__LINE__.'$this->tables<pre>['.var_export($this->tables, true).']</pre> <br>'.PHP_EOL;
 		#	$baseObj->get_some_data('XXX');
 		switch($method){
 			case"get":
@@ -814,14 +816,16 @@ class DAO{
 				break;
 			case"set":
 				/*
-				echo __METHOD__.'@'.__LINE__.'$method['.$method.']<pre>'.var_export($args, true).'</pre><br>';
-				echo __METHOD__.'@'.__LINE__.'$table['.$table.']$column['.$column.']<pre>'.var_export($this->tables, true).'</pre><br>';
+				echo __METHOD__.'@'.__LINE__.'$method['.$method.']<pre>'.var_export($args, true).'</pre><br>'.PHP_EOL;
+				echo __METHOD__.'@'.__LINE__.'$table['.$table.']$column['.$column.']<pre>this->tables'.var_export($this->tables, true).'</pre><br>'.PHP_EOL;
+				echo __METHOD__.'@'.__LINE__.'$this->tables[$table]["values"]<pre>'.var_export($this->tables[$table]['values'], true).'</pre><br>'.PHP_EOL;
 				*/
 				if(isset($args[3]) && $args[3] != ''){
 					$pk 	= $args[3];
 				}
 				$value 	= $args[2];
 				if((isset($pk) && $pk != NULL) && true == is_array($this->tables[$table]['values'][$pk])){
+					#echo ' PK['.$pk.']'.PHP_EOL;
 					if(is_array($this->tables[$table]['values'][$pk]) && array_key_exists( $column, $this->tables[$table]['values'][$pk] ) ){
 						$this->tables[$table]['values'][$pk][$column] = $value;
 						// we want to track which fields we've modified for commits
@@ -830,9 +834,9 @@ class DAO{
 						return true;
 					}
 				}elseif(true == is_array($this->tables[$table]['values']) ){
-					
+					#echo 'NO PK'.PHP_EOL;
 					if(array_key_exists( $column, $this->tables[$table]['values'])){
-						#echo __METHOD__.'@'.__LINE__.'$method<pre>'.var_export($args, true).'</pre><br>';
+						#echo __METHOD__.'@'.__LINE__.'$column['.$column.']<pre>'.var_export($args, true).'</pre><br>'.PHP_EOL;
 						$this->tables[$table]['values'][$column] = $value;
 						// we want to track which fields we've modified for commits
 						$this->modifiedColumns[$table][$column] = $value;
