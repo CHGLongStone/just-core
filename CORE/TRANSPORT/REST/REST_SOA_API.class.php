@@ -284,8 +284,8 @@ class REST_SOA_API implements TRANSPORT_INTERFACE {
 		*/
 		$parsedRequest = $raw_data;  //params
 		
-		if(NULL !== $parsedRequest || FALSE !== $parsedRequest){
 			#echo __METHOD__.'@'.__LINE__.'$parsedRequest['.var_export($parsedRequest,true).']'.PHP_EOL;
+		if(NULL !== $parsedRequest || FALSE !== $parsedRequest){
 			#$this->raw_data  = $raw_data;
 			if(true === is_string($parsedRequest)){
 				echo __METHOD__.'@'.__LINE__.'$parsedRequest['.var_export($parsedRequest,true).']'.PHP_EOL;
