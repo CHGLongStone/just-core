@@ -1,7 +1,7 @@
 {
 	"name" : "just-core/foundation",
 	"description" : "PHP Enterprise HA Framework",
-	"license" : "GNU",
+	"license" : "MIT",
 	"keywords" : [
 		"just-core",
 		"Enterprise",
