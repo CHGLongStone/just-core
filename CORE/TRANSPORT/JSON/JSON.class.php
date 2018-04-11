@@ -61,7 +61,7 @@ class JSON{
 	* @return return NULL  
 	*/
 	public static function json_encode($JSON, $toArray = true){
-		if($response = json_encode($JSON)){
+		if($response = json_encode($JSON,JSON_NUMERIC_CHECK )){
 			
 		}else{
 			$response = $this::validateJSON($JSON, $toArray = true);
