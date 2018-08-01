@@ -125,8 +125,12 @@ class JSONRPC_1_0_API implements TRANSPORT_INTERFACE {
 				$rqType = '_POST RAW';
 			}elseif(1 >= count($raw_data)){
 				#echo __METHOD__.'@'.__LINE__.'parse _POST '.PHP_EOL;
+				#$raw_data = JSON::json_decode($raw_data);
+				#$rqType = '_POST Parameter';
+				$raw_data = file_get_contents('php://input');
+				#echo __METHOD__.'@'.__LINE__.'$raw_data<pre>['.var_export($raw_data,true).']</pre>'.PHP_EOL;
 				$raw_data = JSON::json_decode($raw_data);
-				$rqType = '_POST Parameter';
+				$rqType = '_POST RAW';
 			}else{
 				$rqType = '_POST OTHER';
 				#echo __METHOD__.'@'.__LINE__.' OTHER '.PHP_EOL;
