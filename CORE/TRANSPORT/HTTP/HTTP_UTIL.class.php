@@ -144,6 +144,7 @@ class HTTP_UTIL {
 				$tld = $parts["path"];
 			}
 		}
+		#echo 'tld <pre>'.var_export($tld,true).' </pre>'.PHP_EOL;
 		
 		/**
 		* if usage is as expected the $GLOBALS['CONFIG_MANAGER'] will be available
@@ -153,7 +154,7 @@ class HTTP_UTIL {
 		$regexPattern = '';
 		if(isset($GLOBALS['CONFIG_MANAGER']) && method_exists($GLOBALS['CONFIG_MANAGER'], 'getSetting' )){
 			$config = $GLOBALS['CONFIG_MANAGER']->getSetting($LOAD_ID = 'REGEX', 'FILTERS');
-			if(isset($config["TOP_LEVEL_DOMAIN"])){
+			if(!isset($config["TOP_LEVEL_DOMAIN"])){
 				$regexPattern = '';
 			}
 		}
@@ -167,6 +168,8 @@ class HTTP_UTIL {
 		*/
 		$matches = array();
 		preg_match($regexPattern, $tld, $matches);
+		#echo 'tld <pre>'.var_export($tld,true).' </pre>'.PHP_EOL;
+		#echo 'matches <pre>'.var_export($matches,true).' </pre>'.PHP_EOL;
 		if(isset($matches[1]) && '' != $matches[1]){
 			return $matches[1];
 		}
@@ -176,6 +179,43 @@ class HTTP_UTIL {
 			
 		
 		return $tld;
+		
+	}
+	
+	/**
+	 * gets a top level domain from a url
+	 * @access public 
+	 * @param string url 
+	 * @return string tld
+	 */
+	public static function stripSubDomain($url) {
+		#echo 'config url <pre>'.var_export($url,true).' </pre>---'.PHP_EOL;
+		
+		$tld = parse_url($url,PHP_URL_HOST);
+		#echo 'config tld <pre>'.var_export($tld,true).' </pre>---'.PHP_EOL;
+		if('' !== $tld){
+			$fragments = explode('.',$tld);
+			#echo 'config fragmentsz <pre>'.var_export($fragments,true).' </pre>---'.PHP_EOL;
+			$i = 1;
+			$tld_string = '';
+			
+			/*
+			*/
+			while($i < count($fragments) ){
+				#echo 'config $fragments[$i] <pre>'.var_export($fragments[$i],true).' </pre>---'.PHP_EOL;
+				$tld_string = $tld_string.'.'.$fragments[$i];
+				#echo 'config tld_string <pre>'.var_export($tld_string,true).' </pre>---'.PHP_EOL;
+				$i++;
+			}
+			#echo 'config tld_string <pre>'.var_export($tld_string,true).' </pre>---'.PHP_EOL;
+		}
+		
+		
+		
+		#$config = $GLOBALS['CONFIG_MANAGER']->getSetting($LOAD_ID = 'REGEX', 'MATCHES');
+		
+		
+		return $tld_string;
 		
 	}
 	
